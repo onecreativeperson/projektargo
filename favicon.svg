@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" aria-hidden="true" focusable="false">
+<defs>
+<linearGradient id="fav-disc" x1=".15" y1="0" x2=".85" y2="1"><stop offset="0" stop-color="#5AA2FF"/><stop offset="1" stop-color="#3B2FB8"/></linearGradient>
+<radialGradient id="fav-hi" cx=".38" cy=".18" r=".7"><stop offset="0" stop-color="#fff" stop-opacity=".55"/><stop offset=".6" stop-color="#fff" stop-opacity="0"/></radialGradient>
+<linearGradient id="fav-sheen" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".13"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/></linearGradient>
+<linearGradient id="fav-inl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5AA2FF"/><stop offset="1" stop-color="#3B2FB8"/></linearGradient>
+<linearGradient id="fav-inl2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFD36B"/><stop offset="1" stop-color="#FF7A1A"/></linearGradient>
+<clipPath id="fav-clip"><path d="M232 0 H792 A232 232 0 0 1 1024 232 V792 A232 232 0 0 1 792 1024 H232 A232 232 0 0 1 0 792 V232 A232 232 0 0 1 232 0 Z"/></clipPath>
+<filter id="fav-b1" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="46"/></filter>
+<filter id="fav-b2" x="-60%" y="-120%" width="220%" height="340%"><feGaussianBlur stdDeviation="40"/></filter>
+<filter id="fav-gs" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#000" flood-opacity=".22"/></filter>
+</defs>
+<g clip-path="url(#fav-clip)">
+<path d="M232 0 H792 A232 232 0 0 1 1024 232 V792 A232 232 0 0 1 792 1024 H232 A232 232 0 0 1 0 792 V232 A232 232 0 0 1 232 0 Z" style="fill:#1C1C22"/>
+<path d="M232 0 H792 A232 232 0 0 1 1024 232 V792 A232 232 0 0 1 792 1024 H232 A232 232 0 0 1 0 792 V232 A232 232 0 0 1 232 0 Z" fill="url(#fav-sheen)"/>
+<ellipse cx="512" cy="790" rx="250" ry="66" fill="#5AA2FF" opacity=".75" filter="url(#fav-b2)"/>
+<circle cx="512" cy="470" r="236" fill="#5AA2FF" opacity=".55" filter="url(#fav-b1)"/>
+<circle cx="512" cy="470" r="206" fill="url(#fav-disc)"/>
+<circle cx="512" cy="470" r="206" fill="url(#fav-hi)"/>
+<circle cx="512" cy="470" r="203" fill="none" stroke="#fff" stroke-opacity=".28" stroke-width="5"/>
+<g filter="url(#fav-gs)"><g transform="translate(512 470) scale(.46) translate(-512 -528)"><path d="M340 288 H432 A52 52 0 0 1 484 340 V432 A52 52 0 0 1 432 484 H340 A52 52 0 0 1 288 432 V340 A52 52 0 0 1 340 288 Z"  fill="#fff"/><path d="M340 540 H432 A52 52 0 0 1 484 592 V684 A52 52 0 0 1 432 736 H340 A52 52 0 0 1 288 684 V592 A52 52 0 0 1 340 540 Z"  fill="#fff"/><path d="M592 540 H684 A52 52 0 0 1 736 592 V684 A52 52 0 0 1 684 736 H592 A52 52 0 0 1 540 684 V592 A52 52 0 0 1 592 540 Z"  fill="#fff"/><path d="M592 288 H684 A52 52 0 0 1 736 340 V432 A52 52 0 0 1 684 484 H592 A52 52 0 0 1 540 432 V340 A52 52 0 0 1 592 288 Z" fill="url(#fav-inl2)"/><path d="M592 288 H684 A52 52 0 0 1 736 340 V432 A52 52 0 0 1 684 484 H592 A52 52 0 0 1 540 432 V340 A52 52 0 0 1 592 288 Z" fill="none" stroke="#fff" stroke-opacity=".7" stroke-width="6"/></g></g>
+<path d="M232 0 H792 A232 232 0 0 1 1024 232 V792 A232 232 0 0 1 792 1024 H232 A232 232 0 0 1 0 792 V232 A232 232 0 0 1 232 0 Z" fill="none" style="stroke:var(--ico-rim, rgba(255,255,255,.16))" stroke-width="7"/>
+</g>
+</svg>
