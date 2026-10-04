@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="sk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prevádzkový poriadok za 15 minút | Poriadok.ai</title>
+<meta name="description" content="Prevádzkový poriadok pre kozmetiku, kaderníctvo a gastro prevádzky presne podľa aktuálnej vyhlášky — dotazník na 15 minút, nie 3 týždne u konzultanta. Pilotná verzia: prvých 5 prevádzok zadarmo.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://projektargo.com/poriadok/">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="favicon.png">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Poriadok.ai">
+<meta property="og:title" content="Prevádzkový poriadok za 15 minút | Poriadok.ai">
+<meta property="og:description" content="Prevádzkový poriadok pre kozmetiku, kaderníctvo a gastro prevádzky presne podľa aktuálnej vyhlášky — dotazník na 15 minút, nie 3 týždne u konzultanta.">
+<meta property="og:image" content="https://projektargo.com/poriadok/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="sk_SK">
+<meta property="og:url" content="https://projektargo.com/poriadok/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Prevádzkový poriadok za 15 minút | Poriadok.ai">
+<meta name="twitter:description" content="Presne podľa aktuálnej vyhlášky, za 15 minút. Pilot zadarmo.">
+<meta name="twitter:image" content="https://projektargo.com/poriadok/og-image.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#FAF9F5; --panel:#FFFFFF; --ink:#181B1D; --ink-soft:#565F66;
+    --blue:#1B3A5C; --blue-deep:#12283F; --rust:#A8432B; --green:#2B6B4A;
+    --line:#E2DFD5; --line-soft:#EEECE3;
+    --font-display:'Space Grotesk',system-ui,sans-serif;
+    --font-body:'IBM Plex Sans',system-ui,sans-serif;
+    --font-mono:'IBM Plex Mono',ui-monospace,'SF Mono',Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;font-family:var(--font-body);background:var(--paper);color:var(--ink);line-height:1.6;font-size:16px}
+  .wrap{max-width:1040px;margin:0 auto;padding:0 24px}
+  a{color:var(--blue)}
+  :focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+  h1,h2,h3{font-family:var(--font-display);font-weight:600;line-height:1.12;margin:0}
+  .mono{font-family:var(--font-mono)}
+  .eyebrow{font-family:var(--font-mono);font-size:12.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--blue);font-weight:500}
+
+  header{padding:22px 0;border-bottom:1px solid var(--line)}
+  .header-row{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+  .wordmark{font-family:var(--font-mono);font-weight:500;font-size:16px;letter-spacing:.01em}
+  .wordmark span{color:var(--blue)}
+  .header-tag{font-family:var(--font-mono);font-size:12px;color:var(--ink-soft)}
+
+  .hero{padding:64px 0 56px}
+  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
+  .hero h1{font-size:clamp(30px,4.4vw,46px);letter-spacing:-.01em;margin:14px 0 18px}
+  .hero .sub{font-size:17.5px;color:var(--ink-soft);max-width:46ch;margin:0 0 28px}
+  .cta{display:inline-flex;align-items:center;gap:8px;background:var(--blue);color:#fff;padding:14px 24px;border-radius:3px;text-decoration:none;font-weight:600;font-size:16px;font-family:var(--font-body);transition:background .15s ease}
+  .cta:hover{background:var(--blue-deep)}
+  .stat-row{display:flex;gap:28px;flex-wrap:wrap;margin-top:32px;padding-top:24px;border-top:1px solid var(--line)}
+  .stat{font-family:var(--font-mono);font-size:13px;color:var(--ink-soft)}
+  .stat b{display:block;font-family:var(--font-display);font-size:19px;color:var(--ink);font-weight:600;margin-bottom:2px}
+
+  /* document mockup + stamp */
+  .doc-mock{position:relative}
+  .doc-card{background:var(--panel);border:1px solid var(--line);border-radius:2px;box-shadow:0 1px 2px rgba(20,25,20,.04),0 12px 32px -16px rgba(20,25,20,.18);padding:30px 28px;position:relative}
+  .doc-title{font-family:var(--font-display);font-size:13px;letter-spacing:.06em;text-transform:uppercase;font-weight:600;text-align:center}
+  .doc-sub{font-family:var(--font-body);font-style:italic;font-size:12px;color:var(--ink-soft);text-align:center;margin:4px 0 18px}
+  .doc-line{font-family:var(--font-mono);font-size:11.5px;font-weight:500;color:var(--blue);margin:14px 0 6px}
+  .fake-text{height:8px;background:var(--line-soft);border-radius:2px;margin:7px 0}
+  .fake-text.w1{width:100%} .fake-text.w2{width:92%} .fake-text.w3{width:63%}
+  .stamp{position:absolute;right:-14px;bottom:-18px;width:122px;height:122px;border-radius:50%;border:2px dashed var(--blue);display:flex;align-items:center;justify-content:center;text-align:center;transform:rotate(-11deg);background:rgba(250,249,245,.9);opacity:0;animation:stampIn .5s .35s cubic-bezier(.2,1.4,.4,1) forwards}
+  .stamp-inner{font-family:var(--font-mono);font-size:10px;line-height:1.35;letter-spacing:.05em;text-transform:uppercase;color:var(--blue);font-weight:500}
+  .stamp-inner b{display:block;font-size:11px;margin:2px 0}
+  @keyframes stampIn{from{opacity:0;transform:rotate(-28deg) scale(.6)}to{opacity:1;transform:rotate(-11deg) scale(1)}}
+  @media (prefers-reduced-motion: reduce){.stamp{animation:none;opacity:1}}
+
+  section{padding:56px 0;border-top:1px solid var(--line)}
+  section h2{font-size:25px;margin-bottom:8px}
+  .section-lead{color:var(--ink-soft);margin:0 0 30px;max-width:60ch}
+
+  .grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}
+  .risk-card{background:var(--panel);border:1px solid var(--line);border-radius:2px;padding:22px}
+  .risk-card .mark{font-family:var(--font-mono);color:var(--rust);font-size:15px;font-weight:500;margin-bottom:8px}
+  .risk-card h3{font-size:16px;margin-bottom:7px}
+  .risk-card p{margin:0;color:var(--ink-soft);font-size:14.5px}
+
+  .doctabs{display:flex;gap:8px;margin-bottom:22px}
+  .doctab{font-family:var(--font-mono);font-size:12.5px;padding:8px 14px;border:1px solid var(--line);border-radius:2px;background:var(--panel);cursor:pointer;color:var(--ink-soft)}
+  .doctab[aria-selected="true"]{background:var(--blue);color:#fff;border-color:var(--blue)}
+  .statute{background:var(--panel);border:1px solid var(--line);border-radius:2px;padding:28px 30px}
+  .statute ol{list-style:none;margin:0;padding:0;counter-reset:none}
+  .statute li{display:flex;gap:12px;padding:9px 0;border-bottom:1px solid var(--line-soft);font-size:14.5px}
+  .statute li:last-child{border-bottom:0}
+  .statute .letter{font-family:var(--font-mono);color:var(--blue);font-weight:500;flex:none;width:2.4em}
+  .statute-cite{margin-top:16px;font-family:var(--font-mono);font-size:12px;color:var(--ink-soft)}
+  [hidden]{display:none!important}
+
+  .cmp-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:2px;background:var(--panel)}
+  table.cmp{border-collapse:collapse;width:100%;min-width:640px;font-size:14.5px}
+  table.cmp th,table.cmp td{text-align:left;padding:14px 16px;border-bottom:1px solid var(--line);vertical-align:top}
+  table.cmp th{font-family:var(--font-mono);font-size:11.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-soft);font-weight:500;background:var(--line-soft)}
+  table.cmp td:first-child{font-weight:600;font-family:var(--font-display)}
+  table.cmp tr:last-child td{border-bottom:0}
+  table.cmp tr.us{background:#EEF3F7}
+  table.cmp tr.us td:first-child{color:var(--blue)}
+  .yn-yes{color:var(--green);font-weight:600}
+  .yn-no{color:var(--rust)}
+
+  .pricing{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px}
+  .price-card{background:var(--panel);border:1px solid var(--line);border-radius:2px;padding:28px}
+  .price-card.reco{border-color:var(--blue);box-shadow:0 0 0 1px var(--blue)}
+  .price-card h3{font-size:16px;margin-bottom:2px}
+  .reco-tag{font-family:var(--font-mono);font-size:11px;color:var(--blue);text-transform:uppercase;letter-spacing:.05em}
+  .price{font-family:var(--font-display);font-size:34px;font-weight:600;margin:10px 0}
+  .price span{font-size:14px;font-weight:400;color:var(--ink-soft);font-family:var(--font-body)}
+  ul.check{list-style:none;padding:0;margin:16px 0;text-align:left;font-size:14.5px}
+  ul.check li{padding:5px 0;color:var(--ink-soft)}
+  ul.check li:before{content:"✓ ";color:var(--green);font-weight:700}
+
+  .haccp-note{margin-top:22px;border:1px dashed var(--line);border-radius:2px;padding:18px 20px;font-size:14px;color:var(--ink-soft)}
+  .haccp-note b{color:var(--ink);font-family:var(--font-display);font-weight:600}
+
+  .steps{font-size:16px;padding-left:0;list-style:none;counter-reset:step}
+  .steps li{counter-increment:step;display:flex;gap:14px;padding:10px 0}
+  .steps li:before{content:counter(step);font-family:var(--font-mono);color:var(--blue);border:1px solid var(--blue);border-radius:50%;width:24px;height:24px;flex:none;display:flex;align-items:center;justify-content:center;font-size:12.5px}
+
+  footer{padding:36px 0 48px;color:var(--ink-soft);font-size:13px;line-height:1.7}
+
+  @media (max-width:860px){
+    .hero-grid{grid-template-columns:1fr}
+    .doc-mock{order:-1;max-width:340px;margin:0 auto}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap header-row">
+    <div class="wordmark"><span>§</span> Poriadok.ai</div>
+    <div class="header-tag">pilotná verzia · SK · CZ</div>
+  </div>
+</header>
+
+<div class="hero wrap">
+  <div class="hero-grid">
+    <div>
+      <div class="eyebrow">Kozmetika · kaderníctvo · manikúra-pedikúra · gastro</div>
+      <h1>Prevádzkový poriadok so všetkými náležitosťami podľa vyhlášky — vyplníte za 15 minút, nie za 3 týždne u konzultanta.</h1>
+      <p class="sub">Vyplníte krátky dotazník o svojej prevádzke. My vygenerujeme dokument presne podľa aktuálne platnej vyhlášky, so všetkými povinnými bodmi. Pred odoslaním ho skontroluje človek.</p>
+      <a class="cta" href="https://tally.so/r/VLkjE6" target="_blank" rel="noopener">Získať pilotný prevádzkový poriadok zadarmo →</a>
+      <div class="stat-row">
+        <div class="stat"><b>15 min</b>vypĺňania namiesto 3 týždňov čakania</div>
+        <div class="stat"><b>150 – 20 000 €</b>pokuta bez neho</div>
+        <div class="stat"><b>a) – j)</b>všetky povinné body vyhlášky</div>
+      </div>
+    </div>
+    <div class="doc-mock">
+      <div class="doc-card">
+        <div class="doc-title">Prevádzkový poriadok</div>
+        <div class="doc-sub">Zariadenie starostlivosti o ľudské telo</div>
+        <div class="doc-line">a) Identifikačné údaje prevádzkovateľa</div>
+        <div class="fake-text w1"></div>
+        <div class="fake-text w2"></div>
+        <div class="doc-line">f) Očista a dezinfekcia nástrojov</div>
+        <div class="fake-text w1"></div>
+        <div class="fake-text w3"></div>
+        <div class="stamp">
+          <div class="stamp-inner">§9<br><b>a) – j)</b>vyhl. 554/2007</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section>
+  <div class="wrap">
+    <h2>Prečo to bez pomoci bolí</h2>
+    <p class="section-lead">Tri veci, ktoré sa pri prevádzkovom poriadku najčastejšie pokazia.</p>
+    <div class="grid3">
+      <div class="risk-card">
+        <div class="mark">§</div>
+        <h3>Pokuta do 20 000 €</h3>
+        <p>Chýbajúci alebo nesprávny prevádzkový poriadok je jeden z najčastejších dôvodov sankcie pri kontrole RÚVZ.</p>
+      </div>
+      <div class="risk-card">
+        <div class="mark">§</div>
+        <h3>Desiatky povinných bodov</h3>
+        <p>Vyhláška vyžaduje presne definovaný obsah — od dezinfekcie nástrojov po nakladanie s odpadom. Vynechaný bod znamená neplatný dokument.</p>
+      </div>
+      <div class="risk-card">
+        <div class="mark">§</div>
+        <h3>Legislatíva sa mení</h3>
+        <p>Dokument spísaný pred rokmi často už nezodpovedá aktuálnemu zneniu vyhlášky — a to si pri kontrole nikto neodpustí.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Čo presne dostanete</h2>
+    <p class="section-lead">Toto nie je marketingový zoznam funkcií — je to doslovný výpis toho, čo vyhláška vyžaduje. Presne toto je v každom dokumente.</p>
+    <div class="doctabs" role="tablist" aria-label="Typ prevádzky">
+      <button class="doctab" role="tab" id="tab-kozmetika" aria-selected="true" aria-controls="panel-kozmetika">Kozmetika · kaderníctvo</button>
+      <button class="doctab" role="tab" id="tab-gastro" aria-selected="false" aria-controls="panel-gastro">Gastro</button>
+    </div>
+    <div class="statute" id="panel-kozmetika" role="tabpanel" aria-labelledby="tab-kozmetika">
+      <ol>
+        <li><span class="letter">a)</span><span>Identifikačné údaje prevádzkovateľa zariadenia</span></li>
+        <li><span class="letter">b)</span><span>Druh a spôsob poskytovania služieb, zdravotné kontraindikácie a zakázané úkony</span></li>
+        <li><span class="letter">c)</span><span>Podmienky prevádzky a zásady bezpečnosti a ochrany zdravia</span></li>
+        <li><span class="letter">d)</span><span>Návod na použitie prístrojov</span></li>
+        <li><span class="letter">e)</span><span>Zdravotné kontraindikácie použitia prístrojov</span></li>
+        <li><span class="letter">f)</span><span>Očista, dezinfekcia a sterilizácia pracovných nástrojov</span></li>
+        <li><span class="letter">g)</span><span>Očista a dezinfekcia povrchových plôch</span></li>
+        <li><span class="letter">h)</span><span>Skladovanie a manipulácia s bielizňou</span></li>
+        <li><span class="letter">i)</span><span>Spôsob a frekvencia upratovania</span></li>
+        <li><span class="letter">j)</span><span>Nakladanie s odpadom a frekvencia vyprázdňovania</span></li>
+      </ol>
+      <div class="statute-cite">§9 vyhl. MZ SR č. 554/2007 Z.z.</div>
+    </div>
+    <div class="statute" id="panel-gastro" role="tabpanel" aria-labelledby="tab-gastro" hidden>
+      <ol>
+        <li><span class="letter">1.</span><span>Identifikačné údaje prevádzkovateľa a zodpovednej osoby</span></li>
+        <li><span class="letter">2.</span><span>Priestorové usporiadanie prevádzky</span></li>
+        <li><span class="letter">3.</span><span>Technické vybavenie</span></li>
+        <li><span class="letter">4.</span><span>Druh stravovania</span></li>
+        <li><span class="letter">5.</span><span>Denný objem výroby jedál</span></li>
+        <li><span class="letter">6.</span><span>Zdroj pitnej vody</span></li>
+        <li><span class="letter">7.</span><span>Používanie predpripravených komponentov</span></li>
+        <li><span class="letter">8.</span><span>Nakladanie s odpadom</span></li>
+        <li><span class="letter">9.</span><span>Sanitačný program</span></li>
+        <li><span class="letter">10.</span><span>Deratizácia a dezinsekcia</span></li>
+        <li><span class="letter">11.</span><span>Školenia personálu</span></li>
+        <li><span class="letter">12.</span><span>Zoznam zamestnancov</span></li>
+        <li><span class="letter">13.</span><span>Upratovanie</span></li>
+        <li><span class="letter">14.</span><span>BOZP a ochranné opatrenia</span></li>
+      </ol>
+      <div class="statute-cite">§52 zákona č. 355/2007 Z.z. · vyhl. MZ SR č. 533/2007 Z.z.</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Ako to porovnáme s inými možnosťami</h2>
+    <p class="section-lead">Existujú aj iné cesty k prevádzkovému poriadku — poctivé porovnanie, nie len naše slová.</p>
+    <div class="cmp-wrap">
+      <table class="cmp">
+        <thead>
+          <tr><th>Možnosť</th><th>Cena</th><th>Na mieru vašej prevádzke</th><th>Dodanie</th><th>Aktualizácia pri zmene zákona</th></tr>
+        </thead>
+        <tbody>
+          <tr class="us">
+            <td>Poriadok.ai</td>
+            <td>Pilot zadarmo</td>
+            <td><span class="yn-yes">Áno</span></td>
+            <td>Do 3 pracovných dní</td>
+            <td>Pripravujeme</td>
+          </tr>
+          <tr>
+            <td>Univerzálna šablóna na dofarbenie</td>
+            <td>~7 €</td>
+            <td><span class="yn-no">Nie</span> — vyplníte si sami</td>
+            <td>Okamžite</td>
+            <td><span class="yn-no">Nie</span></td>
+          </tr>
+          <tr>
+            <td>Dokument na mieru od poradenskej firmy</td>
+            <td>98 – 123 €</td>
+            <td><span class="yn-yes">Áno</span></td>
+            <td>7 – 10 pracovných dní</td>
+            <td><span class="yn-no">Nie</span></td>
+          </tr>
+          <tr>
+            <td>Konzultačná firma (plný servis vrátane zastupovania)</td>
+            <td>na dopyt</td>
+            <td><span class="yn-yes">Áno</span></td>
+            <td>rádovo týždne</td>
+            <td><span class="yn-no">Nie</span> (bežne)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="color:var(--ink-soft);font-size:13px;margin-top:14px">Ceny a podmienky podľa verejných cenníkov jednotlivých poskytovateľov k septembru 2026; môžu sa meniť.</p>
+  </div>
+</section>
+
+<section id="objednat">
+  <div class="wrap">
+    <h2>Ako to funguje</h2>
+    <ol class="steps">
+      <li>Vyplníte krátky dotazník o svojej prevádzke (asi 15 minút).</li>
+      <li>Dokument pripravíme presne podľa vyhlášky a pred odoslaním ho skontroluje človek.</li>
+      <li>Do 3 pracovných dní vám príde hotový dokument na e-mail, pripravený na podpis.</li>
+    </ol>
+
+    <h2 style="margin-top:44px">Pilotná verzia</h2>
+    <div class="pricing">
+      <div class="price-card reco">
+        <div class="reco-tag">Pre prvých 5 prevádzok</div>
+        <h3>Zadarmo</h3>
+        <div class="price">0 €</div>
+        <ul class="check">
+          <li>Kompletný prevádzkový poriadok na mieru</li>
+          <li>Presne podľa aktuálnej vyhlášky, skontrolovaný človekom</li>
+          <li>Na oplátku krátka spätná väzba, ako sa vám s dokumentom pracovalo</li>
+        </ul>
+      </div>
+      <div class="price-card">
+        <h3>Pre koho</h3>
+        <ul class="check">
+          <li>Slovensko: kozmetika, kaderníctvo, manikúra-pedikúra a gastro prevádzky</li>
+          <li>Česko: kozmetika, kaderníctvo, manikúra-pedikúra</li>
+          <li>Nové prevádzky aj tie, ktoré potrebujú dokument aktualizovať</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="haccp-note">
+      <b>Potrebujete aj plán HACCP?</b> Gastro prevádzky ho zo zákona potrebujú osobitne (zákon 152/1995 Z.z. o potravinách) — nie je súčasťou tohto balíka, keďže ide o samostatnú dokumentáciu s vlastnou metodikou. V dotazníku nám môžete označiť, že máte záujem, a ozveme sa vám.
+    </div>
+
+    <p style="text-align:center;margin-top:36px">
+      <a class="cta" href="https://tally.so/r/VLkjE6" target="_blank" rel="noopener" id="tally-link">Vyplniť pilotný dotazník</a>
+    </p>
+    <p style="text-align:center;color:var(--ink-soft);font-size:13px">Dotazník beží na službe Tally. Zásady spracovania osobných údajov nájdete na jeho poslednej strane.</p>
+  </div>
+</section>
+
+<footer class="wrap">
+  <p>Pilotný projekt <a href="https://projektargo.com/sk/" style="color:inherit">Štefana Toporcera</a> · kontakt: <a href="mailto:toporcer.stefan@gmail.com" style="color:inherit">toporcer.stefan@gmail.com</a></p>
+  Poriadok.ai — nie je náhrada odbornej právnej konzultácie pri neštandardných prevádzkach. Pri bežnej kozmetickej, kaderníckej alebo gastro prevádzke pokrýva všetky zákonom vyžadované náležitosti prevádzkového poriadku. Nepokrýva plán HACCP (samostatná povinná dokumentácia pre gastro prevádzky podľa zákona 152/1995 Z.z.) ani osobné osvedčenia o odbornej a zdravotnej spôsobilosti zamestnancov (vyhl. 585/2008 Z.z.) — tie si zamestnanci a prevádzkovateľ zabezpečujú samostatne.
+</footer>
+
+<script>
+  var tabs = document.querySelectorAll('.doctab');
+  tabs.forEach(function(tab){
+    tab.addEventListener('click', function(){
+      tabs.forEach(function(t){ t.setAttribute('aria-selected','false'); });
+      tab.setAttribute('aria-selected','true');
+      document.getElementById('panel-kozmetika').hidden = tab.id !== 'tab-kozmetika';
+      document.getElementById('panel-gastro').hidden = tab.id !== 'tab-gastro';
+    });
+  });
+</script>
+
+</body>
+</html>
