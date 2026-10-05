@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RMD Autopilot · Robocall Mitigation Database filings, kept current</title>
+<meta name="description" content="Annual RMD recertification, mitigation plan updates and 10-business-day change tracking for small US voice providers. Free filing check.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/icons/icon-32.png" sizes="32x32" type="image/png">
+<link rel="canonical" href="https://projektargo.com/rmd/">
+<meta property="og:title" content="RMD Autopilot · Your RMD filing, kept current">
+<meta property="og:description" content="Free check of your public Robocall Mitigation Database filing. Built for small VoIP providers and resellers.">
+<meta property="og:url" content="https://projektargo.com/rmd/">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0E1116; --ink-2:#161B22; --line:#2A313B; --text:#E8ECF1; --muted:#9AA4B2;
+  --amber:#F5B841; --amber-ink:#1A1405; --ok:#5FD38D; --warn:#FF7A59;
+  --paper:#F6F4EF; --paper-ink:#14171C; --paper-muted:#5A616B; --paper-line:#DCD8CF;
+  --r:14px; --max:1080px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--ink);color:var(--text);font:16px/1.6 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 20px}
+.mono{font-family:"JetBrains Mono",ui-monospace,monospace}
+h1,h2,h3{font-family:Archivo,Inter,sans-serif;letter-spacing:-.02em;line-height:1.1}
+
+/* nav */
+nav{position:sticky;top:0;z-index:10;background:rgba(14,17,22,.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
+.brand{display:flex;align-items:center;gap:10px;font-family:Archivo,Inter,system-ui,sans-serif;font-weight:800;text-decoration:none}
+.brand i{width:22px;height:22px;border-radius:6px;background:var(--amber);display:grid;place-items:center;font-style:normal;color:var(--amber-ink);font-size:12px}
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--amber);color:var(--amber-ink);font-weight:600;text-decoration:none;padding:12px 20px;border-radius:999px;transition:transform .15s,box-shadow .15s}
+.btn:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(245,184,65,.25)}
+.btn.sm{padding:8px 16px;font-size:14px}
+.btn.ghost{background:transparent;color:var(--text);border:1px solid var(--line)}
+
+/* hero */
+.hero{padding:80px 0 64px;display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center}
+.eyebrow{display:inline-block;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);border:1px solid rgba(245,184,65,.35);padding:5px 10px;border-radius:999px;margin-bottom:20px}
+.hero h1{font-size:clamp(38px,6vw,64px);font-weight:800}
+.hero h1 em{font-style:normal;color:var(--amber)}
+.hero p.lead{color:var(--muted);font-size:18px;margin:20px 0 28px;max-width:34em}
+.cta-row{display:flex;gap:12px;flex-wrap:wrap}
+.fine{font-size:13px;color:var(--muted);margin-top:14px}
+
+/* filing card */
+.card{background:var(--ink-2);border:1px solid var(--line);border-radius:var(--r);padding:22px;box-shadow:0 30px 80px rgba(0,0,0,.4)}
+.card .head{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:14px}
+.row{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-top:1px dashed var(--line);font-size:14px}
+.row span:first-child{color:var(--muted)}
+.tag{align-self:flex-start;font-size:12px;padding:2px 8px;border-radius:6px;font-weight:600;white-space:nowrap}
+.tag.bad{background:rgba(255,122,89,.15);color:var(--warn)}
+.tag.ok{background:rgba(95,211,141,.12);color:var(--ok)}
+.card .note{margin-top:14px;font-size:12px;color:var(--muted)}
+
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;margin-bottom:96px}
+.stat{padding:24px;border-right:1px solid var(--line)}
+.stat:last-child{border-right:0}
+.stat b{display:block;font-family:Archivo,Inter,system-ui,sans-serif;font-size:32px;font-weight:800;color:var(--amber)}
+.stat span{font-size:14px;color:var(--muted)}
+
+/* paper sections */
+.paper{background:var(--paper);color:var(--paper-ink);padding:96px 0}
+.paper .sub{color:var(--paper-muted)}
+section h2{font-size:clamp(28px,4vw,42px);font-weight:800;margin-bottom:12px}
+.sub{color:var(--muted);max-width:40em;margin-bottom:40px}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.step{background:#fff;border:1px solid var(--paper-line);border-radius:var(--r);padding:26px}
+.step .n{font-size:13px;color:var(--paper-muted)}
+.step h3{font-size:20px;margin:10px 0 8px}
+.step p{color:var(--paper-muted);font-size:15px}
+
+/* checklist */
+.dark{padding:96px 0}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.item{border:1px solid var(--line);border-radius:var(--r);padding:22px;background:var(--ink-2)}
+.item h3{font-size:18px;margin-bottom:6px}
+.item p{color:var(--muted);font-size:15px}
+.item .rule{font-size:12px;color:var(--amber);margin-top:10px}
+
+/* pricing */
+.prices{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:820px}
+.price{background:#fff;border:1px solid var(--paper-line);border-radius:var(--r);padding:30px}
+.price.hl{border:2px solid var(--paper-ink)}
+.price h3{font-size:20px}
+.price .amt{font-family:Archivo,Inter,system-ui,sans-serif;font-size:44px;font-weight:800;margin:10px 0 2px}
+.price .amt small{font-size:16px;font-weight:600;color:var(--paper-muted)}
+.price ul{list-style:none;margin:18px 0 0}
+.price li{padding:7px 0 7px 26px;position:relative;font-size:15px;border-top:1px solid var(--paper-line)}
+.price li:before{content:"";position:absolute;left:4px;top:15px;width:10px;height:6px;border-left:2px solid var(--paper-ink);border-bottom:2px solid var(--paper-ink);transform:rotate(-45deg)}
+.founding{margin-top:22px;font-size:14px;color:var(--paper-muted)}
+
+/* faq */
+details{border-top:1px solid var(--line);padding:18px 0}
+details:last-child{border-bottom:1px solid var(--line)}
+summary{cursor:pointer;font-weight:600;list-style:none;display:flex;justify-content:space-between;gap:16px}
+summary::-webkit-details-marker{display:none}
+summary:after{content:"+";color:var(--amber);font-family:"JetBrains Mono"}
+details[open] summary:after{content:"–"}
+details p{color:var(--muted);margin-top:10px;max-width:46em}
+
+.final{text-align:center;padding:96px 0;border-top:1px solid var(--line)}
+.final h2{margin-bottom:16px}
+.final p{color:var(--muted);margin-bottom:28px}
+footer{border-top:1px solid var(--line);padding:32px 0;font-size:13px;color:var(--muted)}
+footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+footer a{color:var(--text)}
+
+@media (max-width:860px){
+  .hero{grid-template-columns:1fr;padding:56px 0 48px}
+  .stats{grid-template-columns:1fr 1fr}
+  .stat{padding:18px}
+  .stat b{font-size:24px}
+  .stat:nth-child(2){border-right:0}
+  .stat:nth-child(-n+2){border-bottom:1px solid var(--line)}
+  .steps,.grid2,.prices{grid-template-columns:1fr}
+  .paper,.dark,.final{padding:64px 0}
+  .stats{margin-bottom:64px}
+  nav .btn.sm{display:none}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="brand" href="#top"><i>R</i>RMD Autopilot</a>
+    <a class="btn sm" href="https://tally.so/r/VLk0Ev?ref=site-nav">Free filing check</a>
+  </div>
+</nav>
+
+<main id="top">
+  <div class="wrap">
+    <section class="hero">
+      <div>
+        <span class="eyebrow mono">For small US voice providers &amp; resellers</span>
+        <h1>Your RMD filing,<br><em>kept current.</em></h1>
+        <p class="lead">Annual Robocall Mitigation Database recertification, plan updates and change tracking, prepared for you before every deadline. You review and submit. We keep you off the removal list.</p>
+        <div class="cta-row">
+          <a class="btn" href="https://tally.so/r/VLk0Ev?ref=site-hero">Get a free filing check →</a>
+          <a class="btn ghost" href="#how">How it works</a>
+        </div>
+        <p class="fine">Written gap list within 2 business days. No payment, no obligation.</p>
+      </div>
+
+      <div class="card mono" aria-label="Example filing check">
+        <div class="head"><span>FILING CHECK · EXAMPLE</span><span>RMD00•••••</span></div>
+        <div class="row"><span>Annual recertification (due Mar 1)</span><span class="tag bad">Not on record</span></div>
+        <div class="row"><span>Last update to filing</span><span>2025-09-12</span></div>
+        <div class="row"><span>Contact details current</span><span class="tag ok">OK</span></div>
+        <div class="row"><span>Mitigation plan attached</span><span class="tag ok">Yes</span></div>
+        <div class="row"><span>Next deadline</span><span>2027-03-01</span></div>
+        <p class="note">Illustrative example built from fields in the public RMD listing.</p>
+      </div>
+    </section>
+
+    <div class="stats">
+      <div class="stat"><b>11,491</b><span>filings in the public RMD today</span></div>
+      <div class="stat"><b>3,000+</b><span>US filings last updated before 2026 with no 2026 recertification on record</span></div>
+      <div class="stat"><b>$10,000</b><span>base fine for false or inaccurate RMD information</span></div>
+      <div class="stat"><b>10 days</b><span>business days to update a filing after any change ($1,000 base fine)</span></div>
+    </div>
+  </div>
+
+  <section class="paper" id="how">
+    <div class="wrap">
+      <h2>How it works</h2>
+      <p class="sub">The RMD is public. That means the FCC, your upstream carriers and we can all see what is missing in your filing. We fix that before it becomes a problem.</p>
+      <div class="steps">
+        <div class="step"><span class="n mono">01</span><h3>We check your public filing</h3><p>We compare your RMD listing and attached mitigation plan against the current FCC requirements and list every gap in plain English.</p></div>
+        <div class="step"><span class="n mono">02</span><h3>We prepare the documents</h3><p>Recertification answers, an updated mitigation plan and certification text, drafted from a short questionnaire about your network.</p></div>
+        <div class="step"><span class="n mono">03</span><h3>You submit, we keep watch</h3><p>You review and submit in the FCC portal. We remind you before March 1 and whenever a change starts the 10-business-day clock.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="dark">
+    <div class="wrap">
+      <h2>What we keep an eye on</h2>
+      <p class="sub">The rules small providers most often miss.</p>
+      <div class="grid2">
+        <div class="item"><h3>Annual recertification</h3><p>Every existing RMD filer must recertify and resubmit its filing each year by March 1. The first round was due March 1, 2026.</p><p class="rule mono">47 CFR § 64.6305 · DA 26-72</p></div>
+        <div class="item"><h3>10-business-day updates</h3><p>A new address, contact, owner or role in the call chain must be reflected in your filing within 10 business days.</p><p class="rule mono">Effective Feb 5, 2026</p></div>
+        <div class="item"><h3>Accurate certifications</h3><p>False or inaccurate information carries a $10,000 base forfeiture per filing. A plan copied from a template is a common weak spot.</p><p class="rule mono">Federal Register, Jan 6, 2026</p></div>
+        <div class="item"><h3>Removal risk</h3><p>A removed provider's traffic must be blocked by other carriers. The FCC removed more than 1,200 providers in August 2025 and removed more in September 2026.</p><p class="rule mono">DA 26-872 · Sept 2, 2026</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="paper" id="pricing">
+    <div class="wrap">
+      <h2>Simple pricing</h2>
+      <p class="sub">Early access. First customers are onboarded personally, ahead of the March 1, 2027 recertification.</p>
+      <div class="prices">
+        <div class="price hl">
+          <h3>Starter</h3>
+          <div class="amt">$490<small> / year</small></div>
+          <ul>
+            <li>Annual RMD recertification package</li>
+            <li>Mitigation plan review &amp; refresh</li>
+            <li>Annual CPNI certification draft</li>
+            <li>Deadline reminders</li>
+          </ul>
+        </div>
+        <div class="price">
+          <h3>Pro</h3>
+          <div class="amt">$99<small> / month</small></div>
+          <ul>
+            <li>Everything in Starter</li>
+            <li>Change tracking with 10-day update drafts</li>
+            <li>Filing calendar for your other FCC deadlines</li>
+            <li>Priority turnaround</li>
+          </ul>
+        </div>
+      </div>
+      <p class="founding">Founding customers keep the Starter price for as long as they stay. Reserve it in the free check form. No payment now.</p>
+    </div>
+  </section>
+
+  <section class="dark" id="faq">
+    <div class="wrap">
+      <h2>Questions</h2>
+      <details><summary>Are you a law firm?</summary><p>No. We prepare documents and track deadlines; we do not give legal advice and we do not file on your behalf. You stay the filer and sign your own certifications. If your situation needs counsel, we will tell you.</p></details>
+      <details><summary>Where does my data come from?</summary><p>From the FCC's public Robocall Mitigation Database listing and the documents attached to your filing. Anyone can view them, which is exactly why gaps matter.</p></details>
+      <details><summary>Who is this for?</summary><p>Small VoIP providers, IT/MSP firms reselling voice, cooperatives and municipal utilities that must keep an RMD filing but don't have a regulatory department.</p></details>
+      <details><summary>What does the free check include?</summary><p>A short written list of what is missing or outdated in your public filing, and what to do about each item. It takes us up to 2 business days.</p></details>
+    </div>
+  </section>
+
+  <section class="final">
+    <div class="wrap">
+      <h2>Is your filing complete?</h2>
+      <p>Find out in 2 business days, free.</p>
+      <a class="btn" href="https://tally.so/r/VLk0Ev?ref=site-footer">Request my free check →</a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>RMD Autopilot is a project by Štefan Toporcer · <a href="https://projektargo.com/">Projekt Argo</a></span>
+    <span>Not affiliated with the FCC. Not legal advice. · <a href="mailto:toporcer.stefan@gmail.com">toporcer.stefan@gmail.com</a></span>
+  </div>
+</footer>
+</body>
+</html>
