@@ -383,7 +383,7 @@ button{font:inherit;color:inherit}
 .langs a[aria-current]{color:var(--ink);font-weight:600}
 
 /* ---------- app sheet ---------- */
-dialog.sheet{border:0;padding:0;background:transparent;max-width:none;max-height:none;width:100%;height:100%;margin:0;overflow:hidden}
+dialog.sheet{border:0;padding:0;background:transparent;color:var(--ink);max-width:none;max-height:none;width:100%;height:100%;margin:0;overflow:hidden}
 dialog.sheet::backdrop{background:rgba(10,10,20,.28);-webkit-backdrop-filter:blur(14px) saturate(140%);backdrop-filter:blur(14px) saturate(140%);opacity:0;transition:opacity .35s ease-out}
 dialog.sheet.on::backdrop{opacity:1}
 .sheet-wrap{position:absolute;inset:0;display:grid;place-items:center;padding:calc(20px + env(safe-area-inset-top, 0px)) 16px calc(20px + env(safe-area-inset-bottom, 0px))}
@@ -1512,6 +1512,10 @@ const fine = matchMedia('(hover: hover) and (pointer: fine)').matches;
     });
     const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -8% 0px', threshold: .12 });
     document.querySelectorAll('.rv').forEach(el => io.observe(el));
+    /* safety net: anything the observer missed (very fast scrolling) is shown as soon as it sits anywhere above the fold */
+    const pending = [...document.querySelectorAll('.rv')];
+    const sweep = () => { for (let i = pending.length - 1; i >= 0; i--) { const el = pending[i]; if (el.classList.contains('in') || el.getBoundingClientRect().top < innerHeight * .92) { el.classList.add('in'); io.unobserve(el); pending.splice(i, 1); } } };
+    addEventListener('scroll', () => requestAnimationFrame(sweep), { passive: true });
   }
 
   if (!reduce && fine) document.querySelectorAll('.cap.big-cap').forEach(b => {
@@ -1630,9 +1634,10 @@ const fine = matchMedia('(hover: hover) and (pointer: fine)').matches;
       <p class="sh-tag">${esc(d.tagline)}</p>${stats}${note}${d.gal || ''}<div class="sh-body">${secs}${cov}</div>${info}`;
   }
   function from(el){ const ic = el.querySelector('.ico, .appicon') || el; return ic.getBoundingClientRect(); }
-  let run = null, closing = false;
+  let run = null, closing = false, finishClose = null;
   const spring = () => getComputedStyle(document.documentElement).getPropertyValue('--spring').trim() || 'cubic-bezier(.2,.9,.25,1.05)';
   function open(id, el){
+    if (closing && finishClose) finishClose();   /* a tap during the closing animation opens the new sheet at once */
     if (closing) return;
     if (dlg.open) { render(id); card.scrollTop = 0; return; }
     opener = el; origin = from(el);
@@ -1653,14 +1658,16 @@ const fine = matchMedia('(hover: hover) and (pointer: fine)').matches;
     if (closing || !dlg.open) return; closing = true;
     if (run) { run.cancel(); run = null; }
     dlg.classList.remove('on');
-    const done = () => { dlg.close(); closing = false; if (opener) opener.focus({preventScroll: true}); };
-    if (reduce || !opener) { card.animate([{opacity: 1}, {opacity: 0}], {duration: 160}).onfinish = done; return; }
+    let fin = null;
+    const done = () => { if (!closing) return; if (fin) fin.cancel(); dlg.close(); closing = false; finishClose = null; if (opener) opener.focus({preventScroll: true}); };
+    finishClose = done;
+    if (reduce || !opener) { fin = card.animate([{opacity: 1}, {opacity: 0}], {duration: 160}); fin.onfinish = done; return; }
     const target = from(opener), r = card.getBoundingClientRect();
     const anim = card.animate([
       {transform: 'none', opacity: 1},
       {transform: `translate(${target.left - r.left}px, ${target.top - r.top}px) scale(${target.width / r.width}, ${target.height / r.height})`, opacity: 0, borderRadius: '22%'}
     ], {duration: 380, easing: 'cubic-bezier(.4,0,.2,1)'});
-    anim.onfinish = done;
+    fin = anim; anim.onfinish = done;
     setTimeout(() => { if (closing && dlg.open) done(); }, 900);
   }
   document.querySelectorAll('[data-open]').forEach(el => {
