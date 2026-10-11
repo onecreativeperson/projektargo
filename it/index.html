@@ -285,8 +285,9 @@ button{font:inherit;color:inherit}
 .hemi li::before{content:"";position:absolute;inset-inline-start:0;top:.62em;width:8px;height:2px;border-radius:2px;background:var(--hc)}
 .hemi.l{--hc:#0A62D8}.hemi.r{--hc:#B048E0}
 .hemi:hover{transform:translateY(-3px)}
-.brain{position:relative;aspect-ratio:640/540;display:grid;place-items:center;margin:-6% -8%}
-.brain svg{width:100%;height:100%;overflow:hidden;transform:perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));transition:transform .6s var(--spring);transform-style:preserve-3d}
+.brain{position:relative;aspect-ratio:640/540;margin:-6% -8%;transform:perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));transition:transform .6s var(--spring);transform-style:preserve-3d}
+.brain svg{position:absolute;inset:0;width:100%;height:100%;overflow:hidden}
+.brain .bz,.brain .bt{pointer-events:none}
 .brain .g{fill:none;stroke:#fff;stroke-width:6;stroke-linecap:round;opacity:.95}
 .brain .gv{fill:none;stroke:#000;stroke-opacity:.18;stroke-width:10;stroke-linecap:round;transform:translateY(3px)}
 .brain .pulse{opacity:0;transition:opacity .8s}.brain .pa{fill:#fff;opacity:.28}.brain .pb{fill:#fff}
@@ -323,7 +324,7 @@ button{font:inherit;color:inherit}
 .mind-foot{margin:clamp(22px, 3vw, 34px) auto 0;max-width:40em;text-align:center}
 .mind-foot b{display:block;font:700 clamp(22px, 2.2vw, 30px)/1.15 var(--display);letter-spacing:-.03em}
 .mind-foot p{margin:10px 0 0;color:var(--ink-2);font-size:17px;line-height:1.5}
-@media (prefers-reduced-motion: reduce){.brain .hl,.brain .hr{opacity:1}.brain .bridge{stroke-dashoffset:0}.brain svg{transform:none}}
+@media (prefers-reduced-motion: reduce){.brain .hl,.brain .hr{opacity:1}.brain .bridge{stroke-dashoffset:0}.brain{transform:none}}
 
 /* ---------- scroll choreography: reveal, depth, progress ---------- */
 .prog{position:fixed;top:0;left:0;z-index:60;height:2px;width:100%;transform-origin:0 50%;transform:scaleX(var(--p, 0));background:linear-gradient(90deg, var(--tint), #B048E0);pointer-events:none;opacity:.9}
@@ -337,6 +338,28 @@ button{font:inherit;color:inherit}
 .help .tri{display:flex;flex-direction:column}
 .help .tri p{margin-bottom:0}
 .help-foot{margin:clamp(18px, 2.5vw, 28px) 0 0;display:flex;flex-wrap:wrap;align-items:center;gap:12px 18px;color:var(--ink-2);font-size:15px}
+
+/* ---------- performance on phones: no permanently animated blurs, no per-icon backdrop blur, lighter sheet backdrop ---------- */
+@media (hover: none){
+  .sheet-card{box-shadow:0 -12px 40px -20px rgba(0,0,0,.45), 0 0 0 1px var(--line)}
+  .wall i{animation:none!important}
+  .bar.glass{-webkit-backdrop-filter:blur(16px) saturate(160%);backdrop-filter:blur(16px) saturate(160%)}
+  .dock.glass{-webkit-backdrop-filter:none;backdrop-filter:none;background:linear-gradient(135deg, color-mix(in srgb, var(--w1) 28%, var(--glass)), color-mix(in srgb, var(--w2) 22%, var(--glass)) 50%, color-mix(in srgb, var(--w4) 28%, var(--glass)))}
+  .js .rv{filter:none}.js .rv.in{filter:none}
+  .lock-in{animation-name:heroOutM}
+  @keyframes heroOutM{to{transform:translateY(-14vh) scale(.94);opacity:.2}}
+  .brain .spec,.brain .glow{transform:none;transition:none}
+  .brain .pulses{display:none}
+  .hero-app .hi{-webkit-backdrop-filter:none;backdrop-filter:none;background:var(--glass)}
+  .log-list .note{-webkit-backdrop-filter:none;backdrop-filter:none}
+  dialog.sheet::backdrop{-webkit-backdrop-filter:none;backdrop-filter:none;background:rgba(10,10,20,.5)}
+  .mind-wrap.on .brain .hl .body,.mind-wrap.on .brain .hr .body,.mind-wrap.on .brain .glow{animation:none}
+  .brain{transition:none}
+}
+.wall,.dock,[data-depth],.poster picture{will-change:transform}
+.brain:not(.live) .pulses{display:none}
+.sheet-open .wall i,.sheet-open .brain *{animation-play-state:paused}
+.sheet-open .brain .pulses{display:none}
 /* ---------- log (notification centre) ---------- */
 .log-wrap{border-radius:var(--r-xl);padding:clamp(18px, 3vw, 36px);position:relative;overflow:hidden;isolation:isolate;background:var(--w-base)}
 .log-wrap::before{content:"";position:absolute;inset:0;z-index:-1;background:
@@ -1319,8 +1342,8 @@ dialog.sheet.on::backdrop{opacity:1}
   </div>
   <div class="mind">
     <article class="hemi l" data-hemi="l"><h3>Sinistra: analisi</h3><ul><li>Processi, dati e automazioni</li><li>Numeri e obiettivi misurabili</li><li>Vendita B2B e negoziazione</li><li>Normativa e precisione parola per parola</li></ul></article>
-    <div class="brain" id="brain" data-depth=".07"><svg viewBox="-110 -90 640 540" aria-hidden="true" shape-rendering="geometricPrecision">
-<defs>
+    <div class="brain" id="brain" data-depth=".07">
+<svg class="bz" viewBox="-110 -90 640 540" aria-hidden="true"><defs>
 <linearGradient id="bl-disc" x1=".1" y1="0" x2=".9" y2="1"><stop offset="0" stop-color="#62DBFF"/><stop offset=".55" stop-color="#2A8CF0"/><stop offset="1" stop-color="#0A48C4"/></linearGradient>
 <linearGradient id="br-disc" x1=".9" y1="0" x2=".1" y2="1"><stop offset="0" stop-color="#E79BFF"/><stop offset=".55" stop-color="#A94BF0"/><stop offset="1" stop-color="#6A1FC8"/></linearGradient>
 <radialGradient id="b-hi" cx=".45" cy=".12" r=".75"><stop offset="0" stop-color="#fff" stop-opacity=".55"/><stop offset=".55" stop-color="#fff" stop-opacity="0"/></radialGradient>
@@ -1332,21 +1355,19 @@ dialog.sheet.on::backdrop{opacity:1}
 <radialGradient id="b-gr"><stop offset="0" stop-color="#C65CFF" stop-opacity=".55"/><stop offset=".45" stop-color="#C65CFF" stop-opacity=".28"/><stop offset="1" stop-color="#C65CFF" stop-opacity="0"/></radialGradient>
 <linearGradient id="b-seam" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".5" stop-color="#000" stop-opacity=".28"/><stop offset="1" stop-color="#000" stop-opacity="0"/></linearGradient>
 <clipPath id="b-cl"><path d="M 206 58 C 184 38 148 40 134 60 C 108 48 76 60 70 90 C 42 96 26 130 40 156 C 18 176 22 214 50 228 C 36 256 62 286 98 280 C 112 308 164 318 192 298 C 198 302 204 302 206 300 Z"/></clipPath><clipPath id="b-cr"><path d="M 214 58 C 236 38 272 40 286 60 C 312 48 344 60 350 90 C 378 96 394 130 380 156 C 402 176 398 214 370 228 C 384 256 358 286 322 280 C 308 308 256 318 228 298 C 222 302 216 302 214 300 Z"/></clipPath>
-</defs>
-<ellipse cx="210" cy="322" rx="230" ry="44" fill="url(#b-drop)"/>
-<g class="hl"><ellipse class="glow" cx="128" cy="186" rx="190" ry="196" fill="url(#b-gl)"/>
+</defs><ellipse cx="210" cy="322" rx="230" ry="44" fill="url(#b-drop)"/></svg>
+<svg class="hl" viewBox="-110 -90 640 540" aria-hidden="true" shape-rendering="geometricPrecision"><ellipse class="glow" cx="128" cy="186" rx="190" ry="196" fill="url(#b-gl)"/>
 <g class="body"><ellipse cx="128" cy="300" rx="150" ry="46" fill="url(#b-drop)"/><path d="M 206 58 C 184 38 148 40 134 60 C 108 48 76 60 70 90 C 42 96 26 130 40 156 C 18 176 22 214 50 228 C 36 256 62 286 98 280 C 112 308 164 318 192 298 C 198 302 204 302 206 300 Z" fill="url(#bl-disc)"/>
 <g clip-path="url(#b-cl)"><path d="M 206 58 C 184 38 148 40 134 60 C 108 48 76 60 70 90 C 42 96 26 130 40 156 C 18 176 22 214 50 228 C 36 256 62 286 98 280 C 112 308 164 318 192 298 C 198 302 204 302 206 300 Z" fill="url(#b-depth)"/><path d="M 206 58 C 184 38 148 40 134 60 C 108 48 76 60 70 90 C 42 96 26 130 40 156 C 18 176 22 214 50 228 C 36 256 62 286 98 280 C 112 308 164 318 192 298 C 198 302 204 302 206 300 Z" fill="url(#b-hi)"/><ellipse cx="120" cy="94" rx="60" ry="30" fill="url(#b-spec)" class="spec"/><path d="M 206 58 C 184 38 148 40 134 60 C 108 48 76 60 70 90 C 42 96 26 130 40 156 C 18 176 22 214 50 228 C 36 256 62 286 98 280 C 112 308 164 318 192 298 C 198 302 204 302 206 300 Z" fill="url(#b-sh)"/></g>
 <path d="M 206 58 C 184 38 148 40 134 60 C 108 48 76 60 70 90 C 42 96 26 130 40 156 C 18 176 22 214 50 228 C 36 256 62 286 98 280 C 112 308 164 318 192 298 C 198 302 204 302 206 300 Z" fill="none" stroke="#fff" stroke-opacity=".38" stroke-width="2.5"/>
-<g class="grooves"><path class="gv" d="M 72 112 C 102 100 122 132 102 160 C 88 182 112 198 142 188"/><path class="gv" d="M 122 72 C 152 88 150 122 178 130"/><path class="gv" d="M 62 222 C 98 216 122 238 112 262"/><path class="gv" d="M 152 222 C 178 214 188 242 178 272"/><path class="gv" d="M 176 170 C 190 150 186 110 170 96"/></g><g class="lines"><path class="g" id="lg0" d="M 72 112 C 102 100 122 132 102 160 C 88 182 112 198 142 188"/><path class="g" id="lg1" d="M 122 72 C 152 88 150 122 178 130"/><path class="g" id="lg2" d="M 62 222 C 98 216 122 238 112 262"/><path class="g" id="lg3" d="M 152 222 C 178 214 188 242 178 272"/><path class="g" id="lg4" d="M 176 170 C 190 150 186 110 170 96"/></g><g class="pulses"><g class="pulse"><circle r="11" class="pa"/><circle r="4.5" class="pb"/><animateMotion dur="4.2s" begin="0.0s" repeatCount="indefinite"><mpath href="#lg0"/></animateMotion></g><g class="pulse"><circle r="11" class="pa"/><circle r="4.5" class="pb"/><animateMotion dur="5.5s" begin="0.9s" repeatCount="indefinite"><mpath href="#lg1"/></animateMotion></g><g class="pulse"><circle r="11" class="pa"/><circle r="4.5" class="pb"/><animateMotion dur="6.8s" begin="1.8s" repeatCount="indefinite"><mpath href="#lg2"/></animateMotion></g></g></g></g>
-<g class="hr"><ellipse class="glow" cx="292" cy="186" rx="190" ry="196" fill="url(#b-gr)"/>
+<g class="grooves"><path class="gv" d="M 72 112 C 102 100 122 132 102 160 C 88 182 112 198 142 188"/><path class="gv" d="M 122 72 C 152 88 150 122 178 130"/><path class="gv" d="M 62 222 C 98 216 122 238 112 262"/><path class="gv" d="M 152 222 C 178 214 188 242 178 272"/><path class="gv" d="M 176 170 C 190 150 186 110 170 96"/></g><g class="lines"><path class="g" id="lg0" d="M 72 112 C 102 100 122 132 102 160 C 88 182 112 198 142 188"/><path class="g" id="lg1" d="M 122 72 C 152 88 150 122 178 130"/><path class="g" id="lg2" d="M 62 222 C 98 216 122 238 112 262"/><path class="g" id="lg3" d="M 152 222 C 178 214 188 242 178 272"/><path class="g" id="lg4" d="M 176 170 C 190 150 186 110 170 96"/></g><g class="pulses"><g class="pulse"><circle r="11" class="pa"/><circle r="4.5" class="pb"/><animateMotion dur="4.2s" begin="0.0s" repeatCount="indefinite"><mpath href="#lg0"/></animateMotion></g><g class="pulse"><circle r="11" class="pa"/><circle r="4.5" class="pb"/><animateMotion dur="5.5s" begin="0.9s" repeatCount="indefinite"><mpath href="#lg1"/></animateMotion></g><g class="pulse"><circle r="11" class="pa"/><circle r="4.5" class="pb"/><animateMotion dur="6.8s" begin="1.8s" repeatCount="indefinite"><mpath href="#lg2"/></animateMotion></g></g></svg>
+<svg class="hr" viewBox="-110 -90 640 540" aria-hidden="true" shape-rendering="geometricPrecision"><ellipse class="glow" cx="292" cy="186" rx="190" ry="196" fill="url(#b-gr)"/>
 <g class="body"><ellipse cx="292" cy="300" rx="150" ry="46" fill="url(#b-drop)"/><path d="M 214 58 C 236 38 272 40 286 60 C 312 48 344 60 350 90 C 378 96 394 130 380 156 C 402 176 398 214 370 228 C 384 256 358 286 322 280 C 308 308 256 318 228 298 C 222 302 216 302 214 300 Z" fill="url(#br-disc)"/>
 <g clip-path="url(#b-cr)"><path d="M 214 58 C 236 38 272 40 286 60 C 312 48 344 60 350 90 C 378 96 394 130 380 156 C 402 176 398 214 370 228 C 384 256 358 286 322 280 C 308 308 256 318 228 298 C 222 302 216 302 214 300 Z" fill="url(#b-depth)"/><path d="M 214 58 C 236 38 272 40 286 60 C 312 48 344 60 350 90 C 378 96 394 130 380 156 C 402 176 398 214 370 228 C 384 256 358 286 322 280 C 308 308 256 318 228 298 C 222 302 216 302 214 300 Z" fill="url(#b-hi)"/><ellipse cx="300" cy="94" rx="60" ry="30" fill="url(#b-spec)" class="spec"/><path d="M 214 58 C 236 38 272 40 286 60 C 312 48 344 60 350 90 C 378 96 394 130 380 156 C 402 176 398 214 370 228 C 384 256 358 286 322 280 C 308 308 256 318 228 298 C 222 302 216 302 214 300 Z" fill="url(#b-sh)"/></g>
 <path d="M 214 58 C 236 38 272 40 286 60 C 312 48 344 60 350 90 C 378 96 394 130 380 156 C 402 176 398 214 370 228 C 384 256 358 286 322 280 C 308 308 256 318 228 298 C 222 302 216 302 214 300 Z" fill="none" stroke="#fff" stroke-opacity=".38" stroke-width="2.5"/>
-<g class="grooves"><path class="gv" d="M 348 112 C 318 100 298 132 318 160 C 332 182 308 198 278 188"/><path class="gv" d="M 298 72 C 268 88 270 122 242 130"/><path class="gv" d="M 358 222 C 322 216 298 238 308 262"/><path class="gv" d="M 268 222 C 242 214 232 242 242 272"/><path class="gv" d="M 244 170 C 230 150 234 110 250 96"/></g><g class="lines"><path class="g" id="rg0" d="M 348 112 C 318 100 298 132 318 160 C 332 182 308 198 278 188"/><path class="g" id="rg1" d="M 298 72 C 268 88 270 122 242 130"/><path class="g" id="rg2" d="M 358 222 C 322 216 298 238 308 262"/><path class="g" id="rg3" d="M 268 222 C 242 214 232 242 242 272"/><path class="g" id="rg4" d="M 244 170 C 230 150 234 110 250 96"/></g><g class="pulses"><g class="pulse"><circle r="11" class="pa"/><circle r="4.5" class="pb"/><animateMotion dur="4.2s" begin="0.0s" repeatCount="indefinite"><mpath href="#rg0"/></animateMotion></g><g class="pulse"><circle r="11" class="pa"/><circle r="4.5" class="pb"/><animateMotion dur="5.5s" begin="0.9s" repeatCount="indefinite"><mpath href="#rg1"/></animateMotion></g><g class="pulse"><circle r="11" class="pa"/><circle r="4.5" class="pb"/><animateMotion dur="6.8s" begin="1.8s" repeatCount="indefinite"><mpath href="#rg2"/></animateMotion></g></g></g></g>
-<rect class="seam" x="205" y="66" width="10" height="230" rx="5" fill="url(#b-seam)" opacity=".7"/>
-<path class="bridge" d="M 186 182 C 196 168 224 168 234 182"/>
-</svg></div>
+<g class="grooves"><path class="gv" d="M 348 112 C 318 100 298 132 318 160 C 332 182 308 198 278 188"/><path class="gv" d="M 298 72 C 268 88 270 122 242 130"/><path class="gv" d="M 358 222 C 322 216 298 238 308 262"/><path class="gv" d="M 268 222 C 242 214 232 242 242 272"/><path class="gv" d="M 244 170 C 230 150 234 110 250 96"/></g><g class="lines"><path class="g" id="rg0" d="M 348 112 C 318 100 298 132 318 160 C 332 182 308 198 278 188"/><path class="g" id="rg1" d="M 298 72 C 268 88 270 122 242 130"/><path class="g" id="rg2" d="M 358 222 C 322 216 298 238 308 262"/><path class="g" id="rg3" d="M 268 222 C 242 214 232 242 242 272"/><path class="g" id="rg4" d="M 244 170 C 230 150 234 110 250 96"/></g><g class="pulses"><g class="pulse"><circle r="11" class="pa"/><circle r="4.5" class="pb"/><animateMotion dur="4.2s" begin="0.0s" repeatCount="indefinite"><mpath href="#rg0"/></animateMotion></g><g class="pulse"><circle r="11" class="pa"/><circle r="4.5" class="pb"/><animateMotion dur="5.5s" begin="0.9s" repeatCount="indefinite"><mpath href="#rg1"/></animateMotion></g><g class="pulse"><circle r="11" class="pa"/><circle r="4.5" class="pb"/><animateMotion dur="6.8s" begin="1.8s" repeatCount="indefinite"><mpath href="#rg2"/></animateMotion></g></g></svg>
+<svg class="bt" viewBox="-110 -90 640 540" aria-hidden="true"><rect class="seam" x="205" y="66" width="10" height="230" rx="5" fill="url(#b-seam)" opacity=".7"/><path class="bridge" d="M 186 182 C 196 168 224 168 234 182"/></svg>
+</div>
     <article class="hemi r" data-hemi="r"><h3>Destra: design</h3><ul><li>Interfacce e flussi di prodotto completi</li><li>Motion e linguaggio visivo</li><li>Marca e racconto</li><li>Fiuto per il punto in cui le persone si bloccano</li></ul></article>
   </div>
   <div class="mind-foot"><b>Un motore nasce solo quando le due metà lavorano insieme.</b><p>Il design senza un numero è decorazione. Un numero senza design non lo usa nessuno.</p></div>
@@ -1515,7 +1536,7 @@ const fine = matchMedia('(hover: hover) and (pointer: fine)').matches;
     /* safety net: anything the observer missed (very fast scrolling) is shown as soon as it sits anywhere above the fold */
     const pending = [...document.querySelectorAll('.rv')];
     const sweep = () => { for (let i = pending.length - 1; i >= 0; i--) { const el = pending[i]; if (el.classList.contains('in') || el.getBoundingClientRect().top < innerHeight * .92) { el.classList.add('in'); io.unobserve(el); pending.splice(i, 1); } } };
-    addEventListener('scroll', () => requestAnimationFrame(sweep), { passive: true });
+    let st = 0; addEventListener('scroll', () => { if (!st) st = setTimeout(() => { st = 0; sweep(); }, 200); }, { passive: true });
   }
 
   if (!reduce && fine) document.querySelectorAll('.cap.big-cap').forEach(b => {
@@ -1529,7 +1550,7 @@ const fine = matchMedia('(hover: hover) and (pointer: fine)').matches;
 (() => {
   const w = document.querySelector('.mind-wrap'), b = document.getElementById('brain');
   if (!w) return;
-  const svg = b.querySelector('svg'), hl = b.querySelector('.hl'), hr = b.querySelector('.hr'), bridge = b.querySelector('.bridge');
+  const hl = b.querySelector('.hl'), hr = b.querySelector('.hr'), bridge = b.querySelector('.bridge');
   if (!b.classList.contains('rv')) b.classList.add('in');
   if (reduce) { w.classList.add('on'); b.classList.add('joined'); return; }
 
@@ -1553,6 +1574,8 @@ const fine = matchMedia('(hover: hover) and (pointer: fine)').matches;
   };
   const ask = () => { if (!raf) raf = requestAnimationFrame(update); };
   addEventListener('scroll', ask, { passive: true }); addEventListener('resize', ask); update();
+  if ('IntersectionObserver' in window) new IntersectionObserver(es => es.forEach(e => b.classList.toggle('live', e.isIntersecting)), { rootMargin: '10% 0px' }).observe(b);
+  else b.classList.add('live');
 
   /* 1) tilt: pointer on desktop, gyroscope on phones (iOS asks for permission on the first tap) */
   const tilt = (x, y) => { b.style.setProperty('--ry', (x * 14).toFixed(2) + 'deg'); b.style.setProperty('--rx', (-y * 10).toFixed(2) + 'deg'); b.style.setProperty('--lx', x.toFixed(3)); b.style.setProperty('--ly', y.toFixed(3)); };
@@ -1631,7 +1654,7 @@ const fine = matchMedia('(hover: hover) and (pointer: fine)').matches;
     const secs = d.sections.map(([h, p]) => `<section class="sh-sec"><h3>${esc(h)}</h3><p>${esc(p)}</p></section>`).join('');
     const info = `<div class="sh-info"><h3>${esc(T.info)}</h3><dl>${d.info.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join('')}</dl></div>`;
     body.innerHTML = `<div class="sh-head">${ICONS[id]}<div><h2 id="sh-title">${esc(d.name)}</h2>${d.alias ? `<p class="sh-alias">${esc(d.alias)}</p>` : ''}<div class="sh-actions">${pill}${visit}</div></div></div>
-      <p class="sh-tag">${esc(d.tagline)}</p>${stats}${note}${d.gal || ''}<div class="sh-body">${secs}${cov}</div>${info}`;
+      <p class="sh-tag">${esc(d.tagline)}</p>${stats}${note}<div class="sh-more"${fine ? '' : ' hidden'}>${d.gal || ''}<div class="sh-body">${secs}${cov}</div>${info}</div>`;
   }
   function from(el){ const ic = el.querySelector('.ico, .appicon') || el; return ic.getBoundingClientRect(); }
   let run = null, closing = false, finishClose = null;
@@ -1639,34 +1662,39 @@ const fine = matchMedia('(hover: hover) and (pointer: fine)').matches;
   function open(id, el){
     if (closing && finishClose) finishClose();   /* a tap during the closing animation opens the new sheet at once */
     if (closing) return;
-    if (dlg.open) { render(id); card.scrollTop = 0; return; }
+    if (dlg.open) { render(id); const more = card.querySelector('.sh-more'); if (more) more.hidden = false; card.scrollTop = 0; return; }
     opener = el; origin = from(el);
     render(id);
+    const imgs = [...card.querySelectorAll('img')];
+    imgs.forEach(i => { i.dataset.src = i.getAttribute('src'); i.removeAttribute('src'); });   /* decode pictures after the motion, not during it */
+    const loadImgs = () => { const more = card.querySelector('.sh-more'); if (more) more.hidden = false; imgs.forEach(i => { if (i.dataset.src) { i.src = i.dataset.src; delete i.dataset.src; } }); };
     card.scrollTop = 0;
-    dlg.showModal();
+    dlg.showModal(); document.documentElement.classList.add('sheet-open');
     requestAnimationFrame(() => dlg.classList.add('on'));
-    if (reduce) { run = card.animate([{opacity: 0}, {opacity: 1}], {duration: 200, easing: 'ease-out'}); return; }
+    if (reduce) { run = card.animate([{opacity: 0}, {opacity: 1}], {duration: 200, easing: 'ease-out'}); run.onfinish = loadImgs; return; }
     const r = card.getBoundingClientRect();
     const sx = origin.width / r.width, sy = origin.height / r.height;
     const dx = origin.left - r.left, dy = origin.top - r.top;
     run = card.animate([
-      {transform: `translate(${dx}px, ${dy}px) scale(${sx}, ${sy})`, borderRadius: '22%', opacity: .6},
-      {transform: 'none', borderRadius: getComputedStyle(card).borderRadius, opacity: 1}
-    ], {duration: 620, easing: spring()});
+      {transform: `translate(${dx}px, ${dy}px) scale(${sx}, ${sy})`, opacity: .6},
+      {transform: 'none', opacity: 1}
+    ], {duration: fine ? 620 : 460, easing: spring()});
+    run.onfinish = loadImgs; run.oncancel = loadImgs;
+    setTimeout(loadImgs, 800);
   }
   function close(){
     if (closing || !dlg.open) return; closing = true;
     if (run) { run.cancel(); run = null; }
     dlg.classList.remove('on');
     let fin = null;
-    const done = () => { if (!closing) return; if (fin) fin.cancel(); dlg.close(); closing = false; finishClose = null; if (opener) opener.focus({preventScroll: true}); };
+    const done = () => { if (!closing) return; if (fin) fin.cancel(); dlg.close(); document.documentElement.classList.remove('sheet-open'); closing = false; finishClose = null; if (opener) opener.focus({preventScroll: true}); };
     finishClose = done;
     if (reduce || !opener) { fin = card.animate([{opacity: 1}, {opacity: 0}], {duration: 160}); fin.onfinish = done; return; }
     const target = from(opener), r = card.getBoundingClientRect();
     const anim = card.animate([
       {transform: 'none', opacity: 1},
-      {transform: `translate(${target.left - r.left}px, ${target.top - r.top}px) scale(${target.width / r.width}, ${target.height / r.height})`, opacity: 0, borderRadius: '22%'}
-    ], {duration: 380, easing: 'cubic-bezier(.4,0,.2,1)'});
+      {transform: `translate(${target.left - r.left}px, ${target.top - r.top}px) scale(${target.width / r.width}, ${target.height / r.height})`, opacity: 0}
+    ], {duration: fine ? 380 : 300, easing: 'cubic-bezier(.4,0,.2,1)'});
     fin = anim; anim.onfinish = done;
     setTimeout(() => { if (closing && dlg.open) done(); }, 900);
   }
