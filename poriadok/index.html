@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Prevádzkový poriadok na mieru, dotazník za 15 minút | Poriadok.ai</title>
-<meta name="description" content="Prevádzkový poriadok pre kozmetiku, kaderníctvo a gastro prevádzky presne podľa aktuálnej vyhlášky — dotazník na 15 minút, nie 3 týždne u konzultanta. Pilotná verzia: prvých 5 prevádzok zadarmo.">
+<meta name="description" content="Prevádzkový poriadok pre kozmetiku, kaderníctvo a manikúru-pedikúru presne podľa aktuálnej vyhlášky — dotazník na 15 minút, nie 3 týždne u konzultanta. Pilotná verzia: prvých 5 prevádzok zadarmo.">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://projektargo.com/poriadok/">
 <link rel="icon" type="image/png" href="favicon.png">
@@ -13,7 +13,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Poriadok.ai">
 <meta property="og:title" content="Prevádzkový poriadok na mieru, dotazník za 15 minút | Poriadok.ai">
-<meta property="og:description" content="Prevádzkový poriadok pre kozmetiku, kaderníctvo a gastro prevádzky presne podľa aktuálnej vyhlášky — dotazník na 15 minút, nie 3 týždne u konzultanta.">
+<meta property="og:description" content="Prevádzkový poriadok pre kozmetiku, kaderníctvo a manikúru-pedikúru presne podľa aktuálnej vyhlášky — dotazník na 15 minút, nie 3 týždne u konzultanta.">
 <meta property="og:image" content="https://projektargo.com/poriadok/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -86,9 +86,6 @@
   .risk-card h3{font-size:16px;margin-bottom:7px}
   .risk-card p{margin:0;color:var(--ink-soft);font-size:14.5px}
 
-  .doctabs{display:flex;gap:8px;margin-bottom:22px}
-  .doctab{font-family:var(--font-mono);font-size:12.5px;padding:8px 14px;border:1px solid var(--line);border-radius:2px;background:var(--panel);cursor:pointer;color:var(--ink-soft)}
-  .doctab[aria-selected="true"]{background:var(--blue);color:#fff;border-color:var(--blue)}
   .statute{background:var(--panel);border:1px solid var(--line);border-radius:2px;padding:28px 30px}
   .statute ol{list-style:none;margin:0;padding:0;counter-reset:none}
   .statute li{display:flex;gap:12px;padding:9px 0;border-bottom:1px solid var(--line-soft);font-size:14.5px}
@@ -126,6 +123,17 @@
   .steps li{counter-increment:step;display:flex;gap:14px;padding:10px 0}
   .steps li:before{content:counter(step);font-family:var(--font-mono);color:var(--blue);border:1px solid var(--blue);border-radius:50%;width:24px;height:24px;flex:none;display:flex;align-items:center;justify-content:center;font-size:12.5px}
 
+  .after{margin-top:34px;background:var(--panel);border:1px solid var(--line);border-radius:2px;padding:26px 28px}
+  .after h3{font-size:18px;margin-bottom:16px}
+  .after-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px}
+  .after-tag{font-family:var(--font-mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--blue);margin-bottom:8px}
+  .after ol{margin:0;padding-left:20px;font-size:14.5px}
+  .after li{padding:4px 0}
+  .after .cite{display:block;font-family:var(--font-mono);font-size:11.5px;color:var(--ink-soft)}
+  .after-note{margin:16px 0 0;font-size:13px;color:var(--ink-soft)}
+  .pilot-status{margin-top:22px;border-left:3px solid var(--blue);padding:12px 16px;background:#EEF3F7;font-size:14.5px}
+  .pilot-status b{margin-right:6px}
+  .pilot-status[data-state="open"] .ps-full,.pilot-status[data-state="full"] .ps-open{display:none}
   footer{padding:36px 0 48px;color:var(--ink-soft);font-size:13px;line-height:1.7}
 
   @media (max-width:860px){
@@ -133,7 +141,7 @@
     .doc-mock{order:-1;max-width:340px;margin:0 auto}
   }
 </style>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Service","name":"Poriadok.ai","url":"https://projektargo.com/poriadok/","serviceType":"Prevádzkový poriadok","description":"Prevádzkový poriadok pre kozmetiku, kaderníctvo a gastro prevádzky presne podľa aktuálnej vyhlášky — dotazník na 15 minút, nie 3 týždne u konzultanta. Pilotná verzia: prvých 5 prevádzok zadarmo.","inLanguage":"sk","areaServed":[{"@type":"Country","name":"Slovensko"},{"@type":"Country","name":"Česko"}],"provider":{"@type":"Person","@id":"https://projektargo.com/#person","name":"Štefan Toporcer","url":"https://projektargo.com/"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Service","name":"Poriadok.ai","url":"https://projektargo.com/poriadok/","serviceType":"Prevádzkový poriadok","description":"Prevádzkový poriadok pre kozmetiku, kaderníctvo a manikúru-pedikúru presne podľa aktuálnej vyhlášky — dotazník na 15 minút, nie 3 týždne u konzultanta. Pilotná verzia: prvých 5 prevádzok zadarmo.","inLanguage":"sk","areaServed":[{"@type":"Country","name":"Slovensko"},{"@type":"Country","name":"Česko"}],"provider":{"@type":"Person","@id":"https://projektargo.com/#person","name":"Štefan Toporcer","url":"https://projektargo.com/"}}</script>
 </head>
 <body>
 
@@ -147,7 +155,7 @@
 <div class="hero wrap">
   <div class="hero-grid">
     <div>
-      <div class="eyebrow">Kozmetika · kaderníctvo · manikúra-pedikúra · gastro</div>
+      <div class="eyebrow">Kozmetika · kaderníctvo · manikúra-pedikúra</div>
       <h1>Prevádzkový poriadok so všetkými náležitosťami podľa vyhlášky — vyplníte za 15 minút, nie za 3 týždne u konzultanta.</h1>
       <p class="sub">Vyplníte krátky dotazník o svojej prevádzke. My vygenerujeme dokument presne podľa aktuálne platnej vyhlášky, so všetkými povinnými bodmi. Pred odoslaním ho skontroluje človek.</p>
       <a class="cta" href="https://tally.so/r/VLkjE6" target="_blank" rel="noopener">Získať pilotný prevádzkový poriadok zadarmo →</a>
@@ -202,12 +210,8 @@
 <section>
   <div class="wrap">
     <h2>Čo presne dostanete</h2>
-    <p class="section-lead">Toto nie je marketingový zoznam funkcií. Pri kozmetike a kaderníctve ide o doslovný výpis náležitostí podľa § 9 vyhlášky. Pri gastro zákon ani vyhláška obsah dokumentu nepredpisujú, preto sa držíme požiadaviek vyhlášky 533/2007 a praxe úradov verejného zdravotníctva. Presne toto je v každom dokumente.</p>
-    <div class="doctabs" role="tablist" aria-label="Typ prevádzky">
-      <button class="doctab" role="tab" id="tab-kozmetika" aria-selected="true" aria-controls="panel-kozmetika">Kozmetika · kaderníctvo</button>
-      <button class="doctab" role="tab" id="tab-gastro" aria-selected="false" aria-controls="panel-gastro">Gastro</button>
-    </div>
-    <div class="statute" id="panel-kozmetika" role="tabpanel" aria-labelledby="tab-kozmetika">
+    <p class="section-lead">Toto nie je marketingový zoznam funkcií, ale doslovný výpis náležitostí podľa § 9 vyhlášky. Presne toto je v každom slovenskom dokumente. Český provozní řád má obsah podľa § 21 zákona č. 258/2000 Sb.</p>
+    <div class="statute" id="panel-kozmetika">
       <ol>
         <li><span class="letter">a)</span><span>Identifikačné údaje prevádzkovateľa zariadenia</span></li>
         <li><span class="letter">b)</span><span>Druh a spôsob poskytovania služieb, zdravotné kontraindikácie a zakázané úkony</span></li>
@@ -221,25 +225,6 @@
         <li><span class="letter">j)</span><span>Nakladanie s odpadom a frekvencia vyprázdňovania</span></li>
       </ol>
       <div class="statute-cite">§9 vyhl. MZ SR č. 554/2007 Z.z.</div>
-    </div>
-    <div class="statute" id="panel-gastro" role="tabpanel" aria-labelledby="tab-gastro" hidden>
-      <ol>
-        <li><span class="letter">1.</span><span>Identifikačné údaje prevádzkovateľa a zodpovednej osoby</span></li>
-        <li><span class="letter">2.</span><span>Priestorové usporiadanie prevádzky</span></li>
-        <li><span class="letter">3.</span><span>Technické vybavenie</span></li>
-        <li><span class="letter">4.</span><span>Druh stravovania</span></li>
-        <li><span class="letter">5.</span><span>Denný objem výroby jedál</span></li>
-        <li><span class="letter">6.</span><span>Zdroj pitnej vody</span></li>
-        <li><span class="letter">7.</span><span>Používanie predpripravených komponentov</span></li>
-        <li><span class="letter">8.</span><span>Nakladanie s odpadom</span></li>
-        <li><span class="letter">9.</span><span>Sanitačný program</span></li>
-        <li><span class="letter">10.</span><span>Deratizácia a dezinsekcia</span></li>
-        <li><span class="letter">11.</span><span>Školenia personálu</span></li>
-        <li><span class="letter">12.</span><span>Zoznam zamestnancov</span></li>
-        <li><span class="letter">13.</span><span>Upratovanie</span></li>
-        <li><span class="letter">14.</span><span>BOZP a ochranné opatrenia</span></li>
-      </ol>
-      <div class="statute-cite">Zákon č. 355/2007 Z.z. · vyhl. MZ SR č. 533/2007 Z.z. · obsah dokumentu predpis neurčuje, štruktúra vychádza z praxe RÚVZ</div>
     </div>
   </div>
 </section>
@@ -256,7 +241,7 @@
         <tbody>
           <tr class="us">
             <td>Poriadok.ai</td>
-            <td>Pilot zadarmo, potom 49 € (gastro 69 €)</td>
+            <td>Pilot zadarmo, potom 49 €</td>
             <td><span class="yn-yes">Áno</span></td>
             <td>Do 3 pracovných dní</td>
             <td>Pripravujeme</td>
@@ -296,8 +281,33 @@
       <li>Vyplníte krátky dotazník o svojej prevádzke (asi 15 minút).</li>
       <li>Dokument pripravíme presne podľa vyhlášky a pred odoslaním ho skontroluje človek.</li>
       <li>Do 3 pracovných dní vám príde hotový dokument na e-mail, pripravený na podpis.</li>
-      <li>Na Slovensku podpísaný dokument predložíte na schválenie miestne príslušnému RÚVZ (ktorému, uvedieme priamo v dokumente). V Česku sa provozní řád neschvaľuje, začiatok činnosti len oznámite krajskej hygienickej stanici.</li>
+      <li>Dokument skontrolujete, podpíšete a postupujete podľa krokov nižšie.</li>
     </ol>
+
+    <div class="after" id="po-doruceni">
+      <h3>Čo s dokumentom po doručení</h3>
+      <div class="after-grid">
+        <div>
+          <div class="after-tag">Slovensko</div>
+          <ol>
+            <li>Skontrolujte údaje a dokument podpíšte.</li>
+            <li>Predložte ho miestne príslušnému regionálnemu úradu verejného zdravotníctva (RÚVZ). Ktorý úrad to je, uvádzame priamo v dokumente. <span class="cite">§ 23 ods. 3 písm. d) zákona č. 355/2007 Z.z.</span></li>
+            <li>Ak prevádzku otvárate alebo meníte, s RÚVZ riešite aj návrh na uvedenie priestorov do prevádzky. Postup si overte priamo na úrade. <span class="cite">§ 13 ods. 4 písm. a) zákona č. 355/2007 Z.z.</span></li>
+            <li>Dokument umiestnite v prevádzke na vhodnom a viditeľnom mieste. <span class="cite">§ 9 ods. 2 vyhlášky č. 554/2007 Z.z.</span></li>
+            <li>Keď zmeníte služby, prístroje alebo postupy, dokument aktualizujte a návrh zmeny predložte RÚVZ. <span class="cite">§ 52 ods. 1 písm. e) zákona č. 355/2007 Z.z.</span></li>
+          </ol>
+        </div>
+        <div>
+          <div class="after-tag">Česko</div>
+          <ol>
+            <li>Provozní řád sa krajskej hygienickej stanici (KHS) na schválenie nepredkladá.</li>
+            <li>Najneskôr v deň začatia činnosti písomne oznámte KHS deň začatia, predmet a rozsah činnosti a miesto prevádzky. <span class="cite">§ 21 ods. 3 zákona č. 258/2000 Sb.</span></li>
+            <li>Pri každej zmene podmienok provozní řád aktualizujte. Významnú zmenu predmetu alebo rozsahu činnosti oznámte KHS najneskôr v deň zmeny. <span class="cite">§ 21 ods. 3 a 4 zákona č. 258/2000 Sb.</span></li>
+          </ol>
+        </div>
+      </div>
+      <p class="after-note">Stručný prehľad podľa znenia zákonov k októbru 2026, nie právne poradenstvo.</p>
+    </div>
 
     <h2 style="margin-top:44px">Pilotná verzia a cena po pilote</h2>
     <div class="pricing">
@@ -315,7 +325,6 @@
         <div class="reco-tag" style="color:var(--ink-soft)">Po pilote</div>
         <h3>Jednorazovo za dokument</h3>
         <div class="price">49 € <span style="display:block">kozmetika · kaderníctvo · manikúra-pedikúra</span></div>
-        <div class="price" style="margin-top:0">69 € <span style="display:block">gastro</span></div>
         <ul class="check">
           <li>Prevádzkový poriadok na mieru, skontrolovaný človekom</li>
           <li>Dodanie zvyčajne do 3 pracovných dní</li>
@@ -325,15 +334,20 @@
       <div class="price-card">
         <h3>Pre koho</h3>
         <ul class="check">
-          <li>Slovensko: kozmetika, kaderníctvo, manikúra-pedikúra a gastro prevádzky (podľa vyhlášky č. 554/2007 Z.z., resp. č. 533/2007 Z.z.)</li>
-          <li>Česko: kozmetika, kaderníctvo, manikúra-pedikúra (podľa § 21 zákona č. 258/2000 Sb.); gastro pre Česko zatiaľ nepripravujeme</li>
+          <li>Slovensko: kozmetika, kaderníctvo, manikúra-pedikúra (podľa § 9 vyhlášky č. 554/2007 Z.z.)</li>
+          <li>Česko: kozmetika, kaderníctvo, manikúra-pedikúra (podľa § 21 zákona č. 258/2000 Sb.)</li>
           <li>Nové prevádzky aj tie, ktoré potrebujú dokument aktualizovať</li>
         </ul>
       </div>
     </div>
 
     <div class="haccp-note">
-      <b>Potrebujete aj plán HACCP?</b> Gastro prevádzky ho zo zákona potrebujú osobitne (zákon 152/1995 Z.z. o potravinách) — nie je súčasťou tohto balíka, keďže ide o samostatnú dokumentáciu s vlastnou metodikou. V dotazníku nám môžete označiť, že máte záujem, a ozveme sa vám.
+      <b>Prečo nie gastro?</b> Zákon č. 355/2007 Z.z. od 12. 1. 2023 neukladá zariadeniam spoločného stravovania povinnosť vypracovať prevádzkový poriadok (novela č. 517/2022 Z.z. zrušila písm. m) v § 26 ods. 4). Nechceme predávať dokument, ktorý zákon nevyžaduje.
+    </div>
+
+    <div class="pilot-status" id="pilot-status" data-state="open">
+      <b class="ps-open">Pilot má 5 miest.</b><b class="ps-full">Pilot je obsadený.</b>
+      <span class="ps-open">Keď sa obsadia, dotazník sa sám uzavrie a ponúkne ďalší postup.</span><span class="ps-full">Dokument za 49 € alebo zápis na čakaciu listinu: napíšte na <a href="mailto:toporcer.stefan@gmail.com?subject=Poriadok.ai%20%E2%80%93%20%C4%8Dakacia%20listina">toporcer.stefan@gmail.com</a> (krajina, typ prevádzky, okres alebo kraj). Ozveme sa zvyčajne do 2 pracovných dní.</span>
     </div>
 
     <p style="text-align:center;margin-top:36px">
@@ -346,26 +360,15 @@
 <section class="wrap" id="podmienky" style="padding:8px 24px 40px;color:var(--ink-soft);font-size:14px;line-height:1.6">
   <h3 style="font-size:16px;color:var(--ink)">Ochrana údajov a podmienky pilotu</h3>
   <p><b>Kto to prevádzkuje:</b> Štefan Toporcer, fyzická osoba, Slovensko (nie registrovaná spoločnosť) · <a href="mailto:toporcer.stefan@gmail.com" style="color:inherit">toporcer.stefan@gmail.com</a>.</p>
-  <p><b>Ochrana osobných údajov:</b> Údaje z dotazníka spracúvam výlučne na vypracovanie prevádzkového poriadku a komunikáciu s vami. Používam sprostredkovateľov Tally (formulár), Anthropic (AI nástroj, ktorý pripraví návrh dokumentu; každý návrh pred odoslaním kontroluje človek) a Google (e-mail). Anthropic a Google môžu údaje spracúvať aj v USA, s ochranou, ktorú vyžaduje GDPR (napr. štandardné zmluvné doložky EÚ). Údaje nepredávam ani neposkytujem iným tretím stranám a vymažem ich najneskôr do 2 rokov alebo skôr na vašu žiadosť e-mailom. Máte právo na prístup, opravu a výmaz údajov a právo podať sťažnosť na Úrad na ochranu osobných údajov SR (v Česku na Úřad pro ochranu osobních údajů).</p>
-  <p><b>Podmienky pilotu:</b> Pilotný dokument je zadarmo a vzniká podľa vašich odpovedí. Pred odoslaním ho skontroluje človek, no je to pomôcka, nie právne poradenstvo. Za úplnosť a správnosť údajov v dotazníku a za dodržiavanie dokumentu v prevádzke zodpovedá prevádzkovateľ. Nepokrýva plán HACCP, osvedčenia o odbornej spôsobilosti ani tetovanie, piercing a permanentný make-up. Pilot je bez záruky výsledku kontroly zo strany úradu.</p>
+  <p><b>Ochrana osobných údajov:</b> Údaje z dotazníka spracúvam výlučne na vypracovanie prevádzkového poriadku a komunikáciu s vami. Používam sprostredkovateľov Tally (formulár), Anthropic (AI nástroj, ktorý pripraví návrh dokumentu; každý návrh pred odoslaním kontroluje človek) a Google (e-mail). Anthropic a Google môžu údaje spracúvať aj v USA, s ochranou, ktorú vyžaduje GDPR (napr. štandardné zmluvné doložky EÚ). Údaje nepredávam ani neposkytujem iným tretím stranám a vymažem ich najneskôr do 2 rokov alebo skôr na vašu žiadosť e-mailom. Máte právo na prístup, opravu a výmaz údajov a právo podať sťažnosť na Úrad na ochranu osobných údajov SR (v Česku na Úřad pro ochranu osobních údajů). Táto stránka beží na GitHub Pages a načítava písma z Google Fonts, preto tieto služby pri návšteve spracúvajú technické údaje, napríklad IP adresu.</p>
+  <p><b>Podmienky pilotu:</b> Pilotný dokument je zadarmo a vzniká podľa vašich odpovedí. Pred odoslaním ho skontroluje človek, no je to pomôcka, nie právne poradenstvo. Za úplnosť a správnosť údajov v dotazníku a za dodržiavanie dokumentu v prevádzke zodpovedá prevádzkovateľ. Nepokrýva gastro prevádzky, osvedčenia o odbornej a zdravotnej spôsobilosti zamestnancov ani tetovanie, piercing a permanentný make-up. Pilot je bez záruky výsledku kontroly zo strany úradu.</p>
 </section>
 
 <footer class="wrap">
   <p>Pilotný projekt <a href="https://projektargo.com/sk/" style="color:inherit">Štefana Toporcera</a> · kontakt: <a href="mailto:toporcer.stefan@gmail.com" style="color:inherit">toporcer.stefan@gmail.com</a></p>
-  Poriadok.ai — nie je náhrada odbornej právnej konzultácie pri neštandardných prevádzkach. Pri bežnej kozmetickej, kaderníckej alebo gastro prevádzke pokrýva náležitosti prevádzkového poriadku podľa vyhlášky (kozmetika, kaderníctvo) a podľa bežnej praxe úradov (gastro). Nepokrýva tetovanie, piercing ani permanentný make-up, plán HACCP (samostatná povinná dokumentácia pre gastro prevádzky podľa zákona 152/1995 Z.z.) ani osobné osvedčenia o odbornej a zdravotnej spôsobilosti zamestnancov (vyhl. 585/2008 Z.z.) — tie si zamestnanci a prevádzkovateľ zabezpečujú samostatne.
+  Poriadok.ai — nie je náhrada odbornej právnej konzultácie pri neštandardných prevádzkach. Pri bežnej kozmetickej, kaderníckej alebo manikúrnej a pedikúrnej prevádzke pokrýva náležitosti prevádzkového poriadku podľa § 9 vyhlášky č. 554/2007 Z.z. (v Česku podľa § 21 zákona č. 258/2000 Sb.). Nepokrýva gastro prevádzky, tetovanie, piercing ani permanentný make-up ani osobné osvedčenia o odbornej a zdravotnej spôsobilosti zamestnancov (vyhl. 585/2008 Z.z.) — tie si zamestnanci a prevádzkovateľ zabezpečujú samostatne.
 </footer>
 
-<script>
-  var tabs = document.querySelectorAll('.doctab');
-  tabs.forEach(function(tab){
-    tab.addEventListener('click', function(){
-      tabs.forEach(function(t){ t.setAttribute('aria-selected','false'); });
-      tab.setAttribute('aria-selected','true');
-      document.getElementById('panel-kozmetika').hidden = tab.id !== 'tab-kozmetika';
-      document.getElementById('panel-gastro').hidden = tab.id !== 'tab-gastro';
-    });
-  });
-</script>
 
 </body>
 </html>
