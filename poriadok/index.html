@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Prevádzkový poriadok na mieru, dotazník za 15 minút | Poriadok.ai</title>
-<meta name="description" content="Prevádzkový poriadok pre kozmetiku, kaderníctvo a gastro prevádzky presne podľa aktuálnej vyhlášky — dotazník na 15 minút, nie 3 týždne u konzultanta. Pilotná verzia: prvých 5 prevádzok zadarmo.">
+<meta name="description" content="Prevádzkový poriadok pre kozmetiku, kaderníctvo a manikúru-pedikúru presne podľa aktuálnej vyhlášky — dotazník na 15 minút, nie 3 týždne u konzultanta. Zadarmo.">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://projektargo.com/poriadok/">
 <link rel="icon" type="image/png" href="favicon.png">
@@ -13,7 +13,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Poriadok.ai">
 <meta property="og:title" content="Prevádzkový poriadok na mieru, dotazník za 15 minút | Poriadok.ai">
-<meta property="og:description" content="Prevádzkový poriadok pre kozmetiku, kaderníctvo a gastro prevádzky presne podľa aktuálnej vyhlášky — dotazník na 15 minút, nie 3 týždne u konzultanta.">
+<meta property="og:description" content="Prevádzkový poriadok pre kozmetiku, kaderníctvo a manikúru-pedikúru presne podľa aktuálnej vyhlášky — dotazník na 15 minút, nie 3 týždne u konzultanta.">
 <meta property="og:image" content="https://projektargo.com/poriadok/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -21,7 +21,7 @@
 <meta property="og:url" content="https://projektargo.com/poriadok/">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Prevádzkový poriadok na mieru, dotazník za 15 minút | Poriadok.ai">
-<meta name="twitter:description" content="Presne podľa aktuálnej vyhlášky, za 15 minút. Pilot zadarmo.">
+<meta name="twitter:description" content="Presne podľa aktuálnej vyhlášky, za 15 minút. Zadarmo.">
 <meta name="twitter:image" content="https://projektargo.com/poriadok/og-image.png">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -52,7 +52,7 @@
   .wordmark span{color:var(--blue)}
   .header-tag{font-family:var(--font-mono);font-size:12px;color:var(--ink-soft)}
 
-  .hero{padding:64px 0 56px}
+  .hero{padding:64px 24px 56px}
   .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
   .hero h1{font-size:clamp(30px,4.4vw,46px);letter-spacing:-.01em;margin:14px 0 18px}
   .hero .sub{font-size:17.5px;color:var(--ink-soft);max-width:46ch;margin:0 0 28px}
@@ -119,8 +119,6 @@
   ul.check li{padding:5px 0;color:var(--ink-soft)}
   ul.check li:before{content:"✓ ";color:var(--green);font-weight:700}
 
-  .haccp-note{margin-top:22px;border:1px dashed var(--line);border-radius:2px;padding:18px 20px;font-size:14px;color:var(--ink-soft)}
-  .haccp-note b{color:var(--ink);font-family:var(--font-display);font-weight:600}
 
   .steps{font-size:16px;padding-left:0;list-style:none;counter-reset:step}
   .steps li{counter-increment:step;display:flex;gap:14px;padding:10px 0}
@@ -128,12 +126,35 @@
 
   footer{padding:36px 0 48px;color:var(--ink-soft);font-size:13px;line-height:1.7}
 
+  .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+  .cmp-hint{display:none;margin:8px 0 0;text-align:center;font-family:var(--font-mono);font-size:12px;color:var(--ink-soft)}
+  @media (max-width:700px){.cmp-hint{display:block}}
+  .contrib{display:grid;grid-template-columns:1.1fr .9fr;gap:20px;align-items:start}
+  .contrib-card{background:var(--panel);border:1px solid var(--line);border-radius:2px;padding:24px 26px}
+  .contrib-dl{margin:0;display:grid;grid-template-columns:max-content 1fr;gap:10px 18px;align-items:baseline}
+  .contrib-dl dt{font-family:var(--font-mono);font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-soft)}
+  .contrib-dl dd{margin:0;font-size:15px;min-width:0}
+  .iban{font-size:clamp(12px,3.9vw,15px);font-weight:500;letter-spacing:.02em;white-space:nowrap}
+  .copy-btn{margin-left:8px;font-family:var(--font-mono);font-size:12px;padding:5px 11px;border:1px solid var(--blue);border-radius:2px;background:var(--panel);color:var(--blue);cursor:pointer}
+  .copy-btn:hover{background:var(--blue);color:#fff}
+  .contrib-note{margin:18px 0 0;font-size:13.5px;color:var(--ink-soft)}
+  .qr-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .qr-fig{margin:0;text-align:center;font-size:13.5px;color:var(--ink-soft)}
+  .qr-box{background:#fff;border:1px solid var(--line);border-radius:2px;padding:10px;display:flex;align-items:center;justify-content:center;aspect-ratio:1/1}
+  .qr-box img{display:block;width:100%;height:auto;max-width:180px}
+  .qr-box-text{padding:14px}
+  .qr-box-text p{margin:0;font-size:12.5px;line-height:1.5;text-align:left}
+  .qr-fig figcaption,.qr-cap{margin-top:8px}
+  @media (max-width:860px){.contrib{grid-template-columns:1fr}}
+  @media (max-width:480px){.contrib-dl{grid-template-columns:1fr;gap:2px}.contrib-dl dd{margin-bottom:10px}.copy-btn{display:block;margin:8px 0 0}.qr-row{grid-template-columns:1fr;max-width:260px;margin:0 auto;width:100%}.qr-box-text{aspect-ratio:auto}}
+
+  @media (max-width:420px){.stamp{right:0;bottom:-14px;width:104px;height:104px}}
   @media (max-width:860px){
     .hero-grid{grid-template-columns:1fr}
     .doc-mock{order:-1;max-width:340px;margin:0 auto}
   }
 </style>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Service","name":"Poriadok.ai","url":"https://projektargo.com/poriadok/","serviceType":"Prevádzkový poriadok","description":"Prevádzkový poriadok pre kozmetiku, kaderníctvo a gastro prevádzky presne podľa aktuálnej vyhlášky — dotazník na 15 minút, nie 3 týždne u konzultanta. Pilotná verzia: prvých 5 prevádzok zadarmo.","inLanguage":"sk","areaServed":[{"@type":"Country","name":"Slovensko"},{"@type":"Country","name":"Česko"}],"provider":{"@type":"Person","@id":"https://projektargo.com/#person","name":"Štefan Toporcer","url":"https://projektargo.com/"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Service","name":"Poriadok.ai","url":"https://projektargo.com/poriadok/","serviceType":"Prevádzkový poriadok","description":"Prevádzkový poriadok pre kozmetiku, kaderníctvo a manikúru-pedikúru presne podľa aktuálnej vyhlášky — dotazník na 15 minút, nie 3 týždne u konzultanta. Zadarmo.","inLanguage":"sk","areaServed":[{"@type":"Country","name":"Slovensko"},{"@type":"Country","name":"Česko"}],"provider":{"@type":"Person","@id":"https://projektargo.com/#person","name":"Štefan Toporcer","url":"https://projektargo.com/"}}</script>
 </head>
 <body>
 
@@ -147,7 +168,7 @@
 <div class="hero wrap">
   <div class="hero-grid">
     <div>
-      <div class="eyebrow">Kozmetika · kaderníctvo · manikúra-pedikúra · gastro</div>
+      <div class="eyebrow">Kozmetika · kaderníctvo · manikúra-pedikúra</div>
       <h1>Prevádzkový poriadok so všetkými náležitosťami podľa vyhlášky — vyplníte za 15 minút, nie za 3 týždne u konzultanta.</h1>
       <p class="sub">Vyplníte krátky dotazník o svojej prevádzke. My vygenerujeme dokument presne podľa aktuálne platnej vyhlášky, so všetkými povinnými bodmi. Pred odoslaním ho skontroluje človek.</p>
       <a class="cta" href="https://tally.so/r/VLkjE6" target="_blank" rel="noopener">Získať pilotný prevádzkový poriadok zadarmo →</a>
@@ -202,12 +223,8 @@
 <section>
   <div class="wrap">
     <h2>Čo presne dostanete</h2>
-    <p class="section-lead">Toto nie je marketingový zoznam funkcií. Pri kozmetike a kaderníctve ide o doslovný výpis náležitostí podľa § 9 vyhlášky. Pri gastro zákon ani vyhláška obsah dokumentu nepredpisujú, preto sa držíme požiadaviek vyhlášky 533/2007 a praxe úradov verejného zdravotníctva. Presne toto je v každom dokumente.</p>
-    <div class="doctabs" role="tablist" aria-label="Typ prevádzky">
-      <button class="doctab" role="tab" id="tab-kozmetika" aria-selected="true" aria-controls="panel-kozmetika">Kozmetika · kaderníctvo</button>
-      <button class="doctab" role="tab" id="tab-gastro" aria-selected="false" aria-controls="panel-gastro">Gastro</button>
-    </div>
-    <div class="statute" id="panel-kozmetika" role="tabpanel" aria-labelledby="tab-kozmetika">
+    <p class="section-lead">Toto nie je marketingový zoznam funkcií. Ide o doslovný výpis náležitostí podľa § 9 vyhlášky. Presne toto je v každom dokumente.</p>
+    <div class="statute">
       <ol>
         <li><span class="letter">a)</span><span>Identifikačné údaje prevádzkovateľa zariadenia</span></li>
         <li><span class="letter">b)</span><span>Druh a spôsob poskytovania služieb, zdravotné kontraindikácie a zakázané úkony</span></li>
@@ -221,25 +238,6 @@
         <li><span class="letter">j)</span><span>Nakladanie s odpadom a frekvencia vyprázdňovania</span></li>
       </ol>
       <div class="statute-cite">§9 vyhl. MZ SR č. 554/2007 Z.z.</div>
-    </div>
-    <div class="statute" id="panel-gastro" role="tabpanel" aria-labelledby="tab-gastro" hidden>
-      <ol>
-        <li><span class="letter">1.</span><span>Identifikačné údaje prevádzkovateľa a zodpovednej osoby</span></li>
-        <li><span class="letter">2.</span><span>Priestorové usporiadanie prevádzky</span></li>
-        <li><span class="letter">3.</span><span>Technické vybavenie</span></li>
-        <li><span class="letter">4.</span><span>Druh stravovania</span></li>
-        <li><span class="letter">5.</span><span>Denný objem výroby jedál</span></li>
-        <li><span class="letter">6.</span><span>Zdroj pitnej vody</span></li>
-        <li><span class="letter">7.</span><span>Používanie predpripravených komponentov</span></li>
-        <li><span class="letter">8.</span><span>Nakladanie s odpadom</span></li>
-        <li><span class="letter">9.</span><span>Sanitačný program</span></li>
-        <li><span class="letter">10.</span><span>Deratizácia a dezinsekcia</span></li>
-        <li><span class="letter">11.</span><span>Školenia personálu</span></li>
-        <li><span class="letter">12.</span><span>Zoznam zamestnancov</span></li>
-        <li><span class="letter">13.</span><span>Upratovanie</span></li>
-        <li><span class="letter">14.</span><span>BOZP a ochranné opatrenia</span></li>
-      </ol>
-      <div class="statute-cite">Zákon č. 355/2007 Z.z. · vyhl. MZ SR č. 533/2007 Z.z. · obsah dokumentu predpis neurčuje, štruktúra vychádza z praxe RÚVZ</div>
     </div>
   </div>
 </section>
@@ -256,7 +254,7 @@
         <tbody>
           <tr class="us">
             <td>Poriadok.ai</td>
-            <td>Pilot zadarmo, potom 49 € (gastro 69 €)</td>
+            <td>zadarmo</td>
             <td><span class="yn-yes">Áno</span></td>
             <td>Do 3 pracovných dní</td>
             <td>Pripravujeme</td>
@@ -285,6 +283,7 @@
         </tbody>
       </table>
     </div>
+    <p class="cmp-hint" aria-hidden="true">← posuňte →</p>
     <p style="color:var(--ink-soft);font-size:13px;margin-top:14px">Ceny a podmienky podľa verejných ponúk jednotlivých poskytovateľov (napr. jaspravim.sk, poradenské firmy) k októbru 2026; môžu sa meniť.</p>
   </div>
 </section>
@@ -299,47 +298,54 @@
       <li>Na Slovensku podpísaný dokument predložíte na schválenie miestne príslušnému RÚVZ (ktorému, uvedieme priamo v dokumente). V Česku sa provozní řád neschvaľuje, začiatok činnosti len oznámite krajskej hygienickej stanici.</li>
     </ol>
 
-    <h2 style="margin-top:44px">Pilotná verzia a cena po pilote</h2>
+    <h2 style="margin-top:44px">Prečo je to zadarmo</h2>
+    <p class="section-lead" style="margin-bottom:24px">Dokument aj strážca (mesačná kontrola legislatívy) sú zadarmo, bez podmienok. Poriadok.ai je malý projekt jednej osoby. Ak vám pomohol, môžete ho <a href="#prispevok">dobrovoľne podporiť</a>. Príspevok je dobrovoľný a nie je protihodnotou za dokument.</p>
     <div class="pricing">
-      <div class="price-card reco">
-        <div class="reco-tag">Pre prvých 5 prevádzok</div>
-        <h3>Zadarmo</h3>
-        <div class="price">0 €</div>
-        <ul class="check">
-          <li>Kompletný prevádzkový poriadok na mieru</li>
-          <li>Presne podľa aktuálnej vyhlášky, skontrolovaný človekom</li>
-          <li>Na oplátku krátka spätná väzba, ako sa vám s dokumentom pracovalo</li>
-        </ul>
-      </div>
-      <div class="price-card">
-        <div class="reco-tag" style="color:var(--ink-soft)">Po pilote</div>
-        <h3>Jednorazovo za dokument</h3>
-        <div class="price">49 € <span style="display:block">kozmetika · kaderníctvo · manikúra-pedikúra</span></div>
-        <div class="price" style="margin-top:0">69 € <span style="display:block">gastro</span></div>
-        <ul class="check">
-          <li>Prevádzkový poriadok na mieru, skontrolovaný človekom</li>
-          <li>Dodanie zvyčajne do 3 pracovných dní</li>
-          <li>Platba faktúrou až po schválení návrhu; platba online na stránke zatiaľ nie je</li>
-        </ul>
-      </div>
       <div class="price-card">
         <h3>Pre koho</h3>
         <ul class="check">
-          <li>Slovensko: kozmetika, kaderníctvo, manikúra-pedikúra a gastro prevádzky (podľa vyhlášky č. 554/2007 Z.z., resp. č. 533/2007 Z.z.)</li>
-          <li>Česko: kozmetika, kaderníctvo, manikúra-pedikúra (podľa § 21 zákona č. 258/2000 Sb.); gastro pre Česko zatiaľ nepripravujeme</li>
+          <li>Slovensko: kozmetika, kaderníctvo, manikúra-pedikúra (podľa vyhlášky č. 554/2007 Z.z.)</li>
+          <li>Česko: kozmetika, kaderníctvo, manikúra-pedikúra (podľa § 21 zákona č. 258/2000 Sb.)</li>
           <li>Nové prevádzky aj tie, ktoré potrebujú dokument aktualizovať</li>
         </ul>
       </div>
-    </div>
-
-    <div class="haccp-note">
-      <b>Potrebujete aj plán HACCP?</b> Gastro prevádzky ho zo zákona potrebujú osobitne (zákon 152/1995 Z.z. o potravinách) — nie je súčasťou tohto balíka, keďže ide o samostatnú dokumentáciu s vlastnou metodikou. V dotazníku nám môžete označiť, že máte záujem, a ozveme sa vám.
     </div>
 
     <p style="text-align:center;margin-top:36px">
       <a class="cta" href="https://tally.so/r/VLkjE6" target="_blank" rel="noopener" id="tally-link">Vyplniť pilotný dotazník</a>
     </p>
     <p style="text-align:center;color:var(--ink-soft);font-size:13px">Dotazník beží na službe Tally. Zásady spracovania osobných údajov nájdete na jeho poslednej strane aj nižšie.</p>
+  </div>
+</section>
+
+<section id="prispevok">
+  <div class="wrap">
+    <h2>Dobrovoľný príspevok</h2>
+    <p class="section-lead">Dokument je zadarmo a bez podmienok. Ak vám pomohol a chcete projekt podporiť, môžete prispieť, ale nemusíte. Príspevok je dobrovoľný, nie je protihodnotou za dokument, nenavrhujeme žiadnu sumu a nevystavujeme k nemu faktúru.</p>
+    <div class="contrib">
+      <div class="contrib-card">
+        <dl class="contrib-dl">
+          <dt>Príjemca</dt><dd>Štefan Toporcer</dd>
+          <dt>IBAN</dt>
+          <dd><span class="iban mono" id="iban-text">DE47 2022 0800 0028 2663 85</span>
+            <button type="button" class="copy-btn" id="copy-iban" data-iban="DE47202208000028266385" aria-describedby="copy-status">Kopírovať</button>
+            <span class="sr-only" id="copy-status" role="status" aria-live="polite"></span></dd>
+          <dt>Mena</dt><dd>EUR</dd>
+          <dt>Správa pre príjemcu</dt><dd class="mono">Poriadok.ai</dd>
+        </dl>
+        <p class="contrib-note">IBAN začína „DE“, lebo ide o účet vo Vivid Money s nemeckým IBAN. Je to bežný SEPA účet v eurách: platba zo slovenskej alebo českej banky v EUR ide ako každý iný SEPA prevod.</p>
+      </div>
+      <div class="qr-row">
+        <figure class="qr-fig">
+          <div class="qr-box"><img src="qr-prispevok-sk.svg" width="180" height="180" alt="QR kód Pay by square pre slovenské banky, bez sumy"></div>
+          <figcaption><b>SK banky</b> (Pay by square)</figcaption>
+        </figure>
+        <div class="qr-fig qr-cz">
+          <div class="qr-box qr-box-text"><p>QR Platba podporuje len CZK, preto pre české banky QR kód neponúkame. Zadajte IBAN vyššie a menu EUR ručne.</p></div>
+          <div class="qr-cap"><b>CZ banky</b> (QR Platba)</div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -352,19 +358,26 @@
 
 <footer class="wrap">
   <p>Pilotný projekt <a href="https://projektargo.com/sk/" style="color:inherit">Štefana Toporcera</a> · kontakt: <a href="mailto:toporcer.stefan@gmail.com" style="color:inherit">toporcer.stefan@gmail.com</a></p>
-  Poriadok.ai — nie je náhrada odbornej právnej konzultácie pri neštandardných prevádzkach. Pri bežnej kozmetickej, kaderníckej alebo gastro prevádzke pokrýva náležitosti prevádzkového poriadku podľa vyhlášky (kozmetika, kaderníctvo) a podľa bežnej praxe úradov (gastro). Nepokrýva tetovanie, piercing ani permanentný make-up, plán HACCP (samostatná povinná dokumentácia pre gastro prevádzky podľa zákona 152/1995 Z.z.) ani osobné osvedčenia o odbornej a zdravotnej spôsobilosti zamestnancov (vyhl. 585/2008 Z.z.) — tie si zamestnanci a prevádzkovateľ zabezpečujú samostatne.
+  <p>Dobrovoľný príspevok (nie je protihodnotou za dokument): Štefan Toporcer · IBAN <span class="mono">DE47 2022 0800 0028 2663 85</span> (EUR) · správa Poriadok.ai · <a href="#prispevok" style="color:inherit">QR kód a kopírovanie</a></p>
+  Poriadok.ai — nie je náhrada odbornej právnej konzultácie pri neštandardných prevádzkach. Pri bežnej kozmetickej, kaderníckej alebo manikúrnej prevádzke pokrýva náležitosti prevádzkového poriadku podľa vyhlášky. Nepokrýva tetovanie, piercing ani permanentný make-up, plán HACCP (samostatná povinná dokumentácia pre gastro prevádzky podľa zákona 152/1995 Z.z.) ani osobné osvedčenia o odbornej a zdravotnej spôsobilosti zamestnancov (vyhl. 585/2008 Z.z.) — tie si zamestnanci a prevádzkovateľ zabezpečujú samostatne.
 </footer>
 
 <script>
-  var tabs = document.querySelectorAll('.doctab');
-  tabs.forEach(function(tab){
-    tab.addEventListener('click', function(){
-      tabs.forEach(function(t){ t.setAttribute('aria-selected','false'); });
-      tab.setAttribute('aria-selected','true');
-      document.getElementById('panel-kozmetika').hidden = tab.id !== 'tab-kozmetika';
-      document.getElementById('panel-gastro').hidden = tab.id !== 'tab-gastro';
+  (function(){
+    var btn=document.getElementById('copy-iban'); if(!btn) return;
+    var st=document.getElementById('copy-status'), t=btn.getAttribute('data-iban');
+    function done(){ st.textContent='IBAN skopírovaný'; btn.textContent='Skopírované ✓'; setTimeout(function(){ btn.textContent='Kopírovať'; st.textContent=''; },2200); }
+    function fallback(){
+      var ta=document.createElement('textarea'); ta.value=t; ta.setAttribute('readonly',''); ta.style.cssText='position:fixed;opacity:0;top:0;left:0';
+      document.body.appendChild(ta); ta.select();
+      var ok=false; try{ ok=document.execCommand('copy'); }catch(e){}
+      document.body.removeChild(ta);
+      if(ok) done(); else st.textContent='Kopírovanie sa nepodarilo, IBAN označte a skopírujte ručne.';
+    }
+    btn.addEventListener('click',function(){
+      if(navigator.clipboard && window.isSecureContext){ navigator.clipboard.writeText(t).then(done,fallback); } else { fallback(); }
     });
-  });
+  })();
 </script>
 
 </body>
