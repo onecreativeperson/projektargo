@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>sedne. · Get dressed before you buy</title>
+<meta name="description" content="A styling app that builds outfits in your size, shows them on your own photo and sends you to the shop only for the pieces that fit. In development for phone, web and desktop.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://projektargo.com/sedne/">
+<link rel="alternate" hreflang="en" href="https://projektargo.com/sedne/">
+<link rel="alternate" hreflang="sk" href="https://projektargo.com/sedne/sk/">
+<link rel="icon" href="/sedne/favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#0B0B0C">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="sedne.">
+<meta property="og:title" content="sedne. · Get dressed before you buy.">
+<meta property="og:description" content="A styling app that builds outfits in your size, shows them on your own photo and sends you to the shop only for the pieces that fit. In development for phone, web and desktop.">
+<meta property="og:url" content="https://projektargo.com/sedne/">
+<meta property="og:image" content="https://projektargo.com/sedne/og.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=Tenor+Sans&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0B0B0C;--raised:#141416;--ink:#F5F3EF;--mut:rgba(245,243,239,.72);--faint:rgba(245,243,239,.5);
+--line:rgba(255,255,255,.14);--glass:rgba(255,255,255,.06);--glass2:rgba(255,255,255,.11);
+--iris:linear-gradient(120deg,#B8A9FF,#8FE3E0 45%,#FFC6A8 80%,#B8A9FF);
+--serif:"Instrument Serif",ui-serif,Georgia,serif;--sans:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+--ease:cubic-bezier(.2,.8,.2,1)}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%;color-scheme:dark;scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.55 var(--sans);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;left:0;right:0;top:0;height:100vh;pointer-events:none;z-index:0;
+background:radial-gradient(34% 30% at 18% 18%,rgba(184,169,255,.14),transparent 100%),
+radial-gradient(30% 26% at 84% 10%,rgba(143,227,224,.09),transparent 100%);
+-webkit-mask-image:linear-gradient(#000 40%,transparent 85%);mask-image:linear-gradient(#000 40%,transparent 85%)}
+a{color:inherit}
+.wrap{position:relative;z-index:1;max-width:1080px;margin:0 auto;padding:0 20px}
+.eyebrow{display:block;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin-bottom:14px}
+h2{font:400 clamp(32px,4.6vw,52px)/1.05 var(--serif);letter-spacing:-.02em;margin:0 0 18px}
+h2 em,h1 em{font-style:italic;color:var(--mut)}
+.pill{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 24px;border-radius:999px;
+font-weight:600;font-size:15px;text-decoration:none;transition:transform .25s var(--ease),background .25s}
+.pill.solid{background:var(--ink);color:var(--bg)}.pill.solid:hover{transform:translateY(-1px)}
+.pill.ghost{background:var(--glass);border:1px solid var(--line);min-height:40px;padding:0 16px;font-size:13px}
+.pill.ghost:hover{background:var(--glass2)}
+.pill:focus-visible,summary:focus-visible{outline:2px solid #B8A9FF;outline-offset:3px}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 0}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:600;letter-spacing:-.01em}
+.brand svg{width:30px;height:30px}
+.wm{font:400 24px/1 "Tenor Sans",var(--sans);letter-spacing:.04em}.wm i{font-style:normal;background:var(--iris);-webkit-background-clip:text;background-clip:text;color:transparent}
+.meaning{margin:18px 0 0;font:italic 400 18px/1.3 var(--serif);color:var(--faint)}
+.nav{display:flex;gap:8px}
+/* hero */
+.hero{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:center;padding:40px 0 48px;min-height:560px}
+.badge{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
+color:var(--mut);padding:7px 13px;border-radius:999px;background:var(--glass);border:1px solid var(--line)}
+.badge i{width:7px;height:7px;border-radius:50%;background:var(--iris);background-size:200% 100%;animation:sh 6s linear infinite}
+h1{font:400 clamp(52px,8.4vw,96px)/.96 var(--serif);letter-spacing:-.025em;margin:22px 0 20px}
+.lead{font-size:clamp(17px,2vw,20px);color:var(--mut);max-width:30em;margin:0 0 28px}
+.note{display:block;margin-top:12px;font-size:13px;color:var(--faint)}
+.plat{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:30px;font-size:12px;color:var(--faint)}
+.plat b{font-weight:600;letter-spacing:.12em;text-transform:uppercase;margin-right:6px}
+.plat span{padding:5px 11px;border-radius:999px;border:1px solid var(--line);background:var(--glass);color:var(--mut);font-weight:500;font-size:12px}
+.hero>div:first-child>*{animation:rise .9s var(--ease) both}
+.hero>div:first-child>*:nth-child(2){animation-delay:.08s}.hero>div:first-child>*:nth-child(3){animation-delay:.16s}
+.hero>div:first-child>*:nth-child(4){animation-delay:.24s}.hero>div:first-child>*:nth-child(5){animation-delay:.3s}.hero>div:first-child>*:nth-child(6){animation-delay:.36s}
+/* the stack */
+.stage{perspective:1400px;display:grid;place-items:center;height:520px}
+.deck{position:relative;width:330px;height:218px;transform-style:preserve-3d;transform:rotateX(56deg) rotateZ(-28deg) translateZ(-90px);transition:transform 1s var(--ease)}
+.stage:hover .deck{transform:rotateX(50deg) rotateZ(-22deg) translateZ(-90px)}
+.ly{position:absolute;inset:0;border-radius:26px;transform:translateZ(var(--z));transform-style:preserve-3d;
+box-shadow:0 30px 50px -20px rgba(0,0,0,.85),inset 0 1px 0 rgba(255,255,255,.18),inset 0 -1px 0 rgba(0,0,0,.35);
+display:flex;align-items:flex-end;justify-content:space-between;padding:18px 20px;
+animation:drop 1.1s var(--ease) both;animation-delay:calc(.35s + var(--i) * .32s);transition:transform .8s var(--ease)}
+.stage:hover .ly{transform:translateZ(calc(var(--z) + var(--i) * 26px))}
+.ly b{font:400 34px/1 var(--serif);letter-spacing:-.02em}
+.ly small{display:inline-flex;align-items:center;gap:6px;font:600 12px/1 var(--sans);padding:7px 10px;border-radius:999px;background:rgba(11,11,12,.55);color:var(--ink);
+backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.ly small i{width:6px;height:6px;border-radius:50%;background:#7BD8A8}
+.ly.light b{color:#1A1A1E}
+.ly b{display:flex;align-items:center;gap:10px}.ly .gi{width:40px;height:40px;flex:none;color:rgba(245,243,239,.9)}.ly .gi svg{width:100%;height:100%;display:block}.ly.light .gi{color:rgba(26,26,30,.85)}
+.f-shoe{background:#F0EDE7;background-image:repeating-linear-gradient(90deg,rgba(0,0,0,.05) 0 2px,transparent 2px 9px);background-size:100% 14px;background-repeat:repeat-x;background-position:0 100%}
+.f-denim{background:#2A3140;background-image:repeating-linear-gradient(45deg,rgba(255,255,255,.075) 0 1px,transparent 1px 5px),repeating-linear-gradient(-45deg,rgba(0,0,0,.14) 0 1px,transparent 1px 7px)}
+.f-cotton{background:#E6E2DB;background-image:repeating-linear-gradient(0deg,rgba(0,0,0,.035) 0 1px,transparent 1px 3px)}
+.f-fleece{background:#8B8883;background-image:repeating-linear-gradient(90deg,rgba(255,255,255,.08) 0 2px,transparent 2px 6px),radial-gradient(60% 80% at 30% 20%,rgba(255,255,255,.14),transparent 70%)}
+.f-leather{background:linear-gradient(135deg,#34343A,#121214 60%),#1A1A1E;background-image:radial-gradient(70% 60% at 20% 10%,rgba(255,255,255,.22),transparent 60%),linear-gradient(135deg,#34343A,#121214 60%)}
+.f-leather::after{content:"";position:absolute;inset:0;border-radius:26px;padding:1px;background:var(--iris);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:.85;pointer-events:none}
+.shadow{position:absolute;inset:0;border-radius:26px;transform:translateZ(-40px) scale(1.06);background:radial-gradient(60% 60% at 50% 50%,rgba(0,0,0,.6),transparent 70%);filter:blur(14px)}
+@keyframes drop{from{opacity:0;transform:translateZ(calc(var(--z) + 260px))}to{opacity:1;transform:translateZ(var(--z))}}
+.pill.tx{display:inline-flex}
+.why{padding:8px 0 64px}
+.brands{padding:8px 0 72px;scroll-margin-top:24px}
+.blead{max-width:40em;color:var(--mut);font-size:18px;margin:0}
+.grid.bgrid{grid-template-columns:repeat(2,1fr)}
+.blead{margin-top:4px}
+.bneed{display:grid;grid-template-columns:.9fr 1.1fr;gap:36px;margin-top:16px;padding:40px 36px;border-radius:32px;background:var(--glass);border:1px solid var(--line)}
+.bneed b{display:block;font:400 30px/1.1 var(--serif);margin-bottom:8px}.bneed p{margin:0;color:var(--mut);font-size:16px}
+/* pain */
+.pain{padding:72px 0 64px;border-top:1px solid var(--line)}
+.pain .lines{font:400 clamp(44px,8vw,104px)/1 var(--serif);letter-spacing:-.03em;margin:0 0 26px}
+.pain .lines span{display:block}
+.pain .lines span:nth-child(2){color:var(--mut)}.pain .lines span:nth-child(3){color:var(--faint)}
+.pain p{max-width:40em;color:var(--mut);font-size:17px;margin:0}
+/* steps with UI fragments */
+.how{padding:64px 0}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:34px;counter-reset:s;list-style:none;padding:0}
+.step{position:relative;padding:24px 24px 26px;border-radius:28px;background:var(--glass);border:1px solid var(--line);box-shadow:inset 0 1px 0 rgba(255,255,255,.08);display:flex;flex-direction:column}
+.step::before{counter-increment:s;content:counter(s);display:inline-grid;place-items:center;width:34px;height:34px;border-radius:50%;
+font:400 19px/1 var(--serif);background:var(--glass2);border:1px solid var(--line);margin-bottom:16px}
+.ui{margin:0 0 20px;padding:16px;border-radius:18px;background:var(--raised);border:1px solid var(--line);display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-height:112px}
+.ui .sz{padding:8px 14px;border-radius:999px;border:1px solid var(--line);font-size:13px;font-weight:600;color:var(--faint)}
+.ui .sz.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.ui .cut{margin-left:auto;font-size:12px;color:var(--mut);padding:7px 11px;border-radius:999px;background:var(--glass)}
+.ui .row{display:flex;align-items:center;gap:10px;width:100%;font-size:14px;font-weight:500}
+.ui .row i{width:26px;height:18px;border-radius:6px;flex:none}
+.ui .row em{margin-left:auto;font-style:normal;font-size:12px;color:var(--faint)}
+.ui .row:nth-child(1) i{background:#E6E2DB}.ui .row:nth-child(2) i{background:#8B8883}.ui .row:nth-child(3) i{background:#2A2A2F;border:1px solid var(--line)}
+.ui .buy{width:100%;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.ui .buy span{font-size:14px;font-weight:500}
+.ui .buy b{font-size:13px;font-weight:600;padding:9px 14px;border-radius:999px;background:var(--ink);color:var(--bg)}
+.step b.t{display:block;font:400 26px/1.15 var(--serif);margin-bottom:8px}
+.step p{margin:0;color:var(--mut);font-size:15px}
+/* features */
+.feat{padding:48px 0 64px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:34px}
+.card{padding:24px;border-radius:24px;background:var(--raised);border:1px solid var(--line)}
+.card b{display:block;font:400 24px/1.15 var(--serif);margin-bottom:8px}
+.card p{margin:0;color:var(--mut);font-size:15px}
+/* family + privacy */
+.fam{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;padding:56px 36px;border-radius:32px;background:var(--glass);border:1px solid var(--line);margin-bottom:16px}
+.fam p{margin:0;color:var(--mut);font-size:17px}
+.prof{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.prof span{display:inline-flex;align-items:center;gap:10px;padding:12px 18px 12px 12px;border-radius:999px;background:var(--raised);border:1px solid var(--line);font-weight:600;font-size:15px}
+.prof span i{width:34px;height:34px;border-radius:50%;background:var(--glass2);border:1px solid var(--line);display:grid;place-items:center;font:400 18px/1 var(--serif)}
+.prof span:first-child{background:linear-gradient(var(--raised),var(--raised)) padding-box,var(--iris) border-box;border:1px solid transparent}
+.prof span:last-child{color:var(--faint);padding:12px 18px}
+.priv{display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:start;padding:30px 36px;border-radius:28px;background:var(--raised);border:1px solid var(--line);margin-bottom:64px}
+.priv svg{width:40px;height:40px}
+.priv h3{font:400 28px/1.1 var(--serif);margin:0 0 8px}
+.priv p{margin:0;color:var(--mut);max-width:48em}
+/* roadmap */
+.road{padding:24px 0 48px}
+.miles{list-style:none;padding:0;margin:34px 0 0;display:grid;grid-template-columns:repeat(3,1fr);gap:14px;counter-reset:m;position:relative}
+.miles::before{content:"";position:absolute;left:4%;right:4%;top:22px;height:1px;background:var(--line)}
+.mile{position:relative;padding:0 8px 0 0}
+.mile::before{counter-increment:m;content:counter(m);position:relative;z-index:1;display:inline-grid;place-items:center;width:44px;height:44px;border-radius:50%;
+font:400 20px/1 var(--serif);background:var(--bg);border:1px solid var(--line);margin-bottom:18px}
+.mile.now::before{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.mile .when{display:block;font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin-bottom:8px}
+.mile.now .when{background:var(--iris);-webkit-background-clip:text;background-clip:text;color:transparent}
+.mile b{display:block;font:400 26px/1.15 var(--serif);margin-bottom:8px}.mile p{margin:0;color:var(--mut);font-size:15px}
+.later{margin:28px 0 0;padding-top:18px;border-top:1px solid var(--line);color:var(--faint);font-size:14px}
+/* waitlist */
+.wl{display:grid;grid-template-columns:.9fr 1.1fr;gap:36px;padding:44px 36px;border-radius:32px;background:var(--glass);border:1px solid var(--line);margin-bottom:64px;scroll-margin-top:24px}
+.wl p{margin:0;color:var(--mut);font-size:17px}
+.open{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:4px}
+.pill.xl{min-height:58px;padding:0 32px;font-size:17px}
+/* faq */
+.faq{padding:80px 0 56px;max-width:760px}
+details{border-top:1px solid var(--line)}details:last-of-type{border-bottom:1px solid var(--line)}
+summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:20px 0;font:400 22px/1.2 var(--serif)}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font:400 26px/1 var(--serif);color:var(--faint);transition:transform .3s var(--ease)}
+details[open] summary::after{transform:rotate(45deg)}
+details p{margin:0 0 20px;color:var(--mut);max-width:44em}
+footer{padding:28px 0 40px;border-top:1px solid var(--line);color:var(--faint);font-size:14px;display:flex;flex-wrap:wrap;gap:8px 18px;justify-content:space-between;align-items:center}
+footer a{color:var(--mut)}
+footer .brand{font-size:14px;color:var(--mut)}footer .brand svg{width:22px;height:22px}
+.r{opacity:1;transform:none}
+@keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@keyframes sh{to{background-position:200% 0}}
+@media (max-width:900px){.hero{grid-template-columns:1fr;gap:8px;padding:24px 0 24px;min-height:0}.stage{height:440px;order:2}.deck{width:250px;height:166px}.ly b{font-size:28px}
+.steps,.grid,.grid.bgrid,.miles{grid-template-columns:1fr}.miles::before{display:none}.fam,.wl,.bneed{grid-template-columns:1fr;padding:32px 22px;gap:22px}.nav .tx{display:none}.priv{padding:26px 22px}.nav .solid{display:none}}
+@media (max-width:420px){.stage{height:400px}.deck{width:224px;height:150px}.ly{padding:14px 16px}.ly b{font-size:25px}.step,.card{padding:22px}.pain{padding:56px 0 48px}.priv{grid-template-columns:1fr}}
+/* openers */
+.opener{padding:72px 0 28px}.opener .big{font:italic 400 clamp(72px,14vw,180px)/1.08 var(--serif);letter-spacing:-.01em;margin:0 0 6px;padding:0 .08em .04em 0;display:inline-block;
+background:linear-gradient(90deg,var(--ink) 60%,rgba(245,243,239,.6));-webkit-background-clip:text;background-clip:text;color:transparent}
+.opener.light .big{background:linear-gradient(90deg,#0B0B0C 60%,rgba(11,11,12,.6));-webkit-background-clip:text;background-clip:text}
+/* today vs sedne */
+.demo2{display:grid;grid-template-columns:1fr 1fr;gap:16px;padding:8px 0 48px}
+.pane{border-radius:32px;padding:26px;border:1px solid var(--line);background:var(--glass)}
+.pane h3{font:400 30px/1.1 var(--serif);margin:18px 0 6px}.pane p{margin:0;color:var(--mut)}
+.ph{position:relative;height:300px;border-radius:24px;overflow:hidden;background:#0E0E10;border:1px solid var(--line)}
+.feed{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:10px;animation:scrollup 10s linear infinite}
+.feed i{position:relative;display:block;height:var(--h);border-radius:12px;background:rgba(255,255,255,var(--o))}
+.feed i::after{content:"";position:absolute;left:10px;bottom:9px;width:46%;height:5px;border-radius:3px;background:rgba(255,255,255,.22)}
+.today .ph::after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 55%,#0E0E10)}
+.timer{position:absolute;left:16px;bottom:16px;z-index:2;display:flex;align-items:baseline;gap:8px}
+.timer b{font:400 44px/1 var(--serif);letter-spacing:-.02em;color:#FF8A6B;font-variant-numeric:tabular-nums}.timer span{font-size:13px;color:var(--mut)}
+.picks{display:grid;gap:10px;padding:16px;height:100%;align-content:center}
+.pick{display:flex;justify-content:space-between;align-items:center;padding:16px 18px;border-radius:18px;background:var(--glass2);border:1px solid var(--line);
+animation:rise .8s var(--ease) both;animation-delay:var(--d)}
+.pick b{font:400 24px/1 var(--serif)}.pick em{font-style:normal;font-size:12px;font-weight:600;padding:6px 10px;border-radius:999px;background:var(--ink);color:var(--bg)}
+.sedne .ph{background:linear-gradient(#0E0E10,#0E0E10) padding-box,var(--iris) border-box;border:1px solid transparent}
+@keyframes scrollup{to{transform:translateY(-50%)}}
+/* bento */
+.bento{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;margin-top:34px}
+.bento .card{grid-column:span 2}.bento .card:nth-child(1),.bento .card:nth-child(2){grid-column:span 3}
+.bento .card:nth-child(1) b,.bento .card:nth-child(2) b{font-size:34px}
+.bbento .card{grid-column:span 3!important}
+.bento .card:nth-child(1){background:linear-gradient(var(--raised),var(--raised)) padding-box,var(--iris) border-box;border:1px solid transparent}
+/* marquee */
+.marquee{position:relative;z-index:1;overflow:hidden;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:18px 0;background:var(--bg)}
+.track{display:flex;gap:48px;width:max-content;animation:marq 28s linear infinite;font:italic 400 34px/1 var(--serif);color:var(--mut);white-space:nowrap}
+.track span:nth-child(6n){color:var(--ink)}.track span:nth-child(6n)::before{content:"✓ ";background:var(--iris);-webkit-background-clip:text;background-clip:text;color:transparent}
+@keyframes marq{to{transform:translateX(-50%)}}
+/* brands: light half */
+.b2b{position:relative;z-index:1;background:#F2F0EC;color:#0B0B0C;--ink:#0B0B0C;--mut:rgba(11,11,12,.7);--faint:rgba(11,11,12,.48);--line:rgba(11,11,12,.12);--glass:#FFFFFF;--glass2:#FFFFFF;--raised:#FFFFFF;--bg:#F2F0EC;padding-bottom:88px}
+.b2b .opener{padding-top:72px}
+.bhead{padding:8px 0 10px}.bhead h2{max-width:14em}
+.b2b .card{box-shadow:0 1px 0 rgba(11,11,12,.04),0 12px 30px -20px rgba(11,11,12,.25)}
+.b2b .bento .card:nth-child(1){background:linear-gradient(#fff,#fff) padding-box,var(--iris) border-box}
+.partner{padding:48px 0 8px}.psteps{margin-top:24px}
+.b2b .step{background:#fff}.b2b .step::before{background:#0B0B0C;color:#F2F0EC;border-color:#0B0B0C}
+.b2b .bneed{background:#0B0B0C;color:#F5F3EF;--mut:rgba(245,243,239,.72);--faint:rgba(245,243,239,.5);--line:rgba(255,255,255,.14);border:0;margin-top:28px}
+.b2b .bneed .pill.dark{background:#F5F3EF;color:#0B0B0C}
+.b2b .r{opacity:1;transform:none}
+@media (max-width:900px){.demo2{grid-template-columns:1fr}.bento{grid-template-columns:1fr}.bento .card,.bento .card:nth-child(1),.bento .card:nth-child(2){grid-column:auto}.opener{padding:48px 0 20px}.ph{height:260px}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.r{opacity:1;transform:none}.ly{opacity:1}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+<a class="brand" href="https://projektargo.com/sedne/"><svg viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="i" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#B8A9FF"/><stop offset=".5" stop-color="#8FE3E0"/><stop offset="1" stop-color="#FFC6A8"/></linearGradient></defs><path d="M10 44c0-14 8-20 14-22l4-1h8l4 1c6 2 14 8 14 22v4a3 3 0 0 1-3 3H13a3 3 0 0 1-3-3z" fill="#F5F3EF"/><path d="M26 21c1 5 4 8 6 8s5-3 6-8" fill="none" stroke="#0B0B0C" stroke-width="3" stroke-linecap="round"/><path d="M27 21.5c1 4 3.5 6.5 5 6.5s4-2.5 5-6.5" fill="none" stroke="url(#i)" stroke-width="1.6" stroke-linecap="round"/></svg><span class="wm">sedne<i>.</i></span></a>
+<nav class="nav"><a class="pill ghost tx" href="#why">For you</a><a class="pill ghost tx" href="#brands">For brands</a><a class="pill ghost" href="https://projektargo.com/sedne/sk/" hreflang="sk" lang="sk" aria-label="Slovenčina">SK</a><a class="pill solid" href="#waitlist">Join the waitlist</a></nav>
+</header>
+<main>
+<section class="hero">
+<div>
+<span class="badge"><i></i>In development</span>
+<h1>Stop scrolling. <em>Get dressed.</em></h1>
+<p class="lead">Sedne shows you only the pieces that fit you, put together as an outfit and on your own photo. You buy them in a shop you already know. No evenings lost to scrolling, no parcels going back.</p>
+<a class="pill solid" href="#waitlist">I want early access</a>
+<span class="note">Just your email. One message when the app launches.</span>
+<p class="meaning">sedne is Slovak for “it fits you”.</p>
+<div class="plat"><b>Coming to</b><span>iPhone</span><span>Android</span><span>Web</span><span>Windows</span><span>macOS</span></div>
+</div>
+<div class="stage" aria-hidden="true"><div class="deck"><div class="shadow"></div><div class="ly f-shoe light" style="--z:0px;--i:0"><b><span class="gi"><svg viewBox="0 0 64 64"><path d="M6 41v-7q0-5 5-6h7l3-6h6l10 12c4 4 10 5 16 6l5 1v5H6z" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 41h52M27 25l5-2M31 30l5-2" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Shoes</b><small><i></i>43 · fits</small></div><div class="ly f-denim" style="--z:48px;--i:1"><b><span class="gi"><svg viewBox="0 0 64 64"><path d="M21 13h22l4 38h-10l-5-23-5 23H17z" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M21 21h22" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Trousers</b><small><i></i>32/32 · fits</small></div><div class="ly f-cotton light" style="--z:96px;--i:2"><b><span class="gi"><svg viewBox="0 0 64 64"><path d="M20 18l9-4a3.5 3.5 0 0 0 6 0l9 4 7 10-7 4v19H20V32l-7-4z" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>T-shirt</b><small><i></i>L · fits</small></div><div class="ly f-fleece" style="--z:144px;--i:3"><b><span class="gi"><svg viewBox="0 0 64 64"><path d="M24 20a8 8 0 0 1 16 0l7 3 3 25-8 1-1-17v21H23V32l-1 17-8-1 3-25z" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M27 20c0 4 2 6 5 6s5-2 5-6M24 53v-8h16v8" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Hoodie</b><small><i></i>XL · fits</small></div><div class="ly f-leather" style="--z:192px;--i:4"><b><span class="gi"><svg viewBox="0 0 64 64"><path d="M24 13h16l8 4 3 25-8 1-1-17v27H22V26l-1 17-8-1 3-25z" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M32 24l-8-11M32 24l8-11M32 24v29" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Jacket</b><small><i></i>L · fits</small></div></div></div>
+</section>
+<section class="opener" id="why"><h2 class="big">For you.</h2><span class="eyebrow">Why people want it</span></section>
+<section class="demo2 r">
+<div class="pane today"><div class="ph"><div class="feed"><i style="--h:96px;--o:0.14"></i><i style="--h:120px;--o:0.22"></i><i style="--h:110px;--o:0.1"></i><i style="--h:88px;--o:0.18"></i><i style="--h:124px;--o:0.26"></i><i style="--h:100px;--o:0.12"></i><i style="--h:92px;--o:0.2"></i><i style="--h:116px;--o:0.16"></i><i style="--h:104px;--o:0.15"></i><i style="--h:98px;--o:0.2"></i><i style="--h:96px;--o:0.14"></i><i style="--h:120px;--o:0.22"></i><i style="--h:110px;--o:0.1"></i><i style="--h:88px;--o:0.18"></i><i style="--h:124px;--o:0.26"></i><i style="--h:100px;--o:0.12"></i><i style="--h:92px;--o:0.2"></i><i style="--h:116px;--o:0.16"></i><i style="--h:104px;--o:0.15"></i><i style="--h:98px;--o:0.2"></i></div><div class="timer"><b data-timer>00:00</b><span>of scrolling</span></div></div><h3>Today</h3><p>An endless list. You guess the size.</p></div>
+<div class="pane sedne"><div class="ph"><div class="picks"><div class="pick" style="--d:0.0s"><b>Jacket</b><em>L · fits</em></div><div class="pick" style="--d:0.25s"><b>Hoodie</b><em>XL · fits</em></div><div class="pick" style="--d:0.5s"><b>Trousers</b><em>32/32 · fits</em></div></div></div><h3>With Sedne</h3><p>Three pieces. All of them fit.</p></div>
+</section>
+<section class="why"><div class="grid why-grid"><article class="card r"><b>Minutes, not hours</b><p>Instead of hundreds of products you see the few that fit you. Choosing takes minutes, not an evening of scrolling.</p></article><article class="card r"><b>Nothing goes back</b><p>You don&#x27;t guess the size. Sedne remembers which size fits you in each brand and suggests only that one.</p></article><article class="card r"><b>You see it on you</b><p>The outfit on your photo, not on a model. You know what you&#x27;re buying before you tap.</p></article></div></section>
+<section class="pain r">
+<span class="eyebrow">You know the feeling</span>
+<p class="lines"><span>The parcel arrives.</span><span>It doesn&#x27;t fit.</span><span>It goes back.</span></p>
+<p>Hours of scrolling, one brand&#x27;s L is another brand&#x27;s M, the photo on the model says nothing about how it looks on you, and the piece you love goes with nothing you own. Sedne is built around exactly these problems.</p>
+</section>
+<section class="how">
+<div class="r"><span class="eyebrow">How it works</span><h2>Three steps from phone to wardrobe.</h2></div>
+<ol class="steps"><li class="step r"><div class="ui" aria-hidden="true"><span class="sz">M</span><span class="sz on">L</span><span class="sz on">XL</span><span class="sz">XXL</span><span class="cut">Oversized</span></div><b class="t">Tell it what fits</b><p>Your height, the sizes you actually wear and the cut you like. Two sizes at once if you&#x27;re between L and XL.</p></li><li class="step r"><div class="ui" aria-hidden="true"><div class="row"><i></i>T-shirt<em>fits</em></div><div class="row"><i></i>Hoodie<em>fits</em></div><div class="row"><i></i>Jacket<em>fits</em></div></div><b class="t">Build in the fitting room</b><p>T-shirt, hoodie, jacket, trousers, shoes. Each piece lands on your photo as the next layer.</p></li><li class="step r"><div class="ui" aria-hidden="true"><div class="buy"><span>Jacket · L</span><b>Buy in shop</b></div></div><b class="t">Buy only what fits</b><p>Every piece links straight to the shop. No guessing the size.</p></li></ol>
+</section>
+<section class="feat">
+<div class="r"><span class="eyebrow">What it does</span><h2>Made for real bodies, not catalogue models.</h2></div>
+<div class="bento"><article class="card r"><b>Two sizes at once</b><p>Wear both L and XL? Pick both. The app remembers which one fit you in which brand.</p></article><article class="card r"><b>Cut to your mood</b><p>Oversized or fitted. The outfit shows on your photo the way you&#x27;d actually wear it.</p></article><article class="card r"><b>A memory for brands</b><p>Fit, too small, too big. Every bit of feedback makes the next suggestion better.</p></article><article class="card r"><b>Petite to 6XL</b><p>Regular, Petite, Tall, Plus and Big &amp; Tall. No limits on height or weight.</p></article><article class="card r"><b>The whole family</b><p>Up to five children&#x27;s profiles under a parent&#x27;s control. Kids&#x27; sizes by height, from babies to juniors.</p></article><article class="card r"><b>Every screen you own</b><p>Phone in the shop, laptop at home. One account, one wardrobe, the same fitting room everywhere.</p></article></div>
+</section>
+<section class="fam r">
+<div><span class="eyebrow">One account</span><h2>You, your kids, one wardrobe.</h2><p>Switch between profiles in a tap. Every person has their own sizes, their own style and their own fitting room — and a parent keeps control of the children&#x27;s.</p></div>
+<div class="prof" aria-hidden="true"><span><i>M</i>Me</span><span><i>D</i>Daughter</span><span><i>S</i>Son</span><span>+</span></div>
+</section>
+<section class="priv r"><svg viewBox="0 0 40 40" fill="none" aria-hidden="true"><defs><linearGradient id="ir" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#B8A9FF"/><stop offset=".5" stop-color="#8FE3E0"/><stop offset="1" stop-color="#FFC6A8"/></linearGradient></defs><path d="M20 4 33 9v10c0 8.3-5.6 14.6-13 17-7.4-2.4-13-8.7-13-17V9z" stroke="url(#ir)" stroke-width="2" stroke-linejoin="round"/><path d="m14 20 4.2 4.2L26.5 16" stroke="#F5F3EF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><div><h3>Privacy from day one</h3><p>Accounts from 16, children&#x27;s profiles managed by a parent, and the app asks only for what changes your size or style. No one — adult or child — is ever photographed or stored undressed.</p></div></section>
+<section class="road">
+<div class="r"><span class="eyebrow">Roadmap</span><h2>Where we&#x27;re going, and when.</h2></div>
+<ol class="miles"><li class="mile r"><b>Finish v2</b><p>The family version: children&#x27;s profiles and sizes from kids to 6XL. Developer accounts opened, affiliate programmes requested from the first shops.</p></li><li class="mile r now"><b>Test version for the waitlist</b><p>TestFlight on iPhone and a closed test on Android. People on the list get it first.</p></li><li class="mile r"><b>Public release</b><p>App Store and Google Play.</p></li></ol>
+<p class="later r">Later: web, Windows and macOS. One account everywhere.</p>
+</section>
+<section class="wl r" id="waitlist">
+<div><span class="eyebrow">Waitlist</span><h2>Be first in line.</h2><p>Sedne isn&#x27;t in the stores yet. Leave your email and we&#x27;ll write once, when it&#x27;s ready. People on the list get it first.</p></div>
+<div class="open"><a class="pill solid xl" href="https://tally.so/r/q55jj8?src=landing-en" target="_blank" rel="noopener" data-tally-open="q55jj8" data-tally-layout="modal" data-tally-width="520" data-tally-overlay="1" data-tally-hidden-src="landing-en">I want early access</a><span class="note">Opens a short form: your email and which phone you use.</span></div>
+</section>
+</main></div>
+<div class="marquee" aria-hidden="true"><div class="track"><span>T-shirt</span><span>Hoodie</span><span>Jacket</span><span>Trousers</span><span>Shoes</span><span>it fits</span><span>T-shirt</span><span>Hoodie</span><span>Jacket</span><span>Trousers</span><span>Shoes</span><span>it fits</span></div></div>
+<div class="b2b" id="brands"><div class="wrap">
+<section class="opener light"><h2 class="big">For brands.</h2><span class="eyebrow">For brands and shops</span></section>
+<section class="bhead r"><h2>A customer who already knows what fits.</h2><p class="blead">Sedne sends people to your shop who have already put the outfit together, seen it on themselves and picked the size that fits them in your brand. You sell; we brought them to you.</p></section>
+<div class="bento bbento"><article class="card r"><b>Fewer returns</b><p>The customer orders the size that fits them in your brand, not a guess. Returns are the most expensive part of an order, and Sedne works on them at the moment of choice.</p></article><article class="card r"><b>Whole outfits, not single pieces</b><p>People build outfits in Sedne. The jacket, the hoodie and the trousers go to the basket together, not one item at a time.</p></article><article class="card r"><b>You pay only for sales</b><p>We work through your affiliate programme: no setup fee, a commission only on orders that came through Sedne.</p></article><article class="card r"><b>A new channel for Slovakia and Czechia</b><p>Sedne is built for the Slovak and Czech market first, with family profiles and sizes from kids to 6XL. Your brand is there from day one.</p></article></div>
+<section class="partner"><div class="r"><h2>How the partnership works</h2></div><ol class="steps psteps"><li class="step r"><b class="t">You send a feed</b><p>A product feed or access to your affiliate programme. Size charts help, but aren&#x27;t required.</p></li><li class="step r"><b class="t">Sedne shows your pieces to the right people</b><p>Only to people they fit, in their size, inside a whole outfit, on their own photo.</p></li><li class="step r"><b class="t">The customer buys from you</b><p>On your site, at your price. You pay a commission only on that order.</p></li></ol></section>
+<div class="bneed r"><div><b>What we need from you</b><p>A product feed or an affiliate programme, and ideally your size charts. The rest is on us.</p></div>
+<div class="open"><a class="pill solid xl dark" href="https://tally.so/r/M11vdX?src=landing-en" target="_blank" rel="noopener" data-tally-open="M11vdX" data-tally-layout="modal" data-tally-width="560" data-tally-overlay="1" data-tally-hidden-src="landing-en">Let&#x27;s talk</a><span class="note">Opens a short form: brand, contact and what you sell. We reply personally.</span></div></div>
+</div></div>
+<div class="wrap"><main>
+<section class="faq r">
+<h2>Questions</h2>
+<details><summary>When does it launch?</summary><p>The app already runs as a test version. We&#x27;re finishing the family version now and preparing the iPhone and Android release. People on the waitlist get the test version this year; the public release is planned for early 2027. The roadmap above is what we hold ourselves to.</p></details><details><summary>Where will it run?</summary><p>iPhone and Android first, then the web, Windows and macOS. One account everywhere.</p></details><details><summary>What will it cost?</summary><p>We&#x27;re still deciding. People on the waitlist will know first.</p></details><details><summary>What happens to my photos?</summary><p>They&#x27;re used only to show the outfit on you. No one — adult or child — is ever photographed or stored undressed.</p></details><details><summary>Where do the clothes come from?</summary><p>From shops you already know. You buy each piece directly from them, at their price.</p></details>
+</section>
+</main>
+<footer><span class="brand"><svg viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="i" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#B8A9FF"/><stop offset=".5" stop-color="#8FE3E0"/><stop offset="1" stop-color="#FFC6A8"/></linearGradient></defs><path d="M10 44c0-14 8-20 14-22l4-1h8l4 1c6 2 14 8 14 22v4a3 3 0 0 1-3 3H13a3 3 0 0 1-3-3z" fill="#F5F3EF"/><path d="M26 21c1 5 4 8 6 8s5-3 6-8" fill="none" stroke="#0B0B0C" stroke-width="3" stroke-linecap="round"/><path d="M27 21.5c1 4 3.5 6.5 5 6.5s4-2.5 5-6.5" fill="none" stroke="url(#i)" stroke-width="1.6" stroke-linecap="round"/></svg>sedne. is a project by Štefan Toporcer.</span><a href="https://projektargo.com/">projektargo.com</a></footer>
+</div>
+<script>
+(function(){var d=document;
+var tm=d.querySelector("[data-timer]");if(tm){var t0=Date.now();setInterval(function(){var sec=Math.floor((Date.now()-t0)/1000);tm.textContent=String(Math.floor(sec/60)).padStart(2,"0")+":"+String(sec%60).padStart(2,"0")},1000)}
+var s=d.createElement("script");s.src="https://tally.so/widgets/embed.js";s.async=true;d.body.appendChild(s);
+d.querySelectorAll("[data-tally-open]").forEach(function(a){a.addEventListener("click",function(ev){if(window.Tally&&Tally.openPopup){ev.preventDefault();Tally.openPopup(a.dataset.tallyOpen,{layout:"modal",width:+a.dataset.tallyWidth,overlay:true,hiddenFields:{src:a.dataset.tallyHiddenSrc}})}})});})();
+</script>
+</body>
+</html>
