@@ -96,6 +96,50 @@ backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
 .blead{margin-top:4px}
 .bneed{display:grid;grid-template-columns:.9fr 1.1fr;gap:36px;margin-top:16px;padding:40px 36px;border-radius:32px;background:var(--glass);border:1px solid var(--line)}
 .bneed b{display:block;font:400 30px/1.1 var(--serif);margin-bottom:8px}.bneed p{margin:0;color:var(--mut);font-size:16px}
+/* app screens: no device, just the screen */
+.scr{position:relative;aspect-ratio:1179/2556;border-radius:34px;overflow:hidden;background:#0E0E12;border:1px solid rgba(255,255,255,.18);
+box-shadow:0 1px 0 rgba(255,255,255,.08) inset,0 50px 90px -30px rgba(0,0,0,.9)}
+.scr::after{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;border-radius:34px;
+background:linear-gradient(105deg,rgba(255,255,255,.12) 0%,rgba(255,255,255,.03) 22%,transparent 40%,transparent 70%,rgba(255,255,255,.05) 100%)}
+/* 3D: a thin glass slab in perspective, hover straightens */
+.p3d{perspective:1600px}
+.tilt{transform-style:preserve-3d;transition:transform 1s var(--ease);transform:rotateY(var(--ry,-18deg)) rotateX(var(--rx,6deg))}
+.p3d:hover .tilt{transform:rotateY(0) rotateX(0)}
+.tilt .scr{box-shadow:0 1px 0 rgba(255,255,255,.08) inset,
+ -1px 1px 0 #2A2A30,-2px 2px 0 #26262B,-3px 3px 0 #222227,-4px 4px 0 #1E1E23,-5px 5px 0 #1B1B20,-6px 6px 0 #18181D,
+ -30px 50px 90px -30px rgba(0,0,0,.95)}
+.step:nth-child(1) .tilt{--ry:-16deg;--rx:5deg}.step:nth-child(2) .tilt{--ry:0deg;--rx:0deg}.step:nth-child(3) .tilt{--ry:16deg;--rx:5deg}
+.step:nth-child(3) .tilt .scr{box-shadow:0 1px 0 rgba(255,255,255,.08) inset,1px 1px 0 #2A2A30,2px 2px 0 #26262B,3px 3px 0 #222227,4px 4px 0 #1E1E23,5px 5px 0 #1B1B20,6px 6px 0 #18181D,30px 50px 90px -30px rgba(0,0,0,.95)}
+.scr img{display:block;width:100%;height:auto}
+.scr img.roll{animation:roll 14s ease-in-out infinite alternate}
+@keyframes roll{0%,12%{transform:none}88%,100%{transform:translateY(var(--sc))}}
+.step .scr{margin:0 auto;max-width:224px}.step .p3d{margin:6px 0 24px}
+.s3d{position:relative}.step .s3d{max-width:224px;margin:0 auto}
+.s3d canvas{display:none;position:absolute;left:-14%;top:-9%;width:128%;height:118%;pointer-events:none}
+.s3d.live canvas{display:block}.s3d.live .scr{visibility:hidden}
+.tilt.flat,.p3d:hover .tilt.flat{transform:none}.tilt.flat .scr{box-shadow:none}
+.step{overflow:hidden}
+.trailer{justify-self:center;text-align:center;animation:rise 1.1s var(--ease) .2s both}
+.scr.big{width:300px;margin:0 auto}
+.scr.big .slides{position:relative;aspect-ratio:1179/2556}
+.scr.big .slides img{position:absolute;inset:0;width:100%;opacity:0;animation:slide 15s infinite;animation-delay:calc(var(--i) * 5s)}
+.scr.big .slides img.roll{animation:slide 15s infinite,roll 5s ease-in-out infinite alternate;animation-delay:calc(var(--i) * 5s),calc(var(--i) * 5s)}
+@keyframes slide{0%{opacity:0}5%,30%{opacity:1}36%,100%{opacity:0}}
+.caption{margin:16px 0 0;font-size:12px;color:var(--faint)}
+.stagep{display:grid;place-items:center;perspective:1200px}.stagep .deck{width:230px;height:152px;transform:rotateX(56deg) rotateZ(-28deg) translateZ(-70px)}
+.stagep .ly b{font-size:24px}.stagep .ly{padding:12px 14px}.stagep .ly .gi{width:30px;height:30px}.stagep .ly small{white-space:nowrap;font-size:10px;padding:5px 8px}.stagep .deck{margin-top:40px}
+/* situations */
+.findh{margin-bottom:22px}
+.finds{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.find{padding:26px 28px;border-radius:26px;background:var(--glass);border:1px solid var(--line)}
+.find q{display:block;quotes:"„" "“";font:italic 400 28px/1.15 var(--serif);margin-bottom:12px}
+.find p{margin:0;color:var(--mut);font-size:15px}
+/* brands extras */
+.example{padding:26px 30px;border-radius:26px;background:#0B0B0C;color:#F5F3EF;--mut:rgba(245,243,239,.78);--faint:rgba(245,243,239,.55);margin-top:28px}
+.example p{margin:0;font:400 22px/1.35 var(--serif);max-width:40em}
+.who{display:flex;gap:20px;align-items:flex-start;padding:28px 30px;border-radius:26px;background:#fff;border:1px solid var(--line);margin-top:28px}
+.who img{width:72px;height:72px;border-radius:50%;object-fit:cover;flex:none}
+.who p{margin:0 0 8px;color:var(--mut)}.who a{font-weight:600;color:#0B0B0C}
 /* pain */
 .pain{padding:72px 0 64px;border-top:1px solid var(--line)}
 .pain .lines{font:400 clamp(44px,8vw,104px)/1 var(--serif);letter-spacing:-.03em;margin:0 0 26px}
@@ -171,7 +215,7 @@ footer .brand{font-size:14px;color:var(--mut)}footer .brand svg{width:22px;heigh
 @keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
 @keyframes sh{to{background-position:200% 0}}
 @media (max-width:900px){.hero{grid-template-columns:1fr;gap:8px;padding:24px 0 24px;min-height:0}.stage{height:440px;order:2}.deck{width:250px;height:166px}.ly b{font-size:28px}
-.steps,.grid,.grid.bgrid,.miles{grid-template-columns:1fr}.miles::before{display:none}.fam,.wl,.bneed{grid-template-columns:1fr;padding:32px 22px;gap:22px}.nav .tx{display:none}.priv{padding:26px 22px}.nav .solid{display:none}}
+.steps,.grid,.grid.bgrid,.miles,.finds{grid-template-columns:1fr}.scr.big{width:250px}.tilt{transform:none}.find q{font-size:24px}.miles::before{display:none}.fam,.wl,.bneed{grid-template-columns:1fr;padding:32px 22px;gap:22px}.nav .tx{display:none}.priv{padding:26px 22px}.nav .solid{display:none}}
 @media (max-width:420px){.stage{height:400px}.deck{width:224px;height:150px}.ly{padding:14px 16px}.ly b{font-size:25px}.step,.card{padding:22px}.pain{padding:56px 0 48px}.priv{grid-template-columns:1fr}}
 /* openers */
 .opener{padding:72px 0 28px}.opener .big{font:italic 400 clamp(72px,14vw,180px)/1.08 var(--serif);letter-spacing:-.01em;margin:0 0 6px;padding:0 .08em .04em 0;display:inline-block;
@@ -231,20 +275,20 @@ animation:rise .8s var(--ease) both;animation-delay:var(--d)}
 <div>
 <span class="badge"><i></i>In development</span>
 <h1>Stop scrolling. <em>Get dressed.</em></h1>
-<p class="lead">Sedne shows you only the pieces that fit you, put together as an outfit and on your own photo. You buy them in a shop you already know. No evenings lost to scrolling, no parcels going back.</p>
+<p class="lead">Only what fits you. On your own photo. Bought from the shop you know.</p>
 <a class="pill solid" href="#waitlist">I want early access</a>
 <span class="note">Just your email. One message when the app launches.</span>
 <p class="meaning">sedne is Slovak for “it fits you”.</p>
-<div class="plat"><b>Coming to</b><span>iPhone</span><span>Android</span><span>Web</span><span>Windows</span><span>macOS</span></div>
+<div class="plat"><b>Coming to</b><span>iPhone</span><span>Android</span><span>Web</span></div>
 </div>
-<div class="stage" aria-hidden="true"><div class="deck"><div class="shadow"></div><div class="ly f-shoe light" style="--z:0px;--i:0"><b><span class="gi"><svg viewBox="0 0 64 64"><path d="M6 41v-7q0-5 5-6h7l3-6h6l10 12c4 4 10 5 16 6l5 1v5H6z" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 41h52M27 25l5-2M31 30l5-2" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Shoes</b><small><i></i>43 · fits</small></div><div class="ly f-denim" style="--z:48px;--i:1"><b><span class="gi"><svg viewBox="0 0 64 64"><path d="M21 13h22l4 38h-10l-5-23-5 23H17z" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M21 21h22" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Trousers</b><small><i></i>32/32 · fits</small></div><div class="ly f-cotton light" style="--z:96px;--i:2"><b><span class="gi"><svg viewBox="0 0 64 64"><path d="M20 18l9-4a3.5 3.5 0 0 0 6 0l9 4 7 10-7 4v19H20V32l-7-4z" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>T-shirt</b><small><i></i>L · fits</small></div><div class="ly f-fleece" style="--z:144px;--i:3"><b><span class="gi"><svg viewBox="0 0 64 64"><path d="M24 20a8 8 0 0 1 16 0l7 3 3 25-8 1-1-17v21H23V32l-1 17-8-1 3-25z" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M27 20c0 4 2 6 5 6s5-2 5-6M24 53v-8h16v8" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Hoodie</b><small><i></i>XL · fits</small></div><div class="ly f-leather" style="--z:192px;--i:4"><b><span class="gi"><svg viewBox="0 0 64 64"><path d="M24 13h16l8 4 3 25-8 1-1-17v27H22V26l-1 17-8-1 3-25z" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M32 24l-8-11M32 24l8-11M32 24v29" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Jacket</b><small><i></i>L · fits</small></div></div></div>
+<div class="trailer p3d"><div class="tilt"><div class="s3d" data-mode="turn" data-src='["/sedne/img/kabinka.jpg","/sedne/img/kusok.jpg","/sedne/img/profil.jpg"]' data-size='[[720, 1561],[720, 1871],[720, 1561]]' data-ry="-0.22" data-rx="0.05"><canvas aria-hidden="true"></canvas><div class="scr big"><div class="slides"><img src="/sedne/img/kabinka.jpg" alt="" style="--i:0" loading="eager"><img src="/sedne/img/kusok.jpg" alt="" style="--i:1;--sc:-16.6%" class="roll" loading="lazy"><img src="/sedne/img/profil.jpg" alt="" style="--i:2" loading="lazy"></div></div></div></div><p class="caption">Real screens from the test version.</p></div>
 </section>
 <section class="opener" id="why"><h2 class="big">For you.</h2><span class="eyebrow">Why people want it</span></section>
 <section class="demo2 r">
 <div class="pane today"><div class="ph"><div class="feed"><i style="--h:96px;--o:0.14"></i><i style="--h:120px;--o:0.22"></i><i style="--h:110px;--o:0.1"></i><i style="--h:88px;--o:0.18"></i><i style="--h:124px;--o:0.26"></i><i style="--h:100px;--o:0.12"></i><i style="--h:92px;--o:0.2"></i><i style="--h:116px;--o:0.16"></i><i style="--h:104px;--o:0.15"></i><i style="--h:98px;--o:0.2"></i><i style="--h:96px;--o:0.14"></i><i style="--h:120px;--o:0.22"></i><i style="--h:110px;--o:0.1"></i><i style="--h:88px;--o:0.18"></i><i style="--h:124px;--o:0.26"></i><i style="--h:100px;--o:0.12"></i><i style="--h:92px;--o:0.2"></i><i style="--h:116px;--o:0.16"></i><i style="--h:104px;--o:0.15"></i><i style="--h:98px;--o:0.2"></i></div><div class="timer"><b data-timer>00:00</b><span>of scrolling</span></div></div><h3>Today</h3><p>An endless list. You guess the size.</p></div>
-<div class="pane sedne"><div class="ph"><div class="picks"><div class="pick" style="--d:0.0s"><b>Jacket</b><em>L · fits</em></div><div class="pick" style="--d:0.25s"><b>Hoodie</b><em>XL · fits</em></div><div class="pick" style="--d:0.5s"><b>Trousers</b><em>32/32 · fits</em></div></div></div><h3>With Sedne</h3><p>Three pieces. All of them fit.</p></div>
+<div class="pane sedne"><div class="ph stagep" aria-hidden="true"><div class="deck"><div class="shadow"></div><div class="ly f-shoe light" style="--z:0px;--i:0"><b><span class="gi"><svg viewBox="0 0 64 64"><path d="M6 41v-7q0-5 5-6h7l3-6h6l10 12c4 4 10 5 16 6l5 1v5H6z" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 41h52M27 25l5-2M31 30l5-2" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Shoes</b><small><i></i>43 · fits</small></div><div class="ly f-denim" style="--z:48px;--i:1"><b><span class="gi"><svg viewBox="0 0 64 64"><path d="M21 13h22l4 38h-10l-5-23-5 23H17z" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M21 21h22" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Trousers</b><small><i></i>32/32 · fits</small></div><div class="ly f-cotton light" style="--z:96px;--i:2"><b><span class="gi"><svg viewBox="0 0 64 64"><path d="M20 18l9-4a3.5 3.5 0 0 0 6 0l9 4 7 10-7 4v19H20V32l-7-4z" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>T-shirt</b><small><i></i>L · fits</small></div><div class="ly f-fleece" style="--z:144px;--i:3"><b><span class="gi"><svg viewBox="0 0 64 64"><path d="M24 20a8 8 0 0 1 16 0l7 3 3 25-8 1-1-17v21H23V32l-1 17-8-1 3-25z" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M27 20c0 4 2 6 5 6s5-2 5-6M24 53v-8h16v8" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Hoodie</b><small><i></i>XL · fits</small></div><div class="ly f-leather" style="--z:192px;--i:4"><b><span class="gi"><svg viewBox="0 0 64 64"><path d="M24 13h16l8 4 3 25-8 1-1-17v27H22V26l-1 17-8-1 3-25z" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M32 24l-8-11M32 24l8-11M32 24v29" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Jacket</b><small><i></i>L · fits</small></div></div></div><h3>With Sedne</h3><p>Five pieces. All of them fit.</p></div>
 </section>
-<section class="why"><div class="grid why-grid"><article class="card r"><b>Minutes, not hours</b><p>Instead of hundreds of products you see the few that fit you. Choosing takes minutes, not an evening of scrolling.</p></article><article class="card r"><b>Nothing goes back</b><p>You don&#x27;t guess the size. Sedne remembers which size fits you in each brand and suggests only that one.</p></article><article class="card r"><b>You see it on you</b><p>The outfit on your photo, not on a model. You know what you&#x27;re buying before you tap.</p></article></div></section>
+<section class="why"><h2 class="findh">Sound familiar?</h2><div class="finds"><article class="find"><q>You wear L and XL and never know which one to order.</q><p>Sedne remembers which size fits you in which brand.</p></article><article class="find"><q>Every other parcel goes back.</q><p>You buy the size that fits, not a guess.</p></article><article class="find"><q>You spent the evening scrolling and bought nothing.</q><p>You see only what fits you. Deciding takes minutes.</p></article><article class="find"><q>You buy the kids&#x27; clothes blind.</q><p>Children&#x27;s profiles with sizes by height, managed by you.</p></article></div></section>
 <section class="pain r">
 <span class="eyebrow">You know the feeling</span>
 <p class="lines"><span>The parcel arrives.</span><span>It doesn&#x27;t fit.</span><span>It goes back.</span></p>
@@ -252,7 +296,7 @@ animation:rise .8s var(--ease) both;animation-delay:var(--d)}
 </section>
 <section class="how">
 <div class="r"><span class="eyebrow">How it works</span><h2>Three steps from phone to wardrobe.</h2></div>
-<ol class="steps"><li class="step r"><div class="ui" aria-hidden="true"><span class="sz">M</span><span class="sz on">L</span><span class="sz on">XL</span><span class="sz">XXL</span><span class="cut">Oversized</span></div><b class="t">Tell it what fits</b><p>Your height, the sizes you actually wear and the cut you like. Two sizes at once if you&#x27;re between L and XL.</p></li><li class="step r"><div class="ui" aria-hidden="true"><div class="row"><i></i>T-shirt<em>fits</em></div><div class="row"><i></i>Hoodie<em>fits</em></div><div class="row"><i></i>Jacket<em>fits</em></div></div><b class="t">Build in the fitting room</b><p>T-shirt, hoodie, jacket, trousers, shoes. Each piece lands on your photo as the next layer.</p></li><li class="step r"><div class="ui" aria-hidden="true"><div class="buy"><span>Jacket · L</span><b>Buy in shop</b></div></div><b class="t">Buy only what fits</b><p>Every piece links straight to the shop. No guessing the size.</p></li></ol>
+<ol class="steps"><li class="step r"><div class="p3d"><div class="tilt"><div class="s3d" data-src='["/sedne/img/profil.jpg"]' data-size='[[720, 1561]]' data-ry="-0.3" data-rx="0.04"><canvas aria-hidden="true"></canvas><div class="scr"><img src="/sedne/img/profil.jpg" alt="Profile" loading="lazy"></div></div></div></div><b class="t">Profile</b><p>Your sizes, your cut, your family in one place.</p></li><li class="step r"><div class="p3d"><div class="tilt"><div class="s3d" data-src='["/sedne/img/kabinka.jpg"]' data-size='[[720, 1561]]' data-ry="0" data-rx="0.04"><canvas aria-hidden="true"></canvas><div class="scr"><img src="/sedne/img/kabinka.jpg" alt="Fitting room" loading="lazy"></div></div></div></div><b class="t">Fitting room</b><p>The outfit on your own photo, layer by layer.</p></li><li class="step r"><div class="p3d"><div class="tilt"><div class="s3d" data-src='["/sedne/img/kusok.jpg"]' data-size='[[720, 1871]]' data-ry="0.3" data-rx="0.04"><canvas aria-hidden="true"></canvas><div class="scr"><img src="/sedne/img/kusok.jpg" alt="Buy only what fits" loading="lazy" class="roll" style="--sc:-16.6%"></div></div></div></div><b class="t">Buy only what fits</b><p>Size advice for this exact piece, then straight to the shop.</p></li></ol>
 </section>
 <section class="feat">
 <div class="r"><span class="eyebrow">What it does</span><h2>Made for real bodies, not catalogue models.</h2></div>
@@ -266,7 +310,7 @@ animation:rise .8s var(--ease) both;animation-delay:var(--d)}
 <section class="road">
 <div class="r"><span class="eyebrow">Roadmap</span><h2>Where we&#x27;re going, and when.</h2></div>
 <ol class="miles"><li class="mile r"><b>Finish v2</b><p>The family version: children&#x27;s profiles and sizes from kids to 6XL. Developer accounts opened, affiliate programmes requested from the first shops.</p></li><li class="mile r now"><b>Test version for the waitlist</b><p>TestFlight on iPhone and a closed test on Android. People on the list get it first.</p></li><li class="mile r"><b>Public release</b><p>App Store and Google Play.</p></li></ol>
-<p class="later r">Later: web, Windows and macOS. One account everywhere.</p>
+<p class="later r">Later: the web version. One account everywhere.</p>
 </section>
 <section class="wl r" id="waitlist">
 <div><span class="eyebrow">Waitlist</span><h2>Be first in line.</h2><p>Sedne isn&#x27;t in the stores yet. Leave your email and we&#x27;ll write once, when it&#x27;s ready. People on the list get it first.</p></div>
@@ -277,15 +321,17 @@ animation:rise .8s var(--ease) both;animation-delay:var(--d)}
 <div class="b2b" id="brands"><div class="wrap">
 <section class="opener light"><h2 class="big">For brands.</h2><span class="eyebrow">For brands and shops</span></section>
 <section class="bhead r"><h2>A customer who already knows what fits.</h2><p class="blead">Sedne sends people to your shop who have already put the outfit together, seen it on themselves and picked the size that fits them in your brand. You sell; we brought them to you.</p></section>
+<div class="example r"><span class="eyebrow">One order, step by step</span><p>A customer builds a jacket and trousers in Sedne, both in the size that fitted her in your brand last time. She taps Buy, lands on your site and orders. You pay a commission only on that order. No order, no cost.</p></div>
 <div class="bento bbento"><article class="card r"><b>Fewer returns</b><p>The customer orders the size that fits them in your brand, not a guess. Returns are the most expensive part of an order, and Sedne works on them at the moment of choice.</p></article><article class="card r"><b>Whole outfits, not single pieces</b><p>People build outfits in Sedne. The jacket, the hoodie and the trousers go to the basket together, not one item at a time.</p></article><article class="card r"><b>You pay only for sales</b><p>We work through your affiliate programme: no setup fee, a commission only on orders that came through Sedne.</p></article><article class="card r"><b>A new channel for Slovakia and Czechia</b><p>Sedne is built for the Slovak and Czech market first, with family profiles and sizes from kids to 6XL. Your brand is there from day one.</p></article></div>
 <section class="partner"><div class="r"><h2>How the partnership works</h2></div><ol class="steps psteps"><li class="step r"><b class="t">You send a feed</b><p>A product feed or access to your affiliate programme. Size charts help, but aren&#x27;t required.</p></li><li class="step r"><b class="t">Sedne shows your pieces to the right people</b><p>Only to people they fit, in their size, inside a whole outfit, on their own photo.</p></li><li class="step r"><b class="t">The customer buys from you</b><p>On your site, at your price. You pay a commission only on that order.</p></li></ol></section>
+<section class="who r"><img src="/assets/avatar.jpg" alt="Štefan Toporcer" width="72" height="72"><div><span class="eyebrow">Who&#x27;s behind it</span><p>Štefan Toporcer, product designer. Fifteen years of design, from fintech to healthcare, and now products of my own. Sedne is one of them: I design it, build it and test it myself.</p><a href="https://projektargo.com/">More about me →</a></div></section>
 <div class="bneed r"><div><b>What we need from you</b><p>A product feed or an affiliate programme, and ideally your size charts. The rest is on us.</p></div>
 <div class="open"><a class="pill solid xl dark" href="https://tally.so/r/M11vdX?src=landing-en" target="_blank" rel="noopener" data-tally-open="M11vdX" data-tally-layout="modal" data-tally-width="560" data-tally-overlay="1" data-tally-hidden-src="landing-en">Let&#x27;s talk</a><span class="note">Opens a short form: brand, contact and what you sell. We reply personally.</span></div></div>
 </div></div>
 <div class="wrap"><main>
 <section class="faq r">
 <h2>Questions</h2>
-<details><summary>When does it launch?</summary><p>The app already runs as a test version. We&#x27;re finishing the family version now and preparing the iPhone and Android release. People on the waitlist get the test version this year; the public release is planned for early 2027. The roadmap above is what we hold ourselves to.</p></details><details><summary>Where will it run?</summary><p>iPhone and Android first, then the web, Windows and macOS. One account everywhere.</p></details><details><summary>What will it cost?</summary><p>We&#x27;re still deciding. People on the waitlist will know first.</p></details><details><summary>What happens to my photos?</summary><p>They&#x27;re used only to show the outfit on you. No one — adult or child — is ever photographed or stored undressed.</p></details><details><summary>Where do the clothes come from?</summary><p>From shops you already know. You buy each piece directly from them, at their price.</p></details>
+<details><summary>When does it launch?</summary><p>The app already runs as a test version. We&#x27;re finishing the family version now and preparing the iPhone and Android release. People on the waitlist get the test version this year; the public release is planned for early 2027. The roadmap above is what we hold ourselves to.</p></details><details><summary>Where will it run?</summary><p>iPhone and Android first, then the web. One account everywhere.</p></details><details><summary>What will it cost?</summary><p>We&#x27;re still deciding. People on the waitlist will know first.</p></details><details><summary>What happens to my photos?</summary><p>They&#x27;re used only to show the outfit on you. No one — adult or child — is ever photographed or stored undressed.</p></details><details><summary>Where do the clothes come from?</summary><p>From shops you already know. You buy each piece directly from them, at their price.</p></details>
 </section>
 </main>
 <footer><span class="brand"><svg viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="i" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#B8A9FF"/><stop offset=".5" stop-color="#8FE3E0"/><stop offset="1" stop-color="#FFC6A8"/></linearGradient></defs><path d="M10 44c0-14 8-20 14-22l4-1h8l4 1c6 2 14 8 14 22v4a3 3 0 0 1-3 3H13a3 3 0 0 1-3-3z" fill="#F5F3EF"/><path d="M26 21c1 5 4 8 6 8s5-3 6-8" fill="none" stroke="#0B0B0C" stroke-width="3" stroke-linecap="round"/><path d="M27 21.5c1 4 3.5 6.5 5 6.5s4-2.5 5-6.5" fill="none" stroke="url(#i)" stroke-width="1.6" stroke-linecap="round"/></svg>sedne. is a project by Štefan Toporcer.</span><a href="https://projektargo.com/">projektargo.com</a></footer>
@@ -296,5 +342,6 @@ var tm=d.querySelector("[data-timer]");if(tm){var t0=Date.now();setInterval(func
 var s=d.createElement("script");s.src="https://tally.so/widgets/embed.js";s.async=true;d.body.appendChild(s);
 d.querySelectorAll("[data-tally-open]").forEach(function(a){a.addEventListener("click",function(ev){if(window.Tally&&Tally.openPopup){ev.preventDefault();Tally.openPopup(a.dataset.tallyOpen,{layout:"modal",width:+a.dataset.tallyWidth,overlay:true,hiddenFields:{src:a.dataset.tallyHiddenSrc}})}})});})();
 </script>
+<script defer src="/sedne/3d/sedne3d.min.js"></script>
 </body>
 </html>

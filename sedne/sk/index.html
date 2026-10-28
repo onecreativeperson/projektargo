@@ -96,6 +96,50 @@ backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
 .blead{margin-top:4px}
 .bneed{display:grid;grid-template-columns:.9fr 1.1fr;gap:36px;margin-top:16px;padding:40px 36px;border-radius:32px;background:var(--glass);border:1px solid var(--line)}
 .bneed b{display:block;font:400 30px/1.1 var(--serif);margin-bottom:8px}.bneed p{margin:0;color:var(--mut);font-size:16px}
+/* app screens: no device, just the screen */
+.scr{position:relative;aspect-ratio:1179/2556;border-radius:34px;overflow:hidden;background:#0E0E12;border:1px solid rgba(255,255,255,.18);
+box-shadow:0 1px 0 rgba(255,255,255,.08) inset,0 50px 90px -30px rgba(0,0,0,.9)}
+.scr::after{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;border-radius:34px;
+background:linear-gradient(105deg,rgba(255,255,255,.12) 0%,rgba(255,255,255,.03) 22%,transparent 40%,transparent 70%,rgba(255,255,255,.05) 100%)}
+/* 3D: a thin glass slab in perspective, hover straightens */
+.p3d{perspective:1600px}
+.tilt{transform-style:preserve-3d;transition:transform 1s var(--ease);transform:rotateY(var(--ry,-18deg)) rotateX(var(--rx,6deg))}
+.p3d:hover .tilt{transform:rotateY(0) rotateX(0)}
+.tilt .scr{box-shadow:0 1px 0 rgba(255,255,255,.08) inset,
+ -1px 1px 0 #2A2A30,-2px 2px 0 #26262B,-3px 3px 0 #222227,-4px 4px 0 #1E1E23,-5px 5px 0 #1B1B20,-6px 6px 0 #18181D,
+ -30px 50px 90px -30px rgba(0,0,0,.95)}
+.step:nth-child(1) .tilt{--ry:-16deg;--rx:5deg}.step:nth-child(2) .tilt{--ry:0deg;--rx:0deg}.step:nth-child(3) .tilt{--ry:16deg;--rx:5deg}
+.step:nth-child(3) .tilt .scr{box-shadow:0 1px 0 rgba(255,255,255,.08) inset,1px 1px 0 #2A2A30,2px 2px 0 #26262B,3px 3px 0 #222227,4px 4px 0 #1E1E23,5px 5px 0 #1B1B20,6px 6px 0 #18181D,30px 50px 90px -30px rgba(0,0,0,.95)}
+.scr img{display:block;width:100%;height:auto}
+.scr img.roll{animation:roll 14s ease-in-out infinite alternate}
+@keyframes roll{0%,12%{transform:none}88%,100%{transform:translateY(var(--sc))}}
+.step .scr{margin:0 auto;max-width:224px}.step .p3d{margin:6px 0 24px}
+.s3d{position:relative}.step .s3d{max-width:224px;margin:0 auto}
+.s3d canvas{display:none;position:absolute;left:-14%;top:-9%;width:128%;height:118%;pointer-events:none}
+.s3d.live canvas{display:block}.s3d.live .scr{visibility:hidden}
+.tilt.flat,.p3d:hover .tilt.flat{transform:none}.tilt.flat .scr{box-shadow:none}
+.step{overflow:hidden}
+.trailer{justify-self:center;text-align:center;animation:rise 1.1s var(--ease) .2s both}
+.scr.big{width:300px;margin:0 auto}
+.scr.big .slides{position:relative;aspect-ratio:1179/2556}
+.scr.big .slides img{position:absolute;inset:0;width:100%;opacity:0;animation:slide 15s infinite;animation-delay:calc(var(--i) * 5s)}
+.scr.big .slides img.roll{animation:slide 15s infinite,roll 5s ease-in-out infinite alternate;animation-delay:calc(var(--i) * 5s),calc(var(--i) * 5s)}
+@keyframes slide{0%{opacity:0}5%,30%{opacity:1}36%,100%{opacity:0}}
+.caption{margin:16px 0 0;font-size:12px;color:var(--faint)}
+.stagep{display:grid;place-items:center;perspective:1200px}.stagep .deck{width:230px;height:152px;transform:rotateX(56deg) rotateZ(-28deg) translateZ(-70px)}
+.stagep .ly b{font-size:24px}.stagep .ly{padding:12px 14px}.stagep .ly .gi{width:30px;height:30px}.stagep .ly small{white-space:nowrap;font-size:10px;padding:5px 8px}.stagep .deck{margin-top:40px}
+/* situations */
+.findh{margin-bottom:22px}
+.finds{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.find{padding:26px 28px;border-radius:26px;background:var(--glass);border:1px solid var(--line)}
+.find q{display:block;quotes:"„" "“";font:italic 400 28px/1.15 var(--serif);margin-bottom:12px}
+.find p{margin:0;color:var(--mut);font-size:15px}
+/* brands extras */
+.example{padding:26px 30px;border-radius:26px;background:#0B0B0C;color:#F5F3EF;--mut:rgba(245,243,239,.78);--faint:rgba(245,243,239,.55);margin-top:28px}
+.example p{margin:0;font:400 22px/1.35 var(--serif);max-width:40em}
+.who{display:flex;gap:20px;align-items:flex-start;padding:28px 30px;border-radius:26px;background:#fff;border:1px solid var(--line);margin-top:28px}
+.who img{width:72px;height:72px;border-radius:50%;object-fit:cover;flex:none}
+.who p{margin:0 0 8px;color:var(--mut)}.who a{font-weight:600;color:#0B0B0C}
 /* pain */
 .pain{padding:72px 0 64px;border-top:1px solid var(--line)}
 .pain .lines{font:400 clamp(44px,8vw,104px)/1 var(--serif);letter-spacing:-.03em;margin:0 0 26px}
@@ -171,7 +215,7 @@ footer .brand{font-size:14px;color:var(--mut)}footer .brand svg{width:22px;heigh
 @keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
 @keyframes sh{to{background-position:200% 0}}
 @media (max-width:900px){.hero{grid-template-columns:1fr;gap:8px;padding:24px 0 24px;min-height:0}.stage{height:440px;order:2}.deck{width:250px;height:166px}.ly b{font-size:28px}
-.steps,.grid,.grid.bgrid,.miles{grid-template-columns:1fr}.miles::before{display:none}.fam,.wl,.bneed{grid-template-columns:1fr;padding:32px 22px;gap:22px}.nav .tx{display:none}.priv{padding:26px 22px}.nav .solid{display:none}}
+.steps,.grid,.grid.bgrid,.miles,.finds{grid-template-columns:1fr}.scr.big{width:250px}.tilt{transform:none}.find q{font-size:24px}.miles::before{display:none}.fam,.wl,.bneed{grid-template-columns:1fr;padding:32px 22px;gap:22px}.nav .tx{display:none}.priv{padding:26px 22px}.nav .solid{display:none}}
 @media (max-width:420px){.stage{height:400px}.deck{width:224px;height:150px}.ly{padding:14px 16px}.ly b{font-size:25px}.step,.card{padding:22px}.pain{padding:56px 0 48px}.priv{grid-template-columns:1fr}}
 /* openers */
 .opener{padding:72px 0 28px}.opener .big{font:italic 400 clamp(72px,14vw,180px)/1.08 var(--serif);letter-spacing:-.01em;margin:0 0 6px;padding:0 .08em .04em 0;display:inline-block;
@@ -231,20 +275,20 @@ animation:rise .8s var(--ease) both;animation-delay:var(--d)}
 <div>
 <span class="badge"><i></i>Vo vývoji</span>
 <h1>Prestaň skrolovať. <em>Obleč sa.</em></h1>
-<p class="lead">Sedne ti ukáže len kúsky, ktoré ti sedia, poskladané do outfitu a na tvojej vlastnej fotke. Kúpiš ich v obchode, ktorý poznáš. Bez večerov stratených skrolovaním a bez balíkov, ktoré idú späť.</p>
+<p class="lead">Len to, čo ti sedí. Na tvojej fotke. Kúpiš v obchode, ktorý poznáš.</p>
 <a class="pill solid" href="#waitlist">Chcem byť medzi prvými</a>
 <span class="note">Stačí e-mail. Jedna správa, keď aplikácia vyjde.</span>
 
-<div class="plat"><b>Pripravujeme pre</b><span>iPhone</span><span>Android</span><span>Web</span><span>Windows</span><span>macOS</span></div>
+<div class="plat"><b>Pripravujeme pre</b><span>iPhone</span><span>Android</span><span>Web</span></div>
 </div>
-<div class="stage" aria-hidden="true"><div class="deck"><div class="shadow"></div><div class="ly f-shoe light" style="--z:0px;--i:0"><b><span class="gi"><svg viewBox="0 0 64 64"><path d="M6 41v-7q0-5 5-6h7l3-6h6l10 12c4 4 10 5 16 6l5 1v5H6z" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 41h52M27 25l5-2M31 30l5-2" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Topánky</b><small><i></i>43 · sedí</small></div><div class="ly f-denim" style="--z:48px;--i:1"><b><span class="gi"><svg viewBox="0 0 64 64"><path d="M21 13h22l4 38h-10l-5-23-5 23H17z" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M21 21h22" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Nohavice</b><small><i></i>32/32 · sedí</small></div><div class="ly f-cotton light" style="--z:96px;--i:2"><b><span class="gi"><svg viewBox="0 0 64 64"><path d="M20 18l9-4a3.5 3.5 0 0 0 6 0l9 4 7 10-7 4v19H20V32l-7-4z" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Tričko</b><small><i></i>L · sedí</small></div><div class="ly f-fleece" style="--z:144px;--i:3"><b><span class="gi"><svg viewBox="0 0 64 64"><path d="M24 20a8 8 0 0 1 16 0l7 3 3 25-8 1-1-17v21H23V32l-1 17-8-1 3-25z" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M27 20c0 4 2 6 5 6s5-2 5-6M24 53v-8h16v8" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Mikina</b><small><i></i>XL · sedí</small></div><div class="ly f-leather" style="--z:192px;--i:4"><b><span class="gi"><svg viewBox="0 0 64 64"><path d="M24 13h16l8 4 3 25-8 1-1-17v27H22V26l-1 17-8-1 3-25z" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M32 24l-8-11M32 24l8-11M32 24v29" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Bunda</b><small><i></i>L · sedí</small></div></div></div>
+<div class="trailer p3d"><div class="tilt"><div class="s3d" data-mode="turn" data-src='["/sedne/img/kabinka.jpg","/sedne/img/kusok.jpg","/sedne/img/profil.jpg"]' data-size='[[720, 1561],[720, 1871],[720, 1561]]' data-ry="-0.22" data-rx="0.05"><canvas aria-hidden="true"></canvas><div class="scr big"><div class="slides"><img src="/sedne/img/kabinka.jpg" alt="" style="--i:0" loading="eager"><img src="/sedne/img/kusok.jpg" alt="" style="--i:1;--sc:-16.6%" class="roll" loading="lazy"><img src="/sedne/img/profil.jpg" alt="" style="--i:2" loading="lazy"></div></div></div></div><p class="caption">Skutočné obrazovky z testovacej verzie.</p></div>
 </section>
 <section class="opener" id="why"><h2 class="big">Pre teba.</h2><span class="eyebrow">Prečo to ľudia chcú</span></section>
 <section class="demo2 r">
 <div class="pane today"><div class="ph"><div class="feed"><i style="--h:96px;--o:0.14"></i><i style="--h:120px;--o:0.22"></i><i style="--h:110px;--o:0.1"></i><i style="--h:88px;--o:0.18"></i><i style="--h:124px;--o:0.26"></i><i style="--h:100px;--o:0.12"></i><i style="--h:92px;--o:0.2"></i><i style="--h:116px;--o:0.16"></i><i style="--h:104px;--o:0.15"></i><i style="--h:98px;--o:0.2"></i><i style="--h:96px;--o:0.14"></i><i style="--h:120px;--o:0.22"></i><i style="--h:110px;--o:0.1"></i><i style="--h:88px;--o:0.18"></i><i style="--h:124px;--o:0.26"></i><i style="--h:100px;--o:0.12"></i><i style="--h:92px;--o:0.2"></i><i style="--h:116px;--o:0.16"></i><i style="--h:104px;--o:0.15"></i><i style="--h:98px;--o:0.2"></i></div><div class="timer"><b data-timer>00:00</b><span>skrolovania</span></div></div><h3>Dnes</h3><p>Nekonečný zoznam. Veľkosť hádaš.</p></div>
-<div class="pane sedne"><div class="ph"><div class="picks"><div class="pick" style="--d:0.0s"><b>Bunda</b><em>L · sedí</em></div><div class="pick" style="--d:0.25s"><b>Mikina</b><em>XL · sedí</em></div><div class="pick" style="--d:0.5s"><b>Nohavice</b><em>32/32 · sedí</em></div></div></div><h3>So Sedne</h3><p>Tri kúsky. Všetky sedia.</p></div>
+<div class="pane sedne"><div class="ph stagep" aria-hidden="true"><div class="deck"><div class="shadow"></div><div class="ly f-shoe light" style="--z:0px;--i:0"><b><span class="gi"><svg viewBox="0 0 64 64"><path d="M6 41v-7q0-5 5-6h7l3-6h6l10 12c4 4 10 5 16 6l5 1v5H6z" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 41h52M27 25l5-2M31 30l5-2" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Topánky</b><small><i></i>43 · sedí</small></div><div class="ly f-denim" style="--z:48px;--i:1"><b><span class="gi"><svg viewBox="0 0 64 64"><path d="M21 13h22l4 38h-10l-5-23-5 23H17z" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M21 21h22" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Nohavice</b><small><i></i>32/32 · sedí</small></div><div class="ly f-cotton light" style="--z:96px;--i:2"><b><span class="gi"><svg viewBox="0 0 64 64"><path d="M20 18l9-4a3.5 3.5 0 0 0 6 0l9 4 7 10-7 4v19H20V32l-7-4z" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Tričko</b><small><i></i>L · sedí</small></div><div class="ly f-fleece" style="--z:144px;--i:3"><b><span class="gi"><svg viewBox="0 0 64 64"><path d="M24 20a8 8 0 0 1 16 0l7 3 3 25-8 1-1-17v21H23V32l-1 17-8-1 3-25z" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M27 20c0 4 2 6 5 6s5-2 5-6M24 53v-8h16v8" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Mikina</b><small><i></i>XL · sedí</small></div><div class="ly f-leather" style="--z:192px;--i:4"><b><span class="gi"><svg viewBox="0 0 64 64"><path d="M24 13h16l8 4 3 25-8 1-1-17v27H22V26l-1 17-8-1 3-25z" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M32 24l-8-11M32 24l8-11M32 24v29" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Bunda</b><small><i></i>L · sedí</small></div></div></div><h3>So Sedne</h3><p>Päť kúskov. Všetky sedia.</p></div>
 </section>
-<section class="why"><div class="grid why-grid"><article class="card r"><b>Minúty, nie hodiny</b><p>Namiesto stoviek produktov vidíš tých pár, ktoré ti sedia. Vyberáš minúty, nie celý večer skrolovania.</p></article><article class="card r"><b>Nič nejde späť</b><p>Veľkosť nehádaš. Sedne si pamätá, ktorá ti pri ktorej značke sedí, a navrhne len tú.</p></article><article class="card r"><b>Vidíš to na sebe</b><p>Outfit na tvojej fotke, nie na modelke. Vieš, čo kupuješ, skôr než klepneš.</p></article></div></section>
+<section class="why"><h2 class="findh">Nájdeš sa?</h2><div class="finds"><article class="find"><q>Nosíš L aj XL a nikdy nevieš, čo objednať.</q><p>Sedne si pamätá, ktorá veľkosť ti pri ktorej značke sedí.</p></article><article class="find"><q>Vraciaš každý druhý balík.</q><p>Kupuješ veľkosť, ktorá sedí, nie odhad.</p></article><article class="find"><q>Strávil si večer skrolovaním a nič si nekúpil.</q><p>Vidíš len to, čo ti sedí. Rozhodneš sa za minúty.</p></article><article class="find"><q>Deťom kupuješ oblečenie naslepo.</q><p>Detské profily s veľkosťami podľa výšky, pod tvojou správou.</p></article></div></section>
 <section class="pain r">
 <span class="eyebrow">Poznáš to</span>
 <p class="lines"><span>Balík príde.</span><span>Nesedí.</span><span>Ide späť.</span></p>
@@ -252,7 +296,7 @@ animation:rise .8s var(--ease) both;animation-delay:var(--d)}
 </section>
 <section class="how">
 <div class="r"><span class="eyebrow">Ako to funguje</span><h2>Tri kroky od telefónu k šatníku.</h2></div>
-<ol class="steps"><li class="step r"><div class="ui" aria-hidden="true"><span class="sz">M</span><span class="sz on">L</span><span class="sz on">XL</span><span class="sz">XXL</span><span class="cut">Oversize</span></div><b class="t">Povedz, čo ti sedí</b><p>Výška, veľkosti, ktoré naozaj nosíš, a strih, ktorý máš rád. Aj dve veľkosti naraz, ak si medzi L a XL.</p></li><li class="step r"><div class="ui" aria-hidden="true"><div class="row"><i></i>Tričko<em>sedí</em></div><div class="row"><i></i>Mikina<em>sedí</em></div><div class="row"><i></i>Bunda<em>sedí</em></div></div><b class="t">Skladaj v Kabínke</b><p>Tričko, mikina, bunda, nohavice, topánky. Každý kúsok pribudne na tvoju fotku ako ďalšia vrstva.</p></li><li class="step r"><div class="ui" aria-hidden="true"><div class="buy"><span>Bunda · L</span><b>Kúpiť v obchode</b></div></div><b class="t">Kúp len to, čo sedí</b><p>Každý kúsok vedie priamo do obchodu. Bez hádania veľkosti.</p></li></ol>
+<ol class="steps"><li class="step r"><div class="p3d"><div class="tilt"><div class="s3d" data-src='["/sedne/img/profil.jpg"]' data-size='[[720, 1561]]' data-ry="-0.3" data-rx="0.04"><canvas aria-hidden="true"></canvas><div class="scr"><img src="/sedne/img/profil.jpg" alt="Profil" loading="lazy"></div></div></div></div><b class="t">Profil</b><p>Tvoje veľkosti, tvoj strih, tvoja rodina na jednom mieste.</p></li><li class="step r"><div class="p3d"><div class="tilt"><div class="s3d" data-src='["/sedne/img/kabinka.jpg"]' data-size='[[720, 1561]]' data-ry="0" data-rx="0.04"><canvas aria-hidden="true"></canvas><div class="scr"><img src="/sedne/img/kabinka.jpg" alt="Kabínka" loading="lazy"></div></div></div></div><b class="t">Kabínka</b><p>Outfit na tvojej vlastnej fotke, vrstvu po vrstve.</p></li><li class="step r"><div class="p3d"><div class="tilt"><div class="s3d" data-src='["/sedne/img/kusok.jpg"]' data-size='[[720, 1871]]' data-ry="0.3" data-rx="0.04"><canvas aria-hidden="true"></canvas><div class="scr"><img src="/sedne/img/kusok.jpg" alt="Kúp len to, čo sedí" loading="lazy" class="roll" style="--sc:-16.6%"></div></div></div></div><b class="t">Kúp len to, čo sedí</b><p>Rada k veľkosti pre tento konkrétny kúsok a potom rovno do obchodu.</p></li></ol>
 </section>
 <section class="feat">
 <div class="r"><span class="eyebrow">Čo appka vie</span><h2>Pre skutočné postavy, nie pre modelky z katalógu.</h2></div>
@@ -266,7 +310,7 @@ animation:rise .8s var(--ease) both;animation-delay:var(--d)}
 <section class="road">
 <div class="r"><span class="eyebrow">Plán</span><h2>Kam smerujeme a kedy.</h2></div>
 <ol class="miles"><li class="mile r"><b>Dokončiť v2</b><p>Verzia pre celú rodinu: detské profily a veľkosti od detí po 6XL. Založené vývojárske účty, požiadané partnerské programy u prvých obchodov.</p></li><li class="mile r now"><b>Testovacia verzia pre zoznam</b><p>TestFlight na iPhone a uzavretý test na Androide. Ľudia zo zoznamu ju dostanú ako prví.</p></li><li class="mile r"><b>Verejné vydanie</b><p>App Store a Google Play.</p></li></ol>
-<p class="later r">Neskôr: web, Windows a macOS. Jeden účet všade.</p>
+<p class="later r">Neskôr: webová verzia. Jeden účet všade.</p>
 </section>
 <section class="wl r" id="waitlist">
 <div><span class="eyebrow">Zoznam záujemcov</span><h2>Buď medzi prvými.</h2><p>Sedne ešte nie je v obchodoch. Nechaj e-mail a napíšeme ti raz, keď bude pripravené. Ľudia zo zoznamu ho dostanú ako prví.</p></div>
@@ -277,15 +321,17 @@ animation:rise .8s var(--ease) both;animation-delay:var(--d)}
 <div class="b2b" id="brands"><div class="wrap">
 <section class="opener light"><h2 class="big">Pre značky.</h2><span class="eyebrow">Pre značky a e-shopy</span></section>
 <section class="bhead r"><h2>Zákazník, ktorý už vie, čo mu sedí.</h2><p class="blead">Sedne posiela do vášho obchodu ľudí, ktorí si outfit poskladali, videli ho na sebe a vybrali veľkosť, ktorá im pri vašej značke sedí. Vy predávate; my sme vám ich priviedli.</p></section>
+<div class="example r"><span class="eyebrow">Jedna objednávka krok za krokom</span><p>Zákazníčka si v Sedne poskladá bundu a nohavice, obe vo veľkosti, ktorá jej u vašej značky sedela minule. Klepne na Kúpiť, pristane na vašom webe a objedná. Vy platíte províziu len z tejto objednávky. Bez objednávky žiadne náklady.</p></div>
 <div class="bento bbento"><article class="card r"><b>Menej vratiek</b><p>Zákazník objednáva veľkosť, ktorá mu pri vašej značke sedí, nie odhad. Vratky sú najdrahšia časť objednávky a Sedne na nich pracuje už vo chvíli výberu.</p></article><article class="card r"><b>Celé outfity, nie jednotlivé kúsky</b><p>Ľudia v Sedne skladajú outfity. Bunda, mikina aj nohavice idú do košíka spolu, nie po jednom.</p></article><article class="card r"><b>Platíte len za predaj</b><p>Spolupracujeme cez váš partnerský (affiliate) program: žiadne vstupné náklady, provízia len z objednávok, ktoré prišli cez Sedne.</p></article><article class="card r"><b>Nový kanál pre Slovensko a Česko</b><p>Sedne vzniká najprv pre slovenský a český trh, s rodinnými profilmi a veľkosťami od detí po 6XL. Vaša značka je tam od prvého dňa.</p></article></div>
 <section class="partner"><div class="r"><h2>Ako spolupráca funguje</h2></div><ol class="steps psteps"><li class="step r"><b class="t">Pošlete feed</b><p>Produktový feed alebo prístup do partnerského programu. Veľkostné tabuľky pomôžu, nie sú podmienkou.</p></li><li class="step r"><b class="t">Sedne ukáže vaše kúsky tým správnym</b><p>Len ľuďom, ktorým sedia, v ich veľkosti, v celom outfite, na ich vlastnej fotke.</p></li><li class="step r"><b class="t">Zákazník kupuje u vás</b><p>Na vašom webe, za vašu cenu. Provízia len z tejto objednávky.</p></li></ol></section>
+<section class="who r"><img src="/assets/avatar.jpg" alt="Štefan Toporcer" width="72" height="72"><div><span class="eyebrow">Kto za tým stojí</span><p>Štefan Toporcer, produktový dizajnér. Pätnásť rokov dizajnu, od fintechu po zdravotníctvo, a teraz vlastné produkty. Sedne je jeden z nich: navrhujem ho, staviam aj testujem sám.</p><a href="https://projektargo.com/sk/">Viac o mne →</a></div></section>
 <div class="bneed r"><div><b>Čo od vás potrebujeme</b><p>Produktový feed alebo partnerský program, ideálne aj vaše veľkostné tabuľky. Zvyšok je na nás.</p></div>
 <div class="open"><a class="pill solid xl dark" href="https://tally.so/r/J11Xkd?src=landing-sk" target="_blank" rel="noopener" data-tally-open="J11Xkd" data-tally-layout="modal" data-tally-width="560" data-tally-overlay="1" data-tally-hidden-src="landing-sk">Poďme sa porozprávať</a><span class="note">Otvorí sa krátky formulár: značka, kontakt a čo predávate. Odpovedáme osobne.</span></div></div>
 </div></div>
 <div class="wrap"><main>
 <section class="faq r">
 <h2>Otázky</h2>
-<details><summary>Kedy aplikácia vyjde?</summary><p>Aplikácia už beží v testovacej verzii. Teraz dokončujeme verziu pre celú rodinu a pripravujeme vydanie pre iPhone a Android. Ľudia zo zoznamu dostanú testovaciu verziu ešte tento rok, verejné vydanie plánujeme začiatkom roka 2027. Plán vyššie je záväzok, ktorého sa držíme.</p></details><details><summary>Kde pôjde?</summary><p>Najprv iPhone a Android, potom web, Windows a macOS. Jeden účet všade.</p></details><details><summary>Koľko bude stáť?</summary><p>Ešte sa rozhodujeme. Ľudia zo zoznamu sa to dozvedia ako prví.</p></details><details><summary>Čo sa deje s mojimi fotkami?</summary><p>Slúžia len na to, aby si videl outfit na sebe. Nikto, dospelý ani dieťa, sa nikdy nefotí ani neukladá vyzlečený.</p></details><details><summary>Odkiaľ je oblečenie?</summary><p>Z obchodov, ktoré už poznáš. Každý kúsok kúpiš priamo u nich, za ich cenu.</p></details>
+<details><summary>Kedy aplikácia vyjde?</summary><p>Aplikácia už beží v testovacej verzii. Teraz dokončujeme verziu pre celú rodinu a pripravujeme vydanie pre iPhone a Android. Ľudia zo zoznamu dostanú testovaciu verziu ešte tento rok, verejné vydanie plánujeme začiatkom roka 2027. Plán vyššie je záväzok, ktorého sa držíme.</p></details><details><summary>Kde pôjde?</summary><p>Najprv iPhone a Android, potom web. Jeden účet všade.</p></details><details><summary>Koľko bude stáť?</summary><p>Ešte sa rozhodujeme. Ľudia zo zoznamu sa to dozvedia ako prví.</p></details><details><summary>Čo sa deje s mojimi fotkami?</summary><p>Slúžia len na to, aby si videl outfit na sebe. Nikto, dospelý ani dieťa, sa nikdy nefotí ani neukladá vyzlečený.</p></details><details><summary>Odkiaľ je oblečenie?</summary><p>Z obchodov, ktoré už poznáš. Každý kúsok kúpiš priamo u nich, za ich cenu.</p></details>
 </section>
 </main>
 <footer><span class="brand"><svg viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="i" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#B8A9FF"/><stop offset=".5" stop-color="#8FE3E0"/><stop offset="1" stop-color="#FFC6A8"/></linearGradient></defs><path d="M10 44c0-14 8-20 14-22l4-1h8l4 1c6 2 14 8 14 22v4a3 3 0 0 1-3 3H13a3 3 0 0 1-3-3z" fill="#F5F3EF"/><path d="M26 21c1 5 4 8 6 8s5-3 6-8" fill="none" stroke="#0B0B0C" stroke-width="3" stroke-linecap="round"/><path d="M27 21.5c1 4 3.5 6.5 5 6.5s4-2.5 5-6.5" fill="none" stroke="url(#i)" stroke-width="1.6" stroke-linecap="round"/></svg>sedne. je projekt Štefana Toporcera.</span><a href="https://projektargo.com/sk/">projektargo.com</a></footer>
@@ -296,5 +342,6 @@ var tm=d.querySelector("[data-timer]");if(tm){var t0=Date.now();setInterval(func
 var s=d.createElement("script");s.src="https://tally.so/widgets/embed.js";s.async=true;d.body.appendChild(s);
 d.querySelectorAll("[data-tally-open]").forEach(function(a){a.addEventListener("click",function(ev){if(window.Tally&&Tally.openPopup){ev.preventDefault();Tally.openPopup(a.dataset.tallyOpen,{layout:"modal",width:+a.dataset.tallyWidth,overlay:true,hiddenFields:{src:a.dataset.tallyHiddenSrc}})}})});})();
 </script>
+<script defer src="/sedne/3d/sedne3d.min.js"></script>
 </body>
 </html>
