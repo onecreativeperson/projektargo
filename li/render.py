@@ -11,9 +11,10 @@ spec.json:
   "items": ["point 1", "point 2", "point 3"],              # list: 2-3 items, each max ~70 chars
   "before": "...", "after": "...",                          # compare
   "before_label": "Before", "after_label": "After",         # compare labels (use SK for SK posts)
-  "out": "posts/2026-11-04-thesis.png"
+  "out": "posts/2026-11-04-thesis.jpg"   # .jpg (smaller, preferred) or .png
 }
 Exits 1 if fonts fail to load or the text cannot fit at the minimum size.
+Output JSON has "fs" (final headline px): keep it >= 80, otherwise shorten the title.
 """
 import html, json, os, re, sys, tempfile
 from playwright.sync_api import sync_playwright
@@ -126,7 +127,11 @@ def main():
             pg = b.new_page(viewport={"width": 1080, "height": 1350}, device_scale_factor=1)
             pg.goto("file://" + tmp)
             res = pg.evaluate(JS_FIT)
-            pg.screenshot(path=out, clip={"x": 0, "y": 0, "width": 1080, "height": 1350})
+            clip = {"x": 0, "y": 0, "width": 1080, "height": 1350}
+            if out.lower().endswith((".jpg", ".jpeg")):
+                pg.screenshot(path=out, clip=clip, type="jpeg", quality=92)
+            else:
+                pg.screenshot(path=out, clip=clip)
             b.close()
     finally:
         os.remove(tmp)
