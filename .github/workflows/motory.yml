@@ -1,0 +1,45 @@
+# Motory – zverejnenie stránok motorov (projektargo.com/<slug>/)
+# Stránky pripravuje naplánovaná úloha „Motory – spúšťač“ a ukladá ich do Supabase (tabuľka motor_pages).
+# Tento workflow ich každých 10 minút a po každom zverejnení webu stiahne a zverejní. Nikdy nič nemaže.
+name: Motory – zverejnenie stránok
+
+on:
+  schedule:
+    - cron: "*/10 * * * *"
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: motory-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: main
+          fetch-depth: 1
+
+      - name: Stiahnuť stránky motorov zo Supabase
+        run: python3 .github/motory_sync.py --changed-out "$RUNNER_TEMP/motory-changed.txt"
+
+      - name: Zverejniť zmeny (len ak nejaké sú)
+        run: |
+          if [ ! -s "$RUNNER_TEMP/motory-changed.txt" ]; then echo "Bez zmien."; exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          xargs -d '\n' -a "$RUNNER_TEMP/motory-changed.txt" git add --
+          git commit -m "Motory: zverejnenie stránok motorov"
+          for i in 1 2 3; do
+            if git push origin HEAD:main; then exit 0; fi
+            echo "GitHub má novšie zmeny, preberám ich a skúšam znova ($i/3)…"
+            git pull --rebase origin main || { git rebase --abort; exit 1; }
+          done
+          exit 1
