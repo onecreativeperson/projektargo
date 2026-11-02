@@ -5,6 +5,7 @@ Usage: python3 li/render.py spec.json
 spec.json:
 {
   "layout": "statement" | "list" | "compare",
+  "theme": "light" | "dark",                # default light
   "kicker": "Thesis",                      # short label in the glass pill (max ~22 chars)
   "title": "Boring problems are the *best* problems.",   # hook; *word* = blue accent, \n = line break
   "sub": "optional one or two sentences",  # statement/list/compare, optional
@@ -27,41 +28,42 @@ CSS = r"""
  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
 @font-face{font-family:"Inter";font-style:normal;font-weight:100 900;src:url(fonts/Inter-latinext.woff2) format("woff2");
  unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
-:root{--ink:#1D1D1F;--ink2:#6A6A70;--tint:#0A5FE0;--w1:#BDB6FF;--w2:#FFC9B8;--w3:#ACEBD6;--w4:#B9DDFF;--base:#ECEEFB;--fs:120px;--ss:38px}
+:root{--ink:#1D1D1F;--ink2:#6A6A70;--tint:#0A5FE0;--w1:#BDB6FF;--w2:#FFC9B8;--w3:#ACEBD6;--w4:#B9DDFF;--base:#ECEEFB;--fs:120px;--ss:38px;--head:linear-gradient(180deg,#1D1D1F 0%,#2E2C52 100%);--accent:linear-gradient(135deg,#2A78F4,#0A5FE0 55%,#4636D2);--pill-bg:linear-gradient(180deg,rgba(255,255,255,.97) 0%,rgba(255,255,255,.68) 46%,rgba(255,255,255,.46) 62%,rgba(255,255,255,.8) 100%);--pill-sh:inset 0 1px 0 #fff,inset 0 -1px 0 rgba(255,255,255,.8),inset 0 -9px 14px -9px rgba(30,30,60,.14),0 0 0 .5px rgba(28,28,48,.09),0 10px 22px -12px rgba(28,28,48,.32);--card-bg:rgba(255,255,255,.6);--card-bg2:rgba(255,255,255,.78);--card-edge:rgba(255,255,255,.78);--card-sh:inset 0 1px 0 #fff,0 26px 50px -30px rgba(28,28,48,.38);--before-ink:#4A4A50;--strike:rgba(106,106,112,.55);--grain:.16;--logo-glow:rgba(10,95,224,.35);--tint-ring:rgba(10,95,224,.14)}
+.dark{--ink:#F5F5F7;--ink2:#A1A1A8;--tint:#3D8BFF;--w1:#3B2F9E;--w2:#6E2A5E;--w3:#0E5A57;--w4:#1C3C8C;--base:#08080F;--head:linear-gradient(180deg,#FFFFFF 0%,#D6D3FF 100%);--accent:linear-gradient(135deg,#6FA8FF,#3D8BFF 50%,#8A6CFF);--pill-bg:linear-gradient(180deg,rgba(255,255,255,.2) 0%,rgba(255,255,255,.08) 46%,rgba(255,255,255,.03) 62%,rgba(255,255,255,.1) 100%),rgba(46,46,54,.8);--pill-sh:inset 0 1px 0 rgba(255,255,255,.42),inset 0 -1px 0 rgba(255,255,255,.12),inset 0 -9px 14px -9px rgba(0,0,0,.6),0 0 0 .5px rgba(255,255,255,.06),0 10px 22px -10px rgba(0,0,0,.75);--card-bg:rgba(30,30,33,.62);--card-bg2:rgba(40,40,46,.8);--card-edge:rgba(255,255,255,.12);--card-sh:inset 0 1px 0 rgba(255,255,255,.16),0 26px 50px -26px rgba(0,0,0,.7);--before-ink:#B4B4BB;--strike:rgba(161,161,168,.6);--grain:.12;--logo-glow:rgba(61,139,255,.45);--tint-ring:rgba(61,139,255,.2)}
 *{box-sizing:border-box}
 html,body{margin:0;width:1080px;height:1350px;overflow:hidden;font-family:"Inter",sans-serif;-webkit-font-smoothing:antialiased;color:var(--ink);font-optical-sizing:auto}
-.stage{position:relative;width:1080px;height:1350px;background:var(--base);overflow:hidden}
+.stage{color:var(--ink);position:relative;width:1080px;height:1350px;background:var(--base);overflow:hidden}
 .wall i{position:absolute;border-radius:50%;filter:blur(120px);opacity:.95}
+.dark .wall i{opacity:.9}
 .b1{width:980px;height:980px;left:-300px;top:-330px;background:var(--w1)}
 .b2{width:860px;height:860px;right:-320px;top:-240px;background:var(--w2)}
 .b3{width:820px;height:820px;left:-160px;bottom:-380px;background:var(--w3)}
 .b4{width:780px;height:780px;right:-240px;bottom:-320px;background:var(--w4)}
-.grain{position:absolute;inset:0;opacity:.16;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.9'/%3E%3C/svg%3E")}
+.grain{position:absolute;inset:0;opacity:var(--grain);mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.9'/%3E%3C/svg%3E")}
 .in{position:absolute;inset:88px;display:flex;flex-direction:column;overflow:hidden}
 .top{display:flex;align-items:center;justify-content:space-between;gap:24px}
 .pill{display:inline-flex;align-items:center;gap:12px;font:600 28px/1 "Inter";color:var(--tint);padding:16px 26px;border-radius:999px;
- background:linear-gradient(180deg,rgba(255,255,255,.97) 0%,rgba(255,255,255,.68) 46%,rgba(255,255,255,.46) 62%,rgba(255,255,255,.8) 100%);
- box-shadow:inset 0 1px 0 #fff,inset 0 -1px 0 rgba(255,255,255,.8),inset 0 -9px 14px -9px rgba(30,30,60,.14),0 0 0 .5px rgba(28,28,48,.09),0 10px 22px -12px rgba(28,28,48,.32)}
-.pill b{width:12px;height:12px;border-radius:50%;background:var(--tint);box-shadow:0 0 0 5px rgba(10,95,224,.14)}
+ background:var(--pill-bg);box-shadow:var(--pill-sh)}
+.pill b{width:12px;height:12px;border-radius:50%;background:var(--tint);box-shadow:0 0 0 5px var(--tint-ring)}
 .name{font:600 30px/1 "Inter";color:var(--ink2);letter-spacing:-.01em}
 .main{margin:auto 0;padding:40px 0 8px}
 h1{margin:0;font-size:var(--fs);font-weight:800;line-height:1.02;letter-spacing:-.045em;
- background:linear-gradient(180deg,#1D1D1F 0%,#2E2C52 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
-h1 em{font-style:normal;background:linear-gradient(135deg,#2A78F4,#0A5FE0 55%,#4636D2);-webkit-background-clip:text;background-clip:text;color:transparent}
+ background:var(--head);-webkit-background-clip:text;background-clip:text;color:transparent}
+h1 em{font-style:normal;background:var(--accent);-webkit-background-clip:text;background-clip:text;color:transparent}
 .sub{margin:40px 0 0;font-size:var(--ss);font-weight:500;line-height:1.36;letter-spacing:-.015em;color:var(--ink2);max-width:880px}
 .body{margin-top:52px;display:flex;flex-direction:column;gap:20px}
-.card{display:flex;gap:26px;align-items:flex-start;padding:30px 34px;border-radius:36px;background:rgba(255,255,255,.6);
- border:1px solid rgba(255,255,255,.78);box-shadow:inset 0 1px 0 #fff,0 26px 50px -30px rgba(28,28,48,.38)}
+.card{display:flex;gap:26px;align-items:flex-start;padding:30px 34px;border-radius:36px;background:var(--card-bg);
+ border:1px solid var(--card-edge);box-shadow:var(--card-sh)}
 .num{flex:0 0 56px;height:56px;border-radius:18px;display:grid;place-items:center;font:700 28px/1 "Inter";color:#fff;
  background:linear-gradient(180deg,rgba(255,255,255,.35),rgba(255,255,255,0) 55%),linear-gradient(135deg,#2A78F4,#0A5FE0 55%,#4636D2);
  box-shadow:inset 0 1px 0 rgba(255,255,255,.6),0 10px 20px -10px rgba(10,95,224,.6)}
 .txt{font-size:calc(var(--ss) * .92);font-weight:600;line-height:1.3;letter-spacing:-.015em;color:var(--ink)}
 .lab{font:700 22px/1 "Inter";letter-spacing:.06em;text-transform:uppercase;color:var(--ink2);margin-bottom:12px}
-.card.after{background:rgba(255,255,255,.78)}
+.card.after{background:var(--card-bg2)}
 .card.after .lab{color:var(--tint)}
-.card.before .txt{color:#4A4A50;text-decoration:line-through;text-decoration-color:rgba(106,106,112,.55);text-decoration-thickness:2px}
+.card.before .txt{color:var(--before-ink);text-decoration:line-through;text-decoration-color:var(--strike);text-decoration-thickness:2px}
 .foot{padding-top:24px;display:flex;align-items:center;gap:20px;font:600 30px/1 "Inter";color:var(--ink2)}
-.foot img{width:72px;height:72px;filter:drop-shadow(0 10px 16px rgba(10,95,224,.35))}
+.foot img{width:72px;height:72px;filter:drop-shadow(0 10px 16px var(--logo-glow))}
 """
 
 JS_FIT = r"""
@@ -88,6 +90,7 @@ def rich(t: str) -> str:
 
 def build(spec: dict) -> str:
     layout = spec.get("layout", "statement")
+    theme = " dark" if spec.get("theme") == "dark" else ""
     start = {"statement": 124, "list": 96, "compare": 96}.get(layout, 110)
     parts = [f'<div class="top"><span class="pill"><b></b>{html.escape(spec.get("kicker", "Projekt Argo"))}</span>'
              f'<span class="name">Štefan Toporcer</span></div>',
@@ -108,7 +111,7 @@ def build(spec: dict) -> str:
     parts.append('</div>')
     parts.append('<div class="foot"><img src="logo.svg" alt=""><span>Projekt Argo · projektargo.com</span></div>')
     return (f'<!doctype html><html lang="{html.escape(spec.get("lang", "en"))}"><head><meta charset="utf-8">'
-            f'<style>{CSS}</style><style>:root{{--fs:{start}px}}</style></head><body><div class="stage">'
+            f'<style>{CSS}</style><style>:root{{--fs:{start}px}}</style></head><body><div class="stage{theme}">'
             '<div class="wall"><i class="b1"></i><i class="b2"></i><i class="b3"></i><i class="b4"></i></div>'
             f'<div class="grain"></div><div class="in">{"".join(parts)}</div></div></body></html>')
 
