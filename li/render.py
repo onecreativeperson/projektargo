@@ -28,8 +28,8 @@ CSS = r"""
  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
 @font-face{font-family:"Inter";font-style:normal;font-weight:100 900;src:url(fonts/Inter-latinext.woff2) format("woff2");
  unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
-:root{--ink:#1D1D1F;--ink2:#6A6A70;--tint:#0A5FE0;--w1:#BDB6FF;--w2:#FFC9B8;--w3:#ACEBD6;--w4:#B9DDFF;--base:#ECEEFB;--fs:120px;--ss:38px;--head:linear-gradient(180deg,#1D1D1F 0%,#2E2C52 100%);--accent:linear-gradient(135deg,#2A78F4,#0A5FE0 55%,#4636D2);--pill-bg:linear-gradient(180deg,rgba(255,255,255,.97) 0%,rgba(255,255,255,.68) 46%,rgba(255,255,255,.46) 62%,rgba(255,255,255,.8) 100%);--pill-sh:inset 0 1px 0 #fff,inset 0 -1px 0 rgba(255,255,255,.8),inset 0 -9px 14px -9px rgba(30,30,60,.14),0 0 0 .5px rgba(28,28,48,.09),0 10px 22px -12px rgba(28,28,48,.32);--card-bg:rgba(255,255,255,.6);--card-bg2:rgba(255,255,255,.78);--card-edge:rgba(255,255,255,.78);--card-sh:inset 0 1px 0 #fff,0 26px 50px -30px rgba(28,28,48,.38);--before-ink:#4A4A50;--strike:rgba(106,106,112,.55);--grain:.16;--logo-glow:rgba(10,95,224,.35);--tint-ring:rgba(10,95,224,.14)}
-.dark{--ink:#F5F5F7;--ink2:#A1A1A8;--tint:#3D8BFF;--w1:#3B2F9E;--w2:#6E2A5E;--w3:#0E5A57;--w4:#1C3C8C;--base:#08080F;--head:linear-gradient(180deg,#FFFFFF 0%,#D6D3FF 100%);--accent:linear-gradient(135deg,#6FA8FF,#3D8BFF 50%,#8A6CFF);--pill-bg:linear-gradient(180deg,rgba(255,255,255,.2) 0%,rgba(255,255,255,.08) 46%,rgba(255,255,255,.03) 62%,rgba(255,255,255,.1) 100%),rgba(46,46,54,.8);--pill-sh:inset 0 1px 0 rgba(255,255,255,.42),inset 0 -1px 0 rgba(255,255,255,.12),inset 0 -9px 14px -9px rgba(0,0,0,.6),0 0 0 .5px rgba(255,255,255,.06),0 10px 22px -10px rgba(0,0,0,.75);--card-bg:rgba(30,30,33,.62);--card-bg2:rgba(40,40,46,.8);--card-edge:rgba(255,255,255,.12);--card-sh:inset 0 1px 0 rgba(255,255,255,.16),0 26px 50px -26px rgba(0,0,0,.7);--before-ink:#B4B4BB;--strike:rgba(161,161,168,.6);--grain:.12;--logo-glow:rgba(61,139,255,.45);--tint-ring:rgba(61,139,255,.2)}
+:root{--ink:#1D1D1F;--ink2:#6A6A70;--tint:#0A5FE0;--w1:#BDB6FF;--w2:#FFC9B8;--w3:#ACEBD6;--w4:#B9DDFF;--base:#ECEEFB;--fs:120px;--ss:38px;--head:linear-gradient(180deg,#1D1D1F 0%,#2E2C52 100%);--accent:linear-gradient(135deg,#2A78F4,#0A5FE0 55%,#4636D2);--pill-bg:linear-gradient(180deg,rgba(255,255,255,.97) 0%,rgba(255,255,255,.68) 46%,rgba(255,255,255,.46) 62%,rgba(255,255,255,.8) 100%);--pill-sh:inset 0 1px 0 #fff,inset 0 -1px 0 rgba(255,255,255,.8),inset 0 -9px 14px -9px rgba(30,30,60,.14),0 0 0 .5px rgba(28,28,48,.09),0 10px 22px -12px rgba(28,28,48,.32);--card-bg:rgba(255,255,255,.6);--card-bg2:rgba(255,255,255,.78);--card-edge:rgba(255,255,255,.78);--card-sh:inset 0 1px 0 #fff,0 26px 50px -30px rgba(28,28,48,.38);--pill-ink:#0A5FE0;--pill-edge:rgba(255,255,255,0);--before-ink:#4A4A50;--strike:rgba(106,106,112,.55);--grain:.16;--logo-glow:rgba(10,95,224,.35);--tint-ring:rgba(10,95,224,.14)}
+.dark{--ink:#F5F5F7;--ink2:#A1A1A8;--tint:#3D8BFF;--w1:#3B2F9E;--w2:#6E2A5E;--w3:#0E5A57;--w4:#1C3C8C;--base:#08080F;--head:linear-gradient(180deg,#FFFFFF 0%,#D6D3FF 100%);--accent:linear-gradient(135deg,#6FA8FF,#3D8BFF 50%,#8A6CFF);--pill-bg:linear-gradient(180deg,rgba(255,255,255,.2) 0%,rgba(255,255,255,.1) 55%,rgba(255,255,255,.14) 100%);--pill-ink:#FFFFFF;--pill-edge:rgba(255,255,255,.34);--pill-sh:inset 0 1px 0 rgba(255,255,255,.6),0 12px 26px -12px rgba(0,0,0,.6);--tint-dot:#9CC4FF;--card-bg:rgba(30,30,33,.62);--card-bg2:rgba(40,40,46,.8);--card-edge:rgba(255,255,255,.12);--card-sh:inset 0 1px 0 rgba(255,255,255,.16),0 26px 50px -26px rgba(0,0,0,.7);--before-ink:#B4B4BB;--strike:rgba(161,161,168,.6);--grain:.12;--logo-glow:rgba(61,139,255,.45);--tint-ring:rgba(61,139,255,.2)}
 *{box-sizing:border-box}
 html,body{margin:0;width:1080px;height:1350px;overflow:hidden;font-family:"Inter",sans-serif;-webkit-font-smoothing:antialiased;color:var(--ink);font-optical-sizing:auto}
 .stage{color:var(--ink);position:relative;width:1080px;height:1350px;background:var(--base);overflow:hidden}
@@ -42,10 +42,9 @@ html,body{margin:0;width:1080px;height:1350px;overflow:hidden;font-family:"Inter
 .grain{position:absolute;inset:0;opacity:var(--grain);mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.9'/%3E%3C/svg%3E")}
 .in{position:absolute;inset:88px;display:flex;flex-direction:column;overflow:hidden}
 .top{display:flex;align-items:center;justify-content:space-between;gap:24px}
-.pill{display:inline-flex;align-items:center;gap:12px;font:600 28px/1 "Inter";color:var(--tint);padding:16px 26px;border-radius:999px;
+.pill{display:inline-flex;align-items:center;gap:12px;font:600 28px/1 "Inter";color:var(--pill-ink);border:1px solid var(--pill-edge);padding:16px 26px;border-radius:999px;
  background:var(--pill-bg);box-shadow:var(--pill-sh)}
-.pill b{width:12px;height:12px;border-radius:50%;background:var(--tint);box-shadow:0 0 0 5px var(--tint-ring)}
-.name{font:600 30px/1 "Inter";color:var(--ink2);letter-spacing:-.01em}
+.pill b{width:12px;height:12px;border-radius:50%;background:var(--tint-dot,var(--tint));box-shadow:0 0 0 5px var(--tint-ring)}
 .main{margin:auto 0;padding:40px 0 8px}
 h1{margin:0;font-size:var(--fs);font-weight:800;line-height:1.02;letter-spacing:-.045em;
  background:var(--head);-webkit-background-clip:text;background-clip:text;color:transparent}
@@ -92,8 +91,7 @@ def build(spec: dict) -> str:
     layout = spec.get("layout", "statement")
     theme = " dark" if spec.get("theme") == "dark" else ""
     start = {"statement": 124, "list": 96, "compare": 96}.get(layout, 110)
-    parts = [f'<div class="top"><span class="pill"><b></b>{html.escape(spec.get("kicker", "Projekt Argo"))}</span>'
-             f'<span class="name">Štefan Toporcer</span></div>',
+    parts = [f'<div class="top"><span class="pill"><b></b>{html.escape(spec.get("kicker", "Projekt Argo"))}</span></div>',
              '<div class="main">', f'<h1>{rich(spec["title"])}</h1>']
     if spec.get("sub"):
         parts.append(f'<p class="sub">{rich(spec["sub"])}</p>')
