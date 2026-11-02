@@ -35,6 +35,9 @@ Every project is an engine: a small automated machine for one boring problem. So
 - LoanReady Market: Market analysis built on US Census data, ready for an SBA or bank loan application. Market: USA. Status: Parked.
 - RealAI.sk: A real estate listing rewriter: one brief in, three versions out (standard, emotional, premium) for Slovakia, Czechia and Cyprus. Market: Slovakia, Czechia, Cyprus. Status: Stripped for parts.
 - [sedne.](https://projektargo.com/sedne/): An app that shows you only the pieces that fit, put together as an outfit on your own photo, and sends you to the shop to buy them. Market: Slovakia and Czechia, then the EU. Status: Warming up.
+- [SoHO Ready](https://projektargo.com/soho-ready/): A free gap report that shows IVF clinics and tissue banks where they stand against the EU SoHO Regulation. Market: European Union. Status: Warming up.
+- [PWD Ready](https://projektargo.com/platform-work/): A free gap snapshot that shows digital labour platforms what the EU Platform Work Directive will ask of them. Market: European Union. Status: Warming up.
+- [EstateAML CY](https://projektargo.com/estate-aml-cy/): A free AML readiness snapshot for estate agents and property developers in Cyprus. Market: Cyprus. Status: Warming up.
 
 Parked engines wait until one of the running ones proves demand. Stripped ones have become parts.
 Newer product pages: https://projektargo.com/sitemap-motory.xml
