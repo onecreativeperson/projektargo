@@ -1,6 +1,6 @@
 # Motory – zverejnenie stránok motorov (projektargo.com/<slug>/)
 # Stránky pripravuje naplánovaná úloha „Motory – spúšťač“ a ukladá ich do Supabase (tabuľka motor_pages).
-# Tento workflow ich každých 10 minút a po každom zverejnení webu stiahne a zverejní. Nikdy nič nemaže.
+# Tento workflow ich zverejní hneď po zápise (signál zo Supabase), po každom zverejnení webu a záložne podľa rozvrhu. Nikdy nič nemaže.
 name: Motory – zverejnenie stránok
 
 on:
@@ -9,6 +9,8 @@ on:
     - cron: "4,14,24,34,44,54 * * * *"
   push:
     branches: [main]
+  repository_dispatch:
+    types: [motory]   # signál zo Supabase hneď po zápise stránky do motor_pages
   workflow_dispatch:
 
 permissions:
