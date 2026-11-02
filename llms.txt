@@ -1,0 +1,66 @@
+# Štefan Toporcer
+
+> Štefan Toporcer, a product designer from Slovakia. I design digital products and, with the help of AI, build them too, from idea to finished product.
+
+- Website: https://projektargo.com/ (also called Projekt Argo)
+- Role: product designer
+- Country: Slovakia
+- Designing digital products since 2009
+- Languages: I reply in Slovak, Czech or English.
+- Contact: toporcer.stefan@gmail.com
+
+## About me
+
+I'm Štefan. I've worked in design since 2009: I started with graphic design and motion design, moved on to digital products for fintech and made my way to healthcare.
+
+Alongside design, I spent years in sales and tried running my own businesses several times. Some worked for a while, others not at all. B2B sales in Slovakia, Czechia and Cyprus taught me that a great product isn't about code, it's about a solved problem. And that someone has to want it and someone has to sell it.
+
+Every idea ran into the same wall: without a development team, I couldn't build the product. With AI, I now can. That's how the boring engines started: small products I can build myself, meant to earn money.
+
+I do vibe coding: I build products with AI tools like Claude Code and Cursor, from the interface through the database to payments, and I test and verify every output. The goal is clear: work my way up from small tools to my own app or software that solves a bigger problem.
+
+## Boring engines
+
+Every project is an engine: a small automated machine for one boring problem. Some are running, some are warming up, others stand and wait their turn. This is the whole engine room.
+
+- [Permit Signal](https://getpermitsignal.com): A digest of new US regulatory records for small companies that repair and operate wastewater treatment plants. Market: USA: Texas, Louisiana, North Carolina. Status: Running.
+- [Poriadok.ai](https://projektargo.com/poriadok/): The operating rules document every beauty salon and hair salon is required to have. Tailored, in minutes, with a monthly legislation check. Market: Slovakia, Czechia. Status: Running.
+- Feed Factory: Turns a small manufacturer's Excel or PDF catalogue into product data in the standard wholesalers ask for. Market: UK, Ireland, Belgium. Status: Warming up.
+- [RMD Autopilot](https://projektargo.com/rmd/): Prepares and monitors mandatory FCC filings for small US VoIP providers, so they don't get removed from the database and cut off from the network. Market: USA. Status: Warming up.
+- [Retrofit CE](https://projektargo.com/retrofit-ce/): A free screening that tells you in 5 minutes whether a machinery modification counts as substantial under the new EU Machinery Regulation. Market: Slovakia, Czechia, Austria and the EU. Status: Running.
+- Cross-Reference Engine: A neutral cross-brand guide to interchangeable parts for commercial washers and dryers. Market: Laundromats, hotels, hospitals. Status: Parked.
+- Practice Shield: OSHA compliance document packs for small US healthcare and beauty practices. Market: USA. Status: Parked.
+- Cyprus Compliance Bridge: English-language paperwork for foreign owners of Cyprus companies. Market: Cyprus. Status: Parked.
+- LoanReady Market: Market analysis built on US Census data, ready for an SBA or bank loan application. Market: USA. Status: Parked.
+- RealAI.sk: A real estate listing rewriter: one brief in, three versions out (standard, emotional, premium) for Slovakia, Czechia and Cyprus. Market: Slovakia, Czechia, Cyprus. Status: Stripped for parts.
+- [sedne.](https://projektargo.com/sedne/): An app that shows you only the pieces that fit, put together as an outfit on your own photo, and sends you to the shop to buy them. Market: Slovakia and Czechia, then the EU. Status: Warming up.
+
+Parked engines wait until one of the running ones proves demand. Stripped ones have become parts.
+Newer product pages: https://projektargo.com/sitemap-motory.xml
+
+## Who I can help
+
+This site has two purposes: to show what I build and to find the people it will help. I am looking for those who will use my engines and automations, finished ones and the ones still taking shape, and those it makes sense to work with. If you recognise yourself in one of the three points, write to me.
+
+- You have an idea but no team: I will turn it into a working product, from the design to the finished thing. With AI instead of a development team, so it is fast and needs no agency budget. First we check that someone wants it, only then do we build.
+- You need a product designer: Interfaces, product flows and design systems for fintech, healthcare and B2B tools. For a single project or long term, and if needed, I build what I design.
+- You want to use or grow an engine: Does one of the engines solve your problem or fit your market? Try it among the first, or become a partner who can sell or knows the industry from the inside. Terms to suit, with no big commitments at the start.
+
+## Language versions
+
+- [English](https://projektargo.com/) (primary)
+- [Slovenčina](https://projektargo.com/sk/)
+- [中文](https://projektargo.com/zh/)
+- [हिन्दी](https://projektargo.com/hi/)
+- [Español](https://projektargo.com/es/)
+- [Français](https://projektargo.com/fr/)
+- [العربية](https://projektargo.com/ar/)
+- [Русский](https://projektargo.com/ru/)
+- [Deutsch](https://projektargo.com/de/)
+- [Italiano](https://projektargo.com/it/)
+- [Polski](https://projektargo.com/pl/)
+
+## Optional
+
+- [Sitemap](https://projektargo.com/sitemap.xml)
+- [Product pages sitemap](https://projektargo.com/sitemap-motory.xml)
