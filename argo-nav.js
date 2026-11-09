@@ -92,7 +92,8 @@ ${rtl ? '.c{transform:scaleX(-1)}' : ''}
   }
   function render(){
     const list = data || [];
-    const me = list.find(e => e.id === slug) || list.find(e => e.id === slug.replace(/-[a-z]{2}$/, ''));
+    const at = s => list.find(e => e.id === s || (e.link || '').replace(/[?#].*$/, '').replace(/\/$/, '').split('/').pop() === s);   /* by id or by its page address */
+    const me = at(slug) || at(slug.replace(/-[a-z]{2}$/, ''));
     const n = list.length ? `<span class="n">${list.length}</span>` : '';
     let h = item(home, LOGO, tHome) + item(home + '#motory', '<svg viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2.5" y="2.5" width="6" height="6" rx="1.6"/><rect x="11.5" y="2.5" width="6" height="6" rx="1.6"/><rect x="2.5" y="11.5" width="6" height="6" rx="1.6"/><rect x="11.5" y="11.5" width="6" height="6" rx="1.6"/></svg>', tAll, '', n);
     if (me && (me.region || []).length) {

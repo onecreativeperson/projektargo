@@ -26,7 +26,7 @@ Every project is an engine: a small automated machine for one boring problem. So
 
 - [Permit Signal](https://getpermitsignal.com): A digest of new US regulatory records for small companies that repair and operate wastewater treatment plants. Market: USA: Texas, Louisiana, North Carolina. Status: Running.
 - [Poriadok.ai](https://projektargo.com/poriadok/): The operating rules document every beauty salon and hair salon is required to have. Tailored, in minutes, with a monthly legislation check. Market: Slovakia, Czechia. Status: Running.
-- Feed Factory: Turns a small manufacturer's Excel or PDF catalogue into product data in the standard wholesalers ask for. Market: UK, Ireland, Belgium. Status: Warming up.
+- [Feed Factory](https://projektargo.com/feedfactory/): Turns a small manufacturer's Excel or PDF catalogue into product data in the standard wholesalers ask for. Market: UK, Ireland, Belgium. Status: Warming up.
 - [RMD Autopilot](https://projektargo.com/rmd/): Prepares and monitors mandatory FCC filings for small US VoIP providers, so they don't get removed from the database and cut off from the network. Market: USA. Status: Warming up.
 - [Retrofit CE](https://projektargo.com/retrofit-ce/): A free screening that tells you in 5 minutes whether a machinery modification counts as substantial under the new EU Machinery Regulation. Market: Slovakia, Czechia, Austria and the EU. Status: Running.
 - Cross-Reference Engine: A neutral cross-brand guide to interchangeable parts for commercial washers and dryers. Market: Laundromats, hotels, hospitals. Status: Parked.
