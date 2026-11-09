@@ -9,7 +9,6 @@
 <meta name="robots" content="index, follow, max-image-preview:large">
 <link rel="canonical" href="https://projektargo.com/entsende-check/">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<meta name="theme-color" content="#F2F2F6">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Entsende-Check AT">
 <meta property="og:title" content="Entsende-Check AT · Platíte vyslaným pracovníkom podľa rakúskej KV?">
@@ -17,127 +16,156 @@
 <meta property="og:url" content="https://projektargo.com/entsende-check/">
 <meta property="og:locale" content="sk_SK">
 <meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#E7E4DE">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=League+Gothic&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-:root{
-  --bg:#F2F2F6; --ink:#1D1D1F; --ink-2:#5E5E66; --line:rgba(60,60,67,.14);
-  --glass:rgba(255,255,255,.74); --glass-edge:rgba(255,255,255,.7); --glass-hi:rgba(255,255,255,.95);
-  --lg-fill:linear-gradient(180deg,rgba(255,255,255,.97) 0%,rgba(255,255,255,.68) 46%,rgba(255,255,255,.46) 62%,rgba(255,255,255,.8) 100%);
-  --lg-shine:inset 0 1px 0 #fff,inset 0 -1px 0 rgba(255,255,255,.8),inset 0 -9px 14px -9px rgba(30,30,60,.14),inset 0 9px 14px -9px rgba(255,255,255,.95);
-  --lg-drop:0 0 0 .5px rgba(28,28,48,.09),0 8px 18px -10px rgba(28,28,48,.32);
-  --tint:#0A5FE0;
-  --lg-pri:linear-gradient(180deg,rgba(255,255,255,.4) 0%,rgba(255,255,255,.06) 40%,rgba(255,255,255,0) 58%,rgba(255,255,255,.14) 100%),linear-gradient(135deg,#2A78F4,#0A5FE0 55%,#4636D2);
-  --w1:#BDB6FF; --w2:#FFC9B8; --w3:#ACEBD6; --w4:#B9DDFF;
-  --ok:#1A7535; --warm:#9A5600; --bad:#B3261E;
-  --shadow:rgba(28,28,48,.16);
-  --sans:-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI","Helvetica Neue",Arial,sans-serif;
-  --display:-apple-system,BlinkMacSystemFont,"SF Pro Display","Inter","Segoe UI","Helvetica Neue",Arial,sans-serif;
-  --r-l:30px; --r-m:22px; --r-s:14px;
-  --pad:clamp(16px,4vw,56px);
-  color-scheme:light;
-}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-body{margin:0;font-family:var(--sans);color:var(--ink);background:var(--bg);line-height:1.55;font-size:16px;-webkit-font-smoothing:antialiased;min-height:100vh;overflow-x:hidden}
-body::before{content:"";position:fixed;inset:-10% -10% auto -10%;height:120vh;z-index:-1;pointer-events:none;
-  background:
-   radial-gradient(48% 40% at 12% 8%,var(--w1),transparent 70%),
-   radial-gradient(42% 36% at 92% 14%,var(--w4),transparent 70%),
-   radial-gradient(46% 38% at 80% 62%,var(--w3),transparent 72%),
-   radial-gradient(40% 34% at 6% 70%,var(--w2),transparent 72%);
-  opacity:.75}
-[data-l]{display:inline}
-html[lang="en"] [data-l="sk"]{display:none!important}
-html:not([lang="en"]) [data-l="en"]{display:none!important}
-a{color:var(--tint)}
-:focus-visible{outline:3px solid var(--tint);outline-offset:3px;border-radius:8px}
-.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
-.wrap{max-width:1040px;margin:0 auto;padding:0 var(--pad)}
-.glass{background:var(--glass);-webkit-backdrop-filter:blur(30px) saturate(180%);backdrop-filter:blur(30px) saturate(180%);border:1px solid var(--glass-edge);box-shadow:inset 0 1px 0 var(--glass-hi),0 18px 40px -18px var(--shadow)}
-h1,h2,h3{font-family:var(--display);margin:0;letter-spacing:-.022em;line-height:1.1;font-weight:700}
-h2{font-size:clamp(25px,4.2vw,36px);margin-bottom:10px}
-h3{font-size:19px;letter-spacing:-.012em;margin-bottom:6px}
-p{margin:0 0 12px}
-.lead{color:var(--ink-2);font-size:clamp(16px,2.2vw,18.5px);max-width:62ch}
-
-/* top bar */
-.bar{position:fixed;z-index:40;top:calc(10px + env(safe-area-inset-top,0px));left:50%;transform:translateX(-50%);width:min(1040px,calc(100% - 2*var(--pad)));display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 8px 8px 18px;border-radius:999px}
-.brand{font-family:var(--display);font-weight:700;font-size:16.5px;letter-spacing:-.01em;color:var(--ink);text-decoration:none;white-space:nowrap}
-.brand span{color:var(--tint)}
-.bar-r{display:flex;align-items:center;gap:8px}
-.cap{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:40px;padding:0 16px;border-radius:999px;border:0;font:600 14.5px/1 var(--sans);color:var(--ink);text-decoration:none;cursor:pointer;background:var(--lg-fill);box-shadow:var(--lg-shine),var(--lg-drop);transition:transform .2s cubic-bezier(.2,.9,.25,1.05)}
-.cap:active{transform:scale(.96)}
-.cap.pri{color:#fff;background:var(--lg-pri);box-shadow:var(--lg-shine),0 10px 22px -8px rgba(10,95,224,.55),var(--lg-drop);text-shadow:0 1px 1px rgba(0,0,40,.25)}
-.seg{display:inline-flex;padding:3px;border-radius:999px;background:rgba(60,60,67,.09)}
-.seg button{border:0;background:transparent;font:600 13px/1 var(--sans);color:var(--ink-2);min-height:34px;min-width:44px;padding:0 10px;border-radius:999px;cursor:pointer}
-.seg button[aria-pressed="true"]{background:#fff;color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.15)}
-.bar .cap.pri{display:none}
-@media(min-width:640px){.bar .cap.pri{display:inline-flex}}
-
+/* Entsende-Check AT – výplatná páska a stavebná tabuľa: rakúska červená, betónová sivá, harmonogram ako na stavbe */
+:root{--red:#C8102E;--red-d:#9E0C24;--concrete:#E7E4DE;--white:#FFFFFF;--paper:#FCFBF7;--ink:#1A1A1A;--text:#34322E;--muted:#57534C;--line:#CBC6BC;--ok:#2F6B3A;--ease:cubic-bezier(.2,.8,.2,1);--max:1180px}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--concrete);color:var(--ink);font:17px/1.6 "Source Sans 3",Arial,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+section,article{scroll-margin-top:76px}
+.w{max-width:var(--max);margin:0 auto;padding:0 22px}
+.mono{font-family:"DM Mono",ui-monospace,monospace}
+h1,h2,h3{font-family:"League Gothic","Arial Narrow",sans-serif;font-weight:400;text-transform:uppercase;letter-spacing:.012em;line-height:1.02}
+.sr{position:absolute;left:-9999px;top:0}
+.sr:focus{left:12px;top:12px;z-index:60;background:var(--white);padding:8px 12px;border:2px solid var(--ink)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;background:var(--red);color:#fff;text-decoration:none;font-weight:700;padding:16px 24px;box-shadow:inset 0 -4px 0 var(--red-d);transition:background .2s,transform .2s var(--ease);text-align:center}
+.btn:hover{background:var(--red-d);transform:translateY(-1px)}
+.btn.sm{padding:9px 13px;font-size:14px}
+/* header */
+.flag{height:9px;background:linear-gradient(var(--red) 0 33.4%,#fff 33.4% 66.6%,var(--red) 66.6%)}
+.bar{position:sticky;top:0;z-index:20;background:var(--white);border-bottom:3px solid var(--ink)}
+.bar .w{height:62px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{display:flex;align-items:center;gap:8px;white-space:nowrap;text-decoration:none;font-family:"League Gothic","Arial Narrow",sans-serif;font-size:31px;text-transform:uppercase;letter-spacing:.02em;line-height:1}
+.brand span{background:var(--red);color:#fff;padding:3px 7px 1px;font-size:22px}
 /* hero */
-.hero{padding:clamp(104px,16vw,150px) 0 clamp(36px,6vw,64px)}
-.chip{display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border-radius:999px;font-size:13.5px;font-weight:600;color:var(--ink);background:var(--lg-fill);box-shadow:var(--lg-shine),var(--lg-drop);margin-bottom:18px}
-.chip i{width:8px;height:8px;border-radius:50%;background:#F29100;box-shadow:0 0 0 4px rgba(242,145,0,.2)}
-.hero h1{font-size:clamp(34px,7vw,64px);max-width:16ch;background:linear-gradient(180deg,#1D1D1F 0%,#2E2C52 100%);-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:18px;padding-bottom:.06em}
-.hero .lead{margin-bottom:26px}
-.cta-row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
-.cap.big{min-height:54px;padding:0 28px;font-size:17px}
-.fine{font-size:13.5px;color:var(--ink-2);margin:14px 0 0}
-.verdicts{display:grid;gap:12px;margin-top:clamp(28px,5vw,46px);grid-template-columns:1fr}
-@media(min-width:760px){.verdicts{grid-template-columns:repeat(3,1fr)}}
-.v{padding:18px 20px;border-radius:var(--r-m)}
-.pill{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;font-weight:700;letter-spacing:.02em;padding:5px 11px;border-radius:999px;margin-bottom:8px}
-.pill::before{content:"";width:8px;height:8px;border-radius:50%;background:currentColor}
-.pill.s{color:var(--bad);background:rgba(240,69,58,.12)}
-.pill.n{color:var(--ok);background:rgba(40,184,79,.14)}
-.pill.b{color:var(--warm);background:rgba(242,145,0,.16)}
-.v p{margin:0;color:var(--ink-2);font-size:15px}
-
-section{padding:clamp(34px,6vw,64px) 0}
-.grid{display:grid;gap:14px;margin-top:22px}
-@media(min-width:760px){.grid.c3{grid-template-columns:repeat(3,1fr)}.grid.c2{grid-template-columns:repeat(2,1fr)}}
-.card{padding:22px;border-radius:var(--r-l)}
-.card p{color:var(--ink-2);margin:0;font-size:15.5px}
-.num{display:inline-grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--lg-pri);color:#fff;font-weight:700;font-size:15px;margin-bottom:12px;box-shadow:0 8px 16px -8px rgba(10,95,224,.6)}
-.list{list-style:none;padding:0;margin:14px 0 0;display:grid;gap:10px}
-.list li{position:relative;padding-left:28px;color:var(--ink-2);font-size:15.5px}
-.list li::before{content:"";position:absolute;left:0;top:.35em;width:16px;height:16px;border-radius:50%;background:var(--lg-pri)}
-.list li b{color:var(--ink)}
-.list.no li::before{background:linear-gradient(135deg,#9a9aa2,#6c6c74)}
-
+.hero{padding:64px 0 60px}
+.hero .w{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:56px;align-items:start}
+.chip{display:inline-flex;align-items:center;gap:10px;background:var(--white);border:2px solid var(--ink);padding:6px 12px;font-weight:600;font-size:14px;margin-bottom:24px}
+.chip i{width:20px;height:13px;flex:none;background:linear-gradient(var(--red) 0 33.4%,#fff 33.4% 66.6%,var(--red) 66.6%);outline:1px solid var(--ink)}
+.hero h1{font-size:clamp(54px,6.4vw,92px)}
+.lead{font-size:18.5px;color:var(--text);margin:24px 0 30px;max-width:34em}
+.fine{font-size:14px;color:var(--muted);margin-top:16px}
+.fine a{color:var(--red-d)}
+/* payslip */
+.slipw{filter:drop-shadow(0 20px 26px rgba(26,26,26,.24));transform:rotate(-1.1deg)}
+.slip{background:var(--paper);padding:30px 26px 30px;-webkit-mask:radial-gradient(circle 6px at 50% 0,#0000 96%,#000) top/16px 51% repeat-x,radial-gradient(circle 6px at 50% 100%,#0000 96%,#000) bottom/16px 51% repeat-x;mask:radial-gradient(circle 6px at 50% 0,#0000 96%,#000) top/16px 51% repeat-x,radial-gradient(circle 6px at 50% 100%,#0000 96%,#000) bottom/16px 51% repeat-x}
+.slip .sh{display:flex;justify-content:space-between;gap:10px;font-family:"DM Mono",monospace;font-size:12px;letter-spacing:.06em;color:var(--muted);padding-bottom:12px;border-bottom:2px dashed var(--ink)}
+.cmp{padding:16px 0 14px;border-bottom:2px dashed var(--ink);font-family:"DM Mono",monospace;font-size:13px}
+.cmp .row{display:grid;grid-template-columns:110px minmax(0,1fr);gap:10px;align-items:center;margin-bottom:8px}
+.cmp .bar2{height:26px;display:flex;align-items:center;justify-content:flex-end;padding:0 8px;font-weight:500;white-space:nowrap}
+.cmp .kv .bar2{width:100%;background:var(--ink);color:#fff}
+.cmp .you .bar2{width:75.1%;background:var(--red);color:#fff}
+.cmp .diff{text-align:right;color:var(--red-d);font-weight:500;margin-top:4px}
+.v{padding:14px 0;border-bottom:1px dotted var(--line)}
+.v:last-child{border-bottom:0;padding-bottom:0}
+.pill{display:inline-block;font-family:"DM Mono",monospace;font-size:11px;letter-spacing:.04em;text-transform:uppercase;padding:2px 8px;margin-bottom:6px}
+.pill.b{background:var(--red);color:#fff}
+.pill.s{background:var(--ink);color:#fff}
+.v p{font-size:15.5px;color:var(--text)}
+.hero .after{margin-top:22px;max-width:34em}
+/* sections */
+.sec{padding:104px 0}
+.sec h2{font-size:clamp(46px,6.4vw,88px);margin-bottom:40px}
+.lbl{display:inline-block;font-family:"DM Mono",monospace;font-size:12px;letter-spacing:.06em;text-transform:uppercase;background:var(--ink);color:#fff;padding:3px 9px;margin-bottom:16px}
+/* construction board */
+.board{background:var(--white);border:12px solid var(--red);box-shadow:0 0 0 2px var(--ink);display:grid;grid-template-columns:1fr 1fr}
+.cell{padding:32px 34px 34px;border-bottom:2px solid var(--concrete)}
+.cell:nth-child(odd){border-right:2px solid var(--concrete)}
+.cell:nth-last-child(-n+2){border-bottom:0}
+.fig{display:block;font-family:"League Gothic","Arial Narrow",sans-serif;font-size:76px;line-height:.9;color:var(--red);margin-bottom:10px}
+.cell h3{font-size:32px;margin-bottom:10px}
+.cell p{color:var(--text)}
+.cell .note{font-size:13.5px;color:var(--muted);margin-top:12px;padding-top:10px;border-top:1px solid var(--line)}
+/* schedule */
+.sched{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.scale{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;font-family:"DM Mono",monospace;font-size:12px;color:var(--muted);text-transform:uppercase;margin-bottom:8px}
+.scale span{border-left:2px solid var(--ink);padding-left:8px}
+.chev{display:flex;align-items:center;gap:14px;background:var(--ink);color:#fff;padding:14px 46px 14px 26px;clip-path:polygon(0 0,calc(100% - 26px) 0,100% 50%,calc(100% - 26px) 100%,0 100%,16px 50%);min-height:76px}
+.stp:first-child .chev{clip-path:polygon(0 0,calc(100% - 26px) 0,100% 50%,calc(100% - 26px) 100%,0 100%)}
+.stp:nth-child(2) .chev{background:var(--red)}
+.chev .num{font-family:"League Gothic","Arial Narrow",sans-serif;font-size:46px;line-height:1}
+.chev h3{font-size:28px;line-height:1}
+.stp p{background:var(--white);padding:18px 20px;margin-top:10px;color:var(--text);border-top:3px solid var(--ink)}
 /* offer */
-.offer{padding:clamp(22px,4vw,34px);border-radius:var(--r-l);display:grid;gap:18px}
-@media(min-width:760px){.offer{grid-template-columns:1.3fr .7fr;align-items:center}}
-.price{font-family:var(--display);font-size:clamp(40px,7vw,56px);font-weight:700;letter-spacing:-.03em;line-height:1}
-.price small{display:block;font-size:14px;font-weight:500;color:var(--ink-2);letter-spacing:0;margin-top:6px}
-.note{font-size:14px;color:var(--ink-2)}
-
+.offer{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);border:2px solid var(--ink);background:var(--white)}
+.offer .l{padding:34px}
+.offer .l .lead{margin:0 0 14px}
+.offer .r{background:var(--red);color:#fff;padding:34px}
+.price{font-family:"League Gothic","Arial Narrow",sans-serif;font-size:104px;line-height:.95}
+.price small{display:block;font-family:"Source Sans 3",sans-serif;font-size:15.5px;line-height:1.5;margin-top:12px}
+.note{font-size:14px;color:var(--muted)}
+.offer .r .note{color:#FCE3E7;margin-top:14px}
 /* faq */
-details{border-radius:var(--r-m);padding:0;margin-bottom:10px}
-summary{cursor:pointer;list-style:none;padding:17px 20px;font-weight:600;font-size:16.5px;display:flex;justify-content:space-between;gap:14px;align-items:center;min-height:56px}
-summary::-webkit-details-marker{display:none}
-summary::after{content:"+";font-size:22px;font-weight:400;color:var(--tint);flex:none;transition:transform .25s}
-details[open] summary::after{transform:rotate(45deg)}
-details .a{padding:0 20px 18px;color:var(--ink-2);font-size:15.5px}
-details .a p:last-child{margin-bottom:0}
-
+.faq details{background:var(--white);border:2px solid var(--ink);border-top-width:0;padding:18px 22px}
+.faq details:first-of-type{border-top-width:2px}
+.faq summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:18px;font-weight:700;font-size:19px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary:after{content:"+";flex:none;width:30px;height:30px;background:var(--red);color:#fff;display:grid;place-items:center;font-size:20px;line-height:1}
+.faq details[open] summary:after{content:"–";background:var(--ink)}
+.faq .a p{color:var(--text);margin-top:10px;max-width:46em}
+.cta-row{margin-top:30px}
 /* legal */
-.legal{padding:clamp(22px,4vw,34px);border-radius:var(--r-l);margin-top:18px}
-.legal h2{font-size:clamp(21px,3.4vw,27px)}
-.legal h3{margin-top:18px;font-size:16.5px}
-.legal p,.legal li{font-size:14.5px;color:var(--ink-2)}
-.legal ul{padding-left:20px;margin:6px 0 12px}
-.legal li{margin-bottom:5px}
-
-footer{padding:34px 0 calc(40px + env(safe-area-inset-bottom,0px));color:var(--ink-2);font-size:14px}
-footer .row{display:flex;flex-wrap:wrap;gap:8px 20px;justify-content:space-between}
-footer a{color:var(--ink-2)}
-
-/* mobile sticky CTA */
-.sticky{position:fixed;left:var(--pad);right:var(--pad);bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:35;display:flex;justify-content:center;opacity:0;transform:translateY(20px);pointer-events:none;transition:opacity .3s,transform .3s}
+.pravne{padding:24px 0 80px}
+.pravne .w{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.35fr);gap:28px;align-items:start}
+.legal{background:var(--paper);border-top:6px solid var(--ink);padding:30px;font-size:15px;color:var(--text)}
+.legal h2{font-size:40px;margin-bottom:18px}
+.legal h3{font-family:"Source Sans 3",sans-serif;text-transform:none;font-weight:700;font-size:16px;margin:16px 0 4px;letter-spacing:0}
+.legal ul{padding-left:20px}
+.legal li{margin-bottom:10px}
+.legal p{margin-bottom:8px}
+.legal a{color:var(--red-d)}
+footer{background:var(--ink);color:#CFCBC3;padding:28px 0 40px;font-size:14px}
+footer .w{display:flex;justify-content:space-between;gap:12px 24px;flex-wrap:wrap}
+footer a{color:#fff}
+/* sticky CTA (mobil) */
+.sticky{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:35;display:flex;justify-content:center;opacity:0;transform:translateY(16px);pointer-events:none;transition:opacity .25s,transform .25s}
 .sticky.show{opacity:1;transform:none;pointer-events:auto}
-.sticky .cap{width:100%;max-width:420px;min-height:54px;font-size:16.5px}
-@media(min-width:640px){.sticky{display:none}}
-@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+.sticky .btn{width:100%;max-width:420px;min-height:54px;font-size:16.5px;box-shadow:inset 0 -4px 0 var(--red-d),0 10px 24px -8px rgba(0,0,0,.45)}
+@media (min-width:640px){.sticky{display:none}}
+a:focus-visible,summary:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+@media (prefers-reduced-motion:no-preference){
+  .cmp .bar2{transform-origin:left;animation:grow .9s var(--ease) .3s both}
+  .cmp .you .bar2{animation-delay:.55s}
+  @keyframes grow{from{transform:scaleX(0)}to{transform:none}}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+@media (max-width:900px){
+  .hero{padding:40px 0 48px}
+  .hero .w{grid-template-columns:1fr;gap:40px}
+  .slipw{transform:none}
+  .sec{padding:72px 0}
+  .sec h2{margin-bottom:28px}
+  .board{grid-template-columns:1fr;border-width:8px}
+  .cell,.cell:nth-child(odd){border-right:0;padding:26px 22px 28px}
+  .cell:nth-last-child(2){border-bottom:2px solid var(--concrete)}
+  .fig{font-size:60px}
+  .cell h3{font-size:28px}
+  .scale{display:none}
+  .sched{grid-template-columns:1fr;gap:16px}
+  .chev,.stp:first-child .chev{clip-path:polygon(0 0,100% 0,100% calc(100% - 14px),50% 100%,0 calc(100% - 14px));padding:14px 20px 26px}
+  .offer{grid-template-columns:1fr}
+  .offer .l,.offer .r{padding:26px 22px}
+  .price{font-size:88px}
+  .faq summary{font-size:18px}
+  .faq details{padding:16px 16px}
+  .pravne .w{grid-template-columns:1fr}
+  .legal{padding:24px 20px}
+  footer{padding-bottom:96px}
+}
+@media (max-width:420px){
+  .bar .w{padding:0 14px;gap:8px}
+  .brand{font-size:23px;gap:6px}
+  .brand span{font-size:17px;padding:2px 5px 0}
+  .btn.sm{padding:6px 9px;font-size:12.5px;line-height:1.2;max-width:150px}
+  .hero h1{font-size:52px}
+  .cmp .row{grid-template-columns:92px minmax(0,1fr)}
+  .slip{padding:28px 18px}
+}
 </style>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Service", "@id": "https://projektargo.com/entsende-check/#service", "name": "Entsende-Check AT", "url": "https://projektargo.com/entsende-check/", "description": "Bezplatná orientačná kontrola pre SK a CZ firmy, ktoré vysielajú pracovníkov do Rakúska: rakúska KV a minimálna mzda, odhad príplatkov BUAK a chýbajúce podklady do 2 pracovných dní.", "inLanguage": "sk", "areaServed": [{"@type": "Country", "name": "Slovakia"}, {"@type": "Country", "name": "Czechia"}], "provider": {"@type": "Person", "@id": "https://projektargo.com/#person", "name": "Štefan Toporcer", "url": "https://projektargo.com/"}}</script>
 <script>
@@ -148,117 +176,140 @@ posthog.init("phc_zbBFHQt5aVYH9HuviHUQuwfh6TPCVPyXSrMWWgJ9UfLP",{api_host:"https
 <body>
 <a class="sr" href="#main">Preskočiť na obsah</a>
 
-<header class="bar glass">
-  <a class="brand" href="/entsende-check/">Entsende-Check <span>AT</span></a>
-  <div class="bar-r">
-    <a class="cap pri" href="https://tally.so/r/PRDLYd?ref=site-nav">Získať bezplatnú kontrolu</a>
+<div class="flag" aria-hidden="true"></div>
+<header class="bar">
+  <div class="w">
+    <a class="brand" href="/entsende-check/">Entsende-Check <span>AT</span></a>
+    <a class="btn sm" href="https://tally.so/r/PRDLYd?ref=site-nav">Získať bezplatnú kontrolu</a>
   </div>
 </header>
 
 <main id="main">
-<div class="wrap">
+  <section class="hero">
+    <div class="w">
+      <div>
+        <div class="chip"><i></i>Pre slovenské a české firmy so zákazkami v Rakúsku</div>
+        <h1>Platíte vyslaným pracovníkom podľa rakúskej KV?</h1>
+        <p class="lead">Pracovníkom vyslaným do Rakúska patrí aspoň mzda podľa rakúskej kolektívnej zmluvy (KV) vrátane pomerných osobitných platieb. Pošlite profesiu a sadzbu jedného pracovníka a do 2 pracovných dní dostanete <b>bezplatný Entsende-Check</b>: pravdepodobnú KV a mzdovú skupinu, minimálnu hodinovú mzdu oproti vašej sadzbe, odhad príplatkov BUAK a zoznam chýbajúcich podkladov.</p>
+        <a class="btn" id="hero-cta" href="https://tally.so/r/PRDLYd?ref=site-hero">Získať bezplatný Entsende-Check →</a>
+        <p class="fine">E-mailom do 2 pracovných dní. Bez platby a bez záväzkov. Orientačný výstup, nie právne stanovisko. Pozri <a href="#upozornenie">upozornenie</a> a <a href="#privacy">ochranu údajov</a>.</p>
+      </div>
 
-<div class="hero">
-  <div class="chip"><i></i>Pre slovenské a české firmy so zákazkami v Rakúsku</div>
-  <h1>Platíte vyslaným pracovníkom podľa rakúskej KV?</h1>
-  <p class="lead">Pracovníkom vyslaným do Rakúska patrí aspoň mzda podľa rakúskej kolektívnej zmluvy (KV) vrátane pomerných osobitných platieb. Pošlite profesiu a sadzbu jedného pracovníka a do 2 pracovných dní dostanete <b>bezplatný Entsende-Check</b>: pravdepodobnú KV a mzdovú skupinu, minimálnu hodinovú mzdu oproti vašej sadzbe, odhad príplatkov BUAK a zoznam chýbajúcich podkladov.</p>
-  <div class="cta-row">
-    <a class="cap pri big" id="hero-cta" href="https://tally.so/r/PRDLYd?ref=site-hero">Získať bezplatný Entsende-Check →</a>
-  </div>
-  <p class="fine">E-mailom do 2 pracovných dní. Bez platby a bez záväzkov. Orientačný výstup, nie právne stanovisko. Pozri <a href="#upozornenie">upozornenie</a> a <a href="#privacy">ochranu údajov</a>.</p>
-
-  <div class="verdicts" aria-label="Ilustračný príklad výstupu">
-    <div class="v glass"><span class="pill b">Ilustračný príklad: mzda</span><p>Murár s výučným listom, KV Baugewerbe und Bauindustrie, ak ide o skupinu II a) Facharbeiter: minimum <b>21,96 €/h</b> od 1. 5. 2026. Vaša sadzba 16,50 €/h, teda o 5,46 €/h menej.</p></div>
-    <div class="v glass"><span class="pill b">Ilustračný príklad: BUAK</span><p>Príplatok za dovolenku za pracovný deň podľa vzorca BUAK: (21,96 € + 20 %) × 11,55 / 5 = <b>60,87 €</b> pri 39-hodinovom týždni.</p></div>
-    <div class="v glass"><span class="pill s">Ilustračný príklad: podklady</span><p>Chýba zaradenie do mzdovej skupiny a osobitné platby sa vyplácajú len raz ročne, nie pomerne s každou výplatou.</p></div>
-  </div>
-  <p class="fine">Ilustračný príklad pre vymyslenú firmu. Váš výstup vychádza z vašich odpovedí a z aktuálnych verejných mzdových tabuliek.</p>
-</div>
-
-<section id="preco-teraz">
-  <h2>Prečo to riešiť teraz</h2>
-  <div class="grid c2">
-    <div class="card glass"><h3>23 119 vyslaní zo Slovenska</h3><p>V roku 2024 evidovali rakúske úrady 23 119 hlásení vyslania zo Slovenska (z toho 6 539 v stavebníctve) a 15 454 z Česka. Spolu to bolo 300 946 hlásení.</p><p class="note">Zdroj: Geyer, Bilitza a Danaj (2025), Posted workers from and to Austria, tab. 2 (údaje ZKO)</p></div>
-    <div class="card glass"><h3>Mzda podľa rakúskej KV</h3><p>Vyslanému pracovníkovi patrí aspoň mzda, akú má podľa KV porovnateľný pracovník v mieste výkonu práce. Osobitné platby (Sonderzahlungen) sa majú vyplácať pomerne s každou výplatou.</p><p class="note">Zdroj: WKO, informácie k LSD-BG pre zahraničné firmy</p></div>
-    <div class="card glass"><h3>Pokuty v desiatkach tisíc eur</h3><p>Za nedoplatok mzdy hrozí pokuta až do 50 000 € (pri vyšších nedoplatkoch viac), za chýbajúce hlásenie až do 20 000 € a za chýbajúce mzdové podklady až do 20 000 €, pri opakovaní do 40 000 €.</p><p class="note">Zdroj: WKO, Lohn- und Sozialdumping: Strafen, stav 1. 1. 2026</p></div>
-    <div class="card glass"><h3>Hlásenia a príplatky BUAK</h3><p>Vyslanie treba nahlásiť pred začiatkom práce. V stavebníctve sa pri vyslaní dlhšom ako mesiac podávajú hlásenia BUAK mesačne, do 15. dňa nasledujúceho mesiaca.</p><p class="note">Zdroj: WKO, LSD-BG; BUAK, brožúra o vysielaní</p></div>
-  </div>
-</section>
-
-<section id="ako">
-  <h2>Ako to funguje</h2>
-  <div class="grid c3">
-    <div class="card glass"><div class="num">1</div><h3>Vyplníte formulár</h3><p>Firma, odbor, profesia a hodinová sadzba jedného pracovníka, dĺžka vyslania a podklady, ktoré máte. Približne 3 minúty, bez mien pracovníkov.</p></div>
-    <div class="card glass"><div class="num">2</div><h3>Porovnáme s KV</h3><p>Vyhľadáme pravdepodobnú rakúsku KV a mzdovú skupinu v aktuálnych mzdových tabuľkách a porovnáme minimum s vašou sadzbou.</p></div>
-    <div class="card glass"><div class="num">3</div><h3>Výstup na e-mail</h3><p>Do 2 pracovných dní: KV a skupina, minimum oproti vašej sadzbe, odhad príplatkov BUAK (stavebníctvo), zoznam chýbajúcich podkladov a zdroje.</p></div>
-  </div>
-</section>
-
-<section id="ponuka">
-  <h2>Platená verzia: Entsende-Mappa (early access)</h2>
-  <div class="offer glass">
-    <div>
-      <p class="lead" style="margin-bottom:10px">Mesačná služba pre firmy, ktoré vysielajú pracovníkov do Rakúska pravidelne: zaradenie každého pracovníka podľa KV, kontrola sadzieb pri zmene mzdových tabuliek, podklady k mesačným hláseniam BUAK a prehľad termínov A1 a ZKO3.</p>
-      <p class="note">Ide o nástroj a dokumentáciu pre zamestnávateľa, nie o účtovníctvo, spracovanie miezd ani právne poradenstvo. Zodpovednosť za mzdy a hlásenia nesie zamestnávateľ.</p>
+      <div>
+      <div class="slipw">
+        <figure class="slip" aria-label="Ilustračný príklad výstupu">
+          <div class="sh"><span>ENTSENDE-CHECK</span><span>ILUSTRAČNÝ PRÍKLAD</span></div>
+          <div class="cmp" aria-hidden="true">
+            <div class="row kv"><span>KV minimum</span><span class="bar2">21,96 €/h</span></div>
+            <div class="row you"><span>Vaša sadzba</span><span class="bar2">16,50 €/h</span></div>
+            <div class="diff">rozdiel −5,46 €/h</div>
+          </div>
+          <div class="v"><span class="pill b">Ilustračný príklad: mzda</span><p>Murár s výučným listom, KV Baugewerbe und Bauindustrie, ak ide o skupinu II a) Facharbeiter: minimum <b>21,96 €/h</b> od 1. 5. 2026. Vaša sadzba 16,50 €/h, teda o 5,46 €/h menej.</p></div>
+          <div class="v"><span class="pill b">Ilustračný príklad: BUAK</span><p>Príplatok za dovolenku za pracovný deň podľa vzorca BUAK: (21,96 € + 20 %) × 11,55 / 5 = <b>60,87 €</b> pri 39-hodinovom týždni.</p></div>
+          <div class="v"><span class="pill s">Ilustračný príklad: podklady</span><p>Chýba zaradenie do mzdovej skupiny a osobitné platby sa vyplácajú len raz ročne, nie pomerne s každou výplatou.</p></div>
+        </figure>
+      </div>
+      <p class="fine after">Ilustračný príklad pre vymyslenú firmu. Váš výstup vychádza z vašich odpovedí a z aktuálnych verejných mzdových tabuliek.</p>
+      </div>
     </div>
-    <div>
-      <div class="price">99 €<small>mesačne bez DPH, firma do 5 vyslaných pracovníkov, každý ďalší +15 €; zrušiteľné mesačne</small></div>
-      <p class="note" style="margin-top:12px">Na stránke sa nič neplatí. Záujem označíte vo formulári a ozveme sa s písomnou ponukou.</p>
+  </section>
+
+  <section class="sec" id="preco-teraz">
+    <div class="w">
+      <span class="lbl">Stavebná tabuľa</span>
+      <h2>Prečo to riešiť teraz</h2>
+      <div class="board">
+        <div class="cell"><span class="fig" aria-hidden="true">2024</span><h3>23 119 vyslaní zo Slovenska</h3><p>V roku 2024 evidovali rakúske úrady 23 119 hlásení vyslania zo Slovenska (z toho 6 539 v stavebníctve) a 15 454 z Česka. Spolu to bolo 300 946 hlásení.</p><p class="note">Zdroj: Geyer, Bilitza a Danaj (2025), Posted workers from and to Austria, tab. 2 (údaje ZKO)</p></div>
+        <div class="cell"><span class="fig" aria-hidden="true">KV</span><h3>Mzda podľa rakúskej KV</h3><p>Vyslanému pracovníkovi patrí aspoň mzda, akú má podľa KV porovnateľný pracovník v mieste výkonu práce. Osobitné platby (Sonderzahlungen) sa majú vyplácať pomerne s každou výplatou.</p><p class="note">Zdroj: WKO, informácie k LSD-BG pre zahraničné firmy</p></div>
+        <div class="cell"><span class="fig" aria-hidden="true">50 000 €</span><h3>Pokuty v desiatkach tisíc eur</h3><p>Za nedoplatok mzdy hrozí pokuta až do 50 000 € (pri vyšších nedoplatkoch viac), za chýbajúce hlásenie až do 20 000 € a za chýbajúce mzdové podklady až do 20 000 €, pri opakovaní do 40 000 €.</p><p class="note">Zdroj: WKO, Lohn- und Sozialdumping: Strafen, stav 1. 1. 2026</p></div>
+        <div class="cell"><span class="fig" aria-hidden="true">BUAK</span><h3>Hlásenia a príplatky BUAK</h3><p>Vyslanie treba nahlásiť pred začiatkom práce. V stavebníctve sa pri vyslaní dlhšom ako mesiac podávajú hlásenia BUAK mesačne, do 15. dňa nasledujúceho mesiaca.</p><p class="note">Zdroj: WKO, LSD-BG; BUAK, brožúra o vysielaní</p></div>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<section id="faq">
-  <h2>Časté otázky</h2>
-  <details class="glass"><summary>Je kontrola naozaj zadarmo?</summary><div class="a"><p>Áno. Formulár aj výstup sú bezplatné a nezaväzujú vás k žiadnej objednávke.</p></div></details>
-  <details class="glass"><summary>Je to právne stanovisko?</summary><div class="a"><p>Nie. Výstup je orientačný a vychádza z vašich odpovedí a verejných zdrojov. Pri zložitých prípadoch odporúčame overiť si zaradenie u rakúskeho poradcu.</p></div></details>
-  <details class="glass"><summary>Potrebujete osobné údaje pracovníkov?</summary><div class="a"><p>Nie. Stačí profesia, činnosť a hodinová sadzba. Mená pracovníkov ani ich doklady do formulára nezadávajte.</p></div></details>
-  <details class="glass"><summary>Týka sa to aj montáže alebo elektro?</summary><div class="a"><p>Áno. Rakúska KV platí podľa odvetvia, v ktorom pracovník v Rakúsku pracuje. Príplatky BUAK sa týkajú stavebných prác podľa zákona BUAG; výstup uvedie, či sa vás pravdepodobne týkajú.</p></div></details>
-  <details class="glass"><summary>Kto za tým stojí?</summary><div class="a"><p>Štefan Toporcer, fyzická osoba zo Slovenska. Výstup pripravuje s pomocou AI a každý údaj opiera o zdroj, ktorý v e-maile uvedie.</p></div></details>
+  <section class="sec" id="ako" style="padding-top:0">
+    <div class="w">
+      <span class="lbl">Harmonogram</span>
+      <h2>Ako to funguje</h2>
+      <div class="scale" aria-hidden="true"><span>Dnes, cca 3 minúty</span><span>Spracovanie</span><span>Do 2 pracovných dní</span></div>
+      <div class="sched">
+        <div class="stp"><div class="chev"><span class="num">1</span><h3>Vyplníte formulár</h3></div><p>Firma, odbor, profesia a hodinová sadzba jedného pracovníka, dĺžka vyslania a podklady, ktoré máte. Približne 3 minúty, bez mien pracovníkov.</p></div>
+        <div class="stp"><div class="chev"><span class="num">2</span><h3>Porovnáme s KV</h3></div><p>Vyhľadáme pravdepodobnú rakúsku KV a mzdovú skupinu v aktuálnych mzdových tabuľkách a porovnáme minimum s vašou sadzbou.</p></div>
+        <div class="stp"><div class="chev"><span class="num">3</span><h3>Výstup na e-mail</h3></div><p>Do 2 pracovných dní: KV a skupina, minimum oproti vašej sadzbe, odhad príplatkov BUAK (stavebníctvo), zoznam chýbajúcich podkladov a zdroje.</p></div>
+      </div>
+    </div>
+  </section>
 
-  <div class="cta-row" style="margin-top:26px">
-    <a class="cap pri big" href="https://tally.so/r/PRDLYd?ref=site-footer">Získať bezplatný Entsende-Check →</a>
-  </div>
-</section>
+  <section class="sec" id="ponuka" style="padding-top:0">
+    <div class="w">
+      <span class="lbl">Early access</span>
+      <h2>Platená verzia: Entsende-Mappa (early access)</h2>
+      <div class="offer">
+        <div class="l">
+          <p class="lead">Mesačná služba pre firmy, ktoré vysielajú pracovníkov do Rakúska pravidelne: zaradenie každého pracovníka podľa KV, kontrola sadzieb pri zmene mzdových tabuliek, podklady k mesačným hláseniam BUAK a prehľad termínov A1 a ZKO3.</p>
+          <p class="note">Ide o nástroj a dokumentáciu pre zamestnávateľa, nie o účtovníctvo, spracovanie miezd ani právne poradenstvo. Zodpovednosť za mzdy a hlásenia nesie zamestnávateľ.</p>
+        </div>
+        <div class="r">
+          <div class="price">99 €<small>mesačne bez DPH, firma do 5 vyslaných pracovníkov, každý ďalší +15 €; zrušiteľné mesačne</small></div>
+          <p class="note">Na stránke sa nič neplatí. Záujem označíte vo formulári a ozveme sa s písomnou ponukou.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<section id="pravne" style="padding-top:8px">
-  <article class="legal glass" id="upozornenie">
-    <h2>Upozornenie</h2>
-    <ul>
-      <li>Entsende-Check je <b>orientačný výstup</b> podľa vašich odpovedí a verejných zdrojov. Nie je to právne, daňové ani mzdové poradenstvo a nezaručuje súlad s rakúskymi predpismi.</li>
-      <li>Vaše odpovede neoverujeme. Skutočné zaradenie pracovníka môže byť iné.</li>
-      <li>Za mzdy, hlásenia a podklady zodpovedá zamestnávateľ. Dôležité údaje si overte v aktuálnej KV a u rakúskeho poradcu.</li>
-      <li>Výstup pripravuje AI model s kontrolou zdrojov, preto môže obsahovať chyby.</li>
-    </ul>
-  </article>
+  <section class="sec faq" id="faq" style="padding-top:0">
+    <div class="w">
+      <span class="lbl">FAQ</span>
+      <h2>Časté otázky</h2>
+      <details><summary>Je kontrola naozaj zadarmo?</summary><div class="a"><p>Áno. Formulár aj výstup sú bezplatné a nezaväzujú vás k žiadnej objednávke.</p></div></details>
+      <details><summary>Je to právne stanovisko?</summary><div class="a"><p>Nie. Výstup je orientačný a vychádza z vašich odpovedí a verejných zdrojov. Pri zložitých prípadoch odporúčame overiť si zaradenie u rakúskeho poradcu.</p></div></details>
+      <details><summary>Potrebujete osobné údaje pracovníkov?</summary><div class="a"><p>Nie. Stačí profesia, činnosť a hodinová sadzba. Mená pracovníkov ani ich doklady do formulára nezadávajte.</p></div></details>
+      <details><summary>Týka sa to aj montáže alebo elektro?</summary><div class="a"><p>Áno. Rakúska KV platí podľa odvetvia, v ktorom pracovník v Rakúsku pracuje. Príplatky BUAK sa týkajú stavebných prác podľa zákona BUAG; výstup uvedie, či sa vás pravdepodobne týkajú.</p></div></details>
+      <details><summary>Kto za tým stojí?</summary><div class="a"><p>Štefan Toporcer, fyzická osoba zo Slovenska. Výstup pripravuje s pomocou AI a každý údaj opiera o zdroj, ktorý v e-maile uvedie.</p></div></details>
+      <div class="cta-row">
+        <a class="btn" href="https://tally.so/r/PRDLYd?ref=site-footer">Získať bezplatný Entsende-Check →</a>
+      </div>
+    </div>
+  </section>
 
-  <article class="legal glass" id="privacy">
-    <h2>Ochrana údajov a podmienky</h2>
-    <h3>Kto to prevádzkuje</h3>
-    <p>Entsende-Check AT prevádzkuje Štefan Toporcer, fyzická osoba so sídlom na Slovensku (nie registrovaná firma). Kontakt: <a href="mailto:toporcer.stefan@gmail.com">toporcer.stefan@gmail.com</a>.</p>
-    <h3>Aké údaje a načo</h3>
-    <p>Formulár zbiera pracovný e-mail, názov a web firmy, meno, krajinu, rolu, údaje o vyslaní (odbor, profesia a hodinová sadzba pracovníka bez mena, počet pracovníkov, dĺžka vyslania, pripravené podklady, spôsob vyplácania osobitných platieb) a záujem o platenú verziu. Údaje používam len na prípravu výstupu, na odpoveď a na vaše želanie na zaslanie ponuky. Údaje nepredávam.</p>
-    <h3>Nástroje</h3>
-    <p>Formulár beží na Tally, e-maily cez Gmail (Google) a výstup pripravujem s pomocou Anthropic Claude. Údaje sa môžu preniesť mimo EHP (USA).</p>
-    <h3>Uchovávanie a vaše práva</h3>
-    <p>Údaje uchovávam 12 mesiacov, na požiadanie skôr zmažem. O prístup k údajom alebo ich výmaz môžete kedykoľvek požiadať e-mailom. Sťažnosť môžete podať Úradu na ochranu osobných údajov SR.</p>
-    <p><b>Meranie návštevnosti.</b> Návštevy a kliky počítam cez PostHog (servery v EÚ) bez cookies: do vášho zariadenia sa nič neukladá a IP adresy sú anonymizované. Slúži len na to, aby som videl, ako sa stránka používa, nie na vašu identifikáciu.</p>
-    <h3>Zdroje</h3>
-    <p><a href="https://www.celsi.sk/media/datasource/posting-stat-report-at-clean.pdf" rel="noopener">Geyer, Bilitza a Danaj (2025): Posted workers from and to Austria</a> · <a href="https://www.wko.at/oe/entlohnung/lsdbg-vorschriften-auslaendische-betriebe.pdf" rel="noopener">WKO: LSD-BG pre zahraničné firmy</a> · <a href="https://www.wko.at/entlohnung/lohn-sozialdumping-strafen-haftung-auftraggeber" rel="noopener">WKO: Lohn- und Sozialdumping, pokuty</a> · <a href="https://buak.at/05_broschuere_an_entsendung_deutsch" rel="noopener">BUAK: brožúra o vysielaní</a> · <a href="https://www.wko.at/arbeitsrecht/bauarbeiter-zuschlagsberechnung" rel="noopener">WKO: výpočet príplatkov BUAK</a> · <a href="https://www.wko.at/kollektivvertrag/lohnordnung-baugewerbe-bauindustrie-arbeiter-2026" rel="noopener">WKO: mzdové tabuľky Baugewerbe und Bauindustrie od 1. 5. 2026</a></p>
-  </article>
-</section>
+  <section class="pravne" id="pravne">
+    <div class="w">
+      <article class="legal" id="upozornenie">
+        <h2>Upozornenie</h2>
+        <ul>
+          <li>Entsende-Check je <b>orientačný výstup</b> podľa vašich odpovedí a verejných zdrojov. Nie je to právne, daňové ani mzdové poradenstvo a nezaručuje súlad s rakúskymi predpismi.</li>
+          <li>Vaše odpovede neoverujeme. Skutočné zaradenie pracovníka môže byť iné.</li>
+          <li>Za mzdy, hlásenia a podklady zodpovedá zamestnávateľ. Dôležité údaje si overte v aktuálnej KV a u rakúskeho poradcu.</li>
+          <li>Výstup pripravuje AI model s kontrolou zdrojov, preto môže obsahovať chyby.</li>
+        </ul>
+      </article>
 
-</div>
+      <article class="legal" id="privacy">
+        <h2>Ochrana údajov a podmienky</h2>
+        <h3>Kto to prevádzkuje</h3>
+        <p>Entsende-Check AT prevádzkuje Štefan Toporcer, fyzická osoba so sídlom na Slovensku (nie registrovaná firma). Kontakt: <a href="mailto:toporcer.stefan@gmail.com">toporcer.stefan@gmail.com</a>.</p>
+        <h3>Aké údaje a načo</h3>
+        <p>Formulár zbiera pracovný e-mail, názov a web firmy, meno, krajinu, rolu, údaje o vyslaní (odbor, profesia a hodinová sadzba pracovníka bez mena, počet pracovníkov, dĺžka vyslania, pripravené podklady, spôsob vyplácania osobitných platieb) a záujem o platenú verziu. Údaje používam len na prípravu výstupu, na odpoveď a na vaše želanie na zaslanie ponuky. Údaje nepredávam.</p>
+        <h3>Nástroje</h3>
+        <p>Formulár beží na Tally, e-maily cez Gmail (Google) a výstup pripravujem s pomocou Anthropic Claude. Údaje sa môžu preniesť mimo EHP (USA).</p>
+        <h3>Uchovávanie a vaše práva</h3>
+        <p>Údaje uchovávam 12 mesiacov, na požiadanie skôr zmažem. O prístup k údajom alebo ich výmaz môžete kedykoľvek požiadať e-mailom. Sťažnosť môžete podať Úradu na ochranu osobných údajov SR.</p>
+        <p><b>Meranie návštevnosti.</b> Návštevy a kliky počítam cez PostHog (servery v EÚ) bez cookies: do vášho zariadenia sa nič neukladá a IP adresy sú anonymizované. Slúži len na to, aby som videl, ako sa stránka používa, nie na vašu identifikáciu.</p>
+        <h3>Zdroje</h3>
+        <p><a href="https://www.celsi.sk/media/datasource/posting-stat-report-at-clean.pdf" rel="noopener">Geyer, Bilitza a Danaj (2025): Posted workers from and to Austria</a> · <a href="https://www.wko.at/oe/entlohnung/lsdbg-vorschriften-auslaendische-betriebe.pdf" rel="noopener">WKO: LSD-BG pre zahraničné firmy</a> · <a href="https://www.wko.at/entlohnung/lohn-sozialdumping-strafen-haftung-auftraggeber" rel="noopener">WKO: Lohn- und Sozialdumping, pokuty</a> · <a href="https://buak.at/05_broschuere_an_entsendung_deutsch" rel="noopener">BUAK: brožúra o vysielaní</a> · <a href="https://www.wko.at/arbeitsrecht/bauarbeiter-zuschlagsberechnung" rel="noopener">WKO: výpočet príplatkov BUAK</a> · <a href="https://www.wko.at/kollektivvertrag/lohnordnung-baugewerbe-bauindustrie-arbeiter-2026" rel="noopener">WKO: mzdové tabuľky Baugewerbe und Bauindustrie od 1. 5. 2026</a></p>
+      </article>
+    </div>
+  </section>
 </main>
 
 <footer>
-  <div class="wrap row">
+  <div class="w">
     <span>Entsende-Check AT je projekt Štefana Toporcera · <a href="https://projektargo.com/">Projekt Argo</a></span>
     <span>Nie sme spojení so žiadnym úradom. · <a href="#upozornenie">Upozornenie</a> · <a href="#privacy">Ochrana údajov</a></span>
   </div>
 </footer>
 
-<div class="sticky" id="sticky"><a class="cap pri" href="https://tally.so/r/PRDLYd?ref=site-sticky">Získať bezplatný Entsende-Check →</a></div>
+<div class="sticky" id="sticky"><a class="btn" href="https://tally.so/r/PRDLYd?ref=site-sticky">Získať bezplatný Entsende-Check →</a></div>
 
 <script>
 (function(){var s=document.getElementById("sticky"),h=document.getElementById("hero-cta");if("IntersectionObserver" in window&&s&&h){new IntersectionObserver(function(e){s.classList.toggle("show",!e[0].isIntersecting&&e[0].boundingClientRect.top<0)}).observe(h);}})();
