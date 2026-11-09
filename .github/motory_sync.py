@@ -10,6 +10,8 @@ Bezpečnostné pravidlá:
 - Nikdy neprepíše priečinok hlavného webu: zapisuje len do priečinkov, ktoré ešte neexistujú
   alebo ktorých index.html už nesie značku MARK (stránka motora).
 - Nedostupné Supabase = žiadna zmena (zverejnené stránky ostávajú).
+- Do každej stránky motora vloží pred </body> plávajúce tlačidlo Projektu Argo (NAV_TAG → /argo-nav.js,
+  zdroj zdroj/static/argo-nav.js hlavného webu). Dizajn stránky nemení: tlačidlo žije vo vlastnom shadow DOM.
 
 Použitie:  python3 .github/motory_sync.py [--fixture rows.json] [--changed-out subor.txt]
 """
@@ -20,6 +22,7 @@ SUPABASE_URL = "https://asnpyrrdeauhkskkkmuc.supabase.co"
 PUBLISHABLE_KEY = "sb_publishable_9Nwzk4Ql2WH1PCQZbNe5BQ_-8eVhBve"  # verejný kľúč, rovnaký ako na webe
 SITE = "https://projektargo.com/"
 MARK = '<meta name="generator" content="projektargo-motor">'
+NAV_TAG = '<script src="/argo-nav.js" defer></script>'  # plávajúce tlačidlo „A“: domov, všetky motory, rovnaký trh, jazyk, kontakt
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 SITEMAP = ROOT / "sitemap-motory.xml"
 STATUS = ROOT / ".github" / "motory-status.json"
@@ -86,6 +89,12 @@ def validate(row):
         if not m:
             return None, "chýba <head>"
         html = html[:m.end()] + "\n" + MARK + html[m.end():]
+    if "/argo-nav.js" not in html:
+        end = html.lower().rfind("</body>")
+        if end >= 0:
+            html = html[:end] + NAV_TAG + "\n" + html[end:]
+        else:
+            warn(f"motor {slug}: chýba </body> – tlačidlo Projektu Argo nevložené")
     if not html.endswith("\n"):
         html += "\n"
     lastmod = str(row.get("lastmod") or "")
