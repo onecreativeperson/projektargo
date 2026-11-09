@@ -40,6 +40,7 @@ Every project is an engine: a small automated machine for one boring problem. So
 - [EstateAML CY](https://projektargo.com/estate-aml-cy/): A free AML readiness snapshot for estate agents and property developers in Cyprus. Market: Cyprus. Status: Warming up.
 - [Entsende-Check AT](https://projektargo.com/entsende-check/): Free check for Slovak and Czech firms posting workers to Austria: likely collective agreement wage group, minimum hourly wage vs. their rate, BUAK surcharges and missing documents. Market: Slovak and Czech firms posting workers to Austria. Status: Warming up.
 - [LegioLog CY](https://projektargo.com/legiolog-cy/): Free Legionella readiness snapshot for Cyprus hotels, clinics and care homes, based on the Labour Inspection guidance of July 2026. Market: Hotels, private clinics and care homes in Cyprus. Status: Warming up.
+- [IED EMS Ready](https://projektargo.com/ied-ems-ready/): Free Article 14a EMS readiness snapshot for IED installations: the rule in force (1 July 2027, audited) and the Council's Omnibus position (1 July 2030, not adopted). Market: EU industrial installations under the Industrial Emissions Directive. Status: Warming up.
 
 Parked engines wait until one of the running ones proves demand. Stripped ones have become parts.
 Newer product pages: https://projektargo.com/sitemap-motory.xml
