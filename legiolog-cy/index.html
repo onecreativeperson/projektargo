@@ -9,6 +9,9 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/icons/icon-32.png" sizes="32x32" type="image/png">
 <link rel="canonical" href="https://projektargo.com/legiolog-cy/">
+<link rel="alternate" hreflang="en" href="https://projektargo.com/legiolog-cy/">
+<link rel="alternate" hreflang="el" href="https://projektargo.com/legiolog-cy-el/">
+<link rel="alternate" hreflang="x-default" href="https://projektargo.com/legiolog-cy/">
 <meta property="og:title" content="LegioLog CY · Can you show your Legionella records tomorrow?">
 <meta property="og:description" content="Free indicative Legionella readiness snapshot for Cyprus hotels, clinics and care homes, by e-mail within 2 working days.">
 <meta property="og:url" content="https://projektargo.com/legiolog-cy/">
@@ -32,6 +35,9 @@ h1,h2,h3{font-family:"Big Shoulders Display",Impact,sans-serif;font-weight:800;l
 .cta:hover{background:#93E2DA;transform:translateY(-2px)}
 .cta.sm{padding:9px 14px;font-size:14px}
 /* top bar */
+.nav{display:flex;align-items:center;gap:10px}
+.lng{font-family:"Martian Mono",ui-monospace,monospace;font-size:12px;font-weight:500;line-height:1;text-decoration:none;color:var(--on-deep);border:1px solid rgba(111,209,199,.45);border-radius:3px;padding:8px 9px;transition:background .2s}
+.lng:hover{background:rgba(111,209,199,.14)}
 .top{position:sticky;top:0;z-index:20;background:var(--deep);color:var(--on-deep);border-bottom:1px solid rgba(111,209,199,.2)}
 .top .w{display:flex;align-items:center;justify-content:space-between;gap:12px;height:60px}
 .brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:"Big Shoulders Display",Impact,sans-serif;font-weight:900;font-size:25px;letter-spacing:.03em;text-transform:uppercase}
@@ -64,7 +70,7 @@ h1,h2,h3{font-family:"Big Shoulders Display",Impact,sans-serif;font-weight:800;l
 .sheet .note{font-size:13px;color:var(--muted);margin-top:10px}
 /* gauges */
 .gauges{position:relative;z-index:2;margin-top:-62px}
-.gauges .g4{display:grid;grid-template-columns:repeat(4,1fr);background:var(--sheet);border:2px solid var(--ink);box-shadow:8px 8px 0 var(--ink)}
+.gauges .g4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));background:var(--sheet);border:2px solid var(--ink);box-shadow:8px 8px 0 var(--ink)}
 .g{padding:22px 22px 24px;border-right:1px solid var(--line)}
 .g:last-child{border-right:0}
 .g b{display:block;font-family:"Big Shoulders Display",Impact,sans-serif;font-weight:900;font-size:38px;line-height:1;margin-bottom:10px;color:var(--deep);white-space:nowrap}
@@ -139,7 +145,7 @@ h1,h2,h3{font-family:"Big Shoulders Display",Impact,sans-serif;font-weight:800;l
 footer{border-top:2px solid var(--ink);padding:28px 0 40px;font-size:14px;color:var(--muted)}
 footer .w{display:flex;justify-content:space-between;gap:12px 24px;flex-wrap:wrap}
 footer a{color:var(--ink)}
-.cta:focus-visible,.tlink:focus-visible,summary:focus-visible,.brand:focus-visible{outline:3px solid var(--hot-l);outline-offset:3px}
+.cta:focus-visible,.lng:focus-visible,.tlink:focus-visible,summary:focus-visible,.brand:focus-visible{outline:3px solid var(--hot-l);outline-offset:3px}
 @media (prefers-reduced-motion:no-preference){
   .draw{stroke-dasharray:1;stroke-dashoffset:1;animation:draw 1.8s var(--ease) .35s forwards}
   .draw.c{animation-delay:.6s}
@@ -149,9 +155,9 @@ footer a{color:var(--ink)}
 }
 @media (max-width:900px){
   .hero{padding:44px 0 100px}
-  .hero .w{grid-template-columns:1fr;gap:44px}
+  .hero .w{grid-template-columns:minmax(0,1fr);gap:44px}
   .sheet{transform:none}
-  .gauges .g4{grid-template-columns:1fr 1fr;box-shadow:5px 5px 0 var(--ink)}
+  .gauges .g4{grid-template-columns:minmax(0,1fr) minmax(0,1fr);box-shadow:5px 5px 0 var(--ink)}
   .g{padding:16px 16px 18px}
   .g b{font-size:25px}
   .amt small{display:block;margin:8px 0 0}
@@ -172,10 +178,19 @@ footer a{color:var(--ink)}
   .faq summary{grid-template-columns:40px 1fr 20px;font-size:18px}
   .faq details p{margin-left:52px}
 }
+@media (max-width:360px){
+  .brand svg{display:none}
+}
 @media (max-width:420px){
   .brand{font-size:21px;gap:8px}
   .brand svg{width:22px;height:22px}
   .cta.sm{padding:8px 11px;font-size:13px}
+  .nav{gap:8px}
+  .lng{padding:7px 7px;font-size:11px}
+  .xs{display:none}
+  .g b{font-size:22px;white-space:normal}
+  .sheet .hd{flex-wrap:wrap}
+  .st{white-space:normal;text-align:right;max-width:55%}
   .hero h1{font-size:44px}
   .faq details p{margin-left:0}
 }
@@ -192,7 +207,7 @@ posthog.init("phc_zbBFHQt5aVYH9HuviHUQuwfh6TPCVPyXSrMWWgJ9UfLP",{api_host:"https
 <header class="top">
   <div class="w">
     <a class="brand" href="#top"><svg viewBox="0 0 26 26" aria-hidden="true"><circle cx="13" cy="13" r="11.5" fill="none" stroke="#6FD1C7" stroke-width="2"/><path d="M13 13l5.5-5.5" stroke="#6FD1C7" stroke-width="2.4" stroke-linecap="round"/><circle cx="13" cy="13" r="2.4" fill="#6FD1C7"/><path d="M7 18.5h12" stroke="#6FD1C7" stroke-width="1.6"/></svg>LegioLog CY</a>
-    <a class="cta sm" href="https://tally.so/r/Z9oXYa?ref=site-nav">Free readiness snapshot</a>
+    <div class="nav"><a class="lng" href="/legiolog-cy-el/" hreflang="el" lang="el" title="Ελληνικά">ΕΛ</a><a class="cta sm" href="https://tally.so/r/Z9oXYa?ref=site-nav">Free<span class="xs"> readiness</span> snapshot</a></div>
   </div>
 </header>
 
