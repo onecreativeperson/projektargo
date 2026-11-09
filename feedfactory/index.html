@@ -13,121 +13,165 @@
 <meta property="og:description" content="Free product data readiness check for small electrical and lighting manufacturers, by e-mail within 2 working days.">
 <meta property="og:url" content="https://projektargo.com/feedfactory/">
 <meta property="og:type" content="website">
+<meta name="theme-color" content="#EFEEE9">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@400;500&family=Barlow+Condensed:wght@600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-:root{
-  --ink:#0E1116; --ink-2:#161B22; --line:#2A313B; --text:#E8ECF1; --muted:#9AA4B2;
-  --amber:#F5B841; --amber-ink:#1A1405; --ok:#5FD38D; --warn:#FF7A59;
-  --paper:#F6F4EF; --paper-ink:#14171C; --paper-muted:#5A616B; --paper-line:#DCD8CF;
-  --r:14px; --max:1080px;
-}
+/* Feed Factory – electrical rating plate and wiring diagram: cable colours (brown live, blue neutral, green-yellow earth), DIN-like type */
+:root{--bg:#EFEEE9;--plate:#FFFFFF;--ink:#15171A;--text:#33373D;--muted:#555B63;--line:#CFCCC3;--brown:#7E431E;--blue:#1C58B5;--blue-d:#123F86;--green:#2E8B3A;--yellow:#F2C811;--earth:repeating-linear-gradient(-45deg,#2E8B3A 0 9px,#F2C811 9px 18px);--ease:cubic-bezier(.2,.75,.25,1);--max:1180px}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{background:var(--ink);color:var(--text);font:16px/1.6 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+body{background:var(--bg);color:var(--ink);font:17px/1.6 Barlow,Arial,sans-serif;-webkit-font-smoothing:antialiased}
 a{color:inherit}
-.wrap{max-width:var(--max);margin:0 auto;padding:0 20px}
-.mono{font-family:"JetBrains Mono",ui-monospace,monospace}
-h1,h2,h3{font-family:Archivo,Inter,sans-serif;letter-spacing:-.02em;line-height:1.1}
-
+section{scroll-margin-top:68px}
+.w{max-width:var(--max);margin:0 auto;padding:0 22px}
+.m{font-family:"Azeret Mono",ui-monospace,monospace;font-size:12px;letter-spacing:.03em}
+h1,h2,h3{font-family:"Barlow Condensed",Arial Narrow,sans-serif;font-weight:700;line-height:.98;text-transform:uppercase;letter-spacing:.005em}
+.btn{display:inline-flex;align-items:center;gap:10px;background:var(--blue);color:#fff;text-decoration:none;font-weight:600;padding:16px 24px;border-radius:2px;border-left:6px solid var(--brown);transition:background .2s,transform .2s var(--ease)}
+.btn:hover{background:var(--blue-d);transform:translateX(3px)}
+.btn.sm{padding:9px 13px;font-size:14px;border-left-width:4px}
 /* nav */
-nav{position:sticky;top:0;z-index:10;background:rgba(14,17,22,.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-nav .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
-.brand{display:flex;align-items:center;gap:10px;font-family:Archivo,Inter,system-ui,sans-serif;font-weight:800;text-decoration:none}
-.brand i{width:22px;height:22px;border-radius:6px;background:var(--amber);display:grid;place-items:center;font-style:normal;color:var(--amber-ink);font-size:12px}
-.btn{display:inline-flex;align-items:center;gap:8px;background:var(--amber);color:var(--amber-ink);font-weight:600;text-decoration:none;padding:12px 20px;border-radius:999px;transition:transform .15s,box-shadow .15s}
-.btn:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(245,184,65,.25)}
-.btn.sm{padding:8px 16px;font-size:14px}
-.btn.ghost{background:transparent;color:var(--text);border:1px solid var(--line)}
-
+nav{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:2px solid var(--ink)}
+nav:after{content:"";position:absolute;left:0;right:0;bottom:-6px;height:4px;background:var(--earth)}
+nav .w{height:60px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:25px;text-transform:uppercase;letter-spacing:.02em}
+.brand svg{width:30px;height:24px;flex:none}
 /* hero */
-.hero{padding:80px 0 64px;display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center}
-.eyebrow{display:inline-block;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);border:1px solid rgba(245,184,65,.35);padding:5px 10px;border-radius:999px;margin-bottom:20px}
-.hero h1{font-size:clamp(38px,6vw,64px);font-weight:800}
-.hero h1 em{font-style:normal;color:var(--amber)}
-.hero p.lead{color:var(--muted);font-size:18px;margin:20px 0 28px;max-width:34em}
-.cta-row{display:flex;gap:12px;flex-wrap:wrap}
-.fine{font-size:13px;color:var(--muted);margin-top:14px}
-
-/* filing card */
-.card{background:var(--ink-2);border:1px solid var(--line);border-radius:var(--r);padding:22px;box-shadow:0 30px 80px rgba(0,0,0,.4)}
-.card .head{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:14px}
-.row{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-top:1px dashed var(--line);font-size:14px}
-.row span:first-child{color:var(--muted)}
-.tag{align-self:flex-start;font-size:12px;padding:2px 8px;border-radius:6px;font-weight:600;white-space:nowrap}
-.tag.bad{background:rgba(255,122,89,.15);color:var(--warn)}
-.tag.ok{background:rgba(95,211,141,.12);color:var(--ok)}
-.card .note{margin-top:14px;font-size:12px;color:var(--muted)}
-
-/* stats */
-.stats{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;margin-bottom:96px}
-.stat{padding:24px;border-right:1px solid var(--line)}
-.stat:last-child{border-right:0}
-.stat b{display:block;font-family:Archivo,Inter,system-ui,sans-serif;font-size:32px;font-weight:800;color:var(--amber)}
-.stat span{font-size:14px;color:var(--muted)}
-
-/* paper sections */
-.paper{background:var(--paper);color:var(--paper-ink);padding:96px 0}
-.paper .sub{color:var(--paper-muted)}
-section h2{font-size:clamp(28px,4vw,42px);font-weight:800;margin-bottom:12px}
-.sub{color:var(--muted);max-width:40em;margin-bottom:40px}
-.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.step{background:#fff;border:1px solid var(--paper-line);border-radius:var(--r);padding:26px}
-.step .n{font-size:13px;color:var(--paper-muted)}
-.step h3{font-size:20px;margin:10px 0 8px}
-.step p{color:var(--paper-muted);font-size:15px}
-
-/* checklist */
-.dark{padding:96px 0}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-.item{border:1px solid var(--line);border-radius:var(--r);padding:22px;background:var(--ink-2)}
-.item h3{font-size:18px;margin-bottom:6px}
-.item p{color:var(--muted);font-size:15px}
-.item .rule{font-size:12px;color:var(--amber);margin-top:10px}
-
-/* pricing */
-.prices{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:820px}
-.price{background:#fff;border:1px solid var(--paper-line);border-radius:var(--r);padding:30px}
-.price.hl{border:2px solid var(--paper-ink)}
-.price h3{font-size:20px}
-.price .amt{font-family:Archivo,Inter,system-ui,sans-serif;font-size:44px;font-weight:800;margin:10px 0 2px}
-.price .amt small{font-size:16px;font-weight:600;color:var(--paper-muted)}
-.price ul{list-style:none;margin:18px 0 0}
-.price li{padding:7px 0 7px 26px;position:relative;font-size:15px;border-top:1px solid var(--paper-line)}
-.price li:before{content:"";position:absolute;left:4px;top:15px;width:10px;height:6px;border-left:2px solid var(--paper-ink);border-bottom:2px solid var(--paper-ink);transform:rotate(-45deg)}
-.founding{margin-top:22px;font-size:14px;color:var(--paper-muted)}
-
+.hero{padding:76px 0 64px}
+.hero .w{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:56px;align-items:start}
+.kick{display:inline-flex;align-items:center;gap:10px;color:var(--muted);text-transform:uppercase;margin-bottom:22px}
+.kick i{width:22px;height:8px;background:var(--earth);display:block}
+.hero h1{font-size:clamp(48px,5.6vw,80px)}
+.hero h1 span{display:block;color:var(--brown)}
+.lead{font-size:18.5px;color:var(--text);margin:26px 0 30px;max-width:33em}
+.act{display:flex;flex-wrap:wrap;align-items:center;gap:16px 26px}
+.tl{font-weight:600;color:var(--blue);text-underline-offset:5px}
+.fine{font-size:14px;color:var(--muted);margin-top:18px}
+/* schematic + rating plate */
+.wire{display:block;width:100%;height:auto;margin-bottom:-2px}
+.wire text{font-family:"Azeret Mono",monospace}
+.plate{background:var(--plate);border:2px solid var(--ink);border-radius:6px;padding:18px 20px 16px;position:relative;box-shadow:0 2px 0 var(--ink)}
+.plate:before,.plate:after{content:"";position:absolute;top:10px;width:9px;height:9px;border-radius:50%;border:1.5px solid var(--ink);background:radial-gradient(circle,var(--ink) 0 1px,transparent 1.5px),var(--bg)}
+.plate:before{left:10px}.plate:after{right:10px}
+.plate .hd{display:flex;justify-content:space-between;gap:12px;padding:0 14px 10px;border-bottom:2px solid var(--ink);text-transform:uppercase}
+.plate .hd b{font-weight:500;white-space:nowrap;color:var(--brown)}
+.prow{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:14px;padding:9px 0;border-bottom:1px solid var(--line);font-size:15.5px}
+.prow:last-of-type{border-bottom:0}
+.val{font-family:"Azeret Mono",monospace;font-size:13px;align-self:center;white-space:nowrap}
+.tag{padding:3px 8px;border-radius:2px;font-family:"Azeret Mono",monospace;font-size:12px;font-weight:500;white-space:nowrap;align-self:center}
+.tag.ok{background:#E2F0E3;color:#1F6129}
+.tag.bad{background:#F6E2D6;color:#7E431E}
+.plate .note{font-size:12.5px;color:var(--muted);margin-top:12px;padding-top:10px;border-top:1px dashed var(--line)}
+/* terminal strip */
+.strip{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));background:var(--plate);border:2px solid var(--ink)}
+.t{position:relative;padding:34px 22px 24px;border-right:1px solid var(--line)}
+.t:last-child{border-right:0}
+.t:before{content:"";position:absolute;top:12px;left:22px;width:12px;height:12px;border-radius:50%;border:1.5px solid var(--ink);background:linear-gradient(45deg,transparent 45%,var(--ink) 45% 55%,transparent 55%),var(--bg)}
+.t b{display:block;font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:46px;line-height:1;text-transform:uppercase;margin-bottom:8px}
+.t:nth-child(1) b{color:var(--brown)}.t:nth-child(2) b{color:var(--blue)}.t:nth-child(3) b{color:var(--green)}
+.t span{font-size:14.5px;color:var(--muted);display:block}
+/* sections */
+.sec{padding:112px 0}
+.sec h2{font-size:clamp(44px,6vw,80px);margin-bottom:14px}
+.lbl{display:inline-flex;align-items:center;gap:10px;text-transform:uppercase;color:var(--muted);margin-bottom:16px}
+.lbl i{width:10px;height:10px;border-radius:50%;display:block}
+.sub{color:var(--muted);max-width:40em;margin-bottom:52px;font-size:18px}
+/* wiring steps */
+.run{position:relative;max-width:900px}
+.run:before{content:"";position:absolute;left:27px;top:28px;bottom:28px;width:4px;background:linear-gradient(var(--brown),var(--brown) 33%,var(--blue) 33%,var(--blue) 66%,transparent 66%),var(--earth)}
+.st{position:relative;display:grid;grid-template-columns:58px minmax(0,1fr);gap:26px;padding-bottom:38px}
+.st:last-child{padding-bottom:0}
+.term{width:58px;height:58px;border-radius:8px;background:var(--plate);border:2px solid var(--ink);display:grid;place-items:center;font-family:"Azeret Mono",monospace;font-weight:500;font-size:15px;position:relative;z-index:1}
+.st h3{font-size:34px;margin:6px 0 8px}
+.st p{color:var(--text);max-width:40em}
+/* datasheet */
+.dark{background:var(--ink);color:#EDEBE5}
+.dark .lbl,.dark .sub{color:#A9AEB5}
+.ds{border-top:2px solid #EDEBE5}
+.dr{display:grid;grid-template-columns:minmax(0,340px) minmax(0,1fr);gap:40px;padding:30px 0;border-bottom:1px solid #3A3E44}
+.dr h3{font-size:32px}
+.dr .src{display:block;color:#A9AEB5;margin-top:12px;text-transform:none;line-height:1.6}
+.dr p{color:#D6D3CC}
+/* label boxes */
+.boxes{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px;max-width:960px}
+.bx{background:var(--plate);border:2px solid var(--ink);border-radius:4px;overflow:hidden}
+.bx .band{height:16px;background:var(--earth);border-bottom:2px solid var(--ink)}
+.bx.paid .band{background:linear-gradient(90deg,var(--brown) 0 50%,var(--blue) 50%)}
+.bx .in{padding:28px 30px 30px}
+.bx .m{display:block;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.bx h3{font-size:30px}
+.amt{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:76px;line-height:1;margin:14px 0 4px}
+.amt small{font-family:Barlow,sans-serif;font-size:17px;font-weight:500;color:var(--muted);margin-left:6px}
+.bx ul{list-style:none;margin-top:18px}
+.bx li{display:grid;grid-template-columns:24px minmax(0,1fr);gap:6px;padding:10px 0;border-top:1px solid var(--line);font-size:15.5px}
+.bx li:before{content:"";width:12px;height:12px;border-radius:50%;border:2px solid var(--blue);margin-top:6px}
+.bx.paid li:before{border-color:var(--brown)}
+.small{margin-top:26px;font-size:15px;color:var(--muted)}
 /* faq */
-details{border-top:1px solid var(--line);padding:18px 0}
-details:last-child{border-bottom:1px solid var(--line)}
-summary{cursor:pointer;font-weight:600;list-style:none;display:flex;justify-content:space-between;gap:16px}
-summary::-webkit-details-marker{display:none}
-summary:after{content:"+";color:var(--amber);font-family:"JetBrains Mono"}
-details[open] summary:after{content:"–"}
-details p{color:var(--muted);margin-top:10px;max-width:46em}
-
-.final{text-align:center;padding:96px 0;border-top:1px solid var(--line)}
-.final h2{margin-bottom:16px}
-.final p{color:var(--muted);margin-bottom:28px}
-footer{border-top:1px solid var(--line);padding:32px 0;font-size:13px;color:var(--muted)}
-footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
-footer a{color:var(--text)}
-
-@media (max-width:860px){
-  .hero{grid-template-columns:1fr;padding:56px 0 48px}
-  .stats{grid-template-columns:1fr 1fr}
-  .stat{padding:18px}
-  .stat b{font-size:24px}
-  .stat:nth-child(2){border-right:0}
-  .stat:nth-child(-n+2){border-bottom:1px solid var(--line)}
-  .steps,.grid2,.prices{grid-template-columns:1fr}
-  .paper,.dark,.final{padding:64px 0}
-  .stats{margin-bottom:64px}
-  nav .btn.sm{display:none}
+.faq details{border-top:1px solid var(--line);padding:20px 0}
+.faq details:last-child{border-bottom:1px solid var(--line)}
+.faq summary{cursor:pointer;list-style:none;display:grid;grid-template-columns:42px minmax(0,1fr) 24px;gap:14px;align-items:center;font-weight:600;font-size:19px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary .q{width:34px;height:34px;border-radius:50%;border:2px solid var(--ink);display:grid;place-items:center;font-family:"Azeret Mono",monospace;font-size:12px;font-weight:500}
+.faq summary:after{content:"+";font-family:"Azeret Mono",monospace;color:var(--blue);text-align:right;font-size:20px}
+.faq details[open] summary:after{content:"−"}
+.faq details p{color:var(--text);margin:10px 0 0 56px;max-width:44em}
+/* final */
+.final{background:var(--blue);color:#fff;padding:100px 0;position:relative}
+.final:before{content:"";position:absolute;left:0;right:0;top:0;height:10px;background:var(--earth)}
+.final .w{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:40px;align-items:end}
+.final h2{font-size:clamp(44px,6vw,84px)}
+.final p{font-size:19px;color:#DCE6F7;margin-bottom:22px}
+.final .btn{background:#fff;color:var(--ink);border-left-color:var(--brown)}
+.final .btn:hover{background:var(--bg)}
+/* privacy */
+.legal{padding:88px 0 72px;font-size:14.5px;color:var(--muted)}
+.legal h2{font-size:44px;color:var(--ink);margin-bottom:26px}
+.legal .cols{columns:2 340px;column-gap:52px}
+.legal p{margin-bottom:16px;break-inside:avoid}
+.legal b{color:var(--ink)}
+.legal a{color:var(--blue)}
+footer{border-top:2px solid var(--ink);padding:28px 0 40px;font-size:14px;color:var(--muted)}
+footer .w{display:flex;justify-content:space-between;gap:12px 24px;flex-wrap:wrap}
+footer a{color:var(--ink)}
+a:focus-visible,summary:focus-visible{outline:3px solid var(--yellow);outline-offset:3px}
+@media (prefers-reduced-motion:no-preference){
+  .flow{stroke-dasharray:6 10;animation:flow 1.6s linear infinite}
+  @keyframes flow{to{stroke-dashoffset:-32}}
+}
+@media (max-width:900px){
+  .hero{padding:44px 0 56px}
+  .hero .w{grid-template-columns:1fr;gap:40px}
+  .strip{grid-template-columns:1fr 1fr}
+  .t{padding:32px 16px 20px}
+  .t:before{left:16px}
+  .t:nth-child(2){border-right:0}
+  .t:nth-child(-n+2){border-bottom:1px solid var(--line)}
+  .t b{font-size:38px}
+  .sec{padding:76px 0}
+  .sub{margin-bottom:40px}
+  .run:before{left:21px}
+  .st{grid-template-columns:46px minmax(0,1fr);gap:16px;padding-bottom:30px}
+  .term{width:46px;height:46px;font-size:13px}
+  .st h3{font-size:28px;margin-top:4px}
+  .dr{grid-template-columns:1fr;gap:10px;padding:24px 0}
+  .dr h3{font-size:28px}
+  .boxes{grid-template-columns:1fr;gap:22px}
+  .bx .in{padding:24px 22px 26px}
+  .amt{font-size:64px}
+  .faq summary{grid-template-columns:38px minmax(0,1fr) 20px;font-size:18px}
+  .faq details p{margin-left:0}
+  .final{padding:76px 0}
+  .final .w{grid-template-columns:1fr;gap:10px}
+}
+@media (max-width:420px){
+  .brand{font-size:22px}
+  .btn.sm{padding:8px 10px;font-size:13px}
+  .hero h1{font-size:46px}
+  .prow{font-size:15px}
 }
 </style>
-
 <meta name="twitter:card" content="summary">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Service", "name": "Feed Factory", "url": "https://projektargo.com/feedfactory/", "serviceType": "Product data readiness check for electrical manufacturers", "description": "Free check for small electrical and lighting manufacturers: the ETIM class for 3 to 5 of your products and the technical features wholesalers will expect. By e-mail within 2 working days.", "inLanguage": "en", "areaServed": [{"@type": "Country", "name": "United Kingdom"}, {"@type": "Country", "name": "Ireland"}, {"@type": "Country", "name": "Belgium"}], "provider": {"@type": "Person", "@id": "https://projektargo.com/#person", "name": "Štefan Toporcer", "url": "https://projektargo.com/"}}</script>
 <script>
@@ -138,132 +182,169 @@ posthog.init("phc_zbBFHQt5aVYH9HuviHUQuwfh6TPCVPyXSrMWWgJ9UfLP",{api_host:"https
 <body>
 
 <nav>
-  <div class="wrap">
-    <a class="brand" href="#top"><i aria-hidden="true">✓</i>Feed Factory</a>
+  <div class="w">
+    <a class="brand" href="#top"><svg viewBox="0 0 30 24" aria-hidden="true"><path d="M2 5h12" stroke="#7E431E" stroke-width="3"/><path d="M2 12h12" stroke="#1C58B5" stroke-width="3"/><path d="M2 19h12" stroke="#2E8B3A" stroke-width="3"/><path d="M2 19h12" stroke="#F2C811" stroke-width="3" stroke-dasharray="3 3"/><rect x="15" y="1.5" width="13" height="21" rx="2" fill="#fff" stroke="#15171A" stroke-width="2"/><circle cx="21.5" cy="5" r="1.6" fill="#15171A"/><circle cx="21.5" cy="12" r="1.6" fill="#15171A"/><circle cx="21.5" cy="19" r="1.6" fill="#15171A"/></svg>Feed Factory</a>
     <a class="btn sm" href="https://tally.so/r/PRpkae?ref=site-nav">Free readiness check</a>
   </div>
 </nav>
 
 <main id="top">
-  <div class="wrap">
-    <section class="hero">
+  <section class="hero">
+    <div class="w">
       <div>
-        <span class="eyebrow mono">Electrical &amp; lighting manufacturers · UK, IE, BE</span>
-        <h1>Your wholesalers want ETIM data.<br><em>You have Excel and a PDF.</em></h1>
+        <p class="kick m"><i></i>Electrical &amp; lighting manufacturers · UK, IE, BE</p>
+        <h1>Your wholesalers want ETIM data.<span>You have Excel and a PDF.</span></h1>
         <p class="lead">Many distributors now require manufacturers to supply product data classified to the ETIM standard. If your specs live in a spreadsheet or a PDF catalogue, that is a job of its own. Describe 3 to 5 of your products and get a free check: the ETIM class for each one and the technical features your data is likely missing.</p>
-        <div class="cta-row">
+        <div class="act">
           <a class="btn" href="https://tally.so/r/PRpkae?ref=site-hero">Get the free readiness check →</a>
-          <a class="btn ghost" href="#how">How it works</a>
+          <a class="tl" href="#how">How it works</a>
         </div>
         <p class="fine">By e-mail within 2 working days. No payment, no file upload, no obligation.</p>
       </div>
 
-      <div class="card mono" aria-label="Illustrative example of a readiness check">
-        <div class="head"><span>READINESS CHECK · ILLUSTRATIVE EXAMPLE</span><span>Partly ready</span></div>
-        <div class="row"><span>Product</span><span>LED downlight, fire-rated</span></div>
-        <div class="row"><span>ETIM class</span><span class="tag ok">EC001744</span></div>
-        <div class="row"><span>Features in this class</span><span>121</span></div>
-        <div class="row"><span>Colour temperature, IP rating</span><span class="tag ok">Published</span></div>
-        <div class="row"><span>Rated luminous flux, CRI</span><span class="tag bad">Missing</span></div>
-        <div class="row"><span>Fire rating (30/60/90 min)</span><span class="tag bad">Not structured</span></div>
-        <p class="note">Illustrative example for a fictional product. The class code and feature count come from the public ETIM Viewer (dynamic release); your check is based on your own products.</p>
-      </div>
-    </section>
+      <figure aria-label="Illustrative example of a readiness check">
+        <svg class="wire" viewBox="0 0 520 132" aria-hidden="true">
+          <g font-size="12" font-weight="500">
+            <rect x="2" y="14" width="76" height="40" rx="3" fill="#fff" stroke="#15171A" stroke-width="2"/><text x="40" y="39" text-anchor="middle" fill="#15171A">XLS</text>
+            <rect x="2" y="70" width="76" height="40" rx="3" fill="#fff" stroke="#15171A" stroke-width="2"/><text x="40" y="95" text-anchor="middle" fill="#15171A">PDF</text>
+          </g>
+          <path d="M78 34C190 34 220 44 330 44" fill="none" stroke="#7E431E" stroke-width="4"/>
+          <path d="M78 90C190 90 220 66 330 66" fill="none" stroke="#1C58B5" stroke-width="4"/>
+          <path d="M78 62C190 62 220 88 330 88" fill="none" stroke="#2E8B3A" stroke-width="4"/>
+          <path class="flow" d="M78 62C190 62 220 88 330 88" fill="none" stroke="#F2C811" stroke-width="4" stroke-dasharray="6 6"/>
+          <rect x="330" y="28" width="188" height="76" rx="4" fill="#fff" stroke="#15171A" stroke-width="2"/>
+          <g fill="#15171A"><circle cx="348" cy="44" r="5"/><circle cx="348" cy="66" r="5"/><circle cx="348" cy="88" r="5"/></g>
+          <text x="368" y="58" font-size="15" font-weight="500" fill="#15171A">ETIM</text>
+          <text x="368" y="80" font-size="13" fill="#7E431E">EC001744</text>
+        </svg>
+        <div class="plate">
+          <div class="hd m"><span>READINESS CHECK · ILLUSTRATIVE EXAMPLE</span><b>Partly ready</b></div>
+          <div class="prow"><span>Product</span><span class="val">LED downlight, fire-rated</span></div>
+          <div class="prow"><span>ETIM class</span><span class="tag ok">EC001744</span></div>
+          <div class="prow"><span>Features in this class</span><span class="val">121</span></div>
+          <div class="prow"><span>Colour temperature, IP rating</span><span class="tag ok">Published</span></div>
+          <div class="prow"><span>Rated luminous flux, CRI</span><span class="tag bad">Missing</span></div>
+          <div class="prow"><span>Fire rating (30/60/90 min)</span><span class="tag bad">Not structured</span></div>
+          <p class="note">Illustrative example for a fictional product. The class code and feature count come from the public ETIM Viewer (dynamic release); your check is based on your own products.</p>
+        </div>
+      </figure>
+    </div>
+  </section>
 
-    <div class="stats">
-      <div class="stat"><b>Many</b><span>distributors now require ETIM-classified product data from manufacturers (ETIM UK and Ireland)</span></div>
-      <div class="stat"><b>10</b><span>UK wholesalers, including CEF, Edmundson and Rexel UK, were founder members of the EDATA data pool built on ETIM</span></div>
-      <div class="stat"><b>Free</b><span>the ETIM classification model is open data under the ODC Attribution Licence</span></div>
-      <div class="stat"><b>2</b><span>working days to get your free check by e-mail</span></div>
+  <div class="w">
+    <div class="strip">
+      <div class="t"><b>Many</b><span>distributors now require ETIM-classified product data from manufacturers (ETIM UK and Ireland)</span></div>
+      <div class="t"><b>10</b><span>UK wholesalers, including CEF, Edmundson and Rexel UK, were founder members of the EDATA data pool built on ETIM</span></div>
+      <div class="t"><b>Free</b><span>the ETIM classification model is open data under the ODC Attribution Licence</span></div>
+      <div class="t"><b>2</b><span>working days to get your free check by e-mail</span></div>
     </div>
   </div>
 
-  <section class="paper" id="how">
-    <div class="wrap">
+  <section class="sec" id="how">
+    <div class="w">
+      <span class="lbl m"><i style="background:#7E431E"></i>Wiring diagram</span>
       <h2>How it works</h2>
       <p class="sub">A short form about your products. No files, no system access.</p>
-      <div class="steps">
-        <div class="step"><span class="n mono">01</span><h3>Describe 3 to 5 products</h3><p>Product type, your code and the specs you publish today, plus where your data lives and which wholesalers you sell through.</p></div>
-        <div class="step"><span class="n mono">02</span><h3>We match them to ETIM</h3><p>For each product we look up the closest class in the public ETIM Viewer and compare its technical features with the specs you gave us.</p></div>
-        <div class="step"><span class="n mono">03</span><h3>You get the check</h3><p>By e-mail within 2 working days: the ETIM class and code for each product, which features you already have, the most important missing ones, and next steps.</p></div>
+      <div class="run">
+        <div class="st"><span class="term">01</span><div><h3>Describe 3 to 5 products</h3><p>Product type, your code and the specs you publish today, plus where your data lives and which wholesalers you sell through.</p></div></div>
+        <div class="st"><span class="term">02</span><div><h3>We match them to ETIM</h3><p>For each product we look up the closest class in the public ETIM Viewer and compare its technical features with the specs you gave us.</p></div></div>
+        <div class="st"><span class="term">03</span><div><h3>You get the check</h3><p>By e-mail within 2 working days: the ETIM class and code for each product, which features you already have, the most important missing ones, and next steps.</p></div></div>
       </div>
     </div>
   </section>
 
-  <section class="dark" id="why">
-    <div class="wrap">
+  <section class="sec dark" id="why">
+    <div class="w">
+      <span class="lbl m"><i style="background:#1C58B5"></i>Data sheet</span>
       <h2>Why now</h2>
       <p class="sub">What the ETIM organisations and the electrical distributors say.</p>
-      <div class="grid2">
-        <div class="item"><h3>Wholesalers rely on your data</h3><p>ETIM UK and Ireland states that many distributors now require manufacturers to supply ETIM-classified product data. The Electrical Distributors' Association notes that wholesalers rely on manufacturers' product data for the content of their websites.</p><p class="rule mono">ETIM UK and Ireland, FAQs · EDA, ETIM UK and Ireland</p></div>
-        <div class="item"><h3>An industry data pool built on ETIM</h3><p>EDATA, the EDA's data pool, was set up with 25 founder members: 10 wholesalers and 15 manufacturers. Its technical attributes are structured under ETIM, alongside master data and digital assets such as images and data sheets.</p><p class="rule mono">ETIM UK and Ireland, EDATA announcement, April 2020</p></div>
-        <div class="item"><h3>A new exchange format</h3><p>ETIM xChange is ETIM International's JSON format for exchanging product data, released as the successor to its earlier BMEcat recommendation. Version 2.0 was officially released on 27 November 2025.</p><p class="rule mono">ETIM International, exchange format · xChange 2.0 release</p></div>
-        <div class="item"><h3>The standard itself is open</h3><p>The ETIM classification is free to use under the Open Data Commons Attribution Licence. The international English version is open to all; some national translations, including English (UK), are reserved for members of the national ETIM organisation.</p><p class="rule mono">ETIM International, licence info</p></div>
+      <div class="ds">
+        <div class="dr"><div><h3>Wholesalers rely on your data</h3><span class="src m">ETIM UK and Ireland, FAQs · EDA, ETIM UK and Ireland</span></div><p>ETIM UK and Ireland states that many distributors now require manufacturers to supply ETIM-classified product data. The Electrical Distributors' Association notes that wholesalers rely on manufacturers' product data for the content of their websites.</p></div>
+        <div class="dr"><div><h3>An industry data pool built on ETIM</h3><span class="src m">ETIM UK and Ireland, EDATA announcement, April 2020</span></div><p>EDATA, the EDA's data pool, was set up with 25 founder members: 10 wholesalers and 15 manufacturers. Its technical attributes are structured under ETIM, alongside master data and digital assets such as images and data sheets.</p></div>
+        <div class="dr"><div><h3>A new exchange format</h3><span class="src m">ETIM International, exchange format · xChange 2.0 release</span></div><p>ETIM xChange is ETIM International's JSON format for exchanging product data, released as the successor to its earlier BMEcat recommendation. Version 2.0 was officially released on 27 November 2025.</p></div>
+        <div class="dr"><div><h3>The standard itself is open</h3><span class="src m">ETIM International, licence info</span></div><p>The ETIM classification is free to use under the Open Data Commons Attribution Licence. The international English version is open to all; some national translations, including English (UK), are reserved for members of the national ETIM organisation.</p></div>
       </div>
     </div>
   </section>
 
-  <section class="paper" id="pricing">
-    <div class="wrap">
+  <section class="sec" id="pricing">
+    <div class="w">
+      <span class="lbl m"><i style="background:#2E8B3A"></i>Specification</span>
       <h2>What you get</h2>
       <p class="sub">The readiness check is free. The full service is in early access: tick “yes” or “maybe” in the form and we will contact you.</p>
-      <div class="prices">
-        <div class="price hl">
-          <h3>Free readiness check</h3>
-          <div class="amt">£0</div>
-          <ul>
-            <li>ETIM class and code for 3 to 5 of your products</li>
-            <li>Features you already publish, matched to ETIM feature codes</li>
-            <li>The most important missing features for each product</li>
-            <li>3 to 5 next steps and links to the sources</li>
-          </ul>
+      <div class="boxes">
+        <div class="bx">
+          <div class="band"></div>
+          <div class="in">
+            <span class="m">Start here</span>
+            <h3>Free readiness check</h3>
+            <div class="amt">£0</div>
+            <ul>
+              <li>ETIM class and code for 3 to 5 of your products</li>
+              <li>Features you already publish, matched to ETIM feature codes</li>
+              <li>The most important missing features for each product</li>
+              <li>3 to 5 next steps and links to the sources</li>
+            </ul>
+          </div>
         </div>
-        <div class="price">
-          <h3>Catalogue conversion + updates</h3>
-          <div class="amt">£149<small> / month</small></div>
-          <ul>
-            <li>Your Excel or PDF catalogue turned into ETIM-classified product data</li>
-            <li>Delivered as an ETIM xChange or BMEcat file, or your wholesaler's template</li>
-            <li>Up to 1,000 products, updated when your range changes</li>
-            <li>Early access price</li>
-          </ul>
+        <div class="bx paid">
+          <div class="band"></div>
+          <div class="in">
+            <span class="m">Early access</span>
+            <h3>Catalogue conversion + updates</h3>
+            <div class="amt">£149<small> / month</small></div>
+            <ul>
+              <li>Your Excel or PDF catalogue turned into ETIM-classified product data</li>
+              <li>Delivered as an ETIM xChange or BMEcat file, or your wholesaler's template</li>
+              <li>Up to 1,000 products, updated when your range changes</li>
+              <li>Early access price</li>
+            </ul>
+          </div>
         </div>
       </div>
-      <p class="founding">No payment is taken on this site, and nothing is charged before you agree to a written offer.</p>
+      <p class="small">No payment is taken on this site, and nothing is charged before you agree to a written offer.</p>
     </div>
   </section>
 
-  <section class="dark" id="faq">
-    <div class="wrap">
+  <section class="sec faq" id="faq" style="padding-top:24px">
+    <div class="w">
+      <span class="lbl m"><i style="background:#F2C811"></i>Questions</span>
       <h2>Questions</h2>
-      <details><summary>Do I need to upload my catalogue?</summary><p>No. For the free check you only describe 3 to 5 products in the form. Please do not send confidential price lists.</p></details>
-      <details><summary>Is this an official ETIM certification?</summary><p>No. Feed Factory is not affiliated with ETIM International or any national ETIM organisation. The check is an indicative match based on the public ETIM Viewer; please confirm the requirements with your wholesaler.</p></details>
-      <details><summary>Which ETIM language do you use?</summary><p>The international English version, which is open to all. If your wholesaler works with English (UK) or another national translation, class and feature codes stay the same, but names can differ.</p></details>
-      <details><summary>Who is this for?</summary><p>Small manufacturers of electrical, lighting, cable management, heating and similar building products, roughly 5 to 200 people, who sell through wholesalers or distributors and have no dedicated data team.</p></details>
+      <div style="margin-top:36px">
+        <details><summary><span class="q">Q1</span>Do I need to upload my catalogue?</summary><p>No. For the free check you only describe 3 to 5 products in the form. Please do not send confidential price lists.</p></details>
+        <details><summary><span class="q">Q2</span>Is this an official ETIM certification?</summary><p>No. Feed Factory is not affiliated with ETIM International or any national ETIM organisation. The check is an indicative match based on the public ETIM Viewer; please confirm the requirements with your wholesaler.</p></details>
+        <details><summary><span class="q">Q3</span>Which ETIM language do you use?</summary><p>The international English version, which is open to all. If your wholesaler works with English (UK) or another national translation, class and feature codes stay the same, but names can differ.</p></details>
+        <details><summary><span class="q">Q4</span>Who is this for?</summary><p>Small manufacturers of electrical, lighting, cable management, heating and similar building products, roughly 5 to 200 people, who sell through wholesalers or distributors and have no dedicated data team.</p></details>
+      </div>
     </div>
   </section>
 
   <section class="final">
-    <div class="wrap">
+    <div class="w">
       <h2>Is your product data ready for your wholesalers?</h2>
-      <p>Find out in 2 working days, free.</p>
-      <a class="btn" href="https://tally.so/r/PRpkae?ref=site-footer">Get the free readiness check →</a>
+      <div>
+        <p>Find out in 2 working days, free.</p>
+        <a class="btn" href="https://tally.so/r/PRpkae?ref=site-footer">Get the free readiness check →</a>
+      </div>
     </div>
   </section>
-  <section class="paper" id="privacy">
-    <div class="wrap">
+
+  <section class="legal" id="privacy">
+    <div class="w">
       <h2>Privacy &amp; terms</h2>
-      <p class="sub"><b>Who runs this.</b> Feed Factory is operated by Štefan Toporcer, an individual based in Slovakia (not a registered company). Contact: <a href="mailto:toporcer.stefan@gmail.com">toporcer.stefan@gmail.com</a>.</p>
-      <p class="sub"><b>Privacy.</b> The form collects your name, work e-mail, company, country, website, role, your description of 3 to 5 products, how you keep product data today, your wholesalers and whether you are interested in the paid version. I use your data only to prepare your check, reply to you and, if you ask, send an offer. The form runs on Tally, e-mail runs on Gmail (Google), and the check is drafted with the help of Anthropic Claude. I do not sell your data. I keep it for 12 months, or delete it sooner if you ask. You can ask for access to or deletion of your data at any time by e-mail, and you may complain to the Slovak data protection authority (Úrad na ochranu osobných údajov SR).</p>
-      <p class="sub"><b>Analytics.</b> This site counts visits and clicks with PostHog (EU servers) in cookieless mode: nothing is stored on your device and IP addresses are anonymised. It is used only to see how the page is used, not to identify you.</p>
-      <p class="sub"><b>Terms.</b> The check is indicative orientation based on your answers and the public ETIM classification. It is not legal or professional advice, it is not a certification, and it does not guarantee that a wholesaler will accept your data. Please confirm the requirements with your wholesaler. ETIM classification data is used under the Open Data Commons Attribution Licence, © ETIM International. No payment is taken on this site; paid work starts only after you agree to a written offer.</p>
-      <p class="sub"><b>Sources.</b> <a href="https://www.etim-uk-and-ie.org/faqs/">ETIM UK and Ireland: FAQs</a> · <a href="https://www.eda.org.uk/edata/etim-uk-and-ireland/">EDA: ETIM UK and Ireland</a> · <a href="https://www.etim-uk-and-ie.org/news/edata/">ETIM UK and Ireland: Leading electro-tech players back new EDA data pool</a> · <a href="https://www.etim-international.com/classification/exchange-format/">ETIM International: Exchange format</a> · <a href="https://www.etim-international.com/?p=3440">ETIM International: xChange 2.0 release</a> · <a href="https://www.etim-international.com/classification/license-info/">ETIM International: Licence info</a> · <a href="https://viewer.etim-international.com/class/EC001744">ETIM Viewer: EC001744</a></p>
+      <div class="cols">
+        <p><b>Who runs this.</b> Feed Factory is operated by Štefan Toporcer, an individual based in Slovakia (not a registered company). Contact: <a href="mailto:toporcer.stefan@gmail.com">toporcer.stefan@gmail.com</a>.</p>
+        <p><b>Privacy.</b> The form collects your name, work e-mail, company, country, website, role, your description of 3 to 5 products, how you keep product data today, your wholesalers and whether you are interested in the paid version. I use your data only to prepare your check, reply to you and, if you ask, send an offer. The form runs on Tally, e-mail runs on Gmail (Google), and the check is drafted with the help of Anthropic Claude. I do not sell your data. I keep it for 12 months, or delete it sooner if you ask. You can ask for access to or deletion of your data at any time by e-mail, and you may complain to the Slovak data protection authority (Úrad na ochranu osobných údajov SR).</p>
+        <p><b>Analytics.</b> This site counts visits and clicks with PostHog (EU servers) in cookieless mode: nothing is stored on your device and IP addresses are anonymised. It is used only to see how the page is used, not to identify you.</p>
+        <p><b>Terms.</b> The check is indicative orientation based on your answers and the public ETIM classification. It is not legal or professional advice, it is not a certification, and it does not guarantee that a wholesaler will accept your data. Please confirm the requirements with your wholesaler. ETIM classification data is used under the Open Data Commons Attribution Licence, © ETIM International. No payment is taken on this site; paid work starts only after you agree to a written offer.</p>
+        <p><b>Sources.</b> <a href="https://www.etim-uk-and-ie.org/faqs/">ETIM UK and Ireland: FAQs</a> · <a href="https://www.eda.org.uk/edata/etim-uk-and-ireland/">EDA: ETIM UK and Ireland</a> · <a href="https://www.etim-uk-and-ie.org/news/edata/">ETIM UK and Ireland: Leading electro-tech players back new EDA data pool</a> · <a href="https://www.etim-international.com/classification/exchange-format/">ETIM International: Exchange format</a> · <a href="https://www.etim-international.com/?p=3440">ETIM International: xChange 2.0 release</a> · <a href="https://www.etim-international.com/classification/license-info/">ETIM International: Licence info</a> · <a href="https://viewer.etim-international.com/class/EC001744">ETIM Viewer: EC001744</a></p>
+      </div>
     </div>
   </section>
 </main>
 
 <footer>
-  <div class="wrap">
+  <div class="w">
     <span>Feed Factory is a project by Štefan Toporcer · <a href="https://projektargo.com/">Projekt Argo</a></span>
     <span>Not affiliated with ETIM International. Not a certification. · <a href="#privacy">Privacy &amp; terms</a> · <a href="mailto:toporcer.stefan@gmail.com">toporcer.stefan@gmail.com</a></span>
   </div>
