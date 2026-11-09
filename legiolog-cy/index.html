@@ -13,121 +13,173 @@
 <meta property="og:description" content="Free indicative Legionella readiness snapshot for Cyprus hotels, clinics and care homes, by e-mail within 2 working days.">
 <meta property="og:url" content="https://projektargo.com/legiolog-cy/">
 <meta property="og:type" content="website">
+<meta name="theme-color" content="#0B3440">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=Martian+Mono:wght@400;500&family=Red+Hat+Text:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-:root{
-  --ink:#0E1116; --ink-2:#161B22; --line:#2A313B; --text:#E8ECF1; --muted:#9AA4B2;
-  --amber:#F5B841; --amber-ink:#1A1405; --ok:#5FD38D; --warn:#FF7A59;
-  --paper:#F6F4EF; --paper-ink:#14171C; --paper-muted:#5A616B; --paper-line:#DCD8CF;
-  --r:14px; --max:1080px;
-}
+/* LegioLog CY – plant-room logbook: deep cistern teal, log paper, hot/cold water lines */
+:root{--deep:#0B3440;--deep2:#0E4250;--aqua:#6FD1C7;--paper:#F3EFE4;--sheet:#FBF9F4;--ink:#132126;--muted:#4D5C63;--line:#D3CBB9;--grid:rgba(19,33,38,.06);--hot:#B8331E;--hot-l:#E8553B;--cold:#1F5FA8;--cold-l:#2B74C8;--on-deep:#E9F3F2;--on-deep-2:#B9CFD0;--ease:cubic-bezier(.2,.7,.2,1);--max:1120px}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{background:var(--ink);color:var(--text);font:16px/1.6 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+body{background:var(--paper);color:var(--ink);font:17px/1.6 "Red Hat Text",Verdana,sans-serif;-webkit-font-smoothing:antialiased}
 a{color:inherit}
-.wrap{max-width:var(--max);margin:0 auto;padding:0 20px}
-.mono{font-family:"JetBrains Mono",ui-monospace,monospace}
-h1,h2,h3{font-family:Archivo,Inter,sans-serif;letter-spacing:-.02em;line-height:1.1}
-
-/* nav */
-nav{position:sticky;top:0;z-index:10;background:rgba(14,17,22,.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-nav .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
-.brand{display:flex;align-items:center;gap:10px;font-family:Archivo,Inter,system-ui,sans-serif;font-weight:800;text-decoration:none}
-.brand i{width:22px;height:22px;border-radius:6px;background:var(--amber);display:grid;place-items:center;font-style:normal;color:var(--amber-ink);font-size:12px}
-.btn{display:inline-flex;align-items:center;gap:8px;background:var(--amber);color:var(--amber-ink);font-weight:600;text-decoration:none;padding:12px 20px;border-radius:999px;transition:transform .15s,box-shadow .15s}
-.btn:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(245,184,65,.25)}
-.btn.sm{padding:8px 16px;font-size:14px}
-.btn.ghost{background:transparent;color:var(--text);border:1px solid var(--line)}
-
+section{scroll-margin-top:64px}
+.w{max-width:var(--max);margin:0 auto;padding:0 20px}
+.m{font-family:"Martian Mono",ui-monospace,monospace;font-size:12px;letter-spacing:.02em}
+h1,h2,h3{font-family:"Big Shoulders Display",Impact,sans-serif;font-weight:800;line-height:.95;text-transform:uppercase;letter-spacing:.005em}
+.cta{display:inline-flex;align-items:center;gap:10px;background:var(--aqua);color:var(--deep);font-weight:700;text-decoration:none;padding:15px 22px;border-radius:3px;transition:transform .2s var(--ease),background .2s}
+.cta:hover{background:#93E2DA;transform:translateY(-2px)}
+.cta.sm{padding:9px 14px;font-size:14px}
+/* top bar */
+.top{position:sticky;top:0;z-index:20;background:var(--deep);color:var(--on-deep);border-bottom:1px solid rgba(111,209,199,.2)}
+.top .w{display:flex;align-items:center;justify-content:space-between;gap:12px;height:60px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:"Big Shoulders Display",Impact,sans-serif;font-weight:900;font-size:25px;letter-spacing:.03em;text-transform:uppercase}
+.brand svg{width:26px;height:26px;flex:none}
 /* hero */
-.hero{padding:80px 0 64px;display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center}
-.eyebrow{display:inline-block;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);border:1px solid rgba(245,184,65,.35);padding:5px 10px;border-radius:999px;margin-bottom:20px}
-.hero h1{font-size:clamp(38px,6vw,64px);font-weight:800}
-.hero h1 em{font-style:normal;color:var(--amber)}
-.hero p.lead{color:var(--muted);font-size:18px;margin:20px 0 28px;max-width:34em}
-.cta-row{display:flex;gap:12px;flex-wrap:wrap}
-.fine{font-size:13px;color:var(--muted);margin-top:14px}
-
-/* filing card */
-.card{background:var(--ink-2);border:1px solid var(--line);border-radius:var(--r);padding:22px;box-shadow:0 30px 80px rgba(0,0,0,.4)}
-.card .head{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:14px}
-.row{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-top:1px dashed var(--line);font-size:14px}
-.row span:first-child{color:var(--muted)}
-.tag{align-self:flex-start;font-size:12px;padding:2px 8px;border-radius:6px;font-weight:600;white-space:nowrap}
-.tag.bad{background:rgba(255,122,89,.15);color:var(--warn)}
-.tag.ok{background:rgba(95,211,141,.12);color:var(--ok)}
-.card .note{margin-top:14px;font-size:12px;color:var(--muted)}
-
-/* stats */
-.stats{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;margin-bottom:96px}
-.stat{padding:24px;border-right:1px solid var(--line)}
-.stat:last-child{border-right:0}
-.stat b{display:block;font-family:Archivo,Inter,system-ui,sans-serif;font-size:32px;font-weight:800;color:var(--amber)}
-.stat span{font-size:14px;color:var(--muted)}
-
-/* paper sections */
-.paper{background:var(--paper);color:var(--paper-ink);padding:96px 0}
-.paper .sub{color:var(--paper-muted)}
-section h2{font-size:clamp(28px,4vw,42px);font-weight:800;margin-bottom:12px}
-.sub{color:var(--muted);max-width:40em;margin-bottom:40px}
-.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.step{background:#fff;border:1px solid var(--paper-line);border-radius:var(--r);padding:26px}
-.step .n{font-size:13px;color:var(--paper-muted)}
-.step h3{font-size:20px;margin:10px 0 8px}
-.step p{color:var(--paper-muted);font-size:15px}
-
-/* checklist */
-.dark{padding:96px 0}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-.item{border:1px solid var(--line);border-radius:var(--r);padding:22px;background:var(--ink-2)}
-.item h3{font-size:18px;margin-bottom:6px}
-.item p{color:var(--muted);font-size:15px}
-.item .rule{font-size:12px;color:var(--amber);margin-top:10px}
-
-/* pricing */
-.prices{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:820px}
-.price{background:#fff;border:1px solid var(--paper-line);border-radius:var(--r);padding:30px}
-.price.hl{border:2px solid var(--paper-ink)}
-.price h3{font-size:20px}
-.price .amt{font-family:Archivo,Inter,system-ui,sans-serif;font-size:44px;font-weight:800;margin:10px 0 2px}
-.price .amt small{font-size:16px;font-weight:600;color:var(--paper-muted)}
-.price ul{list-style:none;margin:18px 0 0}
-.price li{padding:7px 0 7px 26px;position:relative;font-size:15px;border-top:1px solid var(--paper-line)}
-.price li:before{content:"";position:absolute;left:4px;top:15px;width:10px;height:6px;border-left:2px solid var(--paper-ink);border-bottom:2px solid var(--paper-ink);transform:rotate(-45deg)}
-.founding{margin-top:22px;font-size:14px;color:var(--paper-muted)}
-
+.hero{background:var(--deep);color:var(--on-deep);padding:72px 0 124px;position:relative;overflow:hidden}
+.hero:before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(111,209,199,.055) 0 1px,transparent 1px 34px);pointer-events:none}
+.hero .w{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:start;position:relative}
+.kicker{display:flex;align-items:center;gap:12px;color:var(--aqua);text-transform:uppercase;margin-bottom:24px}
+.kicker:before{content:"";width:28px;height:2px;background:var(--aqua);flex:none}
+.hero h1{font-size:clamp(46px,7.2vw,90px)}
+.hero h1 span{display:block;color:var(--aqua);margin-top:.12em}
+.lead{font-size:18px;color:var(--on-deep-2);margin:26px 0 30px;max-width:36em}
+.act{display:flex;flex-wrap:wrap;gap:16px 24px;align-items:center}
+.tlink{font-weight:700;text-underline-offset:6px;text-decoration-thickness:1px}
+.fine{font-size:14px;color:#9FB8BA;margin-top:18px}
+/* log sheet */
+.sheet{background:var(--sheet);color:var(--ink);border-radius:2px;padding:24px 22px 18px;box-shadow:0 34px 70px -24px rgba(0,0,0,.6);transform:rotate(.7deg);position:relative}
+.sheet:before{content:"";position:absolute;left:50%;top:-8px;width:124px;height:16px;margin-left:-62px;background:radial-gradient(circle,var(--deep) 5px,transparent 6px) 0 0/41px 16px repeat-x}
+.sheet .hd{display:flex;justify-content:space-between;gap:12px;color:var(--muted);border-bottom:2px solid var(--ink);padding-bottom:10px;margin-bottom:6px}
+.sheet .hd b{color:var(--ink);font-weight:500;white-space:nowrap}
+.chart{display:block;width:100%;height:auto;margin:8px 0 6px}
+.chart text{font-family:"Martian Mono",ui-monospace,monospace}
+.rows{list-style:none}
+.rows li{display:flex;justify-content:space-between;gap:14px;padding:9px 0;border-top:1px solid var(--line);font-size:15px}
+.st{font-family:"Martian Mono",ui-monospace,monospace;font-size:11px;font-weight:500;padding:3px 8px;border-radius:2px;white-space:nowrap;align-self:flex-start}
+.st.ok{background:#DCEFE8;color:#175A4C}
+.st.bad{background:#F8DCD4;color:#8A2413}
+.st.mid{background:#EFE6CF;color:#5C4A10}
+.sheet .note{font-size:13px;color:var(--muted);margin-top:10px}
+/* gauges */
+.gauges{position:relative;z-index:2;margin-top:-62px}
+.gauges .g4{display:grid;grid-template-columns:repeat(4,1fr);background:var(--sheet);border:2px solid var(--ink);box-shadow:8px 8px 0 var(--ink)}
+.g{padding:22px 22px 24px;border-right:1px solid var(--line)}
+.g:last-child{border-right:0}
+.g b{display:block;font-family:"Big Shoulders Display",Impact,sans-serif;font-weight:900;font-size:38px;line-height:1;margin-bottom:10px;color:var(--deep);white-space:nowrap}
+.g span{font-size:14px;color:var(--muted);display:block}
+/* sections */
+.sec{padding:112px 0}
+.gridbg{background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:26px 26px}
+.lbl{display:block;color:var(--hot);text-transform:uppercase;margin-bottom:16px}
+.sec h2{font-size:clamp(42px,6vw,76px);margin-bottom:16px}
+.intro{color:var(--muted);max-width:40em;margin-bottom:48px;font-size:18px}
+/* procedure log */
+.logt{border-top:2px solid var(--ink)}
+.logt .r{display:grid;grid-template-columns:96px minmax(0,300px) 1fr;gap:28px;padding:26px 0;border-bottom:1px solid var(--line);align-items:baseline;background:linear-gradient(90deg,transparent 0 95px,rgba(184,51,30,.35) 95px 96px,transparent 96px)}
+.logt .n{font-family:"Big Shoulders Display",Impact,sans-serif;font-weight:900;font-size:52px;line-height:1;color:var(--deep)}
+.logt h3{font-size:32px}
+.logt p{color:var(--muted);max-width:38em}
+/* public record timeline */
+.why{background:var(--deep);color:var(--on-deep)}
+.why .lbl{color:var(--aqua)}
+.why .intro{color:#9FB8BA}
+.tl{list-style:none;position:relative;margin-left:7px}
+.tl:before{content:"";position:absolute;left:0;top:10px;bottom:28px;width:2px;background:rgba(111,209,199,.35)}
+.tl li{position:relative;padding:0 0 44px 44px;display:grid;grid-template-columns:230px 1fr;gap:32px}
+.tl li:last-child{padding-bottom:0}
+.tl li:before{content:"";position:absolute;left:-6px;top:4px;width:14px;height:14px;border-radius:50%;background:var(--deep);border:2px solid var(--aqua)}
+.tl .src{color:var(--aqua);text-transform:uppercase;line-height:1.7;padding-top:2px}
+.tl h3{font-size:32px;margin-bottom:10px}
+.tl p{color:var(--on-deep-2);max-width:40em}
+/* inspection tags */
+.tags{display:grid;grid-template-columns:1fr 1fr;gap:40px;max-width:920px;align-items:start;margin-top:8px}
+.tag{position:relative;background:var(--sheet);border:2px solid var(--ink);border-radius:20px 20px 4px 4px;padding:56px 30px 30px;transition:transform .3s var(--ease)}
+.tag:before{content:"";position:absolute;top:18px;left:50%;width:18px;height:18px;margin-left:-9px;border-radius:50%;border:2px solid var(--ink);background:var(--paper)}
+.tag.a{transform:rotate(-1.2deg)}
+.tag.b{transform:rotate(1deg) translateY(28px);background:var(--deep);color:var(--on-deep);border-color:var(--deep)}
+.tag.b:before{border-color:var(--aqua);background:var(--paper)}
+.tag:hover{transform:rotate(0)}
+.tag.b:hover{transform:translateY(28px)}
+.tag .m{display:block;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.tag.b .m{color:var(--aqua)}
+.tag h3{font-size:30px}
+.amt{font-family:"Big Shoulders Display",Impact,sans-serif;font-weight:900;font-size:68px;line-height:1;margin:14px 0 4px}
+.amt small{font-family:"Red Hat Text",Verdana,sans-serif;font-size:16px;font-weight:700;opacity:.8;margin-left:6px}
+.tag ul{list-style:none;margin-top:18px}
+.tag li{position:relative;padding:10px 0 10px 28px;border-top:1px dashed rgba(19,33,38,.28);font-size:15.5px}
+.tag.b li{border-top-color:rgba(233,243,242,.28)}
+.tag li:before{content:"";position:absolute;left:3px;top:17px;width:12px;height:6px;border-left:2px solid var(--hot);border-bottom:2px solid var(--hot);transform:rotate(-45deg)}
+.tag.b li:before{border-color:var(--aqua)}
+.small{margin-top:64px;font-size:15px;color:var(--muted);max-width:52em}
 /* faq */
-details{border-top:1px solid var(--line);padding:18px 0}
-details:last-child{border-bottom:1px solid var(--line)}
-summary{cursor:pointer;font-weight:600;list-style:none;display:flex;justify-content:space-between;gap:16px}
-summary::-webkit-details-marker{display:none}
-summary:after{content:"+";color:var(--amber);font-family:"JetBrains Mono"}
-details[open] summary:after{content:"–"}
-details p{color:var(--muted);margin-top:10px;max-width:46em}
-
-.final{text-align:center;padding:96px 0;border-top:1px solid var(--line)}
-.final h2{margin-bottom:16px}
-.final p{color:var(--muted);margin-bottom:28px}
-footer{border-top:1px solid var(--line);padding:32px 0;font-size:13px;color:var(--muted)}
-footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
-footer a{color:var(--text)}
-
-@media (max-width:860px){
-  .hero{grid-template-columns:1fr;padding:56px 0 48px}
-  .stats{grid-template-columns:1fr 1fr}
-  .stat{padding:18px}
-  .stat b{font-size:24px}
-  .stat:nth-child(2){border-right:0}
-  .stat:nth-child(-n+2){border-bottom:1px solid var(--line)}
-  .steps,.grid2,.prices{grid-template-columns:1fr}
-  .paper,.dark,.final{padding:64px 0}
-  .stats{margin-bottom:64px}
-  nav .btn.sm{display:none}
+.faqs{background:var(--sheet)}
+.faq details{border-bottom:1px solid var(--line);padding:20px 0}
+.faq details:first-of-type{border-top:2px solid var(--ink)}
+.faq summary{cursor:pointer;list-style:none;display:grid;grid-template-columns:56px 1fr 24px;gap:12px;align-items:baseline;font-weight:700;font-size:19px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary .q{color:var(--hot)}
+.faq summary:after{content:"+";font-family:"Martian Mono",ui-monospace,monospace;color:var(--deep);text-align:right}
+.faq details[open] summary:after{content:"−"}
+.faq details p{color:var(--muted);margin:10px 0 0 68px;max-width:44em}
+/* final */
+.final{background:var(--deep);color:var(--on-deep);padding:104px 0;position:relative;overflow:hidden}
+.final:after{content:"";position:absolute;right:-60px;bottom:-60px;width:340px;height:340px;border-radius:50%;border:2px solid rgba(111,209,199,.18);box-shadow:0 0 0 40px rgba(111,209,199,.04),0 0 0 80px rgba(111,209,199,.03)}
+.final .w{display:grid;grid-template-columns:1.35fr 1fr;gap:40px;align-items:end;position:relative;z-index:1}
+.final h2{font-size:clamp(46px,7vw,96px)}
+.final p{color:var(--on-deep-2);font-size:19px;margin-bottom:22px}
+/* privacy */
+.legal{padding:88px 0 72px;font-size:15px;color:var(--muted)}
+.legal h2{font-size:44px;color:var(--ink);margin-bottom:28px}
+.legal .cols{columns:2 340px;column-gap:52px}
+.legal p{margin-bottom:16px;break-inside:avoid}
+.legal b{color:var(--ink)}
+.legal a{color:var(--cold)}
+footer{border-top:2px solid var(--ink);padding:28px 0 40px;font-size:14px;color:var(--muted)}
+footer .w{display:flex;justify-content:space-between;gap:12px 24px;flex-wrap:wrap}
+footer a{color:var(--ink)}
+.cta:focus-visible,.tlink:focus-visible,summary:focus-visible,.brand:focus-visible{outline:3px solid var(--hot-l);outline-offset:3px}
+@media (prefers-reduced-motion:no-preference){
+  .draw{stroke-dasharray:1;stroke-dashoffset:1;animation:draw 1.8s var(--ease) .35s forwards}
+  .draw.c{animation-delay:.6s}
+  .pop{opacity:0;animation:pop .45s var(--ease) 2.2s forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @keyframes pop{to{opacity:1}}
+}
+@media (max-width:900px){
+  .hero{padding:44px 0 100px}
+  .hero .w{grid-template-columns:1fr;gap:44px}
+  .sheet{transform:none}
+  .gauges .g4{grid-template-columns:1fr 1fr;box-shadow:5px 5px 0 var(--ink)}
+  .g{padding:16px 16px 18px}
+  .g b{font-size:25px}
+  .amt small{display:block;margin:8px 0 0}
+  .g:nth-child(2){border-right:0}
+  .g:nth-child(-n+2){border-bottom:1px solid var(--line)}
+  .sec{padding:76px 0}
+  .logt .r{grid-template-columns:52px 1fr;gap:6px 16px;background:none}
+  .logt .r p{grid-column:2}
+  .logt .n{font-size:38px}
+  .logt h3{font-size:28px}
+  .tl li{grid-template-columns:1fr;gap:6px;padding-left:30px}
+  .tl h3{font-size:28px}
+  .tags{grid-template-columns:1fr;gap:24px}
+  .tag.b,.tag.b:hover{transform:rotate(1deg)}
+  .small{margin-top:32px}
+  .final{padding:76px 0}
+  .final .w{grid-template-columns:1fr;gap:8px}
+  .faq summary{grid-template-columns:40px 1fr 20px;font-size:18px}
+  .faq details p{margin-left:52px}
+}
+@media (max-width:420px){
+  .brand{font-size:21px;gap:8px}
+  .brand svg{width:22px;height:22px}
+  .cta.sm{padding:8px 11px;font-size:13px}
+  .hero h1{font-size:44px}
+  .faq details p{margin-left:0}
 }
 </style>
-
 <meta name="twitter:card" content="summary">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Service", "name": "LegioLog CY", "url": "https://projektargo.com/legiolog-cy/", "serviceType": "Legionella readiness snapshot", "description": "Free indicative Legionella readiness snapshot for hotels, private clinics and care homes in Cyprus, based on the Department of Labour Inspection's July 2026 guidance. By e-mail within 2 working days.", "inLanguage": "en", "areaServed": {"@type": "Place", "name": "Cyprus"}, "provider": {"@type": "Person", "@id": "https://projektargo.com/#person", "name": "Štefan Toporcer", "url": "https://projektargo.com/"}}</script>
 <script>
@@ -137,78 +189,102 @@ posthog.init("phc_zbBFHQt5aVYH9HuviHUQuwfh6TPCVPyXSrMWWgJ9UfLP",{api_host:"https
 </head>
 <body>
 
-<nav>
-  <div class="wrap">
-    <a class="brand" href="#top"><i aria-hidden="true">✓</i>LegioLog CY</a>
-    <a class="btn sm" href="https://tally.so/r/Z9oXYa?ref=site-nav">Free readiness snapshot</a>
+<header class="top">
+  <div class="w">
+    <a class="brand" href="#top"><svg viewBox="0 0 26 26" aria-hidden="true"><circle cx="13" cy="13" r="11.5" fill="none" stroke="#6FD1C7" stroke-width="2"/><path d="M13 13l5.5-5.5" stroke="#6FD1C7" stroke-width="2.4" stroke-linecap="round"/><circle cx="13" cy="13" r="2.4" fill="#6FD1C7"/><path d="M7 18.5h12" stroke="#6FD1C7" stroke-width="1.6"/></svg>LegioLog CY</a>
+    <a class="cta sm" href="https://tally.so/r/Z9oXYa?ref=site-nav">Free readiness snapshot</a>
   </div>
-</nav>
+</header>
 
 <main id="top">
-  <div class="wrap">
-    <section class="hero">
+  <section class="hero">
+    <div class="w">
       <div>
-        <span class="eyebrow mono">For hotels, private clinics &amp; care homes in Cyprus</span>
-        <h1>The Labour Inspection wants Legionella records.<br><em>Can you show yours tomorrow?</em></h1>
+        <p class="kicker m">For hotels, private clinics &amp; care homes in Cyprus</p>
+        <h1>The Labour Inspection wants Legionella records.<span>Can you show yours tomorrow?</span></h1>
         <p class="lead">In July 2026 the Cyprus Department of Labour Inspection urged employers and building managers to name a person responsible for Legionella, carry out written risk assessments, keep a prevention and maintenance plan and keep records. Answer 8 short questions and get a free Legionella Readiness Snapshot for one facility.</p>
-        <div class="cta-row">
-          <a class="btn" href="https://tally.so/r/Z9oXYa?ref=site-hero">Get the free readiness snapshot →</a>
-          <a class="btn ghost" href="#how">How it works</a>
+        <div class="act">
+          <a class="cta" href="https://tally.so/r/Z9oXYa?ref=site-hero">Get the free readiness snapshot →</a>
+          <a class="tlink" href="#how">How it works</a>
         </div>
         <p class="fine">By e-mail within 2 working days. No payment, no obligation. No guest or patient data needed.</p>
       </div>
 
-      <div class="card mono" aria-label="Illustrative example of a readiness snapshot">
-        <div class="head"><span>READINESS SNAPSHOT · ILLUSTRATIVE EXAMPLE</span><span>Overall: Amber</span></div>
-        <div class="row"><span>Named responsible person</span><span class="tag ok">Yes</span></div>
-        <div class="row"><span>Written risk assessment</span><span class="tag bad">Older than 12 months</span></div>
-        <div class="row"><span>Prevention &amp; maintenance plan</span><span class="tag bad">Missing</span></div>
-        <div class="row"><span>Temperature records</span><span class="tag ok">Kept</span></div>
-        <div class="row"><span>Flushing of little-used outlets</span><span class="tag bad">Not recorded</span></div>
-        <div class="row"><span>Spa maintenance log</span><span>Partial</span></div>
+      <figure class="sheet" aria-label="Illustrative example of a readiness snapshot">
+        <div class="hd m"><span>READINESS SNAPSHOT · ILLUSTRATIVE EXAMPLE</span><b>Overall: Amber</b></div>
+        <svg class="chart" viewBox="0 0 410 236" role="img" aria-label="Illustrative weekly temperature log: hot water stays above 50 °C, one cold-water reading rises above 25 °C">
+          <rect x="40" y="20" width="356" height="51.8" fill="#E8553B" opacity=".08"/>
+          <rect x="40" y="158.2" width="356" height="51.8" fill="#2B74C8" opacity=".08"/>
+          <path d="M50 20v190M106.7 20v190M163.3 20v190M220 20v190M276.7 20v190M333.3 20v190M390 20v190" stroke="#132126" stroke-opacity=".08"/>
+          <line x1="40" x2="396" y1="71.8" y2="71.8" stroke="#B8331E" stroke-dasharray="4 4"/>
+          <line x1="40" x2="396" y1="158.2" y2="158.2" stroke="#1F5FA8" stroke-dasharray="4 4"/>
+          <line x1="40" x2="396" y1="210" y2="210" stroke="#132126"/>
+          <g font-size="13" fill="#4D5C63"><text x="0" y="14">°C</text><text x="6" y="76.8">50</text><text x="6" y="163.2">25</text></g>
+          <g font-size="12" text-anchor="end"><text x="392" y="36" fill="#8A2413">HOT &gt; 50 °C</text><text x="392" y="203" fill="#1F5FA8">COLD &lt; 25 °C</text></g>
+          <path class="draw" pathLength="1" d="M50 47.6L106.7 51.1L163.3 44.2L220 54.5L276.7 47.6L333.3 64.9L390 51.1" fill="none" stroke="#E8553B" stroke-width="2.8" stroke-linejoin="round" stroke-linecap="round"/>
+          <path class="draw c" pathLength="1" d="M50 178.9L106.7 175.5L163.3 182.4L220 172L276.7 151.3L333.3 175.5L390 178.9" fill="none" stroke="#2B74C8" stroke-width="2.8" stroke-linejoin="round" stroke-linecap="round"/>
+          <g class="pop"><circle cx="276.7" cy="151.3" r="8" fill="none" stroke="#B8331E" stroke-width="2"/><text x="264" y="139" font-size="12" text-anchor="end" fill="#8A2413">27 °C · check</text></g>
+          <g font-size="13" fill="#4D5C63" text-anchor="middle"><text x="50" y="230">Mon</text><text x="106.7" y="230">Tue</text><text x="163.3" y="230">Wed</text><text x="220" y="230">Thu</text><text x="276.7" y="230">Fri</text><text x="333.3" y="230">Sat</text><text x="390" y="230">Sun</text></g>
+        </svg>
+        <ul class="rows">
+          <li><span>Named responsible person</span><span class="st ok">Yes</span></li>
+          <li><span>Written risk assessment</span><span class="st bad">Older than 12 months</span></li>
+          <li><span>Prevention &amp; maintenance plan</span><span class="st bad">Missing</span></li>
+          <li><span>Temperature records</span><span class="st ok">Kept</span></li>
+          <li><span>Flushing of little-used outlets</span><span class="st bad">Not recorded</span></li>
+          <li><span>Spa maintenance log</span><span class="st mid">Partial</span></li>
+        </ul>
         <p class="note">Illustrative example for a fictional hotel. Your snapshot is based on your own answers.</p>
-      </div>
-    </section>
+      </figure>
+    </div>
+  </section>
 
-    <div class="stats">
-      <div class="stat"><b>8 July 2026</b><span>the Department of Labour Inspection urged businesses to act against Legionella</span></div>
-      <div class="stat"><b>50 °C / 25 °C</b><span>hot water above 50 °C and cold water below 25 °C where possible</span></div>
-      <div class="stat"><b>Apr–Oct 2026</b><span>health and safety inspection campaign in hotels and restaurants</span></div>
-      <div class="stat"><b>2</b><span>working days to get your free snapshot by e-mail</span></div>
+  <div class="gauges">
+    <div class="w">
+      <div class="g4">
+        <div class="g"><b>8 July 2026</b><span>the Department of Labour Inspection urged businesses to act against Legionella</span></div>
+        <div class="g"><b>50 °C / 25 °C</b><span>hot water above 50 °C and cold water below 25 °C where possible</span></div>
+        <div class="g"><b>Apr–Oct 2026</b><span>health and safety inspection campaign in hotels and restaurants</span></div>
+        <div class="g"><b>2</b><span>working days to get your free snapshot by e-mail</span></div>
+      </div>
     </div>
   </div>
 
-  <section class="paper" id="how">
-    <div class="wrap">
+  <section class="sec gridbg" id="how">
+    <div class="w">
+      <span class="lbl m">Log 01 · Procedure</span>
       <h2>How it works</h2>
-      <p class="sub">A short questionnaire about one facility and how you manage its water systems today. No guest, patient or staff data.</p>
-      <div class="steps">
-        <div class="step"><span class="n mono">01</span><h3>Answer 8 questions</h3><p>Type and size of facility, water systems (tanks, cylinders, spa, cooling tower), responsible person, risk assessment, programme, records and last water test.</p></div>
-        <div class="step"><span class="n mono">02</span><h3>We map your gaps</h3><p>We compare your answers with the measures the Department of Labour Inspection listed in July 2026 and check the latest public guidance.</p></div>
-        <div class="step"><span class="n mono">03</span><h3>You get the snapshot</h3><p>By e-mail within 2 working days: a traffic-light summary, a gap table, a 12-month task calendar and a temperature log template in English and Greek.</p></div>
+      <p class="intro">A short questionnaire about one facility and how you manage its water systems today. No guest, patient or staff data.</p>
+      <div class="logt">
+        <div class="r"><span class="n">01</span><h3>Answer 8 questions</h3><p>Type and size of facility, water systems (tanks, cylinders, spa, cooling tower), responsible person, risk assessment, programme, records and last water test.</p></div>
+        <div class="r"><span class="n">02</span><h3>We map your gaps</h3><p>We compare your answers with the measures the Department of Labour Inspection listed in July 2026 and check the latest public guidance.</p></div>
+        <div class="r"><span class="n">03</span><h3>You get the snapshot</h3><p>By e-mail within 2 working days: a traffic-light summary, a gap table, a 12-month task calendar and a temperature log template in English and Greek.</p></div>
       </div>
     </div>
   </section>
 
-  <section class="dark" id="why">
-    <div class="wrap">
+  <section class="sec why" id="why">
+    <div class="w">
+      <span class="lbl m">Log 02 · Public record</span>
       <h2>Why now</h2>
-      <p class="sub">What the authorities have said publicly in 2026.</p>
-      <div class="grid2">
-        <div class="item"><h3>A named person and a written assessment</h3><p>The Department of Labour Inspection said employers and building managers should appoint a person responsible for Legionella risk management, carry out regular written risk assessments and have a prevention and maintenance plan in place.</p><p class="rule mono">Cyprus Mail, 8 July 2026</p></div>
-        <div class="item"><h3>Temperatures, flushing, cleaning</h3><p>Hot water above 50 °C and cold water below 25 °C where possible, regular flushing of rarely used taps and showers, cleaning and disinfection of tanks, pipes, shower heads, filters and cooling towers, and regular spa maintenance.</p><p class="rule mono">Cyprus Mail, 8 July 2026</p></div>
-        <div class="item"><h3>Records you can show</h3><p>Keep records of inspections, cleaning, temperature checks and water analyses. Particular care is needed in hospitals, clinics, rehabilitation centres, care homes, hotels and other tourist accommodation.</p><p class="rule mono">Cyprus Mail, 8 July 2026</p></div>
-        <div class="item"><h3>Inspections in hotels this season</h3><p>From April to October 2026 the Department runs a health and safety inspection campaign in hotels, restaurants and ready-meal premises, based on the written risk assessment.</p><p class="rule mono">OEB, 9 April 2026</p></div>
-      </div>
+      <p class="intro">What the authorities have said publicly in 2026.</p>
+      <ol class="tl">
+        <li><span class="src m">Cyprus Mail, 8 July 2026</span><div><h3>A named person and a written assessment</h3><p>The Department of Labour Inspection said employers and building managers should appoint a person responsible for Legionella risk management, carry out regular written risk assessments and have a prevention and maintenance plan in place.</p></div></li>
+        <li><span class="src m">Cyprus Mail, 8 July 2026</span><div><h3>Temperatures, flushing, cleaning</h3><p>Hot water above 50 °C and cold water below 25 °C where possible, regular flushing of rarely used taps and showers, cleaning and disinfection of tanks, pipes, shower heads, filters and cooling towers, and regular spa maintenance.</p></div></li>
+        <li><span class="src m">Cyprus Mail, 8 July 2026</span><div><h3>Records you can show</h3><p>Keep records of inspections, cleaning, temperature checks and water analyses. Particular care is needed in hospitals, clinics, rehabilitation centres, care homes, hotels and other tourist accommodation.</p></div></li>
+        <li><span class="src m">OEB, 9 April 2026</span><div><h3>Inspections in hotels this season</h3><p>From April to October 2026 the Department runs a health and safety inspection campaign in hotels, restaurants and ready-meal premises, based on the written risk assessment.</p></div></li>
+      </ol>
     </div>
   </section>
 
-  <section class="paper" id="pricing">
-    <div class="wrap">
+  <section class="sec gridbg" id="pricing">
+    <div class="w">
+      <span class="lbl m">Log 03 · Service</span>
       <h2>What you get</h2>
-      <p class="sub">The snapshot is free. The paid service is in early access: tick “yes” or “maybe” in the form and we will contact you.</p>
-      <div class="prices">
-        <div class="price hl">
+      <p class="intro">The snapshot is free. The paid service is in early access: tick “yes” or “maybe” in the form and we will contact you.</p>
+      <div class="tags">
+        <div class="tag a">
+          <span class="m">Tag A</span>
           <h3>Free readiness snapshot</h3>
           <div class="amt">€0</div>
           <ul>
@@ -218,7 +294,8 @@ posthog.init("phc_zbBFHQt5aVYH9HuviHUQuwfh6TPCVPyXSrMWWgJ9UfLP",{api_host:"https
             <li>Temperature log template in English and Greek</li>
           </ul>
         </div>
-        <div class="price">
+        <div class="tag b">
+          <span class="m">Tag B · Early access</span>
           <h3>LegioLog Setup + Monthly</h3>
           <div class="amt">€390<small> one-off per facility</small></div>
           <ul>
@@ -229,41 +306,49 @@ posthog.init("phc_zbBFHQt5aVYH9HuviHUQuwfh6TPCVPyXSrMWWgJ9UfLP",{api_host:"https
           </ul>
         </div>
       </div>
-      <p class="founding">No payment is taken on this site, and nothing is charged before you agree to a written offer. LegioLog is not a laboratory and does not take water samples or treat water.</p>
+      <p class="small">No payment is taken on this site, and nothing is charged before you agree to a written offer. LegioLog is not a laboratory and does not take water samples or treat water.</p>
     </div>
   </section>
 
-  <section class="dark" id="faq">
-    <div class="wrap">
+  <section class="sec faqs" id="faq">
+    <div class="w faq">
+      <span class="lbl m">Log 04 · Questions</span>
       <h2>Questions</h2>
-      <details><summary>Is this legal or technical advice?</summary><p>No. The snapshot is indicative orientation based on your answers and public sources. It does not replace an on-site risk assessment by a competent person or laboratory testing.</p></details>
-      <details><summary>Do you need guest or patient data?</summary><p>No. The form asks only about the building and how you manage its water systems. Please do not enter any personal or health data about guests, patients or residents.</p></details>
-      <details><summary>Is there a deadline or a fine?</summary><p>The July 2026 announcement did not give deadlines or fines. It presents Legionella prevention as part of employers' health and safety obligations.</p></details>
-      <details><summary>Who is this for?</summary><p>General, technical and quality managers of hotels and hotel apartments, private clinics and care homes in Cyprus.</p></details>
+      <div style="margin-top:36px">
+        <details><summary><span class="q m">Q1</span>Is this legal or technical advice?</summary><p>No. The snapshot is indicative orientation based on your answers and public sources. It does not replace an on-site risk assessment by a competent person or laboratory testing.</p></details>
+        <details><summary><span class="q m">Q2</span>Do you need guest or patient data?</summary><p>No. The form asks only about the building and how you manage its water systems. Please do not enter any personal or health data about guests, patients or residents.</p></details>
+        <details><summary><span class="q m">Q3</span>Is there a deadline or a fine?</summary><p>The July 2026 announcement did not give deadlines or fines. It presents Legionella prevention as part of employers' health and safety obligations.</p></details>
+        <details><summary><span class="q m">Q4</span>Who is this for?</summary><p>General, technical and quality managers of hotels and hotel apartments, private clinics and care homes in Cyprus.</p></details>
+      </div>
     </div>
   </section>
 
   <section class="final">
-    <div class="wrap">
+    <div class="w">
       <h2>Ready for the next inspection?</h2>
-      <p>Find out in 2 working days, free.</p>
-      <a class="btn" href="https://tally.so/r/Z9oXYa?ref=site-footer">Get the free readiness snapshot →</a>
+      <div>
+        <p>Find out in 2 working days, free.</p>
+        <a class="cta" href="https://tally.so/r/Z9oXYa?ref=site-footer">Get the free readiness snapshot →</a>
+      </div>
     </div>
   </section>
-  <section class="paper" id="privacy">
-    <div class="wrap">
+
+  <section class="legal" id="privacy">
+    <div class="w">
       <h2>Privacy &amp; terms</h2>
-      <p class="sub"><b>Who runs this.</b> LegioLog CY is operated by Štefan Toporcer, an individual based in Slovakia (not a registered company). Contact: <a href="mailto:toporcer.stefan@gmail.com">toporcer.stefan@gmail.com</a>.</p>
-      <p class="sub"><b>Privacy.</b> The form collects your work e-mail, company or facility name, website, name, country, role, your answers about the facility and its water systems, and whether you are interested in the paid version. It does not ask for guest, patient or staff data. I use your data only to prepare your snapshot, reply to you and, if you ask, send an offer. The form runs on Tally, e-mail runs on Gmail (Google), and the snapshot is drafted with the help of Anthropic Claude. Data may be transferred outside the EEA (USA). I do not sell your data. I keep it for 12 months, or delete it sooner if you ask. You can ask for access to or deletion of your data at any time by e-mail, and you may complain to the Slovak data protection authority (Úrad na ochranu osobných údajov SR).</p>
-      <p class="sub"><b>Analytics.</b> This site counts visits and clicks with PostHog (EU servers) in cookieless mode: nothing is stored on your device and IP addresses are anonymised. It is used only to see how the page is used, not to identify you.</p>
-      <p class="sub"><b>Terms.</b> The snapshot is indicative orientation based on your answers and public sources. It is not legal, technical or professional advice, it is not a risk assessment or an audit, and it does not guarantee compliance. Please confirm your obligations with the Department of Labour Inspection or a competent professional. No payment is taken on this site; paid work starts only after you agree to a written offer.</p>
-      <p class="sub"><b>Sources.</b> <a href="https://cyprus-mail.com/2026/07/08/businesses-urged-to-take-measures-against-legionella-this-summer">Cyprus Mail: Businesses urged to take measures against Legionella this summer</a> · <a href="https://www.oeb.org.cy/en/occupational-safety-health-inspection-campaign-in-hotels-restaurants-and-ready-to-eat-food-distribution-premises-during-the-april-october-2026-period/">OEB: Inspection campaign in hotels, restaurants and ready-to-eat food premises, April–October 2026</a></p>
+      <div class="cols">
+        <p><b>Who runs this.</b> LegioLog CY is operated by Štefan Toporcer, an individual based in Slovakia (not a registered company). Contact: <a href="mailto:toporcer.stefan@gmail.com">toporcer.stefan@gmail.com</a>.</p>
+        <p><b>Privacy.</b> The form collects your work e-mail, company or facility name, website, name, country, role, your answers about the facility and its water systems, and whether you are interested in the paid version. It does not ask for guest, patient or staff data. I use your data only to prepare your snapshot, reply to you and, if you ask, send an offer. The form runs on Tally, e-mail runs on Gmail (Google), and the snapshot is drafted with the help of Anthropic Claude. Data may be transferred outside the EEA (USA). I do not sell your data. I keep it for 12 months, or delete it sooner if you ask. You can ask for access to or deletion of your data at any time by e-mail, and you may complain to the Slovak data protection authority (Úrad na ochranu osobných údajov SR).</p>
+        <p><b>Analytics.</b> This site counts visits and clicks with PostHog (EU servers) in cookieless mode: nothing is stored on your device and IP addresses are anonymised. It is used only to see how the page is used, not to identify you.</p>
+        <p><b>Terms.</b> The snapshot is indicative orientation based on your answers and public sources. It is not legal, technical or professional advice, it is not a risk assessment or an audit, and it does not guarantee compliance. Please confirm your obligations with the Department of Labour Inspection or a competent professional. No payment is taken on this site; paid work starts only after you agree to a written offer.</p>
+        <p><b>Sources.</b> <a href="https://cyprus-mail.com/2026/07/08/businesses-urged-to-take-measures-against-legionella-this-summer">Cyprus Mail: Businesses urged to take measures against Legionella this summer</a> · <a href="https://www.oeb.org.cy/en/occupational-safety-health-inspection-campaign-in-hotels-restaurants-and-ready-to-eat-food-distribution-premises-during-the-april-october-2026-period/">OEB: Inspection campaign in hotels, restaurants and ready-to-eat food premises, April–October 2026</a></p>
+      </div>
     </div>
   </section>
 </main>
 
 <footer>
-  <div class="wrap">
+  <div class="w">
     <span>LegioLog CY is a project by Štefan Toporcer · <a href="https://projektargo.com/">Projekt Argo</a></span>
     <span>Not affiliated with any authority. Not legal advice. · <a href="#privacy">Privacy &amp; terms</a> · <a href="mailto:toporcer.stefan@gmail.com">toporcer.stefan@gmail.com</a></span>
   </div>
