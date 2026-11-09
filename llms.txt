@@ -38,6 +38,8 @@ Every project is an engine: a small automated machine for one boring problem. So
 - [SoHO Ready](https://projektargo.com/soho-ready/): A free gap report that shows IVF clinics and tissue banks where they stand against the EU SoHO Regulation. Market: European Union. Status: Warming up.
 - [PWD Ready](https://projektargo.com/platform-work/): A free gap snapshot that shows digital labour platforms what the EU Platform Work Directive will ask of them. Market: European Union. Status: Warming up.
 - [EstateAML CY](https://projektargo.com/estate-aml-cy/): A free AML readiness snapshot for estate agents and property developers in Cyprus. Market: Cyprus. Status: Warming up.
+- [Entsende-Check AT](https://projektargo.com/entsende-check/): Free check for Slovak and Czech firms posting workers to Austria: likely collective agreement wage group, minimum hourly wage vs. their rate, BUAK surcharges and missing documents. Market: Slovak and Czech firms posting workers to Austria. Status: Warming up.
+- [LegioLog CY](https://projektargo.com/legiolog-cy/): Free Legionella readiness snapshot for Cyprus hotels, clinics and care homes, based on the Labour Inspection guidance of July 2026. Market: Hotels, private clinics and care homes in Cyprus. Status: Warming up.
 
 Parked engines wait until one of the running ones proves demand. Stripped ones have become parts.
 Newer product pages: https://projektargo.com/sitemap-motory.xml
