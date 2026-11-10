@@ -28,7 +28,8 @@
   const rtl = getComputedStyle(document.documentElement).direction === 'rtl';
   const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c]));
   const slug = (location.pathname.split('/').filter(Boolean)[0] || '').toLowerCase();
-  const LOGO = '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M7 25 15 6l8 19z" fill="#5B8CFF"/><path d="M11.2 19h7.6" stroke="#06060A" stroke-width="2.4"/><path d="M5 27h22l-2 3H7z" fill="#C7D6FF"/></svg>';
+  /* the Projekt Argo favicon (static/favicon.svg): blue tile, two sails forming an A, hull; k keeps gradient ids unique in the shadow root */
+  const FAV = k => `<svg class="f" viewBox="0 0 1024 1024" aria-hidden="true" focusable="false"><defs><linearGradient id="${k}t" x1=".1" y1="0" x2=".9" y2="1"><stop offset="0" stop-color="#5A9DFF"/><stop offset=".5" stop-color="#2A66EA"/><stop offset="1" stop-color="#4636D2"/></linearGradient><radialGradient id="${k}h" cx=".3" cy="0" r=".9"><stop offset="0" stop-color="#fff" stop-opacity=".45"/><stop offset=".55" stop-color="#fff" stop-opacity="0"/></radialGradient></defs><rect width="1024" height="1024" rx="232" fill="url(#${k}t) #2A66EA"/><rect width="1024" height="1024" rx="232" fill="url(#${k}h) none"/><g transform="translate(512 512) scale(.74) translate(-512 -496)" fill="#fff" stroke="#fff" stroke-linejoin="round"><path d="M512 150 178 660H400L512 290Z" fill-opacity=".78" stroke-opacity=".78" stroke-width="14"/><path d="M512 150 846 660H624L512 290Z" stroke-width="14"/><path d="M420 538H604V586H420Z" stroke-width="12"/><path d="M180 716H844L762 820H262Z" stroke-width="20"/></g></svg>`;
   const CHEV = '<svg class="c" viewBox="0 0 16 16" aria-hidden="true"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 
   const host = document.createElement('argo-nav');
@@ -38,10 +39,10 @@
   root.innerHTML = `<style>
 :host{all:initial}
 *{box-sizing:border-box}
-.b{position:relative;width:56px;height:56px;margin:0;padding:0;border-radius:18px;border:1px solid rgba(255,255,255,.2);background:rgba(28,28,34,.84);-webkit-backdrop-filter:blur(16px) saturate(160%);backdrop-filter:blur(16px) saturate(160%);box-shadow:0 16px 36px -14px rgba(0,0,0,.75),inset 0 1px 0 rgba(255,255,255,.14);display:grid;place-items:center;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .35s cubic-bezier(.2,.9,.25,1.05)}
+.b{position:relative;width:56px;height:56px;margin:0;padding:0;border:0;border-radius:12.7px;background:#2A66EA;box-shadow:0 14px 30px -12px rgba(30,64,190,.7),0 3px 8px -2px rgba(0,0,0,.3);display:block;overflow:hidden;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .35s cubic-bezier(.2,.9,.25,1.05)}
 .b:active{transform:scale(.94)}
 .b:focus-visible,.i:focus-visible{outline:2px solid #8FB2FF;outline-offset:2px}
-.b svg{width:30px;height:30px}
+.b .f{display:block;width:56px;height:56px}
 .s{position:fixed;inset:0;background:rgba(4,8,14,.38)}
 .p{position:absolute;${rtl ? 'left' : 'right'}:0;bottom:68px;width:300px;max-width:calc(100vw - 32px);max-height:calc(100vh - 110px);overflow:auto;overscroll-behavior:contain;padding:8px;border-radius:24px;background:rgba(28,28,34,.95);border:1px solid rgba(255,255,255,.14);box-shadow:0 24px 60px -20px rgba(0,0,0,.85);color:#F5F5F7;font:500 15px/1.3 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif;text-align:start;direction:${rtl ? 'rtl' : 'ltr'};transform-origin:${rtl ? 'bottom left' : 'bottom right'}}
 .h{margin:0;padding:8px 12px 6px;font-size:11px;font-weight:600;line-height:1.3;letter-spacing:.08em;text-transform:uppercase;color:#A1A1AA}
@@ -50,6 +51,8 @@
 .i:hover{background:rgba(255,255,255,.08)}
 .g{flex:none;width:30px;height:30px;border-radius:9px;background:rgba(255,255,255,.09);display:inline-grid;place-items:center;font-size:12px;font-weight:700;line-height:1;color:#D4D4DC;overflow:hidden}
 .g svg{width:20px;height:20px}
+.g .f{width:30px;height:30px}
+.g:has(.f){background:none;border-radius:0}
 .t{flex:1;min-width:0;display:grid;gap:1px}
 .t b{font-weight:500;overflow-wrap:anywhere}
 .t small{font-size:12px;color:#A1A1AA}
@@ -59,7 +62,7 @@ ${rtl ? '.c{transform:scaleX(-1)}' : ''}
 [hidden]{display:none!important}
 @media (prefers-reduced-motion:no-preference){.p:not([hidden]){animation:in .28s cubic-bezier(.2,.9,.25,1.05)}@keyframes in{from{opacity:0;transform:scale(.92) translateY(8px)}}}
 @media print{.b,.p,.s{display:none!important}}
-</style><div class="s" hidden></div><nav class="p" id="argo-menu" aria-label="Projekt Argo" hidden><p class="h">Projekt Argo</p><ul class="l"></ul></nav><button class="b" type="button" aria-expanded="false" aria-controls="argo-menu" aria-label="${esc(tMenu)}">${LOGO}</button>`;
+</style><div class="s" hidden></div><nav class="p" id="argo-menu" aria-label="Projekt Argo" hidden><p class="h">Projekt Argo</p><ul class="l"></ul></nav><button class="b" type="button" aria-expanded="false" aria-controls="argo-menu" aria-label="${esc(tMenu)}">${FAV('ab')}</button>`;
   const btn = root.querySelector('.b'), panel = root.querySelector('.p'), scrim = root.querySelector('.s'), ul = root.querySelector('.l');
 
   let data = null, loading = null;
@@ -95,7 +98,7 @@ ${rtl ? '.c{transform:scaleX(-1)}' : ''}
     const at = s => list.find(e => e.id === s || (e.link || '').replace(/[?#].*$/, '').replace(/\/$/, '').split('/').pop() === s);   /* by id or by its page address */
     const me = at(slug) || at(slug.replace(/-[a-z]{2}$/, ''));
     const n = list.length ? `<span class="n">${list.length}</span>` : '';
-    let h = item(home, LOGO, tHome) + item(home + '#motory', '<svg viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2.5" y="2.5" width="6" height="6" rx="1.6"/><rect x="11.5" y="2.5" width="6" height="6" rx="1.6"/><rect x="2.5" y="11.5" width="6" height="6" rx="1.6"/><rect x="11.5" y="11.5" width="6" height="6" rx="1.6"/></svg>', tAll, '', n);
+    let h = item(home, FAV('am'), tHome) + item(home + '#motory', '<svg viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2.5" y="2.5" width="6" height="6" rx="1.6"/><rect x="11.5" y="2.5" width="6" height="6" rx="1.6"/><rect x="2.5" y="11.5" width="6" height="6" rx="1.6"/><rect x="11.5" y="11.5" width="6" height="6" rx="1.6"/></svg>', tAll, '', n);
     if (me && (me.region || []).length) {
       list.filter(e => e !== me && e.link && !SKIP.test(e.id + ' ' + e.name) && (e.status === 'run' || e.status === 'warm') && (e.region || []).some(r => me.region.includes(r))).slice(0, 2).forEach(e => {
         const ini = esc(e.name.replace(/[^A-Za-z0-9 ]/g, '').split(' ').filter(Boolean).map(w => w[0]).join('').slice(0, 2).toUpperCase() || e.name.slice(0, 1));
