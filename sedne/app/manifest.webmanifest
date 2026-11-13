@@ -1,0 +1,29 @@
+{
+  "name": "sedne.",
+  "short_name": "sedne.",
+  "description": "Osobný AI stylista: outfity z outletových zliav v tvojej veľkosti.",
+  "lang": "sk",
+  "start_url": "/sedne/app/",
+  "scope": "/sedne/app/",
+  "display": "standalone",
+  "background_color": "#0B0B0C",
+  "theme_color": "#0B0B0C",
+  "icons": [
+    {
+      "src": "/sedne/app/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/sedne/app/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/sedne/app/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

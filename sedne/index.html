@@ -174,6 +174,18 @@ font:400 19px/1 var(--serif);background:var(--glass2);border:1px solid var(--lin
 /* family + privacy */
 .fam{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;padding:56px 36px;border-radius:32px;background:var(--glass);border:1px solid var(--line);margin-bottom:16px}
 .fam p{margin:0;color:var(--mut);font-size:17px}
+.vote{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;padding:56px 36px;border-radius:32px;background:var(--glass);border:1px solid var(--line);margin-bottom:16px}
+.vote p{margin:0 0 22px;color:var(--mut);font-size:17px}
+.poll{display:grid;gap:10px;padding:22px;border-radius:24px;background:var(--raised);border:1px solid var(--line);min-width:0}
+.poll .q{font:400 22px/1.2 var(--serif);margin-bottom:4px}
+.poll .opt{position:relative;display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:16px;border:1px solid var(--line);overflow:hidden;font-weight:600;font-size:15px;min-width:0}
+.poll .opt em{position:absolute;top:0;bottom:0;left:0;width:var(--w);background:var(--glass2)}
+.poll .opt i,.poll .opt span,.poll .opt small{position:relative}
+.poll .opt span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+.poll .opt i{flex:none;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;border:1px solid var(--line);font:400 16px/1 var(--serif);font-style:normal}
+.poll .opt small{margin-left:auto;flex:none;color:var(--mut);font-weight:600;font-size:14px}
+.poll .opt.win{background:linear-gradient(var(--raised),var(--raised)) padding-box,var(--iris) border-box;border:1px solid transparent}
+.poll .n{color:var(--faint);font-size:13px}
 .prof{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
 .prof span{display:inline-flex;align-items:center;gap:10px;padding:12px 18px 12px 12px;border-radius:999px;background:var(--raised);border:1px solid var(--line);font-weight:600;font-size:15px}
 .prof span i{width:34px;height:34px;border-radius:50%;background:var(--glass2);border:1px solid var(--line);display:grid;place-items:center;font:400 18px/1 var(--serif)}
@@ -215,7 +227,7 @@ footer .brand{font-size:14px;color:var(--mut)}footer .brand svg{width:22px;heigh
 @keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
 @keyframes sh{to{background-position:200% 0}}
 @media (max-width:900px){.hero{grid-template-columns:1fr;gap:8px;padding:24px 0 24px;min-height:0}.stage{height:440px;order:2}.deck{width:250px;height:166px}.ly b{font-size:28px}
-.steps,.grid,.grid.bgrid,.miles,.finds{grid-template-columns:1fr}.scr.big{width:250px}.tilt{transform:none}.find q{font-size:24px}.miles::before{display:none}.fam,.wl,.bneed{grid-template-columns:1fr;padding:32px 22px;gap:22px}.nav .tx{display:none}.priv{padding:26px 22px}.nav .solid{display:none}}
+.steps,.grid,.grid.bgrid,.miles,.finds{grid-template-columns:1fr}.scr.big{width:250px}.tilt{transform:none}.find q{font-size:24px}.miles::before{display:none}.fam,.vote,.wl,.bneed{grid-template-columns:1fr;padding:32px 22px;gap:22px}.nav .tx{display:none}.priv{padding:26px 22px}.nav .solid{display:none}}
 @media (max-width:420px){.stage{height:400px}.deck{width:224px;height:150px}.ly{padding:14px 16px}.ly b{font-size:25px}.step,.card{padding:22px}.pain{padding:56px 0 48px}.priv{grid-template-columns:1fr}}
 /* openers */
 .opener{padding:72px 0 28px}.opener .big{font:italic 400 clamp(72px,14vw,180px)/1.08 var(--serif);letter-spacing:-.01em;margin:0 0 6px;padding:0 .08em .04em 0;display:inline-block;
@@ -264,6 +276,10 @@ animation:rise .8s var(--ease) both;animation-delay:var(--d)}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.r{opacity:1;transform:none}.ly{opacity:1}}
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebPage","@id":"https://projektargo.com/sedne/#page","url":"https://projektargo.com/sedne/","name":"sedne. · Get dressed before you buy","description":"A styling app that builds outfits in your size, shows them on your own photo and sends you to the shop only for the pieces that fit. In development for phone, web and desktop.","inLanguage":"en","about":{"@id":"https://projektargo.com/sedne/#work"}},{"@type":"CreativeWork","@id":"https://projektargo.com/sedne/#work","name":"sedne.","url":"https://projektargo.com/sedne/","description":"A styling app that builds outfits in your size, shows them on your own photo and sends you to the shop only for the pieces that fit. In development for phone, web and desktop.","inLanguage":"en","creator":{"@type":"Person","@id":"https://projektargo.com/#person","name":"Štefan Toporcer","url":"https://projektargo.com/"}}]}</script>
+<script>
+!function(t,e){var o,n,p,r;e.__SV||(window.posthog && window.posthog.__loaded)||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}p||((p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",p.onerror=function(){p=null},(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r));var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],Object.defineProperty(u,"toString",{configurable:!0,enumerable:!0,writable:!0,value:function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e}}),Object.defineProperty(u.people,"toString",{configurable:!0,enumerable:!0,writable:!0,value:function(){return u.toString(1)+".people (stub)"}}),o="init capture register register_once register_for_session unregister unregister_for_session getFeatureFlag getFeatureFlagResult isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey getNextSurveyStep identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty createPersonProfile opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing debug".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+posthog.init("phc_zbBFHQt5aVYH9HuviHUQuwfh6TPCVPyXSrMWWgJ9UfLP",{api_host:"https://eu.i.posthog.com",defaults:"2026-08-30",cookieless_mode:"always",person_profiles:"identified_only",disable_session_recording:true});
+</script>
 </head>
 <body>
 <div class="wrap">
@@ -306,6 +322,10 @@ animation:rise .8s var(--ease) both;animation-delay:var(--d)}
 <section class="fam r">
 <div><span class="eyebrow">One account</span><h2>You, your kids, one wardrobe.</h2><p>Switch between profiles in a tap. Every person has their own sizes, their own style and their own fitting room — and a parent keeps control of the children&#x27;s.</p></div>
 <div class="prof" aria-hidden="true"><span><i>M</i>Me</span><span><i>D</i>Daughter</span><span><i>S</i>Son</span><span>+</span></div>
+</section>
+<section class="vote r" id="vote">
+<div><span class="eyebrow">Friend vote</span><h2>Can&#x27;t decide? Let your friends vote.</h2><p>Pick two or three outfits and send your friends a link. They vote in the browser — no app, no account — and you see which one wins. They only see the pieces from the shops, never your photos.</p><a class="pill ghost" href="https://projektargo.com/sedne/app/vote/">How voting works</a></div>
+<div class="poll" aria-hidden="true"><b class="q">Which one suits me better?</b><span class="opt win"><em style="--w:64%"></em><i>A</i><span>City weekend</span><small>64 %</small></span><span class="opt"><em style="--w:36%"></em><i>B</i><span>Smart casual</span><small>36 %</small></span><small class="n">14 votes · anonymous</small></div>
 </section>
 <section class="priv r"><svg viewBox="0 0 40 40" fill="none" aria-hidden="true"><defs><linearGradient id="ir" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#B8A9FF"/><stop offset=".5" stop-color="#8FE3E0"/><stop offset="1" stop-color="#FFC6A8"/></linearGradient></defs><path d="M20 4 33 9v10c0 8.3-5.6 14.6-13 17-7.4-2.4-13-8.7-13-17V9z" stroke="url(#ir)" stroke-width="2" stroke-linejoin="round"/><path d="m14 20 4.2 4.2L26.5 16" stroke="#F5F3EF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><div><h3>Privacy from day one</h3><p>Accounts from 16, children&#x27;s profiles managed by a parent, and the app asks only for what changes your size or style. No one — adult or child — is ever photographed or stored undressed.</p></div></section>
 <section class="road">
