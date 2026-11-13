@@ -178,6 +178,8 @@ a:focus-visible,summary:focus-visible{outline:3px solid var(--coral);outline-off
   .legend li{grid-template-columns:12px minmax(0,1fr);row-gap:4px}
   .legend li .s{grid-column:2;justify-self:start}
 }
+/* fix 2026-11-13: kruhy pretekali pri 901-1040 px */
+@media (min-width:901px) and (max-width:1040px){.cells{gap:12px}.cell{width:188px;height:188px;padding:22px}.cell:nth-child(1){width:206px;height:206px}.cell b{font-size:30px}.cell span{font-size:13px}}
 </style>
 <meta name="twitter:card" content="summary">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Service", "name": "SoHO Ready", "url": "https://projektargo.com/soho-ready/", "serviceType": "SoHO Regulation readiness gap report", "description": "Free, indicative gap report against Regulation (EU) 2024/1938 on substances of human origin, which applies from 7 August 2027. For IVF clinics, gamete banks and tissue banks.", "inLanguage": "en", "areaServed": {"@type": "Place", "name": "European Union"}, "provider": {"@type": "Person", "@id": "https://projektargo.com/#person", "name": "Štefan Toporcer", "url": "https://projektargo.com/"}, "offers": [{"@type": "Offer", "name": "SoHO Readiness Pack", "price": "345", "priceCurrency": "EUR", "description": "One-off. Directive-to-Regulation report article by article, role pack (responsible person, releasing officer, physician), SoHO preparation inventory template, registration data sheet, roadmap to 7 August 2027. Early-access price, excluding VAT."}, {"@type": "Offer", "name": "SoHO Watch", "price": "69", "priceCurrency": "EUR", "description": "Per month, cancel anytime. Monthly regulatory update, updated templates, up to 2 questions by e-mail per month. Early-access price, excluding VAT."}]}</script>
