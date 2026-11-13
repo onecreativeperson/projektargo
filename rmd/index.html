@@ -11,6 +11,10 @@
 <meta property="og:title" content="RMD Autopilot · Your RMD filing, kept current">
 <meta property="og:description" content="Free check of your public Robocall Mitigation Database filing. Built for small VoIP providers and resellers.">
 <meta property="og:url" content="https://projektargo.com/rmd/">
+<meta property="og:image" content="https://projektargo.com/og/rmd.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="RMD Autopilot – example Robocall Mitigation Database filing check">
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#FAF8F1">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -181,8 +185,12 @@ a:focus-visible,summary:focus-visible{outline:3px solid var(--red);outline-offse
   .hero h1{font-size:48px}
   .ln .val{font-size:16px}
 }
+/* fix 2026-11-13: hlavicka a peciatka na uzkych telefonoch (320-380 px) */
+.brand,.top .btn.sm{white-space:nowrap}
+@media (max-width:380px){.top .w{gap:8px}.brand{font-size:17px;gap:7px}.brand svg{width:22px;height:26px}.top .btn.sm{padding:8px 10px;font-size:12.5px}.stamp{font-size:13px;padding:3px 9px;letter-spacing:.05em}}
 </style>
-<meta name="twitter:card" content="summary">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://projektargo.com/og/rmd.jpg">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Service","@id":"https://projektargo.com/rmd/#service","name":"RMD Autopilot","url":"https://projektargo.com/rmd/","serviceType":"Robocall Mitigation Database filing preparation","description":"Annual RMD recertification, mitigation plan updates and 10-business-day change tracking for small US voice providers. Free filing check.","inLanguage":"en","areaServed":{"@type":"Country","name":"United States"},"provider":{"@type":"Person","@id":"https://projektargo.com/#person","name":"Štefan Toporcer","url":"https://projektargo.com/"}}</script>
 </head>
 <body>
