@@ -9,6 +9,19 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/icons/icon-32.png" sizes="32x32" type="image/png">
 <link rel="canonical" href="https://projektargo.com/fcm-doc-desk/">
+<link rel="alternate" hreflang="en" href="https://projektargo.com/fcm-doc-desk/">
+<link rel="alternate" hreflang="pl" href="https://projektargo.com/fcm-doc-desk-pl/">
+<link rel="alternate" hreflang="cs" href="https://projektargo.com/fcm-doc-desk-cs/">
+<link rel="alternate" hreflang="sk" href="https://projektargo.com/fcm-doc-desk-sk/">
+<link rel="alternate" hreflang="it" href="https://projektargo.com/fcm-doc-desk-it/">
+<link rel="alternate" hreflang="es" href="https://projektargo.com/fcm-doc-desk-es/">
+<link rel="alternate" hreflang="nl" href="https://projektargo.com/fcm-doc-desk-nl/">
+<link rel="alternate" hreflang="fr" href="https://projektargo.com/fcm-doc-desk-fr/">
+<link rel="alternate" hreflang="el" href="https://projektargo.com/fcm-doc-desk-el/">
+<link rel="alternate" hreflang="pt" href="https://projektargo.com/fcm-doc-desk-pt/">
+<link rel="alternate" hreflang="hu" href="https://projektargo.com/fcm-doc-desk-hu/">
+<link rel="alternate" hreflang="ro" href="https://projektargo.com/fcm-doc-desk-ro/">
+<link rel="alternate" hreflang="x-default" href="https://projektargo.com/fcm-doc-desk/">
 <meta property="og:title" content="FCM DoC Desk · Is your DoC written for the 2025/351 rules?">
 <meta property="og:description" content="Free point-by-point check of one declaration of compliance for a plastic food contact material, with a worst-case migration calculation. Within 2 working days.">
 <meta property="og:url" content="https://projektargo.com/fcm-doc-desk/">
@@ -45,7 +58,7 @@ header.top .wrap{display:flex;align-items:center;gap:20px;height:64px}
 .brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:Syne;font-weight:800;font-size:19px;white-space:nowrap}
 .brand svg{flex:none}
 .navlinks{display:flex;gap:22px;margin-left:auto;font-weight:600;font-size:15px}
-.navlinks a{text-decoration:none}
+.navlinks a{text-decoration:none;white-space:nowrap}
 .navlinks a:hover{text-decoration:underline;text-underline-offset:4px}
 .btn{display:inline-flex;align-items:center;gap:10px;background:var(--ink);color:#FBF7EE;text-decoration:none;font-weight:700;padding:14px 22px;border-radius:2px;box-shadow:4px 4px 0 var(--die);transition:transform .15s,box-shadow .15s}
 .btn:hover{transform:translate(-1px,-1px);box-shadow:5px 5px 0 var(--die)}
@@ -149,6 +162,18 @@ footer{padding:36px 0 50px;font-size:14px}
 footer .wrap{display:flex;flex-wrap:wrap;gap:16px 30px;align-items:center;justify-content:space-between}
 .disc{font-size:14px;color:var(--ink2);max-width:760px}
 
+/* language switcher */
+.lng{position:relative;flex:none}
+.lng summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:6px;font-weight:700;font-size:14px;padding:7px 9px;border:1.5px dashed var(--crease);border-radius:2px;line-height:1}
+.lng summary::-webkit-details-marker{display:none}
+.lng summary::after{content:"";width:7px;height:7px;border-right:2px solid var(--ink);border-bottom:2px solid var(--ink);transform:rotate(45deg) translate(-2px,-2px);margin-left:2px}
+.lng[open] summary::after{transform:rotate(-135deg) translate(-2px,-2px)}
+.lng ul{position:absolute;right:0;top:calc(100% + 8px);margin:0;padding:6px 0;list-style:none;background:var(--card);border:1.5px solid var(--ink);box-shadow:5px 5px 0 var(--die);min-width:190px;max-height:70vh;overflow:auto;z-index:30}
+.lng li a{display:flex;justify-content:space-between;gap:14px;padding:8px 14px;text-decoration:none;font-size:15px;font-weight:600}
+.lng li a span{color:var(--ink2);font-weight:700;font-size:12px;letter-spacing:.08em}
+.lng li a:hover,.lng li a:focus-visible{background:var(--kraft)}
+.lng li a[aria-current="true"]{color:var(--die)}
+
 a:focus-visible,summary:focus-visible{outline:3px solid var(--die);outline-offset:3px}
 
 @media (prefers-reduced-motion:no-preference){
@@ -156,6 +181,10 @@ a:focus-visible,summary:focus-visible{outline:3px solid var(--die);outline-offse
   @keyframes cut{to{stroke-dashoffset:0}}
 }
 
+@media (max-width:1180px){
+  .navlinks{display:none}
+  .lng{margin-left:auto}
+}
 @media (max-width:980px){
   .hero .grid,.sample .grid,.faq .grid{grid-template-columns:minmax(0,1fr);gap:34px}
   .why .head{grid-template-columns:minmax(0,1fr);gap:14px}
@@ -169,6 +198,9 @@ a:focus-visible,summary:focus-visible{outline:3px solid var(--die);outline-offse
   .brand{font-size:17px;min-width:0}
   .brand span.full{display:none}
   .btn.sm{padding:8px 12px;font-size:13px}
+  header.top .wrap{gap:10px}
+  .lng summary{padding:7px 7px;font-size:13px}
+  .lng{margin-left:auto}
   .hero{padding:34px 0 24px}
   .hero p.lead{font-size:17px}
   .rail{grid-template-columns:minmax(0,1fr);border-top:none;border-left:2px solid var(--ink);margin-left:8px}
@@ -186,6 +218,13 @@ a:focus-visible,summary:focus-visible{outline:3px solid var(--die);outline-offse
   .rows .st{white-space:normal}
   .privacy .cols{grid-template-columns:minmax(0,1fr)}
   .why,.annex,.sample,.how,.early{padding:48px 0}
+}
+@media (max-width:720px){
+  .lng{position:static}
+  .lng ul{left:16px;right:16px;top:calc(100% + 6px);min-width:0;max-height:calc(100vh - 90px)}
+}
+@media (max-width:420px){
+  .top.tight .brand > span{display:none}
 }
 @media (max-width:360px){
   .brand span.full{display:none}
@@ -216,6 +255,7 @@ posthog.init("phc_zbBFHQt5aVYH9HuviHUQuwfh6TPCVPyXSrMWWgJ9UfLP",{api_host:"https
       <a href="#early">Early access</a>
       <a href="#faq">FAQ</a>
     </nav>
+    <details class="lng"><summary aria-label="Language: English" title="Language">EN</summary><ul><li><a href="/fcm-doc-desk/" hreflang="en" lang="en" aria-current="true">English <span>EN</span></a></li><li><a href="/fcm-doc-desk-pl/" hreflang="pl" lang="pl">Polski <span>PL</span></a></li><li><a href="/fcm-doc-desk-cs/" hreflang="cs" lang="cs">Čeština <span>CS</span></a></li><li><a href="/fcm-doc-desk-sk/" hreflang="sk" lang="sk">Slovenčina <span>SK</span></a></li><li><a href="/fcm-doc-desk-it/" hreflang="it" lang="it">Italiano <span>IT</span></a></li><li><a href="/fcm-doc-desk-es/" hreflang="es" lang="es">Español <span>ES</span></a></li><li><a href="/fcm-doc-desk-nl/" hreflang="nl" lang="nl">Nederlands <span>NL</span></a></li><li><a href="/fcm-doc-desk-fr/" hreflang="fr" lang="fr">Français <span>FR</span></a></li><li><a href="/fcm-doc-desk-el/" hreflang="el" lang="el">Ελληνικά <span>EL</span></a></li><li><a href="/fcm-doc-desk-pt/" hreflang="pt" lang="pt">Português <span>PT</span></a></li><li><a href="/fcm-doc-desk-hu/" hreflang="hu" lang="hu">Magyar <span>HU</span></a></li><li><a href="/fcm-doc-desk-ro/" hreflang="ro" lang="ro">Română <span>RO</span></a></li></ul></details>
     <a class="btn sm" href="https://tally.so/r/peyZNB?ref=site-nav">Free Gap Check</a>
   </div>
 </header>
@@ -442,6 +482,7 @@ posthog.init("phc_zbBFHQt5aVYH9HuviHUQuwfh6TPCVPyXSrMWWgJ9UfLP",{api_host:"https
 </footer>
 
 <script>/* motor-ref v1: ref z adresy -> Tally, udalost cta_click */(function(){try{var q=new URLSearchParams(location.search).get('ref');q=q?q.replace(/[^a-z0-9_-]/gi,'').slice(0,40):'';document.querySelectorAll('a[href^="https://tally.so/r/"]').forEach(function(a){var u=new URL(a.href),c=u.searchParams.get('ref')||'';if(q){u.searchParams.set('ref',q+'_'+c);a.href=u.toString();}a.addEventListener('click',function(){try{if(window.posthog&&posthog.capture){posthog.capture('cta_click',{form:u.pathname.split('/').pop(),ref:q||'none',cta:c},{transport:'sendBeacon'});}}catch(e){}});});}catch(e){}})();</script>
+<script>/* lang menu: close on outside click / Escape */(function(){var d=document.querySelector(".lng");if(!d)return;document.addEventListener("click",function(e){if(d.open&&!d.contains(e.target))d.open=false;});document.addEventListener("keydown",function(e){if(e.key==="Escape"&&d.open){d.open=false;d.querySelector("summary").focus();}});})();</script>
 <script src="/argo-nav.js" defer></script>
 </body>
 </html>
