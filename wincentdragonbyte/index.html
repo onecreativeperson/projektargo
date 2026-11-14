@@ -112,13 +112,14 @@ footer{border-top:1px solid #2C4063;padding:32px 6% 48px;font-size:15px;color:#B
 </div>
 <div style="flex: 1 1 230px; min-width: 0; display: flex; flex-direction: column; gap: 10px; padding: 14px 16px; border-left: 1px solid #2C4063; box-sizing: border-box">
 <div style="font-family: Jost, sans-serif; font-weight: 500; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #B9C2D6">Output</div>
-<div id="dl-cmd" hidden style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 13px; line-height: 20px; color: #8FA0BF">$ python dragon_logic.py</div><div id="dl-out" style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 13px; line-height: 20px; color: #FFFFFF; display: flex; flex-direction: column; min-width: 0">
-<div style="white-space: nowrap; overflow: hidden; text-overflow: clip">🦎🦎🦎🦎🦎🦎🦎🦎🦎🦎🦎🦎🦎🦎🦎🦎🦎🦎🦎🦎🦎🦎🦎🦎🦎🦎🦎🦎🦎🦎🦎🦎🦎🦎🦎🦎🦎🦎🦎🦎</div>
-<div style="color: #8FA0BF">… 998 × 🦎 · CPython 3.13</div>
-<div style="margin-top: 8px; color: #FFFFFF">🐉 ERROR: the dragon bit its own tail.</div>
-<div style="color: #F58AA3">StackOverflow. Complexity: O(🐉), dragon scale.</div>
-<div style="color: #FFFFFF">Want O(1)? <a href="https://www.wincent.com/careers" target="_blank" rel="noopener" style="color: #8FB6F2">wincent.com/careers</a></div>
-<div style="margin-top: 10px; color: #8FA0BF">exit code 0 · recorded run</div>
+<div id="dl-out" aria-live="polite" style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 13px; line-height: 20px; color: #FFFFFF; display: flex; flex-direction: column; min-width: 0">
+<div id="dl-cmd" style="color: #8FA0BF">$ python dragon_logic.py</div>
+<div id="dl-liz" style="white-space: nowrap; overflow: hidden; min-height: 20px"></div>
+<div id="dl-count" style="color: #8FA0BF; min-height: 20px"></div>
+<div class="dl-line" style="margin-top: 8px">🐉 ERROR: the dragon bit its own tail.</div>
+<div class="dl-line" style="color: #F58AA3">StackOverflow. Complexity: O(🐉), dragon scale.</div>
+<div class="dl-line">Want O(1)? <a href="https://www.wincent.com/careers" target="_blank" rel="noopener" style="color: #8FB6F2">wincent.com/careers</a></div>
+<div class="dl-line" style="margin-top: 10px; color: #8FA0BF">exit code 0 · replay of a real run</div>
 </div>
 </div>
 </div>
@@ -159,12 +160,21 @@ footer{border-top:1px solid #2C4063;padding:32px 6% 48px;font-size:15px;color:#B
 <footer>Unlisted page prepared for the Wincent design interview. Wincent and DragonByte names, logos and brand assets belong to Wincent. Mascot, layout and code by Štefan Toporcer.</footer>
 <script>
 (function(){
-var code=document.getElementById('dl-code'),copy=document.getElementById('dl-copy'),run=document.getElementById('dl-run'),out=document.getElementById('dl-out'),cmd=document.getElementById('dl-cmd');
+var code=document.getElementById('dl-code'),copy=document.getElementById('dl-copy'),run=document.getElementById('dl-run');
 function flash(){copy.textContent='Copied';setTimeout(function(){copy.textContent='Copy'},1600)}
 function selectCopy(){var r=document.createRange();r.selectNodeContents(code);var s=window.getSelection();s.removeAllRanges();s.addRange(r);try{if(document.execCommand('copy'))flash()}catch(e){}}
 copy.addEventListener('click',function(){var t=code.textContent;if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(flash,selectCopy)}else{selectCopy()}});
-var busy=false;
-run.addEventListener('click',function(){if(busy)return;busy=true;out.style.display='none';cmd.hidden=false;setTimeout(function(){cmd.hidden=true;out.style.display='flex';busy=false},700)});
+var liz=document.getElementById('dl-liz'),cnt=document.getElementById('dl-count'),lines=[].slice.call(document.querySelectorAll('.dl-line')),N=998,busy=false;
+var still=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+function show(n){liz.textContent=new Array(Math.min(n,40)+1).join('\ud83e\udd8e');cnt.textContent=n?('… '+n+' × \ud83e\udd8e'+(n===N?' · CPython 3.13':'')):''}
+function finish(){show(N);lines.forEach(function(l){l.style.visibility='visible'});run.textContent='Run';run.disabled=false;busy=false}
+function start(){if(busy)return;busy=true;run.textContent='Running…';run.disabled=true;lines.forEach(function(l){l.style.visibility='hidden'});show(0);
+if(still){finish();return}
+var t0=null,D=1500;function step(t){if(t0===null)t0=t;var p=Math.min((t-t0)/D,1),n=Math.round(N*p*p);show(n);if(p<1){requestAnimationFrame(step)}else{var i=0;(function next(){if(i<lines.length){lines[i++].style.visibility='visible';setTimeout(next,220)}else{finish()}})()}}
+setTimeout(function(){requestAnimationFrame(step)},350)}
+run.addEventListener('click',start);
+lines.forEach(function(l){l.style.visibility='hidden'});
+if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){if(es[0].isIntersecting){io.disconnect();start()}},{threshold:0.4});io.observe(document.getElementById('sandbox'))}else{start()}
 })();
 </script>
 </body>
