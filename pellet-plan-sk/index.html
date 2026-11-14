@@ -1,0 +1,419 @@
+<!doctype html>
+<html lang="sk">
+<head>
+<meta charset="utf-8">
+<meta name="generator" content="projektargo-motor">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PelletPlan EU · Pripravenosť na straty granúl podľa nariadenia (EÚ) 2025/2365</title>
+<meta name="description" content="Bezplatná Kontrola pripravenosti na straty plastových granúl pre spracovateľov plastov, recyklátorov a logistiku granúl: rozsah, termín, 5 rizikových miest a osnova plánu. E-mailom do 2 pracovných dní.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/icons/icon-32.png" sizes="32x32" type="image/png">
+<link rel="canonical" href="https://projektargo.com/pellet-plan-sk/">
+<link rel="alternate" hreflang="en" href="https://projektargo.com/pellet-plan/">
+<link rel="alternate" hreflang="sk" href="https://projektargo.com/pellet-plan-sk/">
+<link rel="alternate" hreflang="x-default" href="https://projektargo.com/pellet-plan/">
+<meta property="og:title" content="PelletPlan EU · Je vaša prevádzka pripravená na pravidlá EÚ o granulách?">
+<meta property="og:description" content="Bezplatná kontrola: týka sa vás nariadenie (EÚ) 2025/2365, aký je váš termín, kde granuly unikajú a čo chýba.">
+<meta property="og:url" content="https://projektargo.com/pellet-plan-sk/">
+<meta property="og:image" content="https://projektargo.com/og.png">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#EAF2F6">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800&family=Onest:wght@400;500;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Service", "name": "PelletPlan EU", "url": "https://projektargo.com/pellet-plan-sk/", "serviceType": "Kontrola pripravenosti na predchádzanie stratám plastových granúl", "description": "Bezplatná orientačná Kontrola pripravenosti na straty granúl podľa nariadenia (EÚ) 2025/2365 pre firmy, ktoré v EÚ manipulujú s plastovými granulami. E-mailom do 2 pracovných dní.", "inLanguage": "sk", "areaServed": {"@type": "Place", "name": "Európska únia"}, "provider": {"@type": "Person", "@id": "https://projektargo.com/#person", "name": "Štefan Toporcer", "url": "https://projektargo.com/"}}</script>
+<style>
+/* PelletPlan EU – factory-floor spill-risk map: pale survey film with a fine grid, yellow-black floor-marking tape, masterbatch-coloured pellets trickling from silo to stormwater drain, wide rounded type like a moulded part */
+:root{--film:#EAF2F6;--paper:#FBFDFE;--ink:#0D1B2A;--text:#22344A;--muted:#475B70;--line:#A9C0D0;--grid:#D6E4EC;--yel:#FFC300;--yel-d:#D9A400;--red:#C8233A;--cyan:#0A7FB0;--green:#23874D;--mag:#B42C80;--water:#2F7FC1;--max:1240px}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--film);color:var(--text);font:17px/1.6 "Onest",system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:var(--ink)}
+img,svg{display:block;max-width:100%}
+section{scroll-margin-top:84px}
+.w{max-width:var(--max);margin:0 auto;padding:0 28px}
+.mono{font-family:"Geist Mono",ui-monospace,monospace}
+.skip{position:absolute;left:-999px;top:0;background:var(--ink);color:#fff;padding:8px 12px;z-index:50}
+.skip:focus{left:8px}
+h1,h2,h3{font-family:"Unbounded","Onest",sans-serif;color:var(--ink);font-weight:800;letter-spacing:-.02em}
+h1{font-size:clamp(34px,5.4vw,66px);line-height:1.02}
+h2{font-size:clamp(26px,3.4vw,42px);line-height:1.08}
+h3{font-size:18px;line-height:1.25;font-weight:700}
+.k{font-family:"Geist Mono",monospace;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--cyan);font-weight:500}
+.tape{height:10px;background:repeating-linear-gradient(-45deg,var(--yel) 0 14px,var(--ink) 14px 28px)}
+.btn{display:inline-flex;align-items:center;gap:12px;background:var(--yel);color:var(--ink);text-decoration:none;font-weight:700;font-size:17px;padding:16px 22px 16px 24px;border:2px solid var(--ink);border-radius:999px;box-shadow:4px 4px 0 var(--ink);transition:transform .15s,box-shadow .15s}
+.btn:hover{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--ink)}
+.btn:focus-visible,.tl:focus-visible,a:focus-visible,summary:focus-visible{outline:3px solid var(--cyan);outline-offset:3px}
+.btn .dot{width:12px;height:12px;border-radius:50%;background:var(--ink);flex:none}
+.tl{color:var(--ink);font-weight:600;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:5px;text-decoration-color:var(--yel-d)}
+/* header */
+.top{position:sticky;top:0;z-index:30;background:rgba(234,242,246,.97);border-bottom:1px solid var(--line)}
+.top .w{display:flex;align-items:center;gap:20px;height:66px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:"Unbounded",sans-serif;font-weight:800;font-size:17px;color:var(--ink);white-space:nowrap}
+.brand svg{width:30px;height:30px;flex:none}
+.brand small{font-family:"Geist Mono",monospace;font-weight:500;font-size:11px;background:var(--ink);color:var(--yel);padding:2px 6px;border-radius:4px;margin-left:2px}
+.nav{display:flex;gap:22px;margin-left:auto}
+.nav a{text-decoration:none;font-size:15px;color:var(--text);font-weight:500}
+.nav a:hover{color:var(--ink);text-decoration:underline}
+.hr{display:flex;align-items:center;gap:12px;margin-left:22px}
+.lng{font-family:"Geist Mono",monospace;font-size:13px;font-weight:500;text-decoration:none;border:1.5px solid var(--ink);border-radius:6px;padding:5px 8px;color:var(--ink)}
+.btn.sm{font-size:14px;padding:9px 14px;box-shadow:3px 3px 0 var(--ink)}
+/* hero */
+.hero{padding:64px 0 72px;background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:32px 32px}
+.hero .w{display:grid;grid-template-columns:minmax(0,1.02fr) minmax(0,1fr);gap:56px;align-items:center}
+.hero .k{display:inline-block;background:var(--paper);border:1px solid var(--line);padding:6px 10px;border-radius:6px;margin-bottom:22px}
+.lead{font-size:19px;max-width:560px;margin:22px 0 30px;color:var(--text)}
+.acts{display:flex;flex-wrap:wrap;align-items:center;gap:18px 26px}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:30px;list-style:none}
+.meta li{font-family:"Geist Mono",monospace;font-size:13px;color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:5px 12px}
+.plan{position:relative;background:var(--paper);border:2px solid var(--ink);border-radius:18px;padding:14px;box-shadow:10px 10px 0 rgba(13,27,42,.12)}
+.plan figcaption{font-family:"Geist Mono",monospace;font-size:12px;color:var(--muted);padding:10px 4px 2px;line-height:1.45}
+.plan .lbl{font-family:"Geist Mono",monospace;font-size:11px;letter-spacing:.06em;fill:var(--muted)}
+.plan .pin text{font-family:"Unbounded",sans-serif;font-size:11px;font-weight:800}
+@media (prefers-reduced-motion:no-preference){
+ .flow circle{animation:drift 3.6s ease-in-out infinite}
+ .flow circle:nth-child(2n){animation-delay:-1.2s}
+ .flow circle:nth-child(3n){animation-delay:-2.4s}
+ @keyframes drift{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
+ .rv{animation:rise .7s ease-out both}
+ @keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+}
+/* why */
+.sec{padding:88px 0}
+.sec.alt{background:var(--paper);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px 56px;align-items:end;margin-bottom:46px}
+.head p{max-width:520px;color:var(--muted)}
+.head .k{display:block;margin-bottom:14px}
+.line{position:relative;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0;list-style:none}
+.line:before{content:"";position:absolute;left:0;right:0;top:21px;height:10px;background:repeating-linear-gradient(-45deg,var(--yel) 0 12px,var(--ink) 12px 24px);border-radius:2px}
+.line li{position:relative;padding:0 18px 0 0}
+.line .d{position:relative;display:inline-block;font-family:"Geist Mono",monospace;font-size:13px;font-weight:500;background:var(--ink);color:#fff;border-radius:999px;padding:6px 12px;margin:12px 0 18px;white-space:nowrap}
+.line li:nth-child(2) .d{background:var(--red)}
+.line p{font-size:15px;line-height:1.5}
+.scope{margin-top:64px;display:grid;grid-template-columns:minmax(0,.7fr) minmax(0,1.3fr);gap:40px}
+.scope h3{font-size:24px}
+.tab{border-top:2px solid var(--ink)}
+.tab div{display:grid;grid-template-columns:minmax(0,180px) minmax(0,1fr);gap:20px;padding:16px 0;border-bottom:1px solid var(--line)}
+.tab b{font-family:"Unbounded",sans-serif;font-size:15px;color:var(--ink)}
+.tab span{font-size:16px}
+.src{margin-top:22px;font-size:14px;color:var(--muted)}
+/* annex */
+.annex{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 40px;list-style:none;counter-reset:a}
+.annex li{counter-increment:a;display:grid;grid-template-columns:44px minmax(0,1fr);gap:14px;align-items:baseline;padding:14px 0;border-bottom:1px dashed var(--line)}
+.annex li:before{content:"(" counter(a,lower-alpha) ")";font-family:"Geist Mono",monospace;font-size:14px;color:var(--cyan);font-weight:500}
+/* how */
+.steps{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1fr);gap:28px;list-style:none}
+.steps li{position:relative;padding:26px 0 0;border-top:2px solid var(--ink)}
+.steps li:nth-child(2){margin-top:34px}
+.steps li:nth-child(3){margin-top:68px}
+.steps .n{font-family:"Unbounded",sans-serif;font-weight:800;font-size:64px;line-height:1;color:transparent;-webkit-text-stroke:2px var(--ink);display:block;margin-bottom:14px}
+.steps h3{margin-bottom:8px}
+/* report */
+.out{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:56px;align-items:start}
+.out .k{display:block;margin-bottom:14px}
+.out p{color:var(--muted);margin-top:16px}
+.sheet{position:relative;background:#fff;border:1px solid var(--line);border-radius:4px;padding:30px 30px 26px;box-shadow:0 1px 0 var(--line),0 18px 40px -22px rgba(13,27,42,.35)}
+.sheet:before{content:"";position:absolute;left:0;right:0;top:0;height:8px;background:repeating-linear-gradient(-45deg,var(--yel) 0 10px,var(--ink) 10px 20px)}
+.tag{position:absolute;top:22px;right:22px;font-family:"Geist Mono",monospace;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--red);border:1.5px solid var(--red);border-radius:4px;padding:3px 7px;transform:rotate(3deg)}
+.sheet h3{font-size:20px;margin:8px 120px 6px 0}
+.co{font-family:"Geist Mono",monospace;font-size:13px;color:var(--muted);margin-bottom:20px}
+.kv{display:grid;grid-template-columns:minmax(0,110px) minmax(0,1fr);gap:8px 16px;padding:14px 0;border-top:1px solid var(--grid);font-size:15px}
+.kv dt{font-weight:700;color:var(--ink)}
+.sheet h4{font-family:"Unbounded",sans-serif;font-size:14px;color:var(--ink);margin:18px 0 8px}
+.pts{list-style:none}
+.pts li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:center;padding:8px 0;border-bottom:1px solid var(--grid);font-size:15px}
+.rk{font-family:"Geist Mono",monospace;font-size:12px;font-weight:500;border-radius:999px;padding:2px 10px;white-space:nowrap}
+.rk.h{background:#FBE3E6;color:#9A1328}
+.rk.l{background:#E1F1E7;color:#17643A}
+.miss{list-style:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px 18px;font-size:15px}
+.miss li{padding-left:22px;position:relative}
+.miss li:before{content:"";position:absolute;left:0;top:7px;width:11px;height:11px;border:2px solid var(--red);border-radius:2px}
+.note{margin-top:18px;font-size:13px;color:var(--muted);font-style:italic}
+/* early */
+.early{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0;border:2px solid var(--ink);border-radius:18px;overflow:hidden;background:var(--paper)}
+.early>div{padding:32px}
+.early>div+div{border-left:2px solid var(--ink);background:var(--ink);color:#DCE6EE}
+.early>div+div h3{color:#fff}
+.price{font-family:"Unbounded",sans-serif;font-weight:800;font-size:46px;color:var(--ink);line-height:1;margin:14px 0 4px}
+.early>div+div .price{color:var(--yel)}
+.unit{font-family:"Geist Mono",monospace;font-size:13px;color:var(--muted);margin-bottom:16px}
+.early>div+div .unit{color:#B7C7D5}
+.after{display:flex;flex-wrap:wrap;gap:16px 24px;align-items:center;margin-top:24px}
+.after small{color:var(--muted);font-size:14px}
+/* faq */
+.faq{max-width:860px}
+.faq details{border-bottom:1px solid var(--line)}
+.faq summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:20px;padding:20px 0;font-weight:700;font-size:18px;color:var(--ink)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary:after{content:"+";font-family:"Unbounded",sans-serif;font-size:22px;line-height:1;color:var(--cyan);flex:none}
+.faq details[open] summary:after{content:"–"}
+.faq details p{padding:0 0 20px;max-width:720px}
+/* privacy + footer */
+.priv{max-width:860px;font-size:15px}
+.priv p{margin-top:12px}
+.foot{background:var(--ink);color:#C9D6E2;padding:64px 0 40px}
+.foot h2{color:#fff;max-width:640px}
+.foot .after{margin-top:28px}
+.foot .tl{color:#fff;text-decoration-color:var(--yel)}
+.fb{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;margin-top:56px;padding-top:20px;border-top:1px solid #2C3F55;font-size:14px}
+.fb a{color:#fff}
+@media (max-width:1000px){
+ .nav{display:none}
+ .hr{margin-left:auto}
+ .hero .w,.out,.scope{grid-template-columns:minmax(0,1fr)}
+ .hero .w{gap:44px}
+ .head{grid-template-columns:minmax(0,1fr)}
+ .line{grid-template-columns:minmax(0,1fr);gap:4px}
+ .line:before{left:21px;right:auto;top:0;bottom:0;width:10px;height:auto}
+ .line li{padding:0 0 18px 56px}
+ .line .d{margin:0 0 6px}
+}
+@media (max-width:640px){
+ body{font-size:16px}
+ .w{padding:0 16px}
+ .top .w{height:60px;gap:10px}
+ .brand{font-size:15px;gap:8px}
+ .brand small{display:none}
+ .hr{gap:8px;margin-left:auto}
+ .btn.sm{padding:8px 11px;font-size:13px}
+ .hero{padding:36px 0 48px}
+ .lead{font-size:17px}
+ .btn{font-size:16px;padding:14px 18px}
+ .sec{padding:60px 0}
+ .annex,.steps,.miss,.early{grid-template-columns:minmax(0,1fr)}
+ .steps li:nth-child(2),.steps li:nth-child(3){margin-top:0}
+ .steps .n{font-size:48px}
+ .tab div{grid-template-columns:minmax(0,1fr);gap:4px}
+ .sheet{padding:26px 18px 20px}
+ .sheet h3{margin-right:0;margin-top:34px}
+ .kv{grid-template-columns:minmax(0,1fr);gap:2px}
+ .kv dd{margin-bottom:8px}
+ .early>div{padding:24px 20px}
+ .early>div+div{border-left:0;border-top:2px solid var(--ink)}
+ .price{font-size:38px}
+ .faq summary{font-size:16px}
+}
+@media (max-width:360px){
+ .brand span{font-size:13px}
+ .btn.sm{padding:7px 9px;font-size:12px}
+ .lng{padding:4px 6px;font-size:12px}
+ .line .d{white-space:normal}
+}
+</style>
+<script>
+!function(t,e){var o,n,p,r;e.__SV||(window.posthog && window.posthog.__loaded)||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}p||((p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",p.onerror=function(){p=null},(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r));var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],Object.defineProperty(u,"toString",{configurable:!0,enumerable:!0,writable:!0,value:function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e}}),Object.defineProperty(u.people,"toString",{configurable:!0,enumerable:!0,writable:!0,value:function(){return u.toString(1)+".people (stub)"}}),o="init capture register register_once register_for_session unregister unregister_for_session getFeatureFlag getFeatureFlagResult isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey getNextSurveyStep identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty createPersonProfile opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing debug".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+posthog.init("phc_zbBFHQt5aVYH9HuviHUQuwfh6TPCVPyXSrMWWgJ9UfLP",{api_host:"https://eu.i.posthog.com",defaults:"2026-08-30",cookieless_mode:"always",person_profiles:"identified_only",disable_session_recording:true});
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Preskočiť na obsah</a>
+<header class="top">
+ <div class="w">
+  <a class="brand" href="#main" aria-label="PelletPlan EU">
+   <svg viewBox="0 0 30 30" aria-hidden="true"><rect x="1" y="1" width="28" height="28" rx="8" fill="#0D1B2A"/><circle cx="11" cy="12" r="4.2" fill="#FFC300"/><circle cx="19.5" cy="11" r="3.2" fill="#0A7FB0"/><circle cx="15" cy="20" r="3.6" fill="#E14A5E"/></svg>
+   <span>PelletPlan</span><small>EU</small>
+  </a>
+  <nav class="nav" aria-label="Hlavná navigácia">
+   <a href="#why">Prečo teraz</a><a href="#how">Ako to funguje</a><a href="#output">Ukážka</a><a href="#early">Early access</a><a href="#faq">Otázky</a>
+  </nav>
+  <div class="hr">
+   <a class="lng" href="/pellet-plan/" hreflang="en" lang="en" title="English">EN</a>
+   <a class="btn sm" href="https://tally.so/r/o9eNdX?ref=site-nav">Bezplatná kontrola</a>
+  </div>
+ </div>
+ <div class="tape" aria-hidden="true"></div>
+</header>
+<main id="main">
+<section class="hero">
+ <div class="w">
+  <div class="rv">
+   <span class="k">Nariadenie (EÚ) 2025/2365 · uplatňuje sa od 17.&nbsp;12.&nbsp;2027</span>
+   <h1>Každá granula, ktorá opustí vašu prevádzku, už potrebuje plán.</h1>
+   <p class="lead">Od 17. decembra 2027 musí mať každá prevádzka, ktorá ročne manipuluje s 5 a viac tonami plastových granúl, plán riadenia rizík, vyhlásenie o zhode a ročné záznamy o stratách. Do 2 pracovných dní zistíte, čo to znamená pre vás.</p>
+   <div class="acts">
+    <a class="btn" href="https://tally.so/r/o9eNdX?ref=site-hero"><span class="dot" aria-hidden="true"></span>Získať bezplatnú kontrolu</a>
+    <a class="tl" href="#output">Najprv pozrieť ukážku</a>
+   </div>
+   <ul class="meta"><li>Zadarmo</li><li>2 pracovné dni</li><li>E-mailom</li><li>Nie je to právne stanovisko</li></ul>
+  </div>
+  <figure class="plan rv">
+   <svg viewBox="0 0 520 400" role="img" aria-label="Obr. 1 · Ilustračný plán areálu s miestami straty s vysokým (V) alebo nízkym (N) rizikom">
+    <defs>
+     <pattern id="g" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="#E2ECF2" stroke-width="1"/></pattern>
+     <pattern id="hz" width="12" height="12" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="6" height="12" fill="#FFC300"/><rect x="6" width="6" height="12" fill="#0D1B2A"/></pattern>
+    </defs>
+    <rect width="520" height="400" fill="url(#g)"/>
+    <rect x="24" y="36" width="300" height="196" fill="#F3F8FB" stroke="#0D1B2A" stroke-width="2.5"/>
+    <text class="lbl" x="36" y="56">VSTREKOVŇA</text>
+    <rect x="48" y="78" width="70" height="40" rx="3" fill="#fff" stroke="#475B70"/>
+    <rect x="140" y="78" width="70" height="40" rx="3" fill="#fff" stroke="#475B70"/>
+    <rect x="48" y="146" width="70" height="40" rx="3" fill="#fff" stroke="#475B70"/>
+    <rect x="140" y="146" width="70" height="40" rx="3" fill="#fff" stroke="#475B70"/>
+    <rect x="236" y="150" width="72" height="66" fill="#E6EEF3" stroke="#475B70" stroke-dasharray="4 3"/>
+    <text class="lbl" x="244" y="208">MLYN</text>
+    <path d="M118 98H140M210 98H236V150" fill="none" stroke="#0A7FB0" stroke-width="2"/>
+    <circle cx="420" cy="86" r="40" fill="#fff" stroke="#0D1B2A" stroke-width="2.5"/>
+    <circle cx="420" cy="86" r="26" fill="none" stroke="#A9C0D0" stroke-dasharray="3 4"/>
+    <text class="lbl" x="404" y="90">SILO</text>
+    <path d="M380 86H324" stroke="#0A7FB0" stroke-width="3"/>
+    <g fill="#fff" stroke="#475B70"><rect x="372" y="186" width="30" height="30"/><rect x="408" y="186" width="30" height="30"/><rect x="372" y="222" width="30" height="30"/><rect x="408" y="222" width="30" height="30"/></g>
+    <text class="lbl" x="372" y="274">OKTABÍNY</text>
+    <rect x="24" y="290" width="300" height="56" fill="url(#hz)" opacity=".9"/>
+    <rect x="34" y="300" width="280" height="36" fill="#FBFDFE"/>
+    <text class="lbl" x="44" y="323">NAKLÁDKA</text>
+    <rect x="352" y="318" width="34" height="34" fill="#fff" stroke="#0D1B2A" stroke-width="2"/>
+    <path d="M358 324V346M364 324V346M370 324V346M376 324V346M382 324V346" stroke="#0D1B2A" stroke-width="1.5"/>
+    <text class="lbl" x="346" y="372">VPUSŤ</text>
+    <path d="M386 335C420 335 430 352 460 352S496 340 520 342" fill="none" stroke="#2F7FC1" stroke-width="3" stroke-dasharray="7 5"/>
+    <g class="flow">
+     <circle cx="452" cy="124" r="4" fill="#C8233A"/><circle cx="458" cy="146" r="3.5" fill="#FFC300"/><circle cx="447" cy="170" r="4" fill="#0A7FB0"/>
+     <circle cx="456" cy="196" r="3.5" fill="#23874D"/><circle cx="452" cy="262" r="4" fill="#B42C80"/><circle cx="430" cy="290" r="3.5" fill="#C8233A"/>
+     <circle cx="404" cy="306" r="4" fill="#FFC300"/><circle cx="292" cy="318" r="3.5" fill="#0A7FB0"/><circle cx="318" cy="324" r="4" fill="#23874D"/>
+     <circle cx="338" cy="330" r="3.5" fill="#B42C80"/><circle cx="476" cy="350" r="3.5" fill="#0A7FB0"/><circle cx="496" cy="344" r="3" fill="#C8233A"/>
+    </g>
+    <g class="pin"><circle cx="372" cy="62" r="13" fill="#C8233A"/><text x="372" y="66" text-anchor="middle" fill="#fff">V</text></g>
+    <g class="pin"><circle cx="300" cy="314" r="13" fill="#C8233A"/><text x="300" y="318" text-anchor="middle" fill="#fff">V</text></g>
+    <g class="pin"><circle cx="84" cy="132" r="13" fill="#C8233A"/><text x="84" y="136" text-anchor="middle" fill="#fff">V</text></g>
+    <g class="pin"><circle cx="300" cy="140" r="13" fill="#23874D"/><text x="300" y="144" text-anchor="middle" fill="#fff">N</text></g>
+    <g class="pin"><circle cx="452" cy="232" r="13" fill="#23874D"/><text x="452" y="236" text-anchor="middle" fill="#fff">N</text></g>
+   </svg>
+   <figcaption>Obr. 1 · Ilustračný plán areálu s miestami straty s vysokým (V) alebo nízkym (N) rizikom</figcaption>
+  </figure>
+ </div>
+</section>
+
+<section class="sec alt" id="why">
+ <div class="w">
+  <div class="head">
+   <div><span class="k">01 · Prečo teraz</span><h2>Termíny sú už v úradnom vestníku.</h2></div>
+   <p>Nariadenie bolo prijaté 12. novembra 2025. Väčšina povinností začína 17. decembra 2027; certifikácia väčších prevádzok nasleduje podľa veľkosti firmy.</p>
+  </div>
+  <ol class="line">
+   <li><span class="d">12.&nbsp;11.&nbsp;2025</span><p>Prijaté nariadenie (EÚ) 2025/2365.</p></li>
+   <li><span class="d">17.&nbsp;12.&nbsp;2027</span><p>Pravidlá platia: plán pre každú prevádzku, oznámenie s vyhlásením o zhode, záznamy o stratách, školenie. Veľké firmy certifikujú prevádzky s 1&nbsp;500&nbsp;t a viac.</p></li>
+   <li><span class="d">17.&nbsp;12.&nbsp;2028</span><p>Stredné firmy certifikujú prevádzky s 1&nbsp;500&nbsp;t a viac.</p></li>
+   <li><span class="d">17.&nbsp;12.&nbsp;2030</span><p>Malé firmy certifikujú prevádzky s 1&nbsp;500&nbsp;t a viac.</p></li>
+   <li><span class="d">Každých 5 rokov</span><p>Prevádzky pod 1&nbsp;500&nbsp;t a mikropodniky obnovujú plán a vyhlásenie o zhode.</p></li>
+  </ol>
+  <div class="scope">
+   <h3>Koho sa to týka</h3>
+   <div>
+    <div class="tab">
+     <div><b>5&nbsp;t a viac</b><span>Firmy, ktoré v predchádzajúcom kalendárnom roku manipulovali v EÚ aspoň s 5 tonami granúl (čl. 1).</span></div>
+     <div><b>Každá prevádzka</b><span>Plán riadenia rizík pre každé zariadenie, zavedené vybavenie a postupy z plánu a plán oznámený úradu spolu s vyhlásením o zhode (čl. 5).</span></div>
+     <div><b>Záznamy</b><span>Ročný odhad strát a celkové spracované množstvo, uchovávané 5 rokov (čl. 5).</span></div>
+     <div><b>Preprava</b><span>Týka sa aj dopravcov z EÚ a mimo EÚ a čistiarní kontajnerov a cisterien (čl. 1).</span></div>
+     <div><b>Sankcie</b><span>Pri najzávažnejších porušeniach firmami musia členské štáty umožniť pokutu najmenej 3&nbsp;% ročného obratu v EÚ (čl. 20).</span></div>
+    </div>
+    <p class="src">Zdroj: nariadenie (EÚ) 2025/2365, čl. 1, 5, 6, 20, 26 a príloha I, EUR-Lex. <a href="https://eur-lex.europa.eu/eli/reg/2025/2365/oj/eng" rel="noopener">Text nariadenia</a></p>
+   </div>
+  </div>
+ </div>
+</section>
+
+<section class="sec" id="annex">
+ <div class="w">
+  <div class="head">
+   <div><span class="k">02 · Plán</span><h2>Čo má podľa prílohy I obsahovať plán</h2></div>
+   <p>Desať bodov pre každé zariadenie. Kontrola vám ukáže, ktoré už máte.</p>
+  </div>
+  <ol class="annex">
+   <li>Plán areálu</li><li>Množstvo granúl v tonách za rok</li><li>Miesta únikov s vysokým alebo nízkym rizikom</li><li>Kade môžu straty uniknúť z areálu a ktoré oblasti zasiahnu</li><li>Manipulačné operácie, pri ktorých môže dôjsť k úniku</li><li>Ročný odhad únikov a strát</li><li>Činnosti dodávateľov, zmluvných partnerov a externých skladov</li><li>Určená rola zamestnanca, ktorý úniky zaznamenáva, vyšetruje a hlási</li><li>Obaly a vybavenie na prevenciu, zachytenie a vyčistenie</li><li>Postupy na prevenciu, zachytenie a vyčistenie</li>
+  </ol>
+ </div>
+</section>
+
+<section class="sec alt" id="how">
+ <div class="w">
+  <div class="head"><div><span class="k">03 · Ako to funguje</span><h2>Desať minút od vás, dva dni od nás.</h2></div></div>
+  <ol class="steps">
+   <li><span class="n" aria-hidden="true">1</span><h3>Vyplníte krátky formulár</h3><p>Typ prevádzky, tony za rok, počet prevádzok, veľkosť firmy a manipulačné kroky, ktoré máte. Žiadne dokumenty netreba.</p></li>
+   <li><span class="n" aria-hidden="true">2</span><h3>Porovnáme to s textom</h3><p>Vaše odpovede porovnáme s nariadením a jeho prílohou I, bod po bode, len z úradného textu.</p></li>
+   <li><span class="n" aria-hidden="true">3</span><h3>Dostanete kontrolu</h3><p>Jeden prehľadný e-mail do 2 pracovných dní: rozsah, váš režim a termín, 5 pravdepodobných miest straty a čo chýba.</p></li>
+  </ol>
+ </div>
+</section>
+
+<section class="sec" id="output">
+ <div class="w out">
+  <div>
+   <span class="k">04 · Čo dostanete</span>
+   <h2>Jedna strana, ktorú podáte vedúcemu prevádzky.</h2>
+   <p>Nižšie je ilustračná ukážka pre vymyslenú firmu. Vaša kontrola vznikne z vašich odpovedí.</p>
+   <div class="after"><a class="btn" href="https://tally.so/r/o9eNdX?ref=site-output"><span class="dot" aria-hidden="true"></span>Získať bezplatnú kontrolu</a></div>
+  </div>
+  <article class="sheet" aria-label="Ilustračná ukážka">
+   <span class="tag">Ilustračná ukážka</span>
+   <h3>Kontrola pripravenosti na straty granúl</h3>
+   <p class="co">Vymyslená vstrekovňa · 1 prevádzka · približne 820&nbsp;t ročne · 60 zamestnancov</p>
+   <dl>
+    <div class="kv"><dt>Týka sa vás?</dt><dd>Áno: minulý rok viac ako 5&nbsp;t granúl.</dd></div>
+    <div class="kv"><dt>Režim</dt><dd>Pod 1&nbsp;500&nbsp;t: plán a vyhlásenie o zhode, obnova každých 5 rokov. Certifikácia nie je potrebná.</dd></div>
+    <div class="kv"><dt>Termín</dt><dd>Plán oznámený a opatrenia zavedené od 17.&nbsp;12.&nbsp;2027.</dd></div>
+   </dl>
+   <h4>5 pravdepodobných miest straty</h4>
+   <ol class="pts">
+    <li><span>Plniaca prípojka sila pri rampe pre kamióny</span><span class="rk h">Vysoké</span></li>
+    <li><span>Nakládka vedľa dažďovej vpuste</span><span class="rk h">Vysoké</span></li>
+    <li><span>Výsypná stanica big bagov</span><span class="rk h">Vysoké</span></li>
+    <li><span>Mlyn a priestor s regranulátom</span><span class="rk l">Nízke</span></li>
+    <li><span>Sklad oktabínov pod vonkajším prístreškom</span><span class="rk l">Nízke</span></li>
+   </ol>
+   <h4>Pre prílohu I ešte chýba</h4>
+   <ul class="miss"><li>Plán areálu s vyznačenými miestami straty</li><li>Metóda ročného odhadu strát</li><li>Písomný postup pri úniku</li><li>Určená osoba, ktorá zaznamenáva úniky</li><li>Záznamy o školení</li></ul>
+   <p class="note">Orientačný prehľad, nie právne stanovisko ani certifikácia.</p>
+  </article>
+ </div>
+</section>
+
+<section class="sec alt" id="early">
+ <div class="w">
+  <div class="head">
+   <div><span class="k">05 · Early access</span><h2>Keď chcete mať papiere hotové za vás</h2></div>
+   <p>Zatiaľ sa nepredáva. Ak máte záujem, označte to vo formulári; teraz sa nič neplatí.</p>
+  </div>
+  <div class="early">
+   <div><h3>Pellet Plan Pack</h3><p class="price">590&nbsp;€</p><p class="unit">jednorazovo, za prevádzku</p><p>Plán riadenia rizík podľa prílohy I, vyplnené vyhlásenie o zhode, údaje na oznámenie úradu, vzory záznamov o školeniach a incidentoch.</p></div>
+   <div><h3>Pellet Log</h3><p class="price">79&nbsp;€</p><p class="unit">mesačne</p><p>Ročná evidencia množstiev a odhadu strát, pripomienky, aktualizácia plánu pri zmene prevádzky a sledovanie nových usmernení Komisie.</p></div>
+  </div>
+  <div class="after"><a class="tl" href="https://tally.so/r/o9eNdX?ref=site-early">Mám záujem o early access</a><small>Orientačné ceny bez DPH.</small></div>
+ </div>
+</section>
+
+<section class="sec" id="faq">
+ <div class="w">
+  <div class="head"><div><span class="k">06 · Otázky</span><h2>Krátke odpovede</h2></div></div>
+  <div class="faq">
+   <details><summary>Ročne spracujeme menej ako 5 ton. Týka sa nás to?</summary><p>Nariadenie sa vzťahuje na firmy, ktoré v predchádzajúcom kalendárnom roku manipulovali v EÚ s 5 a viac tonami. Ak ste pod touto hranicou, kontrola vám to povie a tam skončí.</p></details>
+   <details><summary>Už sa zapájame do Operation Clean Sweep. Stačí to?</summary><p>Operation Clean Sweep je dobrovoľný program odvetvia. Nariadenie pridáva zákonné povinnosti: plán pre každú prevádzku, oznámenie úradu, vyhlásenie o zhode a záznamy. Kontrola ukáže, čo už máte a čo ešte chýba.</p></details>
+   <details><summary>Potrebujeme certifikát?</summary><p>Certifikáciu potrebujú len prevádzky s 1&nbsp;500 a viac tonami ročne vo veľkých, stredných a malých firmách, s termínmi v rokoch 2027, 2028 a 2030. Menšie prevádzky a mikropodniky používajú vyhlásenie o zhode.</p></details>
+   <details><summary>Čo od nás potrebujete?</summary><p>Len odpovede vo formulári. Žiadne dokumenty, návšteva ani hovor.</p></details>
+   <details><summary>Je kontrola právne stanovisko?</summary><p>Nie. Je to orientačný prehľad podľa úradného textu nariadenia. Posledné slovo má príslušný úrad a kvalifikovaný poradca.</p></details>
+  </div>
+ </div>
+</section>
+
+<section class="sec alt" id="privacy">
+ <div class="w priv">
+  <h2>Ochrana údajov a kontakt</h2>
+  <p>PelletPlan EU prevádzkuje Štefan Toporcer, fyzická osoba so sídlom na Slovensku (nie registrovaná firma). Kontakt: <a href="mailto:toporcer.stefan@gmail.com">toporcer.stefan@gmail.com</a></p>
+  <p>Formulár zbiera pracovný e-mail, firmu, web, meno, krajinu, rolu a odpovede o manipulácii s granulami. Použijú sa len na prípravu a odoslanie kontroly a, ak o to požiadate, na kontakt ohľadom early access.</p>
+  <p>Nástroje: Tally (formulár), Gmail (odosielanie), Anthropic Claude (príprava kontroly). Údaje uchovávam 12 mesiacov. O prístup k nim alebo ich výmaz môžete kedykoľvek požiadať e-mailom.</p>
+  <p><b>Meranie návštevnosti.</b> Návštevy a kliky počítam cez PostHog (servery v EÚ) bez cookies: do vášho zariadenia sa nič neukladá a IP adresy sú anonymizované. Slúži len na to, aby som videl, ako sa stránka používa, nie na vašu identifikáciu.</p>
+  <p>Kontrola je orientačný prehľad, nie právne ani odborné stanovisko a nie je to certifikácia.</p>
+ </div>
+</section>
+</main>
+
+<footer class="foot">
+ <div class="w">
+  <h2>Vedzte, na čom ste, ešte pred rokom 2027.</h2>
+  <div class="after"><a class="btn" href="https://tally.so/r/o9eNdX?ref=site-footer"><span class="dot" aria-hidden="true"></span>Získať bezplatnú kontrolu</a></div>
+  <div class="fb"><span>PelletPlan EU · prevádzkuje Štefan Toporcer</span><a href="https://projektargo.com/">Projekt Argo</a></div>
+ </div>
+</footer>
+<script>/* motor-ref v1: ref z adresy -> Tally, udalost cta_click */(function(){try{var q=new URLSearchParams(location.search).get('ref');q=q?q.replace(/[^a-z0-9_-]/gi,'').slice(0,40):'';document.querySelectorAll('a[href^="https://tally.so/r/"]').forEach(function(a){var u=new URL(a.href),c=u.searchParams.get('ref')||'';if(q){u.searchParams.set('ref',q+'_'+c);a.href=u.toString();}a.addEventListener('click',function(){try{if(window.posthog&&posthog.capture){posthog.capture('cta_click',{form:u.pathname.split('/').pop(),ref:q||'none',cta:c},{transport:'sendBeacon'});}}catch(e){}});});}catch(e){}})();</script>
+<script src="/argo-nav.js" defer></script>
+</body>
+</html>
