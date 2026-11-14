@@ -170,8 +170,7 @@ function show(n){liz.textContent=new Array(Math.min(n,40)+1).join('\ud83e\udd8e'
 function finish(){show(N);lines.forEach(function(l){l.style.visibility='visible'});run.textContent='Run';run.disabled=false;busy=false}
 function start(){if(busy)return;busy=true;run.textContent='Running…';run.disabled=true;lines.forEach(function(l){l.style.visibility='hidden'});show(0);
 if(still){finish();return}
-var t0=null,D=1500;function step(t){if(t0===null)t0=t;var p=Math.min((t-t0)/D,1),n=Math.round(N*p*p);show(n);if(p<1){requestAnimationFrame(step)}else{var i=0;(function next(){if(i<lines.length){lines[i++].style.visibility='visible';setTimeout(next,220)}else{finish()}})()}}
-setTimeout(function(){requestAnimationFrame(step)},350)}
+var D=1500;setTimeout(function(){var t0=Date.now(),iv=setInterval(function(){var p=Math.min((Date.now()-t0)/D,1);show(Math.round(N*p*p));if(p>=1){clearInterval(iv);var i=0;(function next(){if(i<lines.length){lines[i++].style.visibility='visible';setTimeout(next,220)}else{finish()}})()}},33)},350)}
 run.addEventListener('click',start);
 lines.forEach(function(l){l.style.visibility='hidden'});
 if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){if(es[0].isIntersecting){io.disconnect();start()}},{threshold:0.4});io.observe(document.getElementById('sandbox'))}else{start()}
