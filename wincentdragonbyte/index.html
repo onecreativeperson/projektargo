@@ -209,6 +209,15 @@ footer{border-top:1px solid var(--line);padding:28px 0 44px;font-size:14px;line-
 .kv-vw{position:absolute;inset:0;overflow:hidden;opacity:0;transition:opacity .5s ease}
 .kv-vw video{position:absolute;left:-16.2%;top:-1.2%;width:133%;height:auto;display:block}
 .kv.play .kv-vw{opacity:1;transition:opacity .3s ease}
+/* while the film plays the copy steps aside and the left fade of the stage slides away, so the whole dragon is visible; only the main button stays. Both come back when the film ends */
+@media (min-width:721px){
+.kv{-webkit-mask-image:linear-gradient(90deg,transparent 0,rgba(0,0,0,.04) 10.5%,#000 18.5%,#000 100%),linear-gradient(90deg,transparent 0,#000 9%,#000 92%,transparent 100%),linear-gradient(180deg,transparent 0,#000 14%,#000 80%,transparent 100%);mask-image:linear-gradient(90deg,transparent 0,rgba(0,0,0,.04) 10.5%,#000 18.5%,#000 100%),linear-gradient(90deg,transparent 0,#000 9%,#000 92%,transparent 100%),linear-gradient(180deg,transparent 0,#000 14%,#000 80%,transparent 100%);-webkit-mask-size:200% 100%,100% 100%,100% 100%;mask-size:200% 100%,100% 100%,100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-position:0 0,0 0,0 0;mask-position:0 0,0 0,0 0;transition:-webkit-mask-position 1.2s cubic-bezier(.2,.7,.2,1),mask-position 1.2s cubic-bezier(.2,.7,.2,1)}
+.hero.film .kv{-webkit-mask-position:40% 0,0 0,0 0;mask-position:40% 0,0 0,0 0;transition-duration:.7s}
+.b-copy .chip,.b-copy h1,.b-copy .lead,.b-copy .link{transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1),visibility 0s}
+.b-copy h1{transition-delay:.1s}.b-copy .lead{transition-delay:.2s}.b-copy .link{transition-delay:.3s}
+.hero.film .b-copy .chip,.hero.film .b-copy h1,.hero.film .b-copy .lead,.hero.film .b-copy .link{opacity:0;transform:translateY(10px);transition:opacity .45s ease,transform .45s ease,visibility 0s .45s}
+.hero.film .b-copy .link{visibility:hidden}
+}
 @media (max-width:1060px){.b-stage{min-height:460px}.kv{top:-60px;right:-14vw;width:96vw}}
 @media (max-width:720px){.b-stage{min-height:0}.kv{position:relative;top:auto;right:auto;width:140%;margin:-6px 0 -22px -27%}.kv{-webkit-mask-image:linear-gradient(90deg,transparent 0,rgba(0,0,0,.08) 19%,#000 27%,#000 92%,transparent 100%),linear-gradient(180deg,transparent 0,#000 14%,#000 80%,transparent 100%);mask-image:linear-gradient(90deg,transparent 0,rgba(0,0,0,.08) 19%,#000 27%,#000 92%,transparent 100%),linear-gradient(180deg,transparent 0,#000 14%,#000 80%,transparent 100%)}}
 @media (prefers-reduced-motion:reduce){.kv img,.kv i{transition:none}}
@@ -398,7 +407,7 @@ function tick(now){var dt=Math.min((now-last)/1000,0.05);last=now;fctx.clearRect
  for(var i=parts.length-1;i>=0;i--){var p=parts[i];p.t+=dt;if(p.t>=p.life){parts.splice(i,1);continue}p.vx*=(1-1.1*dt);p.vy=p.vy*(1-1.1*dt)+60*dt;p.x+=p.vx*dt;p.y+=p.vy*dt;
   var k=p.t/p.life;fctx.globalAlpha=(k<0.12?k/0.12:(1-k))*0.8;fctx.fillStyle=p.c;fctx.font='500 '+p.s.toFixed(0)+'px "IBM Plex Mono",monospace';fctx.fillText(p.g,p.x,p.y)}
  fctx.globalAlpha=1;if(parts.length){raf=requestAnimationFrame(tick)}else{raf=0;fctx.clearRect(0,0,fx.width,fx.height)}}
-function finish(){liz.textContent=new Array(25).join('🦎');cnt.textContent=N+' / '+N;cnt.style.color='#fff';chart(1,1);lines.forEach(function(l){l.style.visibility='visible'});run.textContent='Run';run.disabled=false;busy=false;state('')}
+function finish(){liz.textContent=new Array(25).join('🦎');cnt.textContent=N+' / '+N;cnt.style.color='#fff';chart(1,1);lines.forEach(function(l){l.style.visibility='visible'});run.textContent='Run';run.disabled=false;busy=false;state('');hero.classList.remove('film')}
 /* the crash: RecursionError. Chart drops, the dragon roars, the terminal prints */
 function crash(cls){state('roar'+(cls||''));cnt.style.color='#fff';var k=0,li=0,rv=setInterval(function(){k++;
   if(k<=7){breathe(k===2||k===3||k===4?46:24)}chart(1,Math.min(k/4,1));
@@ -408,12 +417,12 @@ function crash(cls){state('roar'+(cls||''));cnt.style.color='#fff';var k=0,li=0,
 function runStill(){var D=1900;setTimeout(function(){state('charge');var t0=Date.now(),iv=setInterval(function(){var p=Math.min((Date.now()-t0)/D,1);show(Math.round(N*p*p));
   if(p>=1){clearInterval(iv);crash('')}},33)},300)}
 /* with video: the page follows the film. T is film time; if the film stalls, the clock carries on */
-function runVideo(){var T=0,wall=Date.now(),adv=wall,crashed=false;state('charge play');
+function runVideo(){var T=0,wall=Date.now(),adv=wall,crashed=false;state('charge play');hero.classList.add('film');
  var iv=setInterval(function(){var now=Date.now(),vt=vid.currentTime||0;
   if(vt>T+0.001){T=vt;adv=now}else if(now-adv>600){T+=(now-wall)/1000}wall=now;
   if(!crashed){var p=Math.max(0,Math.min((T-0.2)/(CRASH-0.2),1));show(Math.round(N*p*p));if(T>0.15){breathe(2,0.55)}
    if(T>=CRASH){crashed=true;crash(' play')}}
-  else if(T>=FADE){clearInterval(iv);kv.classList.remove('play')}},40)}
+  else if(T>=FADE){clearInterval(iv);kv.classList.remove('play');hero.classList.remove('film')}},40)}
 function start(){if(busy)return;busy=true;run.textContent='Running…';run.disabled=true;lines.forEach(function(l){l.style.visibility='hidden'});show(0);cnt.style.color='';cnt.textContent='0 / '+N;
  if(still){finish();return}
  if(vFail||!vid.getAttribute('src')){runStill();return}
