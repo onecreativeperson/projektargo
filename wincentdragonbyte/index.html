@@ -163,6 +163,10 @@ footer{border-top:1px solid var(--line);padding:28px 0 44px;font-size:14px;line-
 .kv.roar img{filter:brightness(1.2) saturate(1.14);transition:filter .22s ease-out}
 .kv.roar .kv-glow{opacity:.9;transition:opacity .22s}
 .kv.roar .kv-dim{opacity:.1;transition:opacity .3s ease-out}
+.kv-vw{position:absolute;inset:0;overflow:hidden;opacity:0;transition:opacity .5s ease}
+.kv-vw video{position:absolute;left:-16.2%;top:-1.2%;width:133%;height:auto;display:block}
+.kv.play .kv-vw{opacity:1;transition:opacity .3s ease}
+.kv.play .kv-dim{opacity:1}
 @media (max-width:1060px){.b-stage{min-height:460px}.kv{top:-60px;right:-14vw;width:96vw}}
 @media (max-width:720px){.b-stage{min-height:0}.kv{position:relative;top:auto;right:auto;width:140%;margin:-6px 0 -22px -27%}.kv-dim{background:linear-gradient(90deg,rgba(13,10,34,.95) 0,rgba(13,10,34,.9) 19%,rgba(13,10,34,0) 27%)}}
 @media (prefers-reduced-motion:reduce){.kv img,.kv i{transition:none}}
@@ -197,7 +201,7 @@ footer{border-top:1px solid var(--line);padding:28px 0 44px;font-size:14px;line-
 <p class="lead">An algorithmic arena for engineers who enjoy hard problems, tight constraints and fast feedback.</p>
 <div class="cta"><a class="cut" href="#sandbox">Enter the arena ↓</a><a class="link mono" href="https://www.wincentdragonbyte.com/rules" target="_blank" rel="noopener">Read the rules →</a></div>
 </div>
-<div class="b-stage"><div class="kv" id="kv"><img width="1800" height="1304" src="assets/kv.webp" alt="Byte, the DragonByte mascot: a carbon-plated dragon with magenta wings in a server room, one claw on eight memory blocks marked 1101 1011, breathing a stream of code"><i class="kv-glow"></i><i class="kv-dim"></i><i class="kv-edge"></i></div></div>
+<div class="b-stage"><div class="kv" id="kv"><img width="1800" height="1304" src="assets/kv.webp" alt="Byte, the DragonByte mascot: a carbon-plated dragon with magenta wings in a server room, one claw on eight memory blocks marked 1101 1011, breathing a stream of code"><div class="kv-vw"><video id="kv-v" muted playsinline preload="none" tabindex="-1" aria-hidden="true" disablepictureinpicture></video></div><i class="kv-glow"></i><i class="kv-dim"></i><i class="kv-edge"></i></div></div>
 <aside class="b-side" aria-label="Key facts">
 <div class="glass card"><span class="mono lab">Prize pool</span><div class="fig" style="width:calc(3.8952 * clamp(26px, 2.5vw, 36px));max-width:100%"><svg role="img" aria-label="€17,500" viewBox="0 0 3895 1040" style="display:block;width:100%;height:auto;overflow:visible"><path fill="#FFFFFF" d="M40 462H118Q116.5 442.8 116.5 422.5Q116.5 402.5 118 383.5H40V331.8H124.5Q136.5 267.5 164.6 215.5Q192.8 163.5 234.5 126.8Q276.2 90 330.1 70Q384 50 447 50Q509.5 50 561.9 69.6Q614.2 89.2 654.6 126.1Q695 163 722.1 215.6Q749.2 268.2 761 334.2H684Q673.8 283.5 653.2 243.9Q632.8 204.2 602.8 177.1Q572.8 150 533.8 135.9Q494.8 121.8 447.2 121.8Q399.2 121.8 358.8 136.1Q318.2 150.5 287 177.6Q255.8 204.8 234.1 243.6Q212.5 282.5 202.2 331.8H433.5V383.5H195Q193.5 402.5 193.5 422.5Q193.5 442.8 195 462H433.5V513.8H202.5Q212.8 562.8 234.4 601.6Q256 640.5 287.2 667.5Q318.5 694.5 358.9 708.9Q399.2 723.2 447.2 723.2Q494.8 723.2 533.8 709.1Q572.8 695 602.8 667.9Q632.8 640.8 653.2 601.1Q673.8 561.5 684 510.8H761Q749.2 576.8 722.1 629.4Q695 682 654.6 718.9Q614.2 755.8 561.9 775.4Q509.5 795 447 795Q384 795 330.1 775.1Q276.2 755.2 234.6 718.5Q193 681.8 164.9 629.8Q136.8 577.8 124.8 513.8H40Z M1060.2 708.2H1194V780H849.2V708.2H983.2V252.8H819.8V186H885Q905.8 186 921.6 183.8Q937.5 181.5 949.1 175.8Q960.8 170 968.5 160.2Q976.2 150.5 981 135.4Q985.8 120.2 987.8 99.1Q989.8 78 989.8 49.8H1060.2Z M1377 780Q1381.2 715.5 1390.6 656.6Q1400 597.8 1415.4 542.9Q1430.8 488 1452.6 436.4Q1474.5 384.8 1504 334.6Q1533.5 284.5 1571.1 235.5Q1608.8 186.5 1655.2 136.8H1209.5V65H1735.5V140Q1690 186.8 1653.4 232.4Q1616.8 278 1587.9 325Q1559 372 1537.5 422Q1516 472 1500.8 527.5Q1485.5 583 1475.9 645.5Q1466.2 708 1461 780Z M1736.8 969.5H1673.5L1709.8 660H1809.8Z M2465.8 540.8Q2465.8 578.2 2456 611.6Q2446.2 645 2428.1 673.2Q2410 701.5 2384.1 724Q2358.2 746.5 2325.8 762.2Q2293.2 778 2254.8 786.4Q2216.2 794.8 2173 794.8Q2132.8 794.8 2095.9 787.5Q2059 780.2 2027.2 766.9Q1995.5 753.5 1969.8 734.6Q1944 715.8 1925.8 692.5Q1907.5 669.2 1897.5 642.4Q1887.5 615.5 1887.5 586V580.5H1964.5V584.8Q1964.5 603.5 1972 621Q1979.5 638.5 1993.1 653.8Q2006.8 669 2025.9 681.5Q2045 694 2068.2 703Q2091.5 712 2118.1 716.9Q2144.8 721.8 2173.5 721.8Q2220.8 721.8 2260.2 708.4Q2299.8 695 2328.4 671Q2357 647 2372.9 613.6Q2388.8 580.2 2388.8 540.5Q2388.8 501.8 2373 471.9Q2357.2 442 2329.1 421.6Q2301 401.2 2262.2 390.8Q2223.5 380.2 2177.5 380.2Q2139.2 380.2 2104.6 387.6Q2070 395 2042.9 407.9Q2015.8 420.8 1998.1 438.2Q1980.5 455.8 1976.2 476H1899.2V65H2418.5V136.8H1976.2V427.8Q1987.2 403.5 2009.4 383.6Q2031.5 363.8 2061.9 349.5Q2092.2 335.2 2129.4 327.4Q2166.5 319.5 2207.8 319.5Q2263.5 319.5 2310.8 334.2Q2358 349 2392.5 377.4Q2427 405.8 2446.4 446.9Q2465.8 488 2465.8 540.8Z M2533.8 422.5Q2533.8 367 2544 317.9Q2554.2 268.8 2573.5 227.4Q2592.8 186 2620.5 153.1Q2648.2 120.2 2683 97.4Q2717.8 74.5 2759.1 62.2Q2800.5 50 2847 50Q2893.8 50 2935 62.2Q2976.2 74.5 3011.1 97.4Q3046 120.2 3073.6 153.1Q3101.2 186 3120.6 227.4Q3140 268.8 3150.2 317.9Q3160.5 367 3160.5 422.5Q3160.5 477.8 3150.2 527Q3140 576.2 3120.8 617.6Q3101.5 659 3073.8 691.9Q3046 724.8 3011.1 747.6Q2976.2 770.5 2934.9 782.8Q2893.5 795 2847 795Q2800.5 795 2759.1 782.8Q2717.8 770.5 2683 747.6Q2648.2 724.8 2620.5 691.9Q2592.8 659 2573.5 617.6Q2554.2 576.2 2544 527Q2533.8 477.8 2533.8 422.5ZM2610.8 422.5Q2610.8 491.8 2627.2 547.4Q2643.8 603 2674.5 642.1Q2705.2 681.2 2749 702.2Q2792.8 723.2 2847 723.2Q2901.5 723.2 2945.2 702.2Q2989 681.2 3019.8 642.1Q3050.5 603 3067 547.4Q3083.5 491.8 3083.5 422.5Q3083.5 353.2 3067 297.6Q3050.5 242 3019.8 202.9Q2989 163.8 2945.2 142.8Q2901.5 121.8 2847 121.8Q2792.8 121.8 2749 142.8Q2705.2 163.8 2674.5 202.9Q2643.8 242 2627.2 297.6Q2610.8 353.2 2610.8 422.5Z M3228.5 422.5Q3228.5 367 3238.8 317.9Q3249 268.8 3268.2 227.4Q3287.5 186 3315.2 153.1Q3343 120.2 3377.8 97.4Q3412.5 74.5 3453.9 62.2Q3495.2 50 3541.8 50Q3588.5 50 3629.8 62.2Q3671 74.5 3705.9 97.4Q3740.8 120.2 3768.4 153.1Q3796 186 3815.4 227.4Q3834.8 268.8 3845 317.9Q3855.2 367 3855.2 422.5Q3855.2 477.8 3845 527Q3834.8 576.2 3815.5 617.6Q3796.2 659 3768.5 691.9Q3740.8 724.8 3705.9 747.6Q3671 770.5 3629.6 782.8Q3588.2 795 3541.8 795Q3495.2 795 3453.9 782.8Q3412.5 770.5 3377.8 747.6Q3343 724.8 3315.2 691.9Q3287.5 659 3268.2 617.6Q3249 576.2 3238.8 527Q3228.5 477.8 3228.5 422.5ZM3305.5 422.5Q3305.5 491.8 3322 547.4Q3338.5 603 3369.2 642.1Q3400 681.2 3443.8 702.2Q3487.5 723.2 3541.8 723.2Q3596.2 723.2 3640 702.2Q3683.8 681.2 3714.5 642.1Q3745.2 603 3761.8 547.4Q3778.2 491.8 3778.2 422.5Q3778.2 353.2 3761.8 297.6Q3745.2 242 3714.5 202.9Q3683.8 163.8 3640 142.8Q3596.2 121.8 3541.8 121.8Q3487.5 121.8 3443.8 142.8Q3400 163.8 3369.2 202.9Q3338.5 242 3322 297.6Q3305.5 353.2 3305.5 422.5Z"/></svg></div>
 <dl class="rows"><div><dt>Champion</dt><dd>€10,000</dd></div><div><dt>Runner-up</dt><dd>€5,000</dd></div><div><dt>Third place</dt><dd>€2,500</dd></div></dl></div>
@@ -258,7 +262,7 @@ footer{border-top:1px solid var(--line);padding:28px 0 44px;font-size:14px;line-
 <div class="vgrid">
 <article class="vcard" style="border-color:#8B006047"><span class="num" style="color:#8B0060">01</span><h3>A hoard of one byte</h3><p>Byte rests a claw on eight memory blocks: eight bits, one byte. They read 1101 1011, which is 0xDB in hex, the initials of DragonByte. The name of the challenge is shown literally.</p></article>
 <article class="vcard" style="border-color:#E0275347"><span class="num" style="color:#E02753">02</span><h3>The glow comes from inside</h3><p>The brand manual describes the Talent stream as deep burgundy with an accent that erupts as pressure from within. Byte is built that way: dark carbon plates outside, Vivid Red light in the seams, magenta in the wings.</p></article>
-<article class="vcard" style="border-color:#3054AD47"><span class="num" style="color:#3054AD">03</span><h3>Run the code, wake the dragon</h3><p>Pressing Run plays the program. The scene powers up as recursion depth climbs, the stack-depth chart rises and crashes at the recursion limit, and the dragon breathes the code back across the page.</p></article>
+<article class="vcard" style="border-color:#3054AD47"><span class="num" style="color:#3054AD">03</span><h3>Run the code, wake the dragon</h3><p>Pressing Run plays the program. Byte breathes code as recursion depth climbs, then swings its tail round and bites it at the recursion limit. The stack-depth chart crashes at the same moment, so the error message is shown before it is printed.</p></article>
 <article class="vcard" style="border-color:#21409447"><span class="num" style="color:#214094">04</span><h3>A joke only engineers get</h3><p>The snippet is valid Python. It catches its own RecursionError, reports a complexity of O(🐉) and points to Wincent careers for anyone who wants O(1). It speaks to the audience in its own language.</p></article>
 </div>
 <div class="joke">
@@ -270,10 +274,10 @@ footer{border-top:1px solid var(--line);padding:28px 0 44px;font-size:14px;line-
 <div><dt>The recruiting punchline</dt><dd>“Want O(1)? wincent.com/careers” turns the crash into a call to action: if you would rather write efficient code than crashing dragons, join the team.</dd></div>
 </dl>
 </div>
-<figure class="process"><img width="1600" height="1120" loading="lazy" src="assets/sketch.webp" alt="Concept sketch of the dragon with numbered notes on head, breath, the byte, scales, wings and tail"><figcaption><span class="mono">From sketch to render</span>Pose, the byte and the lighting were fixed first in a 3D block-out sketch. The final image was rendered from that sketch with generative AI and colour-graded to the Talent palette.</figcaption></figure>
+<figure class="process"><img width="1600" height="1120" loading="lazy" src="assets/sketch.webp" alt="Concept sketch of the dragon with numbered notes on head, breath, the byte, scales, wings and tail"><figcaption><span class="mono">From sketch to render</span>Pose, the byte and the lighting were fixed first in a 3D block-out sketch. The final image and the Run animation were rendered from that sketch with generative AI and colour-graded to the Talent palette.</figcaption></figure>
 <div class="build">
 <div><h3 class="mono">Talent stream palette</h3><ul class="sw"><li><span style="background:#011838"></span>Deep Navy<code>#011838</code></li><li><span style="background:#510048"></span>Dark Purple<code>#510048</code></li><li><span style="background:#8B0060"></span>Magenta<code>#8B0060</code></li><li><span style="background:#E02753"></span>Vivid Red<code>#E02753</code></li><li><span style="background:#699DED"></span>Blue Light<code>#699DED</code></li></ul></div>
-<div><h3 class="mono">Build</h3><dl class="spec"><dt>Headlines</dt><dd>Nohemi Light and Bold</dd><dt>Text</dt><dd>IBM Plex Sans</dd><dt>Labels and code</dt><dd>IBM Plex Mono</dd><dt>Mascot</dt><dd>3D block-out sketch, AI render, graded to palette</dd><dt>Logo</dt><dd>Wincent horizontal, white</dd></dl></div>
+<div><h3 class="mono">Build</h3><dl class="spec"><dt>Headlines</dt><dd>Nohemi Light and Bold</dd><dt>Text</dt><dd>IBM Plex Sans</dd><dt>Labels and code</dt><dd>IBM Plex Mono</dd><dt>Mascot</dt><dd>3D block-out sketch, AI render and motion, graded to palette</dd><dt>Logo</dt><dd>Wincent horizontal, white</dd></dl></div>
 </div>
 </div></section>
 
@@ -297,6 +301,7 @@ footer{border-top:1px solid var(--line);padding:28px 0 44px;font-size:14px;line-
 var $=function(id){return document.getElementById(id)},code=$('dl-code'),copy=$('dl-copy'),run=$('dl-run'),liz=$('dl-liz'),cnt=$('dl-count'),
  lines=[].slice.call(document.querySelectorAll('.dl-line')),kv=$('kv'),kvImg=kv.querySelector('img'),hero=$('hero'),fx=$('fx'),fctx=fx.getContext('2d'),
  chLine=$('ch-line'),chArea=$('ch-area'),chCrash=$('ch-crash'),
+ vid=$('kv-v'),vFail=false,CRASH=6.75,FADE=7.05,
  N=998,busy=false,parts=[],raf=0,last=0,
  still=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 function state(c){kv.className='kv'+(c?' '+c:'')}
@@ -309,9 +314,9 @@ function chart(p,crash){var d='',steps=Math.max(1,Math.round(p*44));for(var i=0;
 function show(n){liz.textContent=new Array(Math.min(n,24)+1).join('🦎');cnt.textContent=n+' / '+N;chart(Math.sqrt(n/N),0)}
 /* the dragon breathes code: glyphs fly out of its mouth across the whole hero */
 var GLY=['def','return','try','except','depth+1','0','1','0','1','0','1','{','}','(',')','[ ]','0xDB','🦎','O(1)','if','for','print','byte'],COL=['#F0A8C8','#F0A8C8','#E02753','#9DBCEE','#FFFFFF'];
-function sizeFx(){var r=hero.getBoundingClientRect(),dpr=Math.min(window.devicePixelRatio||1,2);fx.width=Math.round(r.width*dpr);fx.height=Math.round(r.height*dpr);fctx.setTransform(dpr,0,0,dpr,0,0)}
-function breathe(n){if(still)return;sizeFx();var h=hero.getBoundingClientRect(),s=kv.getBoundingClientRect(),ox=s.left-h.left+s.width*0.345,oy=s.top-h.top+s.height*0.445,big=h.width>760;
- for(var i=0;i<n;i++){var a=Math.PI+(Math.random()-0.45)*1.7,v=(big?260:150)+Math.random()*(big?900:420);
+function sizeFx(){var r=hero.getBoundingClientRect(),dpr=Math.min(window.devicePixelRatio||1,2),w=Math.round(r.width*dpr),h=Math.round(r.height*dpr);if(fx.width!==w||fx.height!==h){fx.width=w;fx.height=h}fctx.setTransform(dpr,0,0,dpr,0,0)}
+function breathe(n,sp){if(still)return;sizeFx();var h=hero.getBoundingClientRect(),s=kv.getBoundingClientRect(),ox=s.left-h.left+s.width*0.345,oy=s.top-h.top+s.height*0.445,big=h.width>760;
+ for(var i=0;i<n;i++){var a=Math.PI+(Math.random()-0.45)*(sp||1.7),v=(big?260:150)+Math.random()*(big?900:420);
   parts.push({x:ox+(Math.random()-0.5)*18,y:oy+(Math.random()-0.5)*22,vx:Math.cos(a)*v,vy:Math.sin(a)*v*0.75,t:0,life:0.9+Math.random()*1.3,g:GLY[(Math.random()*GLY.length)|0],c:COL[(Math.random()*COL.length)|0],s:(big?10:9)+Math.random()*(big?8:6)})}
  if(!raf){last=performance.now();raf=requestAnimationFrame(tick)}}
 function tick(now){var dt=Math.min((now-last)/1000,0.05);last=now;fctx.clearRect(0,0,fx.width,fx.height);fctx.textBaseline='middle';
@@ -319,16 +324,36 @@ function tick(now){var dt=Math.min((now-last)/1000,0.05);last=now;fctx.clearRect
   var k=p.t/p.life;fctx.globalAlpha=(k<0.12?k/0.12:(1-k))*0.8;fctx.fillStyle=p.c;fctx.font='500 '+p.s.toFixed(0)+'px "IBM Plex Mono",monospace';fctx.fillText(p.g,p.x,p.y)}
  fctx.globalAlpha=1;if(parts.length){raf=requestAnimationFrame(tick)}else{raf=0;fctx.clearRect(0,0,fx.width,fx.height)}}
 function finish(){liz.textContent=new Array(25).join('🦎');cnt.textContent=N+' / '+N;cnt.style.color='#FF6B8E';chart(1,1);lines.forEach(function(l){l.style.visibility='visible'});run.textContent='Run';run.disabled=false;busy=false;state('')}
+/* the crash: RecursionError. Chart drops, the dragon roars, the terminal prints */
+function crash(cls){state('roar'+(cls||''));cnt.style.color='#FF6B8E';var k=0,li=0,rv=setInterval(function(){k++;
+  if(k<=7){breathe(k===2||k===3||k===4?46:24)}chart(1,Math.min(k/4,1));
+  if(li<lines.length&&k%3===1){lines[li++].style.visibility='visible'}
+  if(k>=15){clearInterval(rv);while(li<lines.length){lines[li++].style.visibility='visible'}finish()}},95)}
+/* fallback without video: the still image powers up */
+function runStill(){var D=1900;setTimeout(function(){state('charge');var t0=Date.now(),iv=setInterval(function(){var p=Math.min((Date.now()-t0)/D,1);show(Math.round(N*p*p));
+  if(p>=1){clearInterval(iv);crash('')}},33)},300)}
+/* with video: the page follows the film. T is film time; if the film stalls, the clock carries on */
+function runVideo(){var T=0,wall=Date.now(),adv=wall,crashed=false;state('charge play');
+ var iv=setInterval(function(){var now=Date.now(),vt=vid.currentTime||0;
+  if(vt>T+0.001){T=vt;adv=now}else if(now-adv>600){T+=(now-wall)/1000}wall=now;
+  if(!crashed){var p=Math.max(0,Math.min((T-0.2)/(CRASH-0.2),1));show(Math.round(N*p*p));if(T>0.15){breathe(2,0.55)}
+   if(T>=CRASH){crashed=true;crash(' play')}}
+  else if(T>=FADE){clearInterval(iv);kv.classList.remove('play')}},40)}
 function start(){if(busy)return;busy=true;run.textContent='Running…';run.disabled=true;lines.forEach(function(l){l.style.visibility='hidden'});show(0);cnt.style.color='';cnt.textContent='0 / '+N;
  if(still){finish();return}
- var D=1900;setTimeout(function(){state('charge');var t0=Date.now(),iv=setInterval(function(){var p=Math.min((Date.now()-t0)/D,1);show(Math.round(N*p*p));
-  if(p>=1){clearInterval(iv);state('roar');cnt.style.color='#FF6B8E';var k=0,li=0,rv=setInterval(function(){k++;
-    if(k<=7){breathe(k===2||k===3||k===4?46:24)}chart(1,Math.min(k/4,1));
-    if(li<lines.length&&k%3===1){lines[li++].style.visibility='visible'}
-    if(k>=15){clearInterval(rv);while(li<lines.length){lines[li++].style.visibility='visible'}finish()}},95)}},33)},300)}
+ if(vFail||!vid.getAttribute('src')){runStill();return}
+ var on=false,guard=setTimeout(function(){if(!on){on=true;vFail=vid.readyState<2;try{vid.pause()}catch(e){}runStill()}},1200);
+ function go(){if(on)return;on=true;clearTimeout(guard);vid.removeEventListener('playing',go);runVideo()}
+ vid.addEventListener('playing',go);
+ try{vid.currentTime=0}catch(e){}
+ var pr;try{pr=vid.play()}catch(e){pr=null}
+ if(pr&&pr.catch){pr.catch(function(){if(!on){on=true;clearTimeout(guard);vid.removeEventListener('playing',go);runStill()}})}}
+/* load the film up front; small file for small screens */
+if(!still&&!(navigator.connection&&navigator.connection.saveData)&&vid.canPlayType&&vid.canPlayType('video/mp4; codecs="avc1.640028"')){
+ vid.muted=true;vid.addEventListener('error',function(){vFail=true});vid.preload='auto';vid.src=window.innerWidth<=720?'assets/byte-run-m.mp4':'assets/byte-run.mp4';vid.load()}
 run.addEventListener('click',start);
 lines.forEach(function(l){l.style.visibility='hidden'});chart(0,0);
-if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){if(es[0].isIntersecting){io.disconnect();var w=0,t=setInterval(function(){w+=100;if(kvImg.complete||still||w>=2500){clearInterval(t);start()}},100)}},{threshold:0.3});io.observe(kv)}
+if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){if(es[0].isIntersecting){io.disconnect();var w=0,t=setInterval(function(){w+=100;if(still||w>=3500||(kvImg.complete&&(vFail||!vid.getAttribute('src')||vid.readyState>=3))){clearInterval(t);start()}},100)}},{threshold:0.3});io.observe(kv)}
 })();
 </script>
 </body>
