@@ -89,6 +89,13 @@ a:focus-visible,button:focus-visible{outline:2px solid #9DBCEE;outline-offset:3p
 .vcard .num{font-family:var(--mono);font-weight:500;font-size:12px;letter-spacing:.14em}
 .vcard h3{margin:14px 0 10px;font-family:var(--sans);font-weight:700;font-size:20px;line-height:1.25}
 .vcard p{margin:0;font-size:16px;line-height:26px;color:rgba(1,24,56,.78)}
+.joke{margin-top:16px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:0 48px;background:rgba(255,255,255,.72);border:1px solid rgba(1,24,56,.14);border-radius:3px;padding:32px}
+.joke h3{margin:0 0 12px;color:#8B0060}
+.joke p,.joke dd{margin:0;font-size:16px;line-height:26px;color:rgba(1,24,56,.78)}
+.joke dl{margin:0;display:grid;gap:18px}
+.joke dl>div+div{border-top:1px solid rgba(1,24,56,.12);padding-top:18px}
+.joke dt{margin:0 0 4px;font-weight:700;font-size:16px;line-height:24px}
+.joke code{font-size:14px;color:#011838}
 .process{margin:16px 0 0;display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:0;background:rgba(255,255,255,.72);border:1px solid rgba(1,24,56,.14);border-radius:3px;overflow:hidden}
 .process img{display:block;width:100%;height:auto}
 .process figcaption{padding:32px;font-size:16px;line-height:26px;color:rgba(1,24,56,.78);align-self:center}
@@ -108,7 +115,7 @@ footer{border-top:1px solid var(--line);padding:28px 0 44px;font-size:14px;line-
  .hero .pat{width:120%;opacity:.3}
  .nav ul{gap:0 20px}
  .sb-body{grid-template-columns:1fr}.sb-out{border-left:0;border-top:1px solid var(--line)}
- .vgrid,.build,.process{grid-template-columns:1fr}
+ .vgrid,.build,.process,.joke{grid-template-columns:1fr}.joke{gap:24px}
  .stats{gap:18px 32px}
 }
 
@@ -253,6 +260,15 @@ footer{border-top:1px solid var(--line);padding:28px 0 44px;font-size:14px;line-
 <article class="vcard" style="border-color:#E0275347"><span class="num" style="color:#E02753">02</span><h3>The glow comes from inside</h3><p>The brand manual describes the Talent stream as deep burgundy with an accent that erupts as pressure from within. Byte is built that way: dark carbon plates outside, Vivid Red light in the seams, magenta in the wings.</p></article>
 <article class="vcard" style="border-color:#3054AD47"><span class="num" style="color:#3054AD">03</span><h3>Run the code, wake the dragon</h3><p>Pressing Run plays the program. The scene powers up as recursion depth climbs, the stack-depth chart rises and crashes at the recursion limit, and the dragon breathes the code back across the page.</p></article>
 <article class="vcard" style="border-color:#21409447"><span class="num" style="color:#214094">04</span><h3>A joke only engineers get</h3><p>The snippet is valid Python. It catches its own RecursionError, reports a complexity of O(🐉) and points to Wincent careers for anyone who wants O(1). It speaks to the audience in its own language.</p></article>
+</div>
+<div class="joke">
+<div><h3 class="mono">The joke, explained</h3><p>A classic programmer joke built on runaway recursion and a stack overflow. Software engineers, developers and computer science students get it at a glance. That is the technical talent Wincent wants to reach.</p></div>
+<dl>
+<div><dt>Recursion with no way out</dt><dd><code>dragon_logic()</code> calls itself and adds one 🦎 per call. Nothing tells it to stop, so it only goes deeper.</dd></div>
+<div><dt>The dragon bites its own tail</dt><dd>Python limits how deep calls can nest. The chart shows the stack climbing to 998 and crashing, and the interpreter raises <code>RecursionError</code>. The error message is the ouroboros, the mythical serpent that eats its own tail: a function consumed by itself.</dd></div>
+<div><dt>O(🐉) versus O(1)</dt><dd>Big O notation describes how the cost of an algorithm grows. O(🐉) is deliberate nonsense for code that scales terribly. O(1) is constant time, the ideal.</dd></div>
+<div><dt>The recruiting punchline</dt><dd>“Want O(1)? wincent.com/careers” turns the crash into a call to action: if you would rather write efficient code than crashing dragons, join the team.</dd></div>
+</dl>
 </div>
 <figure class="process"><img width="1600" height="1120" loading="lazy" src="assets/sketch.webp" alt="Concept sketch of the dragon with numbered notes on head, breath, the byte, scales, wings and tail"><figcaption><span class="mono">From sketch to render</span>Pose, the byte and the lighting were fixed first in a 3D block-out sketch. The final image was rendered from that sketch with generative AI and colour-graded to the Talent palette.</figcaption></figure>
 <div class="build">
