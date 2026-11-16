@@ -263,6 +263,23 @@ footer{border-top:1px solid var(--line);padding:28px 0 44px;font-size:14px;line-
 .dbm ul a[aria-current]{background:rgba(255,255,255,.1);color:#fff}
 .dbm .cut{align-self:flex-start}
 @media (prefers-reduced-motion:reduce){.dbm,.dbm-scrim,.dbm-panel{transition:none}}
+
+/* the film is shown whole: the full 16:9 frame, unzoomed, standing on the floor of the stage, with soft edges. The still and the two figure cards step aside while it plays */
+.kv-vw{inset:auto auto 8% 0;width:92%;aspect-ratio:16/9;background:none;-webkit-mask-image:linear-gradient(180deg,transparent 0,#000 14%,#000 86%,transparent 100%),linear-gradient(90deg,transparent 0,transparent 11%,#000 24%,#000 90%,transparent 100%);-webkit-mask-composite:source-in;mask-image:linear-gradient(180deg,transparent 0,#000 14%,#000 86%,transparent 100%),linear-gradient(90deg,transparent 0,transparent 11%,#000 24%,#000 90%,transparent 100%);mask-composite:intersect}
+.kv-vw::before{content:"";position:absolute;left:12.18%;top:1.16%;width:25.56%;height:90.02%;background:url("../assets/kv-plate.webp") 0 0/100% 100% no-repeat}
+.kv-vw video{left:0;top:0;width:100%}
+.kv.play img{opacity:0}
+@media (prefers-reduced-motion:no-preference){
+.kv img{transition:filter 1.4s ease,opacity .5s ease}
+.kv.charge img{transition:filter 1.9s ease-in,opacity .3s ease}
+.kv.roar img{transition:filter .22s ease-out,opacity .3s ease}
+}
+@media (min-width:721px){
+.hero .card:not(.b-out){transition:opacity .9s cubic-bezier(.2,.7,.2,1),visibility 0s}
+.hero.film .card:not(.b-out){opacity:0;visibility:hidden;transition:opacity .45s ease,visibility 0s .45s}
+}
+@media (min-width:721px) and (max-width:1060px){.kv-vw{width:88%}}
+@media (max-width:720px){.kv-vw{left:15.1%;bottom:0;width:79.6%}}
 </style>
 </head>
 <body>
