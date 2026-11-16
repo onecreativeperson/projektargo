@@ -198,7 +198,7 @@ footer{border-top:1px solid var(--line);padding:28px 0 44px;font-size:14px;line-
 /* key visual: the rendered dragon sits behind the console */
 .bento{position:relative}
 .b-stage{min-height:650px;z-index:0}
-.kv{position:absolute;z-index:0;top:-118px;right:max(-154px,-10.7vw);width:min(1220px,85vw);aspect-ratio:1800/1304;pointer-events:none;-webkit-mask-image:linear-gradient(90deg,transparent 0,rgba(0,0,0,.04) 21%,#000 37%,#000 92%,transparent 100%),linear-gradient(180deg,transparent 0,#000 14%,#000 80%,transparent 100%);-webkit-mask-composite:source-in;mask-image:linear-gradient(90deg,transparent 0,rgba(0,0,0,.04) 21%,#000 37%,#000 92%,transparent 100%),linear-gradient(180deg,transparent 0,#000 14%,#000 80%,transparent 100%);mask-composite:intersect}
+.kv{position:absolute;z-index:0;top:-101px;right:max(-154px,-10.7vw);width:min(1220px,85vw);aspect-ratio:1800/1304;pointer-events:none;-webkit-mask-image:linear-gradient(90deg,transparent 0,rgba(0,0,0,.04) 21%,#000 37%,#000 92%,transparent 100%),linear-gradient(180deg,transparent 0,#000 3%,#000 80%,transparent 100%);-webkit-mask-composite:source-in;mask-image:linear-gradient(90deg,transparent 0,rgba(0,0,0,.04) 21%,#000 37%,#000 92%,transparent 100%),linear-gradient(180deg,transparent 0,#000 3%,#000 80%,transparent 100%);mask-composite:intersect}
 .kv img{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:cover;filter:brightness(.84) saturate(.96);transition:filter 1.4s ease}
 .kv i{position:absolute;inset:0;display:block}
 .kv-glow{background:radial-gradient(closest-side at 56% 50%,rgba(224,39,83,.5),rgba(224,39,83,0) 70%);mix-blend-mode:screen;opacity:0;transition:opacity 1.4s ease}
@@ -214,7 +214,7 @@ footer{border-top:1px solid var(--line);padding:28px 0 44px;font-size:14px;line-
 .kv-vw video{-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1280 720' preserveAspectRatio='none'%3E%3Cfilter id='b' filterUnits='userSpaceOnUse' x='-120' y='-120' width='1520' height='960'%3E%3CfeGaussianBlur stdDeviation='10'/%3E%3C/filter%3E%3Cpath filter='url(%23b)' fill-rule='evenodd' d='M-80-80H1360V800H-80ZM-80-80H439V279H395V619H-80Z'/%3E%3C/svg%3E") 0 0/100% 100% no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1280 720' preserveAspectRatio='none'%3E%3Cfilter id='b' filterUnits='userSpaceOnUse' x='-120' y='-120' width='1520' height='960'%3E%3CfeGaussianBlur stdDeviation='10'/%3E%3C/filter%3E%3Cpath filter='url(%23b)' fill-rule='evenodd' d='M-80-80H1360V800H-80ZM-80-80H439V279H395V619H-80Z'/%3E%3C/svg%3E") 0 0/100% 100% no-repeat}
 /* while the film plays the copy steps aside and the left fade of the stage slides away, so the whole dragon is visible; only the main button stays. Both come back when the film ends */
 @media (min-width:721px){
-.kv{-webkit-mask-image:linear-gradient(90deg,transparent 0,rgba(0,0,0,.04) 10.5%,#000 18.5%,#000 100%),linear-gradient(90deg,transparent 0,#000 9%,#000 92%,transparent 100%),linear-gradient(180deg,transparent 0,#000 14%,#000 80%,transparent 100%);mask-image:linear-gradient(90deg,transparent 0,rgba(0,0,0,.04) 10.5%,#000 18.5%,#000 100%),linear-gradient(90deg,transparent 0,#000 9%,#000 92%,transparent 100%),linear-gradient(180deg,transparent 0,#000 14%,#000 80%,transparent 100%);-webkit-mask-size:200% 100%,100% 100%,100% 100%;mask-size:200% 100%,100% 100%,100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-position:0 0,0 0,0 0;mask-position:0 0,0 0,0 0;transition:-webkit-mask-position 1.2s cubic-bezier(.2,.7,.2,1),mask-position 1.2s cubic-bezier(.2,.7,.2,1)}
+.kv{-webkit-mask-image:linear-gradient(90deg,transparent 0,rgba(0,0,0,.04) 10.5%,#000 18.5%,#000 100%),linear-gradient(90deg,transparent 0,#000 9%,#000 92%,transparent 100%),linear-gradient(180deg,transparent 0,#000 3%,#000 80%,transparent 100%);mask-image:linear-gradient(90deg,transparent 0,rgba(0,0,0,.04) 10.5%,#000 18.5%,#000 100%),linear-gradient(90deg,transparent 0,#000 9%,#000 92%,transparent 100%),linear-gradient(180deg,transparent 0,#000 3%,#000 80%,transparent 100%);-webkit-mask-size:200% 100%,100% 100%,100% 100%;mask-size:200% 100%,100% 100%,100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-position:0 0,0 0,0 0;mask-position:0 0,0 0,0 0;transition:-webkit-mask-position 1.2s cubic-bezier(.2,.7,.2,1),mask-position 1.2s cubic-bezier(.2,.7,.2,1)}
 .hero.film .kv{-webkit-mask-position:40% 0,0 0,0 0;mask-position:40% 0,0 0,0 0;transition-duration:.7s}
 .b-copy .chip,.b-copy h1,.b-copy .lead,.b-copy .link{transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1),visibility 0s}
 .b-copy h1{transition-delay:.1s}.b-copy .lead{transition-delay:.2s}.b-copy .link{transition-delay:.3s}
@@ -236,17 +236,43 @@ footer{border-top:1px solid var(--line);padding:28px 0 44px;font-size:14px;line-
  .cut.sm{min-height:44px}.nav.glass>.cut{min-width:96px;padding:0 14px}.nav.glass>.cut::before,.nav.glass>.cut::after{display:none}.sb-actions{width:100%}.sb-actions .cut{flex:1 1 0;min-width:0;padding:0 10px;gap:8px}
 }
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
-@media (min-width:721px){.sb-actions .cut{min-width:158px}}</style>
+@media (min-width:721px){.sb-actions .cut{min-width:158px}}
+/* DragonByte menu: logo and a Menu button on top, the links slide in from the right. The key visual carries its own title, so nothing spans across it */
+.nav.bar{margin-top:18px;min-height:62px;padding:0;display:flex;align-items:center;justify-content:space-between;flex-wrap:nowrap}
+.nav.bar .logo svg{height:22px}
+.menu-btn{display:inline-flex;align-items:center;gap:12px;min-height:44px;padding:0 18px 0 16px;color:#fff;cursor:pointer;font:inherit}
+.menu-btn.mono{font-family:var(--mono);font-weight:500;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase}
+.menu-btn:hover,.menu-btn[aria-expanded=true]{border-color:rgba(255,255,255,.34)}
+.menu-btn:focus-visible,.dbm-x:focus-visible,.dbm ul a:focus-visible{outline:2px solid #699DED;outline-offset:2px}
+.bars{display:grid;gap:4px;width:18px}.bars i{display:block;height:2px;background:#fff}
+.dbm{position:fixed;inset:0;z-index:50;visibility:hidden;transition:visibility 0s .36s}
+.dbm.open{visibility:visible;transition:none}
+.dbm-scrim{position:absolute;inset:0;background:rgba(1,24,56,.6);opacity:0;transition:opacity .3s ease}
+.dbm.open .dbm-scrim{opacity:1}
+.dbm-panel{position:absolute;top:0;right:0;bottom:0;width:min(360px,86vw);display:flex;flex-direction:column;gap:30px;padding:22px 24px 28px;overflow-y:auto;background:#011838;border-left:1px solid var(--line);box-shadow:-24px 0 60px rgba(0,0,0,.45);transform:translateX(100%);transition:transform .36s cubic-bezier(.2,.7,.2,1)}
+.dbm.open .dbm-panel{transform:none}
+.dbm-top{display:flex;align-items:center;justify-content:space-between;min-height:44px}
+.dbm-top svg{height:20px;width:auto;display:block}
+.dbm-x{position:relative;width:44px;height:44px;border:1px solid var(--line);border-radius:3px;background:transparent;cursor:pointer}
+.dbm-x::before,.dbm-x::after{content:"";position:absolute;left:12px;right:12px;top:50%;height:2px;margin-top:-1px;background:#fff;transform:rotate(45deg)}
+.dbm-x::after{transform:rotate(-45deg)}
+.dbm-x:hover{border-color:rgba(255,255,255,.34)}
+.dbm ul{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+.dbm ul a{display:block;padding:15px 14px;border-radius:3px;color:rgba(255,255,255,.86);text-decoration:none}
+.dbm ul a:hover{background:rgba(255,255,255,.06);color:#fff}
+.dbm ul a[aria-current]{background:rgba(255,255,255,.1);color:#fff}
+.dbm .cut{align-self:flex-start}
+@media (prefers-reduced-motion:reduce){.dbm,.dbm-scrim,.dbm-panel{transition:none}}
+</style>
 </head>
 <body>
 <header class="strip"><div class="wrap mono"><span><b class="hm">Dizajnérske zadanie · </b>Štefan Toporcer</span><nav aria-label="Zadanie"><a href="#task-1">01 Hero</a><a href="#task-2">02 Tričko</a><a href="#task-3">03 Vizitka</a></nav><div class="lang" role="group" aria-label="Jazyk"><a href="../" lang="en" hreflang="en" title="English">EN</a><a href="./" lang="sk" hreflang="sk" aria-current="true" title="Slovensky">SK</a></div></div></header>
 <main>
 <section class="hero" id="hero" aria-label="Hero sekcia webu DragonByte">
 <div class="wrap">
-<div class="nav glass" role="navigation" aria-label="Web DragonByte">
+<div class="nav bar">
 <a class="logo" href="https://www.wincentdragonbyte.com/" target="_blank" rel="noopener" aria-label="Wincent DragonByte, súčasný web"><svg role="img" aria-label="Wincent" viewBox="0 0 1855 250"><path d="M214.176 63.7471V81.5918L178.5 71.4375L196.338 89.2822L214.176 81.5918L232.015 89.2822L249.911 96.9717V124.971L232.015 142.815V124.971H214.176V107.126H196.338L187.419 116.049H205.257V133.894H223.096V151.797L196.338 178.563V160.719L169.581 133.894H133.846L125.337 125.382L124.867 125.089L124.926 142.815V160.719L133.846 169.642V205.331L142.765 214.253V250.001L0 107.126H35.6768L17.8379 89.2822H53.5146L26.7578 62.5146H62.4336L35.6768 35.6895H71.4111L98.1689 62.5146L53.5146 0L107.088 35.6895L89.25 0L142.765 35.6895L124.926 0L214.176 63.7471ZM384.049 31.9863V108.707L445.603 31.9863L507.155 108.707H507.215V31.9863H579.271V217.946H502.579L445.661 141.227L388.743 217.946H312.05V31.9863H384.049ZM661.715 31.9863V217.946H589.657V31.9863H661.715ZM748.911 31.9863L827.892 115.692V31.9863H899.949V217.946H823.256L744.275 134.241V217.946H672.218V31.9863H748.911ZM1135.78 31.9863V113.344H1063.72V78.4766H982.393V171.456H1063.72V136.589H1135.78V217.946H910.394V31.9863H1135.78ZM1371.67 31.9863V78.4766H1218.34V104.069H1371.67V145.922H1218.34V171.456H1371.67V217.946H1146.28V31.9863H1371.67ZM1458.86 31.9863L1537.84 115.692V31.9863H1609.9V217.946H1533.21L1454.23 134.241V217.946H1382.17V31.9863H1458.86ZM1855 31.9863V78.4766H1773.67V217.946H1701.67V78.4766H1620.34V31.9863H1855Z" fill="#FFFFFF"/></svg></a>
-<ul class="mono"><li><a href="#hero" aria-current="page">Domov</a></li><li><a href="https://www.wincentdragonbyte.com/faq" target="_blank" rel="noopener">FAQ</a></li><li><a href="https://www.wincentdragonbyte.com/rules" target="_blank" rel="noopener">Pravidlá</a></li><li><a href="https://www.wincentdragonbyte.com/terms" target="_blank" rel="noopener">VOP</a></li><li><a href="https://www.wincentdragonbyte.com/archive" target="_blank" rel="noopener">Archív</a></li></ul>
-<a class="cut blue sm" href="https://www.wincentdragonbyte.com/login" target="_blank" rel="noopener">Prihlásiť</a>
+<button class="menu-btn glass mono" type="button" aria-expanded="false" aria-controls="dbm"><span class="bars" aria-hidden="true"><i></i><i></i><i></i></span>Menu</button>
 </div>
 <div class="bento">
 <div class="b-copy">
@@ -381,6 +407,14 @@ footer{border-top:1px solid var(--line);padding:28px 0 44px;font-size:14px;line-
 <p class="note">Fyzická strana digitálnej vizitky: čierna NFC karta od Swopi. Na prednej strane je len logo, meno a funkcia, na zadnej QR kód. Priloženie alebo naskenovanie otvorí profil vyššie. Tri pohľady sú náhľady z konfigurátora kariet Swopi, nie fotografie vyrobenej karty.</p>
 <p class="dl"><a class="cut line" href="../assets/wincent-business-card-design-and-spec.pdf" target="_blank" rel="noopener">Návrh a špecifikácia, PDF</a><a class="cut line" href="../assets/wincent-business-card-print-pdfx4-fogra51.pdf" target="_blank" rel="noopener">Tlačový súbor, PDF/X-4 FOGRA51</a></p>
 </div></section>
+<div class="dbm" id="dbm" aria-hidden="true" inert>
+<div class="dbm-scrim" data-close></div>
+<nav class="dbm-panel" aria-label="Web DragonByte">
+<div class="dbm-top"><svg aria-hidden="true" focusable="false" viewBox="0 0 1855 250"><path d="M214.176 63.7471V81.5918L178.5 71.4375L196.338 89.2822L214.176 81.5918L232.015 89.2822L249.911 96.9717V124.971L232.015 142.815V124.971H214.176V107.126H196.338L187.419 116.049H205.257V133.894H223.096V151.797L196.338 178.563V160.719L169.581 133.894H133.846L125.337 125.382L124.867 125.089L124.926 142.815V160.719L133.846 169.642V205.331L142.765 214.253V250.001L0 107.126H35.6768L17.8379 89.2822H53.5146L26.7578 62.5146H62.4336L35.6768 35.6895H71.4111L98.1689 62.5146L53.5146 0L107.088 35.6895L89.25 0L142.765 35.6895L124.926 0L214.176 63.7471ZM384.049 31.9863V108.707L445.603 31.9863L507.155 108.707H507.215V31.9863H579.271V217.946H502.579L445.661 141.227L388.743 217.946H312.05V31.9863H384.049ZM661.715 31.9863V217.946H589.657V31.9863H661.715ZM748.911 31.9863L827.892 115.692V31.9863H899.949V217.946H823.256L744.275 134.241V217.946H672.218V31.9863H748.911ZM1135.78 31.9863V113.344H1063.72V78.4766H982.393V171.456H1063.72V136.589H1135.78V217.946H910.394V31.9863H1135.78ZM1371.67 31.9863V78.4766H1218.34V104.069H1371.67V145.922H1218.34V171.456H1371.67V217.946H1146.28V31.9863H1371.67ZM1458.86 31.9863L1537.84 115.692V31.9863H1609.9V217.946H1533.21L1454.23 134.241V217.946H1382.17V31.9863H1458.86ZM1855 31.9863V78.4766H1773.67V217.946H1701.67V78.4766H1620.34V31.9863H1855Z" fill="#FFFFFF"/></svg><button class="dbm-x" type="button" data-close aria-label="Zavrieť menu"></button></div>
+<ul class="mono"><li><a href="#hero" aria-current="page">Domov</a></li><li><a href="https://www.wincentdragonbyte.com/faq" target="_blank" rel="noopener">FAQ</a></li><li><a href="https://www.wincentdragonbyte.com/rules" target="_blank" rel="noopener">Pravidlá</a></li><li><a href="https://www.wincentdragonbyte.com/terms" target="_blank" rel="noopener">VOP</a></li><li><a href="https://www.wincentdragonbyte.com/archive" target="_blank" rel="noopener">Archív</a></li></ul>
+<a class="cut blue" href="https://www.wincentdragonbyte.com/login" target="_blank" rel="noopener">Prihlásiť</a>
+</nav>
+</div>
 </main>
 <footer><div class="wrap">Neverejná stránka pripravená pre dizajnérsky pohovor vo Wincente. Názvy Wincent a DragonByte, logá a prvky značky patria spoločnosti Wincent. Maskot, layout a kód: Štefan Toporcer.</div></footer>
 <script>
@@ -453,6 +487,20 @@ lines.forEach(function(l){l.style.visibility='hidden'});chart(0,0);
  [].forEach.call(document.querySelectorAll('a.zoom'),function(a){a.addEventListener('click',function(e){e.preventDefault();show(a)})});
 })();
 if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){if(es[0].isIntersecting){io.disconnect();var w=0,t=setInterval(function(){w+=100;if(still||w>=3500||(kvImg.complete&&(vFail||!vid.getAttribute('src')||vid.readyState>=3))){clearInterval(t);start()}},100)}},{threshold:0.3});io.observe(kv)}
+})();
+</script>
+<script>
+(function(){var m=document.getElementById('dbm'),b=document.querySelector('.menu-btn');if(!m||!b)return;
+var x=m.querySelector('.dbm-x');
+function set(o){m.classList.toggle('open',o);b.setAttribute('aria-expanded',o?'true':'false');m.setAttribute('aria-hidden',o?'false':'true');
+ if(o){m.removeAttribute('inert');document.documentElement.style.overflow='hidden';setTimeout(function(){x.focus()},40)}
+ else{m.setAttribute('inert','');document.documentElement.style.overflow='';b.focus({preventScroll:true})}}
+b.addEventListener('click',function(){set(!m.classList.contains('open'))});
+m.addEventListener('click',function(e){if(e.target.closest('[data-close]')||e.target.closest('a'))set(false)});
+document.addEventListener('keydown',function(e){if(!m.classList.contains('open'))return;
+ if(e.key==='Escape'){e.preventDefault();set(false);return}
+ if(e.key==='Tab'){var f=m.querySelectorAll('button,a[href]'),a=f[0],z=f[f.length-1];
+  if(e.shiftKey&&document.activeElement===a){e.preventDefault();z.focus()}else if(!e.shiftKey&&document.activeElement===z){e.preventDefault();a.focus()}}});
 })();
 </script>
 </body>
