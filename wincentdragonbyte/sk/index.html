@@ -285,14 +285,14 @@ footer{border-top:1px solid var(--line);padding:28px 0 44px;font-size:14px;line-
 .cut.gold{--fill:#D4A157;--edge:#E9C27A;--acc:#011838;color:#011838}
 .cut.gold:hover{--fill:#E6B866;--edge:#F3D394}
 .cut.gold::before,.cut.gold::after,.cut.gold:hover::before,.cut.gold:hover::after{color:#011838}
-/* Run stays quiet until pressed: a thin golden-green outline. While the program runs it lights up full, then fades back */
+/* Run stays quiet until pressed: a thin Blue Light outline on navy, like Copy. While the program runs it fills with Navy Dark, then fades back */
 @property --fill{syntax:'<color>';inherits:true;initial-value:#E02753}
 @property --edge{syntax:'<color>';inherits:true;initial-value:#E02753}
 @property --acc{syntax:'<color>';inherits:true;initial-value:#fff}
-.cut.go{--fill:rgba(163,184,60,.1);--edge:rgba(163,184,60,.42);--acc:rgba(163,184,60,.85);color:#C9D77E;transition:--fill 1.2s ease,--edge 1.2s ease,--acc 1.2s ease,color 1.2s ease,box-shadow 1.2s ease}
-.cut.go:hover{--fill:rgba(163,184,60,.18);--edge:rgba(163,184,60,.72)}
+.cut.go{--fill:#011838;--edge:rgba(105,157,237,.38);--acc:rgba(105,157,237,.75);color:#fff;transition:--fill 1.2s ease,--edge 1.2s ease,--acc 1.2s ease,color 1.2s ease,box-shadow 1.2s ease}
+.cut.go:hover{--fill:#011838;--edge:rgba(105,157,237,.72)}
 .cut.go:hover::before,.cut.go:hover::after{color:var(--acc)}
-.cut.go[disabled],.cut.go[disabled]:hover{filter:none;--fill:#A3B83C;--edge:#BCD055;--acc:#011838;color:#011838;box-shadow:0 0 22px rgba(163,184,60,.45);transition-duration:.25s}
+.cut.go[disabled],.cut.go[disabled]:hover{filter:none;--fill:#214094;--edge:#3054AD;--acc:#699DED;color:#fff;transition-duration:.25s}
 @media (prefers-reduced-motion:reduce){.cut.go{transition:none}}
 .cut.gold:focus-visible,.cut.go:focus-visible{outline:2px solid #fff;outline-offset:3px}
 </style>
