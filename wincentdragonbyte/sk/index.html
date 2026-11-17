@@ -92,11 +92,13 @@ a:focus-visible,button:focus-visible{outline:2px solid #699DED;outline-offset:3p
 .btn-skew-blue:hover::before{box-shadow:0 12px 34px -12px rgba(105,157,237,.7)}
 .btn-skew-ghost::before{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.3)}
 .btn-skew-ghost:hover::before{border-color:rgba(255,255,255,.62)}
-.btn-skew[disabled]{cursor:default;transform:none}
+.btn-skew[disabled]{cursor:default}
 .btn-skew[disabled]::before{filter:saturate(.5) brightness(.85);box-shadow:none}
 .btn-skew:focus-visible{outline:2px solid #fff;outline-offset:4px}
 @media (prefers-reduced-motion:reduce){.btn-skew,.btn-skew::before{transition:none}.btn-skew:hover{transform:none}}
 @media (max-width:480px){.btn-skew{padding-inline:1.2rem;letter-spacing:.1em}.btn-skew-sm{padding-inline:.9rem}}
+#dl-run{min-width:87px}#dl-copy{min-width:104px}
+@media (max-width:480px){#dl-run{min-width:79px}#dl-copy{min-width:96px}}
 .sb-body{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr)}
 .sb-code{display:flex;gap:16px;padding:18px 22px;overflow-x:auto}
 .sb-code pre,.sb-out{margin:0;font-family:var(--mono);font-size:13px;line-height:21px}
