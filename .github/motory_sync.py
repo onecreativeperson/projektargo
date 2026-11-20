@@ -9,7 +9,9 @@ Bezpečnostné pravidlá:
 - Nikdy nič nemaže (ani priečinky, ani riadky v sitemape motorov).
 - Nikdy neprepíše priečinok hlavného webu: zapisuje len do priečinkov, ktoré ešte neexistujú
   alebo ktorých index.html už nesie značku MARK (stránka motora).
-- Nedostupné Supabase = žiadna zmena (zverejnené stránky ostávajú).
+- Nedostupné Supabase = žiadna zmena (zverejnené stránky ostávajú), ale beh skončí chybou
+  (::error:: + exit 1), aby GitHub poslal e-mail. To isté pri prázdnej odpovedi, keď v repozitári
+  stránky motorov už sú, a keď neprejde kontrolou ani jedna live stránka. Tichá porucha je neprípustná.
 - Do každej stránky motora vloží pred </body> plávajúce tlačidlo Projektu Argo (NAV_TAG → /argo-nav.js,
   zdroj zdroj/static/argo-nav.js hlavného webu). Dizajn stránky nemení: tlačidlo žije vo vlastnom shadow DOM.
 
@@ -39,6 +41,23 @@ DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 
 def warn(msg):
     print(f"::warning::{msg}")
+
+
+def err(msg):
+    """Chyba, ktorá musí byť viditeľná: beh padne a GitHub pošle e-mail."""
+    print(f"::error::{msg}")
+
+
+def published_slugs():
+    """Stránky motorov, ktoré už sú v repozitári (podľa značky MARK)."""
+    out = []
+    for idx in sorted(ROOT.glob("*/index.html")):
+        try:
+            if MARK in idx.read_text(encoding="utf-8", errors="replace"):
+                out.append(idx.parent.name)
+        except OSError:
+            continue
+    return out
 
 
 def fetch_rows():
@@ -126,10 +145,21 @@ def main():
     try:
         rows = json.loads(pathlib.Path(a.fixture).read_text(encoding="utf-8")) if a.fixture else fetch_rows()
     except Exception as e:  # noqa: BLE001
-        warn(f"{e} – nič nemením, zverejnené stránky ostávajú.")
-        return 0
+        err(f"{e} – nič nemením, zverejnené stránky ostávajú. Skontroluj Supabase a práva verejného "
+            f"kľúča (anon potrebuje SELECT na stĺpce slug, html, status, lastmod tabuľky motor_pages).")
+        return 1
 
-    changed, status, lastmods = [], {}, {}
+    # Prázdna odpoveď nie je chyba siete: odobrané práva alebo zmenená RLS politika vrátia []
+    # bez chybovej správy. Ak v repozitári stránky motorov už sú, ide o poruchu – nahlás ju.
+    if not rows:
+        live = published_slugs()
+        if live:
+            err(f"Supabase vrátilo 0 live stránok, hoci v repozitári ich je {len(live)} – nič nemením. "
+                f"Skontroluj tabuľku motor_pages (status, RLS politiku a práva anon).")
+            return 1
+        warn("Supabase vrátilo 0 live stránok a v repozitári žiadna nie je – nie je čo zverejniť.")
+
+    changed, status, lastmods, ok = [], {}, {}, 0
     for row in rows:
         page, msg = validate(row)
         slug = str(row.get("slug") or "?")
@@ -137,9 +167,15 @@ def main():
         if not page:
             warn(f"motor {slug}: {msg}")
             continue
+        ok += 1
         write_if_changed(ROOT / page["slug"] / "index.html", page["html"], changed)
         if page["lastmod"]:
             lastmods[page["slug"]] = page["lastmod"]
+
+    # Ani jedna live stránka neprešla kontrolou = systémová chyba (šablóna, canonical, zakázaný reťazec).
+    if rows and not ok:
+        err(f"Žiadna z {len(rows)} live stránok neprešla kontrolou – nič nemením, dôvody sú vyššie.")
+        return 1
 
     # Sitemapa = všetky zverejnené stránky motorov v repozitári (nič sa z nej neodstraňuje, kým priečinok existuje).
     prev = existing_lastmods()
