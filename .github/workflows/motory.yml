@@ -25,7 +25,9 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
-      - uses: actions/checkout@v5
+      # Pripnuté na commit, nie na pohyblivý tag: prepísaný tag v5 by inak získal právo
+      # zápisu do repozitára. Aktualizácia: git ls-remote https://github.com/actions/checkout refs/tags/v5
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09   # v5
         with:
           ref: main
           fetch-depth: 1

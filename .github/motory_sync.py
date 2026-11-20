@@ -12,6 +12,10 @@ Bezpečnostné pravidlá:
 - Nedostupné Supabase = žiadna zmena (zverejnené stránky ostávajú), ale beh skončí chybou
   (::error:: + exit 1), aby GitHub poslal e-mail. To isté pri prázdnej odpovedi, keď v repozitári
   stránky motorov už sú, a keď neprejde kontrolou ani jedna live stránka. Tichá porucha je neprípustná.
+- Do každej stránky motora vloží Content-Security-Policy s hashmi jej inline skriptov
+  (script-src bez 'unsafe-inline') a referrer policy. Počíta sa pri každom zverejnení, takže
+  hashe nemôžu zostarieť; nová stránka motora ju dostane automaticky. Nový externý host treba
+  doplniť do CSP_* nižšie – skript naň upozorní (::warning::), inak ho prehliadač zablokuje.
 - Do každej stránky motora vloží pred </body> plávajúce tlačidlo Projektu Argo (NAV_TAG → /argo-nav.js,
   zdroj zdroj/static/argo-nav.js hlavného webu). Dizajn stránky nemení: tlačidlo žije vo vlastnom shadow DOM.
 
@@ -37,6 +41,62 @@ FORBIDDEN = [(re.compile(r"\bSteve\b"), "Steve"), (re.compile(r"Poriadok", re.I)
              (re.compile(r"lorem ipsum", re.I), "lorem ipsum")]
 NOINDEX_RE = re.compile(r'<meta[^>]+name=["\']robots["\'][^>]+content=["\'][^"\']*noindex', re.I)
 DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
+
+# --- Content Security Policy -------------------------------------------------
+# Politika sa počíta pri každom zverejnení z finálneho HTML, takže hashe inline
+# skriptov nemôžu zostarieť a každá nová stránka motora ju dostane automaticky.
+# script-src je bez 'unsafe-inline': vykonať sa smie len skript s uvedeným hashom
+# alebo z uvedeného hostu. style-src 'unsafe-inline' je nutné pre atribúty style="".
+# Hosty podľa dokumentácie PostHog (EU: eu-assets.i.posthog.com) a Google Fonts.
+CSP_SCRIPT = ["'self'", "https://*.posthog.com"]
+CSP_STYLE = ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"]
+CSP_FONT = ["'self'", "https://fonts.gstatic.com"]
+CSP_IMG = ["'self'", "data:", "https://*.posthog.com"]
+CSP_CONNECT = ["'self'", "https://*.posthog.com", SUPABASE_URL]
+CSP_ALLOWED_HOSTS = {"fonts.googleapis.com", "fonts.gstatic.com", "eu.i.posthog.com",
+                     "eu-assets.i.posthog.com", "us.i.posthog.com", "projektargo.com",
+                     SUPABASE_URL.split("//")[1]}
+REFERRER_META = '<meta name="referrer" content="strict-origin-when-cross-origin">'
+INLINE_SCRIPT_RE = re.compile(r"<script(?![^>]*\ssrc=)[^>]*>(.*?)</script>", re.S | re.I)
+CSP_META_RE = re.compile(r'[ \t]*<meta[^>]+http-equiv=["\']?Content-Security-Policy["\']?[^>]*>\n?', re.I)
+REFERRER_META_RE = re.compile(r'[ \t]*<meta[^>]+name=["\']?referrer["\']?[^>]*>\n?', re.I)
+CHARSET_RE = re.compile(r"<meta[^>]+charset=[^>]*>", re.I)
+HEAD_RE = re.compile(r"<head[^>]*>", re.I)
+EXT_RES_RE = re.compile(r'<(?:script|link|img|source|video|audio|iframe)\b[^>]*(?:src|href)=["\']https://([a-z0-9.\-]+)', re.I)
+
+
+def add_csp(html, slug):
+    """Vymení prípadnú starú CSP za novú, vypočítanú z tohto HTML. Vracia (html, cudzie_hosty)."""
+    import base64, hashlib
+    html = CSP_META_RE.sub("", html)
+    html = REFERRER_META_RE.sub("", html)
+    hashes = []
+    for body in INLINE_SCRIPT_RE.findall(html):
+        h = "'sha256-" + base64.b64encode(hashlib.sha256(body.encode("utf-8")).digest()).decode() + "'"
+        if h not in hashes:
+            hashes.append(h)
+    policy = "; ".join([
+        "default-src 'self'",
+        "base-uri 'self'",
+        "object-src 'none'",
+        "frame-src 'none'",
+        "form-action 'none'",
+        "script-src " + " ".join(CSP_SCRIPT + hashes),
+        "style-src " + " ".join(CSP_STYLE),
+        "font-src " + " ".join(CSP_FONT),
+        "img-src " + " ".join(CSP_IMG),
+        "connect-src " + " ".join(CSP_CONNECT),
+        "worker-src 'self' blob: data:",
+    ])
+    meta = f'<meta http-equiv="Content-Security-Policy" content="{policy}">\n{REFERRER_META}'
+    # CSP musí byť pred prvým skriptom a štýlom; charset musí zostať v prvých 1024 bajtoch,
+    # preto ide meta hneď za charset (a len ak charset chýba, tak za <head>).
+    m = CHARSET_RE.search(html) or HEAD_RE.search(html)
+    if not m:
+        return html, []
+    html = html[:m.end()] + "\n" + meta + html[m.end():]
+    foreign = sorted({h for h in EXT_RES_RE.findall(html) if h not in CSP_ALLOWED_HOSTS})
+    return html, foreign
 
 
 def warn(msg):
@@ -114,6 +174,10 @@ def validate(row):
             html = html[:end] + NAV_TAG + "\n" + html[end:]
         else:
             warn(f"motor {slug}: chýba </body> – tlačidlo Projektu Argo nevložené")
+    html, foreign = add_csp(html, slug)
+    if foreign:
+        warn(f"motor {slug}: stránka načítava z hostov mimo CSP ({', '.join(foreign)}) – "
+             f"doplň ich do CSP_* v .github/motory_sync.py, inak ich prehliadač zablokuje")
     if not html.endswith("\n"):
         html += "\n"
     lastmod = str(row.get("lastmod") or "")
