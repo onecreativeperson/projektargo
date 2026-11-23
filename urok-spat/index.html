@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-src 'none'; form-action 'none'; script-src 'self' https://*.posthog.com 'sha256-ZFLLHSVyNpW1dGGFulsZMmlovJ0WVtyPS5jQ8fwHfpI=' 'sha256-WYXv4T0Sp4nsWGqxcZTrCFqOWXC4JrvQ7XW5xjyqzek=' 'sha256-XRY3p9rLJMtydf3TvoHwVzyNXsM3UHNo3JsqHMdxVp0='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://*.posthog.com; connect-src 'self' https://*.posthog.com https://asnpyrrdeauhkskkkmuc.supabase.co; worker-src 'self' blob: data:">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="generator" content="projektargo-motor">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Úrok Späť · Late payment interest audit for Slovak and Czech B2B invoices</title>
+<meta name="description" content="Free audit of your issued invoices for Slovak and Czech businesses: statutory late payment interest and the €40 / CZK 1,200 compensation per customer, a sample payment request and time-barred items flagged. Within 2 working days.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/icons/icon-32.png" sizes="32x32" type="image/png">
+<link rel="canonical" href="https://projektargo.com/urok-spat/">
+<link rel="alternate" hreflang="en" href="https://projektargo.com/urok-spat/">
+<link rel="alternate" hreflang="sk" href="https://projektargo.com/urok-spat-sk/">
+<link rel="alternate" hreflang="x-default" href="https://projektargo.com/urok-spat/">
+<meta property="og:title" content="Úrok Späť · Your customers paid late. The law added interest.">
+<meta property="og:description" content="Free audit of your issued invoices for Slovak and Czech businesses: statutory late payment interest and the €40 / CZK 1,200 compensation per customer, a sample payment request and time-barred items flagged. Within 2 working days.">
+<meta property="og:url" content="https://projektargo.com/urok-spat/">
+<meta property="og:image" content="https://projektargo.com/og.png">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_GB">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#3B0F14">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Chivo+Mono:wght@400;500;700&family=Golos+Text:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Service", "name": "Úrok Späť", "url": "https://projektargo.com/urok-spat/", "serviceType": "Late payment interest and compensation audit for B2B invoices", "description": "Free audit of your issued invoices for Slovak and Czech businesses: statutory late payment interest and the €40 / CZK 1,200 compensation per customer, a sample payment request and time-barred items flagged. Within 2 working days.", "inLanguage": "en", "areaServed": [{"@type": "Country", "name": "Slovakia"}, {"@type": "Country", "name": "Czechia"}], "provider": {"@type": "Person", "@id": "https://projektargo.com/#person", "name": "Štefan Toporcer", "url": "https://projektargo.com/"}}</script>
+<style>
+/* Úrok Späť – the taximeter that keeps running after the due date: an amber LED fare meter counting days and euros on a wine-red dashboard, with a thermal receipt of late invoices torn off below it */
+:root{--wine:#3B0F14;--wine2:#52161D;--wine3:#2A0A0E;--paper:#F7F1E3;--paper2:#EDE3CC;--ink:#1D1414;--ink2:#5B4A44;--amber:#FFB627;--amberd:#5E3D00;--led:#140607;--cream:#F1E4D2;--muted:#D9C3AE;--stamp:#B3192A;--line:rgba(241,228,210,.18);--r1:3px;--r2:10px}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--wine);color:var(--cream);font:400 17px/1.6 "Golos Text",system-ui,sans-serif}
+a{color:inherit}
+img,svg{max-width:100%;display:block}
+.wrap{max-width:1240px;margin:0 auto;padding:0 28px}
+section{scroll-margin-top:84px}
+.mono{font-family:"Chivo Mono",ui-monospace,monospace}
+h1,h2,h3{font-family:"Alfa Slab One",Georgia,serif;font-weight:400;line-height:1.08;margin:0;letter-spacing:.005em}
+h2{font-size:clamp(30px,4vw,46px)}
+.kick{font:500 13px/1.4 "Chivo Mono",monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);margin:0 0 14px}
+/* nav */
+.nav{position:sticky;top:0;z-index:20;background:rgba(42,10,14,.96);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;align-items:center;gap:18px;height:64px}
+.brand{font-family:"Alfa Slab One",serif;font-size:21px;text-decoration:none;white-space:nowrap;color:var(--cream)}
+.brand b{color:var(--amber);font-weight:400}
+.navlinks{display:flex;gap:22px;margin-left:auto;font-size:15px}
+.navlinks a{text-decoration:none;color:var(--muted)}
+.navlinks a:hover{color:var(--cream)}
+.lng{font:700 13px/1 "Chivo Mono",monospace;text-decoration:none;border:1px solid var(--line);padding:8px 9px;border-radius:var(--r1);color:var(--cream)}
+.btn{display:inline-block;background:var(--amber);color:var(--ink);font-weight:700;text-decoration:none;padding:15px 24px;border-radius:var(--r1);border:2px solid var(--amber);line-height:1.2}
+.btn:hover{background:#FFC857}
+.btn.sm{padding:10px 14px;font-size:15px;white-space:nowrap}
+.tlink{color:var(--cream);text-underline-offset:4px;font-weight:500}
+/* hero */
+.hero{padding:64px 0 72px;border-bottom:1px solid var(--line);overflow:hidden}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);gap:56px;align-items:start}
+.hero h1{font-size:clamp(38px,5.4vw,66px)}
+.hero h1 em{font-style:normal;color:var(--amber)}
+.lead{font-size:19px;color:var(--muted);max-width:36em;margin:22px 0 30px}
+.ctarow{display:flex;flex-wrap:wrap;gap:18px 26px;align-items:center}
+.legal{margin:26px 0 0;font:400 13px/1.6 "Chivo Mono",monospace;color:var(--muted);max-width:44em}
+.meterbox{position:relative}
+.meter{background:var(--led);border:2px solid #000;border-radius:var(--r2);padding:16px 18px 14px;color:var(--amber);box-shadow:0 0 0 6px var(--wine2)}
+.meter .row{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font:500 12px/1.3 "Chivo Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:#C88A12}
+.digits{position:relative;font:700 clamp(34px,4.6vw,54px)/1.1 "Chivo Mono",monospace;margin:6px 0 4px;letter-spacing:.02em;white-space:nowrap}
+.digits .ghost{position:absolute;inset:0;color:#2B1306}
+.digits .val{position:relative}
+.digits .cur{font-size:.5em;margin-left:.2em}
+.meter .flags{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.meter .flags span{font:500 11px/1 "Chivo Mono",monospace;letter-spacing:.1em;border:1px solid #6B4300;color:#E0A02A;padding:6px 7px;border-radius:2px}
+.meter .flags .on{background:var(--amber);color:var(--led);border-color:var(--amber)}
+.receipt{position:relative;margin:0 auto;width:88%;background:var(--paper);color:var(--ink);padding:22px 20px 26px;font:400 13.5px/1.55 "Chivo Mono",monospace;transform:rotate(-1.2deg);margin-top:12px}
+.receipt::after{content:"";position:absolute;left:0;right:0;bottom:-9px;height:10px;background:radial-gradient(circle at 8px 0,var(--paper) 7px,transparent 7.6px) 0 0/16px 10px repeat-x}
+.receipt .hd{text-align:center;border-bottom:1px dashed #8C7C72;padding-bottom:10px;margin-bottom:10px;letter-spacing:.08em}
+.receipt .ln{display:flex;justify-content:space-between;gap:10px}
+.receipt .ln span:last-child{white-space:nowrap}
+.receipt .sub{color:var(--ink2);font-size:12.5px;margin-bottom:8px}
+.receipt .tot{border-top:2px solid var(--ink);margin-top:10px;padding-top:8px;font-weight:700;font-size:15px}
+.receipt .ill{position:absolute;right:12px;top:-14px;background:var(--stamp);color:#fff;font:700 11px/1 "Chivo Mono",monospace;letter-spacing:.12em;padding:7px 8px;transform:rotate(4deg)}
+/* facts */
+.facts{padding:80px 0}
+.facts .wrap{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:56px}
+.facts .intro p{color:var(--muted)}
+.fact{display:grid;grid-template-columns:minmax(0,150px) minmax(0,1fr);gap:24px;padding:24px 0;border-top:1px solid var(--line)}
+.fact:last-child{border-bottom:1px solid var(--line)}
+.fact .big{font-family:"Alfa Slab One",serif;font-size:40px;line-height:1;color:var(--amber)}
+.fact p{margin:0}
+.src{display:block;margin-top:8px;font:400 12.5px/1.5 "Chivo Mono",monospace;color:#C9AE97;overflow-wrap:anywhere}
+/* law */
+.law{background:var(--paper);color:var(--ink);padding:84px 0}
+.law .kick{color:var(--stamp)}
+.law .cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0;margin-top:36px;border:2px solid var(--ink)}
+.law .col{padding:28px}
+.law .col+.col{border-left:2px solid var(--ink)}
+.law .col h3{font-size:26px;margin-bottom:14px}
+.law dl{margin:0;display:grid;grid-template-columns:minmax(0,auto) minmax(0,1fr);gap:10px 18px}
+.law dt{font:700 13px/1.5 "Chivo Mono",monospace;text-transform:uppercase;letter-spacing:.06em;color:var(--stamp)}
+.law dd{margin:0}
+.law .src{color:#6C5A52}
+.rates{margin-top:44px}
+.rates table{width:100%;border-collapse:collapse;font:400 15px/1.4 "Chivo Mono",monospace}
+.rates caption{text-align:left;font:700 14px/1.4 "Golos Text",sans-serif;margin-bottom:12px}
+.rates th,.rates td{padding:10px 12px;border-bottom:1px solid #CDBFA5;text-align:left}
+.rates thead th{background:var(--ink);color:var(--paper);font-weight:500;font-size:13px;letter-spacing:.06em;text-transform:uppercase}
+.rates td.n,.rates th.n{text-align:right;white-space:nowrap}
+.rates tr.now td{background:#FFE6A8;font-weight:700}
+.rates .note{font-size:14.5px;color:var(--ink2);margin:14px 0 0;max-width:62em}
+/* how */
+.how{padding:84px 0}
+.stubs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin-top:36px}
+.stub{position:relative;padding:28px 26px 30px;background:var(--wine2);border-top:4px solid var(--amber)}
+.stub+.stub{border-left:2px dashed rgba(241,228,210,.35)}
+.stub .no{font:700 13px/1 "Chivo Mono",monospace;color:var(--amber);letter-spacing:.14em}
+.stub h3{font-size:24px;margin:14px 0 10px}
+.stub p{margin:0;color:var(--muted)}
+/* output */
+.out{padding:0 0 88px}
+.sheet{position:relative;background:var(--paper);color:var(--ink);padding:34px 34px 38px;border-radius:2px}
+.sheet .ill{display:inline-block;background:var(--stamp);color:#fff;font:700 12px/1 "Chivo Mono",monospace;letter-spacing:.12em;padding:8px 10px;margin-bottom:16px}
+.sheet h3{font-size:28px}
+.sheet .meta{font:400 13.5px/1.6 "Chivo Mono",monospace;color:var(--ink2);margin:8px 0 22px}
+.tbl{width:100%;border-collapse:collapse;font-size:15px}
+.tbl th{font:500 12px/1.3 "Chivo Mono",monospace;text-transform:uppercase;letter-spacing:.06em;text-align:left;border-bottom:2px solid var(--ink);padding:8px 10px}
+.tbl td{padding:11px 10px;border-bottom:1px solid #D5C7AE;vertical-align:top}
+.tbl td.n,.tbl th.n{text-align:right;white-space:nowrap;font-family:"Chivo Mono",monospace}
+.tbl tr.x td{color:#8B7A70;text-decoration:line-through;text-decoration-thickness:1px}
+.tbl tr.x td.why{text-decoration:none;color:var(--stamp)}
+.tbl tfoot td{font-weight:700;border-top:2px solid var(--ink);border-bottom:0}
+.parts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:26px;margin-top:30px;font-size:15px}
+.parts h4{margin:0 0 6px;font:700 13px/1.4 "Chivo Mono",monospace;text-transform:uppercase;letter-spacing:.06em;color:var(--stamp)}
+.parts p{margin:0}
+.letter{margin-top:30px;border-left:4px solid var(--amber);background:#FFF9EA;padding:16px 18px;font:400 14px/1.6 "Chivo Mono",monospace}
+/* early access */
+.ea{padding:84px 0;border-top:1px solid var(--line)}
+.ea .wrap{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:56px;align-items:start}
+.ea p{color:var(--muted)}
+.tags{display:grid;gap:18px}
+.tag{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 20px;align-items:baseline;background:var(--cream);color:var(--ink);padding:22px 24px;border-radius:var(--r1) var(--r2) var(--r2) var(--r1);border-left:10px solid var(--amber)}
+.tag h3{font-size:22px}
+.tag .price{font:700 22px/1.2 "Chivo Mono",monospace;white-space:nowrap}
+.tag p{grid-column:1/-1;margin:0;color:var(--ink2);font-size:15.5px}
+.ea .fine{font-size:14px}
+/* faq */
+.faq{padding:84px 0;background:var(--wine3)}
+.faq .wrap{display:grid;grid-template-columns:minmax(0,.7fr) minmax(0,1.3fr);gap:56px}
+details{border-top:1px solid var(--line);padding:18px 0}
+details:last-child{border-bottom:1px solid var(--line)}
+summary{cursor:pointer;font-weight:600;font-size:18px;list-style:none;display:flex;justify-content:space-between;gap:16px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font-family:"Chivo Mono",monospace;color:var(--amber);font-size:22px;line-height:1}
+details[open] summary::after{content:"–"}
+details p{color:var(--muted);margin:12px 0 0}
+/* privacy */
+.privacy{padding:72px 0;font-size:15.5px}
+.privacy .wrap{max-width:900px}
+.privacy h2{font-size:30px;margin-bottom:18px}
+.privacy p{color:var(--muted)}
+.privacy b{color:var(--cream)}
+/* footer */
+footer{border-top:1px solid var(--line);padding:40px 0 56px;font-size:15px;color:var(--muted)}
+footer .wrap{display:flex;flex-wrap:wrap;gap:18px 30px;align-items:center;justify-content:space-between}
+footer .disc{flex-basis:100%;font:400 13px/1.6 "Chivo Mono",monospace;margin:0}
+a:focus-visible,summary:focus-visible{outline:3px solid var(--amber);outline-offset:3px}
+@media (prefers-reduced-motion:no-preference){
+ .digits .val .colon{animation:blink 1.6s steps(1) infinite}
+ @keyframes blink{50%{opacity:.25}}
+ .receipt{animation:feed .9s ease-out both .2s}
+ @keyframes feed{from{transform:translateY(-14px) rotate(-1.2deg)}to{transform:translateY(0) rotate(-1.2deg)}}
+}
+@media (max-width:960px){
+ .hero .wrap,.facts .wrap,.ea .wrap,.faq .wrap{grid-template-columns:minmax(0,1fr);gap:40px}
+ .navlinks{display:none}
+ .nav .wrap{gap:12px}
+ .lng{margin-left:auto}
+ .parts{grid-template-columns:minmax(0,1fr)}
+}
+@media (max-width:720px){
+ body{font-size:16px}
+ .wrap{padding:0 16px}
+ .hero{padding:40px 0 52px}
+ .lead{font-size:17px}
+ .law .cols{grid-template-columns:minmax(0,1fr)}
+ .law .col+.col{border-left:0;border-top:2px solid var(--ink)}
+ .law .col{padding:22px 18px}
+ .stubs{grid-template-columns:minmax(0,1fr)}
+ .stub+.stub{border-left:0;border-top:2px dashed rgba(241,228,210,.35)}
+ .fact{grid-template-columns:minmax(0,1fr);gap:8px}
+ .fact .big{font-size:34px}
+ .sheet{padding:24px 16px 28px}
+ .tbl thead{display:none}
+ .tbl,.tbl tbody,.tbl tr,.tbl td,.tbl tfoot{display:block;width:100%}
+ .tbl tr{border-bottom:1px solid #D5C7AE;padding:10px 0}
+ .tbl td{border:0;padding:3px 0;display:flex;justify-content:space-between;gap:12px;text-align:right}
+ .tbl td::before{content:attr(data-l);font:500 11.5px/1.5 "Chivo Mono",monospace;text-transform:uppercase;letter-spacing:.05em;color:var(--ink2);text-align:left}
+ .tbl td.n{text-align:right}
+ .tbl td.first{font-weight:700}
+ .tbl tfoot tr{border-top:2px solid var(--ink)}
+ .tbl tfoot td{border-top:0}
+ .rates th,.rates td{padding:9px 6px;font-size:13.5px}
+ .receipt{width:94%;padding:20px 14px 24px;font-size:12.5px}
+ .ea,.faq,.how,.law,.facts{padding:60px 0}
+ .tag{grid-template-columns:minmax(0,1fr);padding:18px}
+}
+@media (max-width:400px){
+ .rates th:nth-child(3),.rates td:nth-child(3),.rates th:nth-child(5),.rates td:nth-child(5){display:none}
+ .tag .price{white-space:normal;font-size:20px}
+}
+@media (max-width:360px){
+ .brand{font-size:18px}
+ .btn.sm{padding:9px 10px;font-size:14px}
+ .digits{font-size:30px}
+ .receipt .ln{flex-wrap:wrap}
+}
+</style>
+<script>
+!function(t,e){var o,n,p,r;e.__SV||(window.posthog && window.posthog.__loaded)||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}p||((p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",p.onerror=function(){p=null},(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r));var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],Object.defineProperty(u,"toString",{configurable:!0,enumerable:!0,writable:!0,value:function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e}}),Object.defineProperty(u.people,"toString",{configurable:!0,enumerable:!0,writable:!0,value:function(){return u.toString(1)+".people (stub)"}}),o="init capture register register_once register_for_session unregister unregister_for_session getFeatureFlag getFeatureFlagResult isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey getNextSurveyStep identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty createPersonProfile opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing debug".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+posthog.init("phc_zbBFHQt5aVYH9HuviHUQuwfh6TPCVPyXSrMWWgJ9UfLP",{api_host:"https://eu.i.posthog.com",defaults:"2026-08-30",cookieless_mode:"always",person_profiles:"identified_only",disable_session_recording:true});
+</script>
+</head>
+<body>
+<header class="nav"><div class="wrap">
+<a class="brand" href="#top">Úrok <b>Späť</b></a>
+<nav class="navlinks" aria-label="Sections"><a href="#why">Why now</a><a href="#law">The law</a><a href="#how">How it works</a><a href="#output">What you get</a><a href="#faq">FAQ</a></nav>
+<a class="lng" href="/urok-spat-sk/" hreflang="sk" lang="sk" title="Slovenčina">SK</a>
+<a class="btn sm" href="https://tally.so/r/xVJ0LJ?ref=site-nav">Free audit</a>
+</div></header>
+<main id="top">
+<section class="hero"><div class="wrap">
+<div>
+<p class="kick">Slovakia & Czech Republic · B2B invoices</p>
+<h1>Paid late? The law added <em>interest and €40</em> to that invoice.</h1>
+<p class="lead">Send us an export of your issued invoices. Within 2 working days you get, free of charge, the statutory late payment interest and fixed compensation per customer, the items that are already time-barred and a sample payment request. You decide whom to claim from.</p>
+<div class="ctarow"><a class="btn" href="https://tally.so/r/xVJ0LJ?ref=site-hero">Get the free Late Payment Audit</a><a class="tlink" href="#law">How it is calculated</a></div>
+<p class="legal">Indicative calculation from statutory rates and your export. Not legal advice and not a law-firm service.</p>
+</div>
+<div class="meterbox" aria-hidden="true">
+<div class="meter">
+<div class="row"><span>Customer A</span><span>3 invoices</span></div>
+<div class="digits"><span class="ghost">888.88</span><span class="val">345<span class="colon">.</span>30</span><span class="cur">EUR</span></div>
+<div class="flags"><span class="on">SK</span><span>§ 369 ObZ</span><span>€40 each</span></div>
+</div>
+<div class="receipt">
+<span class="ill">ILLUSTRATIVE</span>
+<div class="hd">LATE PAYMENT AUDIT</div>
+<div class="sub">Customer A · paid after due date</div>
+<div class="ln"><span>INV 2026-102 · 50 days</span><span>85.65</span></div><div class="ln"><span>Fixed compensation</span><span>40.00</span></div><div class="ln"><span>INV 2025-188 · 106 days</span><span>69.27</span></div><div class="ln"><span>Fixed compensation</span><span>40.00</span></div><div class="ln"><span>INV 2025-014 · 48 days</span><span>70.38</span></div><div class="ln"><span>Fixed compensation</span><span>40.00</span></div>
+<div class="ln tot"><span>TOTAL CUSTOMER A</span><span>€345.30</span></div>
+</div>
+</div>
+</div></section>
+
+<section class="facts" id="why"><div class="wrap">
+<div class="intro"><p class="kick">Why now</p><h2>Late payment is normal. Claiming for it is not yet.</h2><p>Most finance teams chase the principal and let the statutory extras go. Those extras are not a favour you ask for: they follow from the law once an invoice is overdue.</p></div>
+<div><div class="fact"><div class="big">63 days</div><p>European B2B customers are given 43 days to pay on average but pay after 63 days: a 20-day gap, up from 16 days in 2023.<span class="src">Intrum European Payment Report 2026, reported by trans.info, 30 Apr 2026</span></p></div><div class="fact"><div class="big">60%</div><p>of European businesses now exercise their right to interest and compensation when invoices are paid late, up from 42% in 2021. The rest leave it on the table.<span class="src">Intrum European Payment Report 2026, reported by trans.info, 30 Apr 2026</span></p></div><div class="fact"><div class="big">68%</div><p>of Slovak businesses pay their own suppliers late because their customers paid them late. Among the highest in Europe.<span class="src">Intrum European Payment Report 2026, reported by trans.info, 30 Apr 2026</span></p></div></div>
+</div></section>
+
+<section class="law" id="law"><div class="wrap">
+<p class="kick">The law</p><h2>What you can claim, in two countries</h2>
+<div class="cols">
+<div class="col"><h3>Slovakia</h3><dl><dt>Interest</dt><dd>ECB main refinancing rate on the first day of the calendar half-year + 8 percentage points; the rate is reset every half-year of the delay. Alternatively the creditor may claim the ECB rate on the first day of delay + 9 pp, fixed.</dd><dt>Compensation</dt><dd>€40 per claim that is the subject of a separate invoice, due by law once the invoice is overdue, regardless of the length of delay or the amount.</dd><dt>Time limit</dt><dd>4 years (general limitation period in commercial relations).</dd></dl><span class="src">Commercial Code § 369, § 369c, § 397; Government Regulation 21/2013 Coll.; Supreme Court of the SR, decision R 11/2023 (2Obdo/59/2021); Ministry of Justice SR, rate table</span></div>
+<div class="col"><h3>Czech Republic</h3><dl><dt>Interest</dt><dd>ČNB repo rate on the first day of the calendar half-year in which the delay began + 8 percentage points; fixed for the whole delay.</dd><dt>Compensation</dt><dd>At least CZK 1,200 for each claim between businesses (and for supplies to public contracting authorities).</dd><dt>Time limit</dt><dd>3 years (general limitation period).</dd></dl><span class="src">Government Regulation 351/2013 Coll. § 2 and § 3; Civil Code 89/2012 Coll. § 629; ČNB repo rate history</span></div>
+</div>
+<p class="rates note">EU Court of Justice, C-370/21 (1 Dec 2022): where one contract provides for periodic supplies, the minimum €40 is owed for each late payment.</p>
+<div class="rates">
+<table><caption>Statutory late payment interest between businesses, per calendar half-year</caption>
+<thead><tr><th scope="col">Half-year</th><th scope="col" class="n">Slovakia</th><th scope="col" class="n">ECB rate</th><th scope="col" class="n">Czech Rep.</th><th scope="col" class="n">ČNB repo</th></tr></thead>
+<tbody><tr><td>2022 H2</td><td class="n">8.00%</td><td class="n">0.00%</td><td class="n">15.00%</td><td class="n">7.00%</td></tr><tr><td>2023 H1</td><td class="n">10.50%</td><td class="n">2.50%</td><td class="n">15.00%</td><td class="n">7.00%</td></tr><tr><td>2023 H2</td><td class="n">12.00%</td><td class="n">4.00%</td><td class="n">15.00%</td><td class="n">7.00%</td></tr><tr><td>2024 H1</td><td class="n">12.50%</td><td class="n">4.50%</td><td class="n">14.75%</td><td class="n">6.75%</td></tr><tr><td>2024 H2</td><td class="n">12.25%</td><td class="n">4.25%</td><td class="n">12.75%</td><td class="n">4.75%</td></tr><tr><td>2025 H1</td><td class="n">11.15%</td><td class="n">3.15%</td><td class="n">12.00%</td><td class="n">4.00%</td></tr><tr><td>2025 H2</td><td class="n">10.15%</td><td class="n">2.15%</td><td class="n">11.50%</td><td class="n">3.50%</td></tr><tr><td>2026 H1</td><td class="n">10.15%</td><td class="n">2.15%</td><td class="n">11.50%</td><td class="n">3.50%</td></tr><tr class="now"><td>2026 H2</td><td class="n">10.40%</td><td class="n">2.40%</td><td class="n">11.75%</td><td class="n">3.75%</td></tr></tbody></table>
+<p class="note">Slovakia: the rate of the half-year applies to the days of delay in that half-year. Czech Republic: the rate of the half-year in which the delay began applies to the whole delay. Sources: Ministry of Justice SR (rate table), National Bank of Slovakia (ECB key rates), ČNB (2-week repo rate history), all opened on 23 Nov 2026.</p>
+</div>
+</div></section>
+
+<section class="how" id="how"><div class="wrap">
+<p class="kick">How it works</p><h2>Three steps, no meeting</h2>
+<div class="stubs"><div class="stub"><div class="no">01</div><h3>Send the export</h3><p>Two-step form: work e-mail and company, then a few questions and your invoice export (CSV or XLSX). Customer names can be replaced with codes.</p></div><div class="stub"><div class="no">02</div><h3>We calculate</h3><p>Every overdue or unpaid business invoice: days of delay, interest at the rate of each half-year, fixed compensation, time-barred items flagged.</p></div><div class="stub"><div class="no">03</div><h3>You decide</h3><p>Within 2 working days you get the audit by e-mail. You choose whom to claim from; the payment request goes out under your name.</p></div></div>
+</div></section>
+
+<section class="out" id="output"><div class="wrap">
+<p class="kick">What you get</p>
+<div class="sheet">
+<span class="ill">ILLUSTRATIVE EXAMPLE – NOT A REAL CLIENT</span>
+<h3>The Late Payment Audit</h3>
+<p class="meta">Slovak supplier · export of 5 business invoices · status as of 23 Nov 2026 · interest at the half-year rates in the table above · actual/365</p>
+<table class="tbl">
+<thead><tr><th>Customer</th><th>Invoices</th><th class="n">Days late</th><th class="n">Interest</th><th class="n">Compensation</th><th class="n">Total</th></tr></thead>
+<tbody><tr><td class="first" data-l="Customer">A</td><td data-l="Invoices">3 paid late</td><td class="n" data-l="Days late">48 / 106 / 50</td><td class="n" data-l="Interest">€225.30</td><td class="n" data-l="Compensation">€120.00</td><td class="n" data-l="Total">€345.30</td></tr><tr><td class="first" data-l="Customer">B</td><td data-l="Invoices">1 still unpaid</td><td class="n" data-l="Days late">39 (running)</td><td class="n" data-l="Interest">€43.34</td><td class="n" data-l="Compensation">€40.00</td><td class="n" data-l="Total">€83.34</td></tr><tr class="x"><td class="first" data-l="Customer">C</td><td data-l="Invoices">1 paid late</td><td class="n" data-l="Days late">102</td><td class="n" data-l="Interest">€38.01</td><td class="n" data-l="Compensation">€40.00</td><td class="n why" data-l="Total">time-barred</td></tr></tbody>
+<tfoot><tr><td class="first" data-l="">Total to claim</td><td></td><td></td><td class="n" data-l="Interest">€268.64</td><td class="n" data-l="Compensation">€160.00</td><td class="n" data-l="Total">€428.64</td></tr></tfoot>
+</table>
+<p class="meta">Conservative variant (€40 once per customer instead of per invoice): <b>€348.64</b>. Customer C: invoice due 20 Jun 2022, the 4-year period has run, so it is left out.</p>
+<div class="parts"><div><h4>By customer</h4><p>Interest and compensation per customer, both compensation variants, top 5 customers by amount.</p></div><div><h4>Flags</h4><p>Time-barred items, invoices to consumers (no compensation), customers where you agreed your own rate.</p></div><div><h4>Ready to send</h4><p>A sample payment request for one customer that you can adapt and send yourself.</p></div></div>
+<div class="letter">Sample: “Under § 369 and § 369c of the Commercial Code we claim late payment interest of €225.30 and fixed compensation of €120.00 for invoices 2025-014, 2025-188 and 2026-102 paid after their due dates. Please pay €345.30 by …”</div>
+</div>
+</div></section>
+
+<section class="ea" id="early"><div class="wrap">
+<div><p class="kick">Early access</p><h2>If the audit finds money</h2><p>Paid versions are not on sale yet. Tick “yes” or “maybe” in the form and you will be among the first to hear.</p><p class="fine">Indicative early-access prices. No payment, no obligation.</p></div>
+<div class="tags"><div class="tag"><h3>Full recovery pack</h3><div class="price">€149 one-off</div><p>Retrospective audit and payment requests for all customers. Or, if you prefer, 20% of the amount actually recovered.</p></div><div class="tag"><h3>Late Payment Watch</h3><div class="price">€69 / month excl. VAT</div><p>Monthly import of new invoices, calculation, draft payment request or penalty invoice.</p></div></div>
+</div></section>
+
+<section class="faq" id="faq"><div class="wrap">
+<div><p class="kick">FAQ</p><h2>Questions finance teams ask</h2></div>
+<div><details><summary>Is the audit really free?</summary><p>Yes. One audit of your export, delivered by e-mail within 2 working days. No payment details, no obligation.</p></details><details><summary>Will this damage relationships with key customers?</summary><p>You decide whom to claim from. The audit shows the amounts per customer, so you can choose, for example, only former customers or chronic late payers.</p></details><details><summary>Why two variants of the €40 compensation?</summary><p>The Slovak Supreme Court (R 11/2023) grants €40 for each claim that is the subject of a separate invoice, provided the invoice is not split on purpose. The audit also shows the lower variant of €40 once per customer so you can see the range.</p></details><details><summary>What if we agreed a different rate with a customer?</summary><p>An agreed rate takes precedence. The audit uses the statutory rate and marks the customers for whom you said you have your own agreement.</p></details><details><summary>Which formats work?</summary><p>CSV, XLSX or XML exports from Pohoda, Money, iDoklad, Fakturoid, SuperFaktúra, KROS, ABRA, Helios, SAP or Excel. We need invoice number, customer, amount, currency, due date and payment date.</p></details></div>
+</div></section>
+
+<section class="privacy" id="privacy"><div class="wrap">
+<h2>Privacy</h2>
+<p><b>Úrok Späť</b> is operated by Štefan Toporcer, an individual based in Slovakia (not a registered company). Contact: <a href="mailto:toporcer.stefan@gmail.com">toporcer.stefan@gmail.com</a></p><p><b>What the form collects and why.</b> Work e-mail, company, website, name, country, role, your answers and the invoice export you upload. They are used only to prepare your audit and to send you one follow-up message about it. Please replace customer names with codes if you prefer.</p><p><b>Tools.</b> Tally (form), Gmail (sending the output) and Anthropic Claude (preparing the calculation).</p><p><b>Retention and your rights.</b> Data is kept for 12 months. You can ask for access or erasure at any time by e-mail; the uploaded export can be deleted earlier on request.</p><p><b>Analytics.</b> This site counts visits and clicks with PostHog (EU servers) in cookieless mode: nothing is stored on your device and IP addresses are anonymised. It is used only to see how the page is used, not to identify you.</p><p>The audit is an indicative calculation, not a legal opinion or a law-firm service.</p>
+</div></section>
+</main>
+<footer><div class="wrap">
+<a class="btn" href="https://tally.so/r/xVJ0LJ?ref=site-footer">Get the free Late Payment Audit</a>
+<a href="https://projektargo.com/">Part of Projekt Argo</a>
+<p class="disc">Úrok Späť · Štefan Toporcer · Indicative calculation from statutory rates and your data. Not legal advice. You send any payment request yourself, under your own name.</p>
+</div></footer>
+<script>/* motor-ref v1: ref z adresy -> Tally, udalost cta_click */(function(){try{var q=new URLSearchParams(location.search).get('ref');q=q?q.replace(/[^a-z0-9_-]/gi,'').slice(0,40):'';document.querySelectorAll('a[href^="https://tally.so/r/"]').forEach(function(a){var u=new URL(a.href),c=u.searchParams.get('ref')||'';if(q){u.searchParams.set('ref',q+'_'+c);a.href=u.toString();}a.addEventListener('click',function(){try{if(window.posthog&&posthog.capture){posthog.capture('cta_click',{form:u.pathname.split('/').pop(),ref:q||'none',cta:c},{transport:'sendBeacon'});}}catch(e){}});});}catch(e){}})();</script>
+<script src="/argo-nav.js" defer></script>
+</body>
+</html>
