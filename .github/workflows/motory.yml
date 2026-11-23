@@ -25,15 +25,18 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
-      # Pripnuté na commit, nie na pohyblivý tag: prepísaný tag v5 by inak získal právo
-      # zápisu do repozitára. Aktualizácia: git ls-remote https://github.com/actions/checkout refs/tags/v5
-      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09   # v5
+      # Pripnuté na commit, nie na pohyblivý tag: prepísaný tag v7 by inak získal právo
+      # zápisu do repozitára. Aktualizácia: git ls-remote https://github.com/actions/checkout refs/tags/v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1   # v7
         with:
           ref: main
           fetch-depth: 1
 
       - name: Stiahnuť stránky motorov zo Supabase
-        run: python3 .github/motory_sync.py --changed-out "$RUNNER_TEMP/motory-changed.txt"
+        run: |
+          python3 .github/motory_sync.py \
+            --changed-out "$RUNNER_TEMP/motory-changed.txt" \
+            --fail-out "$RUNNER_TEMP/motory-fail.txt"
 
       - name: Zverejniť zmeny (len ak nejaké sú)
         run: |
@@ -48,3 +51,16 @@ jobs:
             git pull --rebase origin main || { git rebase --abort; exit 1; }
           done
           exit 1
+
+      # Až na konci, aby zamietnutá stránka nezabránila zverejneniu ostatných.
+      # Beh musí skončiť chybou, inak by porucha ostala len v logu a e-mail by neprišiel.
+      - name: Nahlásiť stránky zamietnuté pre CSP
+        if: always()
+        run: |
+          f="$RUNNER_TEMP/motory-fail.txt"
+          if [ -s "$f" ]; then
+            echo "Tieto stránky by vlastná CSP rozbila, preto sa nezverejnili:"
+            cat "$f"
+            exit 1
+          fi
+          echo "Žiadna stránka zamietnutá pre CSP."

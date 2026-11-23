@@ -14,8 +14,11 @@ Bezpečnostné pravidlá:
   stránky motorov už sú, a keď neprejde kontrolou ani jedna live stránka. Tichá porucha je neprípustná.
 - Do každej stránky motora vloží Content-Security-Policy s hashmi jej inline skriptov
   (script-src bez 'unsafe-inline') a referrer policy. Počíta sa pri každom zverejnení, takže
-  hashe nemôžu zostarieť; nová stránka motora ju dostane automaticky. Nový externý host treba
-  doplniť do CSP_* nižšie – skript naň upozorní (::warning::), inak ho prehliadač zablokuje.
+  hashe nemôžu zostarieť; nová stránka motora ju dostane automaticky.
+- Stránku, ktorú by vlastná CSP rozbila, NEZVEREJNÍ: cudzí host mimo CSP_*, inline handler
+  (onclick=…) aj javascript: odkaz sú chyba, nie varovanie. Prehliadač ich pod politikou
+  zablokuje, takže zverejniť ich znamená tichú poruchu stránky. Nový externý host treba
+  doplniť do CSP_* nižšie, handler prepísať na addEventListener v skripte s hashom.
 - Do každej stránky motora vloží pred </body> plávajúce tlačidlo Projektu Argo (NAV_TAG → /argo-nav.js,
   zdroj zdroj/static/argo-nav.js hlavného webu). Dizajn stránky nemení: tlačidlo žije vo vlastnom shadow DOM.
 
@@ -63,10 +66,33 @@ REFERRER_META_RE = re.compile(r'[ \t]*<meta[^>]+name=["\']?referrer["\']?[^>]*>\
 CHARSET_RE = re.compile(r"<meta[^>]+charset=[^>]*>", re.I)
 HEAD_RE = re.compile(r"<head[^>]*>", re.I)
 EXT_RES_RE = re.compile(r'<(?:script|link|img|source|video|audio|iframe)\b[^>]*(?:src|href)=["\']https://([a-z0-9.\-]+)', re.I)
+# Inline handler (onclick=…) a javascript: odkaz pod script-src bez 'unsafe-inline' nefungujú.
+# Handlery hľadáme ako atribúty v otváracích tagoch, nie v texte stránky, aby regex nehlásil
+# falošné zhody (napr. „on=“ vo vete). Mená kratšie než 4 znaky (on=, ona=) nie sú udalosti.
+TAG_RE = re.compile(r"<[a-zA-Z][^>]*>", re.S)
+ATTR_RE = re.compile(r"""[\s/]([a-zA-Z][a-zA-Z0-9:_.\-]*)\s*=\s*(?:"[^"]*"|'[^']*'|[^\s"'>`]+)""")
+JS_URL_RE = re.compile(r'<[a-zA-Z][^>]*\b(?:href|src|action|formaction)\s*=\s*["\']?\s*javascript:', re.I)
+
+
+def csp_violations(html):
+    """Čo by vlastná CSP stránky zablokovala. Vracia zoznam hlášok (prázdny = v poriadku)."""
+    out = []
+    foreign = sorted({h for h in EXT_RES_RE.findall(html) if h not in CSP_ALLOWED_HOSTS})
+    if foreign:
+        out.append(f"načítava z hostov mimo CSP ({', '.join(foreign)}) – doplň ich do CSP_* "
+                   f"v .github/motory_sync.py, inak ich prehliadač zablokuje")
+    handlers = sorted({a.lower() for tag in TAG_RE.findall(html) for a in ATTR_RE.findall(tag)
+                       if a.lower().startswith("on") and len(a) > 3})
+    if handlers:
+        out.append(f"má inline handlery ({', '.join(handlers)}) – script-src je bez 'unsafe-inline', "
+                   f"takže sa nevykonajú; prepíš ich na addEventListener v <script> (ten dostane hash)")
+    if JS_URL_RE.search(html):
+        out.append("má odkaz javascript: – pod CSP sa nevykoná; prepíš ho na addEventListener")
+    return out
 
 
 def add_csp(html, slug):
-    """Vymení prípadnú starú CSP za novú, vypočítanú z tohto HTML. Vracia (html, cudzie_hosty)."""
+    """Vymení prípadnú starú CSP za novú, vypočítanú z tohto HTML. Vracia (html, porušenia)."""
     import base64, hashlib
     html = CSP_META_RE.sub("", html)
     html = REFERRER_META_RE.sub("", html)
@@ -95,8 +121,7 @@ def add_csp(html, slug):
     if not m:
         return html, []
     html = html[:m.end()] + "\n" + meta + html[m.end():]
-    foreign = sorted({h for h in EXT_RES_RE.findall(html) if h not in CSP_ALLOWED_HOSTS})
-    return html, foreign
+    return html, csp_violations(html)
 
 
 def warn(msg):
@@ -174,10 +199,11 @@ def validate(row):
             html = html[:end] + NAV_TAG + "\n" + html[end:]
         else:
             warn(f"motor {slug}: chýba </body> – tlačidlo Projektu Argo nevložené")
-    html, foreign = add_csp(html, slug)
-    if foreign:
-        warn(f"motor {slug}: stránka načítava z hostov mimo CSP ({', '.join(foreign)}) – "
-             f"doplň ich do CSP_* v .github/motory_sync.py, inak ich prehliadač zablokuje")
+    html, bad = add_csp(html, slug)
+    if bad:
+        # Zverejniť stránku, ktorú vlastná politika rozbije, je horšie než ju nezverejniť:
+        # predchádzajúca verzia ostáva v repozitári a chyba je vidieť v motory-status.json.
+        return None, "CSP: stránka " + "; ".join(bad)
     if not html.endswith("\n"):
         html += "\n"
     lastmod = str(row.get("lastmod") or "")
@@ -204,6 +230,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--fixture", help="JSON so riadkami namiesto Supabase (test)")
     ap.add_argument("--changed-out", help="sem zapíše zoznam zmenených súborov")
+    ap.add_argument("--fail-out", help="sem zapíše stránky zamietnuté pre CSP (workflow potom beh zhodí)")
     a = ap.parse_args()
 
     try:
@@ -223,13 +250,19 @@ def main():
             return 1
         warn("Supabase vrátilo 0 live stránok a v repozitári žiadna nie je – nie je čo zverejniť.")
 
-    changed, status, lastmods, ok = [], {}, {}, 0
+    changed, status, lastmods, ok, hard = [], {}, {}, 0, []
     for row in rows:
         page, msg = validate(row)
         slug = str(row.get("slug") or "?")
         status[slug] = msg if page else f"chyba: {msg}"
         if not page:
-            warn(f"motor {slug}: {msg}")
+            # Porušenie CSP je tichá porucha stránky – nestačí varovanie. Ostatné stránky
+            # sa zverejnia normálne a beh zhodí až posledný krok workflowu, aby prišiel e-mail.
+            if msg.startswith("CSP:"):
+                hard.append(f"motor {slug}: {msg}")
+                err(f"motor {slug}: {msg}")
+            else:
+                warn(f"motor {slug}: {msg}")
             continue
         ok += 1
         write_if_changed(ROOT / page["slug"] / "index.html", page["html"], changed)
@@ -259,8 +292,10 @@ def main():
 
     if a.changed_out:
         pathlib.Path(a.changed_out).write_text("".join(c + "\n" for c in changed), encoding="utf-8")
+    if a.fail_out:
+        pathlib.Path(a.fail_out).write_text("".join(h + "\n" for h in hard), encoding="utf-8")
     print(f"Motory: {len(rows)} live riadkov, zmenené súbory: {changed or 'žiadne'}")
-    return 0
+    return 1 if hard and not a.fail_out else 0
 
 
 if __name__ == "__main__":
