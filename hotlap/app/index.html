@@ -2,7 +2,7 @@
 <html lang="sk">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-src 'none'; form-action 'none'; script-src 'self' https://*.posthog.com 'sha256-WYXv4T0Sp4nsWGqxcZTrCFqOWXC4JrvQ7XW5xjyqzek=' 'sha256-hcqy9HvXvEzHfWE4nBZweFLWhODwPdz90ndQLNeJIyQ='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: https://*.posthog.com; connect-src 'self' https://*.posthog.com https://asnpyrrdeauhkskkkmuc.supabase.co https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://firestore.googleapis.com; worker-src 'self' blob: data:">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-src 'none'; form-action 'none'; script-src 'self' https://*.posthog.com 'sha256-WYXv4T0Sp4nsWGqxcZTrCFqOWXC4JrvQ7XW5xjyqzek=' 'sha256-NvE8I1fcqzIj1JBu8CfLnCDHfOLufs6+j904GMcAcVs='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: https://*.posthog.com; connect-src 'self' https://*.posthog.com https://asnpyrrdeauhkskkkmuc.supabase.co https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://firestore.googleapis.com; worker-src 'self' blob: data:">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
@@ -397,7 +397,7 @@ posthog.init("phc_zbBFHQt5aVYH9HuviHUQuwfh6TPCVPyXSrMWWgJ9UfLP",{api_host:"https
     <div class="wrap">
       <h2>Profil</h2>
       <div class="card pad0">
-        <div class="row"><div class="main"><div class="t" id="pName">—</div><div class="s" id="pMail">—</div></div></div>
+        <div class="row"><div class="main"><div class="t" id="pName">—</div><div class="s" id="pMail">—</div></div><button class="tag un" data-act="editName">Zmeniť</button></div>
         <div class="row"><div class="main"><div class="t">Prezývky na dráhe</div><div class="s" id="pAliases">—</div></div>
           <button class="tag un" data-act="addAlias">pridať</button></div>
         <div class="row"><div class="main"><div class="t">Fotka jazdca</div><div class="s">Tvoja vlastná, z tohto zariadenia</div></div>
@@ -706,6 +706,8 @@ function startLights(){
 }
 function wipe(){
  if(!confirm('Vymazať profil aj všetky zapísané jazdy?')) return;
+ // v time by inak zostal clen, ktory uz neexistuje; odchod sa stihne odoslat este pred zmazanim
+ if(cloudOn()&&S.teamId) cloudLeaveTeam().catch(()=>{});
  try{localStorage.removeItem(KEY)}catch(e){}
  S={user:null,tracks:JSON.parse(JSON.stringify(SEED_TRACKS)),sessions:[],requests:[],rivals:seedRivals()};
  $('#auth').classList.add('on');
@@ -1016,17 +1018,26 @@ let fbTok=null;
 function fbLoadTok(){ try{return JSON.parse(localStorage.getItem(FBK)||'null')}catch(e){return null} }
 function fbSaveTok(t){ try{localStorage.setItem(FBK,JSON.stringify(t))}catch(e){} }
 
-async function fbAuth(){
+function fbSyncUid(){ if(fbTok&&S.user&&S.user.uid!==fbTok.uid){ S.user.uid=fbTok.uid; save() } return fbTok }
+/* Prihlasenie bezi vzdy najviac jedno; subezne volania cakaju na ten isty vysledok,
+   inak by si dve naraz zalozili dva rozne ucty. */
+let fbBusy=null;
+function fbAuth(){
+ if(fbBusy) return fbBusy;
+ fbBusy=fbAuthRun().then(t=>{fbBusy=null;return t},e=>{fbBusy=null;throw e});
+ return fbBusy;
+}
+async function fbAuthRun(){
  if(!cloudOn()) throw new Error('vypnute');
  fbTok=fbTok||fbLoadTok();
- if(fbTok&&fbTok.exp>Date.now()+60000) return fbTok;
+ if(fbTok&&fbTok.exp>Date.now()+60000) return fbSyncUid();
  if(fbTok&&fbTok.refreshToken){
    const r=await fetch('https://securetoken.googleapis.com/v1/token?key='+FB.apiKey,{method:'POST',
      headers:{'Content-Type':'application/x-www-form-urlencoded'},
      body:'grant_type=refresh_token&refresh_token='+encodeURIComponent(fbTok.refreshToken)});
    if(r.ok){ const j=await r.json();
      fbTok={idToken:j.id_token,refreshToken:j.refresh_token,uid:j.user_id,exp:Date.now()+(+j.expires_in)*1000};
-     fbSaveTok(fbTok); return fbTok }
+     fbSaveTok(fbTok); return fbSyncUid() }
  }
  const r=await fetch('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key='+FB.apiKey,{method:'POST',
    headers:{'Content-Type':'application/json'},body:JSON.stringify({returnSecureToken:true})});
@@ -1034,8 +1045,7 @@ async function fbAuth(){
  const j=await r.json();
  fbTok={idToken:j.idToken,refreshToken:j.refreshToken,uid:j.localId,exp:Date.now()+(+j.expiresIn)*1000};
  fbSaveTok(fbTok);
- if(S.user&&S.user.uid!==fbTok.uid){ S.user.uid=fbTok.uid; save() }
- return fbTok;
+ return fbSyncUid();
 }
 
 const FSURL=()=>'https://firestore.googleapis.com/v1/projects/'+FB.projectId+'/databases/(default)/documents/';
@@ -1127,10 +1137,21 @@ async function cloudJoinTeam(code){
 }
 
 async function cloudLeaveTeam(){
- const t=await fbAuth();
  const id=S.teamId; if(!id) return;
+ const t=await fbAuth();
  await fsReq('teams/'+id+'?updateMask.fieldPaths='+encodeURIComponent('members.'+t.uid),
    {method:'PATCH',body:JSON.stringify({fields:{}})});
+}
+
+async function cloudSetMyName(name){
+ const t=await fbAuth();
+ const id=S.teamId; if(!id) return;
+ const d=await fsReq('teams/'+id); if(!d) return;
+ const mem=((fsDoc(d)||{}).members||{})[t.uid]; if(!mem) return;
+ const body={fields:{members:{mapValue:{fields:{}}}}};
+ body.fields.members.mapValue.fields[t.uid]=fsVal({name:String(name).slice(0,20),joinedAt:mem.joinedAt||new Date().toISOString()});
+ await fsReq('teams/'+id+'?updateMask.fieldPaths='+encodeURIComponent('members.'+t.uid),
+   {method:'PATCH',body:JSON.stringify(body)});
 }
 
 async function cloudRefreshTeam(){
@@ -1514,7 +1535,28 @@ function toggleAdmin(){
 }
 function addAlias(){
  const v=prompt('Pod akým ďalším menom ťa píšu na výsledky?');
- if(v&&v.trim()){S.user.aliases.push(v.trim());save();render()}
+ if(v&&v.trim()){
+   const a=v.trim().slice(0,20);
+   if(!S.user.aliases.includes(a)) S.user.aliases.push(a);
+   // kto pri registracii prezyvku preskocil, dostane prvu zadanu aj ako meno
+   if(S.user.name==='Jazdec'&&S.user.aliases.length===1) setMyName(a); else { save(); render() }
+ }
+}
+/* Zmeni meno jazdca a prenesie ho aj do timu, ak v nejakom je. */
+function setMyName(n){
+ n=String(n||'').trim().slice(0,20); if(!n||!S.user) return false;
+ const stare=S.user.name;
+ S.user.name=n;
+ if(!S.user.aliases.includes(n)) S.user.aliases.push(n);
+ const t=(S.teams||[])[0];
+ if(t){ const u=myUid(); const m=t.members.find(x=>(u&&x.uid)?x.uid===u:x.name===stare); if(m) m.name=n }
+ save(); render();
+ if(cloudOn()&&S.teamId) cloudSetMyName(n).catch(()=>{});
+ return true;
+}
+function editName(){
+ const v=prompt('Ako sa máš volať v appke?',S.user.name==='Jazdec'?'':S.user.name);
+ if(v&&v.trim()) setMyName(v);
 }
 
 /* ================= moje casy ================= */
@@ -2006,12 +2048,14 @@ function renderTeam(){
    return;
  }
  const stary = cloudOn() && !t.cloud;
- const names=t.members.map(m=>m.name);
  const mine=S.sessions.filter(x=>!isArchived(x));
- const perMember=names.map(n=>{
-   const rs = n===S.user.name ? mine : [];
+ // "ja" je najviac jeden clen: prvy, ktory sedi (pri menovcoch bez identifikatora by inak sedeli vsetci)
+ const jaIdx=t.members.findIndex(inTeam);
+ const perMember=t.members.map((m,ix)=>{
+   const ja = ix===jaIdx;
+   const rs = ja ? mine : [];
    const best=rs.length?Math.min(...rs.map(x=>x.bestMs)):null;
-   return {n,rides:rs.length,best};
+   return {n:m.name,ja,rides:rs.length,best};
  }).sort((a,b)=>(a.best||9e9)-(b.best||9e9));
  const tracks=[...new Set(mine.map(x=>x.trackId))];
  const duels=(S.duels||[]).filter(d=>d.teamA===t.id||d.teamB===t.id);
@@ -2033,7 +2077,7 @@ function renderTeam(){
   <div class="card pad0">${perMember.map((m,i)=>`
     <div class="row">
       <div class="pos ${i===0?'p1':''}">${i+1}</div>
-      <div class="main"><div class="t">${esc(m.n)}${m.n===S.user.name?' <span class="tag new">ty</span>':''}</div>
+      <div class="main"><div class="t">${esc(m.n)}${m.ja?' <span class="tag new">ty</span>':''}</div>
         <div class="s">${nJazd(m.rides)}</div></div>
       <div class="time ${i===0?'is-pb':''}">${m.best?fmt(m.best):'—'}</div></div>`).join('')}</div>
   <p class="hint">Členov tímu vidíš naživo z databázy. Časy sa zatiaľ ukladajú v prehliadači každého jazdca, takže v tomto zozname vidíš len svoje — spoločné budú hneď v ďalšom kroku.</p>
@@ -2307,6 +2351,7 @@ const ACT={
  toggleAdmin:()=>toggleAdmin(),
  wipe:()=>wipe(),
  doCreateTeam:()=>doCreateTeam(),
+ editName:()=>editName(),
  znovaTim:()=>znovaTim(),
  doJoinTeam:()=>doJoinTeam(),
  doLeaveTeam:()=>doLeaveTeam(),
