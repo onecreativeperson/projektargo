@@ -69,6 +69,8 @@ nav .links{margin-inline-start:auto;display:flex;gap:22px;font-size:14.5px}
 nav .links a{color:var(--ink2)}
 nav .links a:hover{color:var(--ink);text-decoration:none}
 @media(max-width:720px){nav .links{display:none}}
+/* lista je prilepena hore, takze skok z navigacie musi zastavit pod nou */
+section[id]{scroll-margin-top:74px}
 
 /* hero */
 header{position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
@@ -136,6 +138,10 @@ tbody tr:last-child td{border-bottom:none}
        border:1px solid rgba(255,45,45,.35);border-radius:var(--r);padding:28px}
 .price .big{font-family:'JetBrains Mono',monospace;font-size:46px;font-weight:800;line-height:1;letter-spacing:-.03em}
 .price .per{color:var(--ink2);font-size:15.5px;margin-top:8px}
+.plan{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:28px}
+.plan .big{font-family:'JetBrains Mono',monospace;font-size:46px;font-weight:800;line-height:1;letter-spacing:-.03em;color:var(--ink2)}
+.plan .per{color:var(--ink3);font-size:15.5px;margin-top:8px}
+.plan .list li:before{background:var(--ink3)}
 .list{list-style:none;margin-top:18px}
 .list li{position:relative;padding-block:8px;padding-inline:28px 0;color:var(--ink2);font-size:15.5px;border-bottom:1px solid var(--line)}
 .list li:last-child{border:none}
@@ -150,6 +156,7 @@ tbody tr:last-child td{border-bottom:none}
   font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:700;color:var(--red)}
 .steps p{color:var(--ink2);font-size:15.5px}
 
+.demo{color:var(--ink3);font-size:14px;margin-top:14px;max-width:54ch}
 .note{border-inline-start:2px solid var(--amber);padding-block:4px;padding-inline:18px 0;color:var(--ink2);font-size:15.5px;margin-top:20px}
 .note b{color:var(--amber)}
 
@@ -175,7 +182,7 @@ posthog.init("phc_zbBFHQt5aVYH9HuviHUQuwfh6TPCVPyXSrMWWgJ9UfLP",{api_host:"https
 
 <nav><div class="wrap">
   <a href="https://projektargo.com/hotlap/" class="logo"><span class="mark"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"><path d="M13 3 5 14h6l-2 7 9-12h-6l1-6Z"/></svg></span>HOTLAP</a>
-  <div class="links"><a href="#how">How it works</a><a href="#xp">XP and levels</a><a href="#teams">Teams and duels</a><a href="#tracks">For tracks</a></div>
+  <div class="links"><a href="#how">How it works</a><a href="#xp">XP and levels</a><a href="#teams">Teams and duels</a><a href="#plans">Price</a><a href="#tracks">For tracks</a></div>
 </div></nav>
 
 <header>
@@ -185,9 +192,11 @@ posthog.init("phc_zbBFHQt5aVYH9HuviHUQuwfh6TPCVPyXSrMWWgJ9UfLP",{api_host:"https
     <h1>Your times.<br>Every track.<br><em>One profile.</em></h1>
     <p class="lede">Hotlap collects your lap times from karting tracks into one place. You see whether you are improving, where you hold a record, and how you stand against your friends — even when you drive on different circuits.</p>
     <div class="cta">
-      <a class="btn primary" href="#how">I&#x27;m a driver</a>
+      <a class="btn primary" href="https://projektargo.com/hotlap/app/">Try the app</a>
+      <a class="btn ghost" href="#how">I&#x27;m a driver</a>
       <a class="btn ghost" href="#tracks">I run a track</a>
     </div>
+    <p class="demo">A demo — no registration needed. Your times stay in this browser, so the leaderboard still shows sample riders.</p>
   </div></div>
 </header>
 
@@ -216,6 +225,10 @@ posthog.init("phc_zbBFHQt5aVYH9HuviHUQuwfh6TPCVPyXSrMWWgJ9UfLP",{api_host:"https
 <div><h3>You type it in</h3><p>Best lap, date and kart number. Ten seconds, and it works everywhere.</p></div>
     </div>
     <div class="note"><b>What Hotlap does not do:</b> it does not measure time. The track&#x27;s timing system does that. Hotlap takes the result and gives it meaning over time.</div>
+    <div class="cta" style="margin-top:28px">
+      <a class="btn primary" href="https://projektargo.com/hotlap/app/">Try the app</a>
+    </div>
+    <p class="demo">A demo — no registration needed. Your times stay in this browser, so the leaderboard still shows sample riders.</p>
   </div>
 </section>
 
@@ -294,6 +307,47 @@ posthog.init("phc_zbBFHQt5aVYH9HuviHUQuwfh6TPCVPyXSrMWWgJ9UfLP",{api_host:"https
   </div>
 </section>
 
+<section id="plans">
+  <div class="wrap">
+    <div class="eyebrow">Price for drivers</div>
+    <h2>Free forever, or the whole world for a euro</h2>
+    <p class="sub">One rule: everything of yours is free, everyone else costs a euro. Entering your own times stays free for good, because without those times there is nothing to compare against.</p>
+
+    <div class="grid g2">
+      <div class="plan">
+        <div class="eyebrow">Free</div>
+        <div class="big">€0</div>
+        <div class="per">forever, no card, no time limit</div>
+        <ul class="list" style="margin-top:20px">
+<li>Profile, and adding runs by photo or by hand with no limit</li>
+<li>Your own history and your own record on every track you have driven</li>
+<li>The gap to your previous run, XP, levels and badges</li>
+<li>The leaderboard of tracks you have driven: the top ten and your own place</li>
+<li>One team of up to 8 drivers and your own team&#x27;s times</li>
+<li>The facts about every track: shape, direction, length, kart classes</li>
+<li>Adding a new track anywhere in the world</li>
+        </ul>
+      </div>
+      <div class="price">
+        <div class="eyebrow" style="color:var(--red)">Hotlap Pro</div>
+        <div class="big">€1</div>
+        <div class="per">per month, or pay once a year — <b style="color:var(--ink)">€12 a year</b></div>
+        <ul class="list" style="margin-top:20px">
+<li>Full leaderboards with no top-ten cut, on every track in the world, including ones you have never driven</li>
+<li>Any driver&#x27;s profile and their times</li>
+<li>World and country ranking: your ratio to the fastest time against drivers from other tracks</li>
+<li>Filters by country, city, kart class and age group</li>
+<li>Teams worldwide: every team&#x27;s record, a duel against a team from another track, the team world ranking</li>
+<li>More than one team, and the history of your duels</li>
+<li>Which kart number set the record, and your own average per kart</li>
+<li>Export of your own times</li>
+        </ul>
+      </div>
+    </div>
+    <div class="note"><b>Payment is not running yet.</b> Pro is worth its euro only once drivers from several tracks are actually in the app. Until then this is a price list, not a button.</div>
+  </div>
+</section>
+
 <section id="tracks">
   <div class="wrap">
     <div class="eyebrow">For track operators</div>
@@ -315,7 +369,7 @@ posthog.init("phc_zbBFHQt5aVYH9HuviHUQuwfh6TPCVPyXSrMWWgJ9UfLP",{api_host:"https
         <ul class="list" style="margin-top:20px">
 <li>First 30 days free</li>
 <li>No contract, no lock-in</li>
-<li>Free for drivers, always</li>
+<li>Drivers drive for free; they only pay for the worldwide view</li>
         </ul>
       </div>
       <div class="card">
@@ -342,6 +396,7 @@ posthog.init("phc_zbBFHQt5aVYH9HuviHUQuwfh6TPCVPyXSrMWWgJ9UfLP",{api_host:"https
 <li><b>Reading from photos is not running yet.</b> It switches on when the app is connected to a database.</li>
 <li><b>The app does not know your average lap.</b> It stores the best lap and the lap count, not the total session time. An average would be invented.</li>
 <li><b>Circuit shapes are not drawn automatically.</b> GPS does not work indoors. We trace the layout by hand from the track&#x27;s own plan.</li>
+<li><b>Payment and accounts are not built yet.</b> Both the free plan and Pro are a price list for now. Nothing can be paid for and nothing is locked.</li>
     </ul>
   </div>
 </section>

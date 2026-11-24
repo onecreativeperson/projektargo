@@ -69,6 +69,8 @@ nav .links{margin-inline-start:auto;display:flex;gap:22px;font-size:14.5px}
 nav .links a{color:var(--ink2)}
 nav .links a:hover{color:var(--ink);text-decoration:none}
 @media(max-width:720px){nav .links{display:none}}
+/* lista je prilepena hore, takze skok z navigacie musi zastavit pod nou */
+section[id]{scroll-margin-top:74px}
 
 /* hero */
 header{position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
@@ -136,6 +138,10 @@ tbody tr:last-child td{border-bottom:none}
        border:1px solid rgba(255,45,45,.35);border-radius:var(--r);padding:28px}
 .price .big{font-family:'JetBrains Mono',monospace;font-size:46px;font-weight:800;line-height:1;letter-spacing:-.03em}
 .price .per{color:var(--ink2);font-size:15.5px;margin-top:8px}
+.plan{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:28px}
+.plan .big{font-family:'JetBrains Mono',monospace;font-size:46px;font-weight:800;line-height:1;letter-spacing:-.03em;color:var(--ink2)}
+.plan .per{color:var(--ink3);font-size:15.5px;margin-top:8px}
+.plan .list li:before{background:var(--ink3)}
 .list{list-style:none;margin-top:18px}
 .list li{position:relative;padding-block:8px;padding-inline:28px 0;color:var(--ink2);font-size:15.5px;border-bottom:1px solid var(--line)}
 .list li:last-child{border:none}
@@ -150,6 +156,7 @@ tbody tr:last-child td{border-bottom:none}
   font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:700;color:var(--red)}
 .steps p{color:var(--ink2);font-size:15.5px}
 
+.demo{color:var(--ink3);font-size:14px;margin-top:14px;max-width:54ch}
 .note{border-inline-start:2px solid var(--amber);padding-block:4px;padding-inline:18px 0;color:var(--ink2);font-size:15.5px;margin-top:20px}
 .note b{color:var(--amber)}
 
@@ -175,7 +182,7 @@ posthog.init("phc_zbBFHQt5aVYH9HuviHUQuwfh6TPCVPyXSrMWWgJ9UfLP",{api_host:"https
 
 <nav><div class="wrap">
   <a href="https://projektargo.com/hotlap/fr/" class="logo"><span class="mark"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"><path d="M13 3 5 14h6l-2 7 9-12h-6l1-6Z"/></svg></span>HOTLAP</a>
-  <div class="links"><a href="#how">Comment ça marche</a><a href="#xp">XP et niveaux</a><a href="#teams">Équipes et duels</a><a href="#tracks">Pour les pistes</a></div>
+  <div class="links"><a href="#how">Comment ça marche</a><a href="#xp">XP et niveaux</a><a href="#teams">Équipes et duels</a><a href="#plans">Prix</a><a href="#tracks">Pour les pistes</a></div>
 </div></nav>
 
 <header>
@@ -185,9 +192,11 @@ posthog.init("phc_zbBFHQt5aVYH9HuviHUQuwfh6TPCVPyXSrMWWgJ9UfLP",{api_host:"https
     <h1>Tes temps.<br>Toutes les pistes.<br><em>Un seul profil.</em></h1>
     <p class="lede">Hotlap rassemble tes temps au tour des pistes de karting au même endroit. Tu vois si tu progresses, où tu détiens un record et comment tu te situes face à tes amis — même si vous roulez sur des circuits différents.</p>
     <div class="cta">
-      <a class="btn primary" href="#how">Je suis pilote</a>
+      <a class="btn primary" href="https://projektargo.com/hotlap/app/">Essayer l’appli</a>
+      <a class="btn ghost" href="#how">Je suis pilote</a>
       <a class="btn ghost" href="#tracks">Je gère une piste</a>
     </div>
+    <p class="demo">Une démo — sans inscription. Tes temps restent dans ce navigateur, le classement montre donc encore des pilotes d’exemple.</p>
   </div></div>
 </header>
 
@@ -216,6 +225,10 @@ posthog.init("phc_zbBFHQt5aVYH9HuviHUQuwfh6TPCVPyXSrMWWgJ9UfLP",{api_host:"https
 <div><h3>Tu le saisis à la main</h3><p>Meilleur tour, date et numéro de kart. Dix secondes, et ça marche partout.</p></div>
     </div>
     <div class="note"><b>Ce que Hotlap ne fait pas :</b> il ne mesure pas le temps. C&#x27;est le chronométrage de la piste qui le fait. Hotlap prend le résultat et lui donne un sens dans la durée.</div>
+    <div class="cta" style="margin-top:28px">
+      <a class="btn primary" href="https://projektargo.com/hotlap/app/">Essayer l’appli</a>
+    </div>
+    <p class="demo">Une démo — sans inscription. Tes temps restent dans ce navigateur, le classement montre donc encore des pilotes d’exemple.</p>
   </div>
 </section>
 
@@ -294,6 +307,47 @@ posthog.init("phc_zbBFHQt5aVYH9HuviHUQuwfh6TPCVPyXSrMWWgJ9UfLP",{api_host:"https
   </div>
 </section>
 
+<section id="plans">
+  <div class="wrap">
+    <div class="eyebrow">Prix pour les pilotes</div>
+    <h2>Gratuit pour toujours, ou le monde entier pour un euro</h2>
+    <p class="sub">Une seule règle : tout ce qui est à toi est gratuit, tous les autres coûtent un euro. Saisir tes propres temps reste gratuit définitivement, car sans ces temps il n&#x27;y a rien à comparer.</p>
+
+    <div class="grid g2">
+      <div class="plan">
+        <div class="eyebrow">Gratuit</div>
+        <div class="big">0 €</div>
+        <div class="per">pour toujours, sans carte et sans limite de temps</div>
+        <ul class="list" style="margin-top:20px">
+<li>Profil et ajout de sessions par photo ou à la main, sans limite</li>
+<li>Ton historique et ton record sur chaque piste où tu as roulé</li>
+<li>L&#x27;écart avec ta session précédente, l&#x27;XP, les niveaux et les badges</li>
+<li>Le classement des pistes où tu as roulé : les dix premiers et ta place</li>
+<li>Une équipe de 8 pilotes au maximum et les temps de ta propre équipe</li>
+<li>Les faits sur chaque piste : tracé, sens de circulation, longueur, catégories de karts</li>
+<li>L&#x27;ajout d&#x27;une nouvelle piste n&#x27;importe où dans le monde</li>
+        </ul>
+      </div>
+      <div class="price">
+        <div class="eyebrow" style="color:var(--red)">Hotlap Pro</div>
+        <div class="big">1 €</div>
+        <div class="per">par mois, ou payé une fois par an — <b style="color:var(--ink)">12 € par an</b></div>
+        <ul class="list" style="margin-top:20px">
+<li>Les classements complets sans coupure après les dix premiers, sur chaque piste du monde, même celles où tu n&#x27;as jamais roulé</li>
+<li>Le profil de n&#x27;importe quel pilote et ses temps</li>
+<li>Classement mondial et national : ton rapport au meilleur temps face aux pilotes d&#x27;autres pistes</li>
+<li>Filtres par pays, ville, catégorie de kart et tranche d&#x27;âge</li>
+<li>Les équipes du monde entier : le record de chaque équipe, un duel contre une équipe d&#x27;une autre piste, le classement mondial des équipes</li>
+<li>Plus d&#x27;une équipe et l&#x27;historique de tes duels</li>
+<li>Le numéro du kart avec lequel le record est tombé, et ta moyenne par kart</li>
+<li>L&#x27;export de tes propres temps</li>
+        </ul>
+      </div>
+    </div>
+    <div class="note"><b>Le paiement ne fonctionne pas encore.</b> Pro ne vaut son euro que lorsque des pilotes de plusieurs pistes sont réellement dans l&#x27;appli. D&#x27;ici là, c&#x27;est une grille de prix, pas un bouton.</div>
+  </div>
+</section>
+
 <section id="tracks">
   <div class="wrap">
     <div class="eyebrow">Pour les exploitants de pistes</div>
@@ -315,7 +369,7 @@ posthog.init("phc_zbBFHQt5aVYH9HuviHUQuwfh6TPCVPyXSrMWWgJ9UfLP",{api_host:"https
         <ul class="list" style="margin-top:20px">
 <li>Les 30 premiers jours gratuits</li>
 <li>Sans contrat ni engagement</li>
-<li>Gratuit pour les pilotes, toujours</li>
+<li>Les pilotes roulent gratuitement ; ils ne paient que la vue mondiale</li>
         </ul>
       </div>
       <div class="card">
@@ -342,6 +396,7 @@ posthog.init("phc_zbBFHQt5aVYH9HuviHUQuwfh6TPCVPyXSrMWWgJ9UfLP",{api_host:"https
 <li><b>La lecture des photos ne tourne pas encore.</b> Elle s&#x27;activera quand l&#x27;application sera reliée à une base de données.</li>
 <li><b>L&#x27;application ne connaît pas ton tour moyen.</b> Elle enregistre le meilleur tour et le nombre de tours, pas le temps total de la session. Une moyenne serait inventée.</li>
 <li><b>Les formes de circuit ne se dessinent pas automatiquement.</b> Le GPS ne fonctionne pas en intérieur. Nous traçons le circuit à la main d&#x27;après le plan de la piste.</li>
+<li><b>Le paiement et les comptes ne sont pas encore construits.</b> Le gratuit comme le Pro sont pour l&#x27;instant une grille de prix. Rien ne peut être payé et rien n&#x27;est verrouillé.</li>
     </ul>
   </div>
 </section>

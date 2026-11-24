@@ -69,6 +69,8 @@ nav .links{margin-inline-start:auto;display:flex;gap:22px;font-size:14.5px}
 nav .links a{color:var(--ink2)}
 nav .links a:hover{color:var(--ink);text-decoration:none}
 @media(max-width:720px){nav .links{display:none}}
+/* lista je prilepena hore, takze skok z navigacie musi zastavit pod nou */
+section[id]{scroll-margin-top:74px}
 
 /* hero */
 header{position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
@@ -136,6 +138,10 @@ tbody tr:last-child td{border-bottom:none}
        border:1px solid rgba(255,45,45,.35);border-radius:var(--r);padding:28px}
 .price .big{font-family:'JetBrains Mono',monospace;font-size:46px;font-weight:800;line-height:1;letter-spacing:-.03em}
 .price .per{color:var(--ink2);font-size:15.5px;margin-top:8px}
+.plan{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:28px}
+.plan .big{font-family:'JetBrains Mono',monospace;font-size:46px;font-weight:800;line-height:1;letter-spacing:-.03em;color:var(--ink2)}
+.plan .per{color:var(--ink3);font-size:15.5px;margin-top:8px}
+.plan .list li:before{background:var(--ink3)}
 .list{list-style:none;margin-top:18px}
 .list li{position:relative;padding-block:8px;padding-inline:28px 0;color:var(--ink2);font-size:15.5px;border-bottom:1px solid var(--line)}
 .list li:last-child{border:none}
@@ -150,6 +156,7 @@ tbody tr:last-child td{border-bottom:none}
   font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:700;color:var(--red)}
 .steps p{color:var(--ink2);font-size:15.5px}
 
+.demo{color:var(--ink3);font-size:14px;margin-top:14px;max-width:54ch}
 .note{border-inline-start:2px solid var(--amber);padding-block:4px;padding-inline:18px 0;color:var(--ink2);font-size:15.5px;margin-top:20px}
 .note b{color:var(--amber)}
 
@@ -175,7 +182,7 @@ posthog.init("phc_zbBFHQt5aVYH9HuviHUQuwfh6TPCVPyXSrMWWgJ9UfLP",{api_host:"https
 
 <nav><div class="wrap">
   <a href="https://projektargo.com/hotlap/hi/" class="logo"><span class="mark"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"><path d="M13 3 5 14h6l-2 7 9-12h-6l1-6Z"/></svg></span>HOTLAP</a>
-  <div class="links"><a href="#how">यह कैसे काम करता है</a><a href="#xp">XP और स्तर</a><a href="#teams">टीमें और मुकाबले</a><a href="#tracks">ट्रैक के लिए</a></div>
+  <div class="links"><a href="#how">यह कैसे काम करता है</a><a href="#xp">XP और स्तर</a><a href="#teams">टीमें और मुकाबले</a><a href="#plans">कीमत</a><a href="#tracks">ट्रैक के लिए</a></div>
 </div></nav>
 
 <header>
@@ -185,9 +192,11 @@ posthog.init("phc_zbBFHQt5aVYH9HuviHUQuwfh6TPCVPyXSrMWWgJ9UfLP",{api_host:"https
     <h1>आपके टाइम।<br>हर ट्रैक।<br><em>एक प्रोफ़ाइल।</em></h1>
     <p class="lede">Hotlap कार्टिंग ट्रैक से आपके लैप टाइम एक ही जगह इकट्ठा करता है। आप देख पाते हैं कि आप सुधर रहे हैं या नहीं, कहाँ आपका रिकॉर्ड है और दोस्तों के मुकाबले आप कहाँ हैं — भले ही आप अलग-अलग ट्रैक पर चलाते हों।</p>
     <div class="cta">
-      <a class="btn primary" href="#how">मैं चालक हूँ</a>
+      <a class="btn primary" href="https://projektargo.com/hotlap/app/">ऐप आज़माएँ</a>
+      <a class="btn ghost" href="#how">मैं चालक हूँ</a>
       <a class="btn ghost" href="#tracks">मैं ट्रैक चलाता हूँ</a>
     </div>
+    <p class="demo">डेमो — पंजीकरण की ज़रूरत नहीं। आपके समय इसी ब्राउज़र में रहते हैं, इसलिए लीडरबोर्ड में अभी नमूना चालक दिखते हैं।</p>
   </div></div>
 </header>
 
@@ -216,6 +225,10 @@ posthog.init("phc_zbBFHQt5aVYH9HuviHUQuwfh6TPCVPyXSrMWWgJ9UfLP",{api_host:"https
 <div><h3>आप खुद भरते हैं</h3><p>सबसे तेज़ लैप, तारीख़ और कार्ट नंबर। दस सेकंड, और यह हर जगह काम करता है।</p></div>
     </div>
     <div class="note"><b>Hotlap जो नहीं करता:</b> यह समय नहीं मापता। वह काम ट्रैक की टाइमिंग प्रणाली करती है। Hotlap नतीजा लेता है और समय के साथ उसे अर्थ देता है।</div>
+    <div class="cta" style="margin-top:28px">
+      <a class="btn primary" href="https://projektargo.com/hotlap/app/">ऐप आज़माएँ</a>
+    </div>
+    <p class="demo">डेमो — पंजीकरण की ज़रूरत नहीं। आपके समय इसी ब्राउज़र में रहते हैं, इसलिए लीडरबोर्ड में अभी नमूना चालक दिखते हैं।</p>
   </div>
 </section>
 
@@ -294,6 +307,47 @@ posthog.init("phc_zbBFHQt5aVYH9HuviHUQuwfh6TPCVPyXSrMWWgJ9UfLP",{api_host:"https
   </div>
 </section>
 
+<section id="plans">
+  <div class="wrap">
+    <div class="eyebrow">चालकों के लिए कीमत</div>
+    <h2>हमेशा के लिए मुफ़्त, या एक यूरो में पूरी दुनिया</h2>
+    <p class="sub">एक ही नियम: जो आपका है वह मुफ़्त है, बाकी सब एक यूरो में। अपने समय दर्ज करना हमेशा मुफ़्त रहेगा, क्योंकि उन समयों के बिना तुलना करने लायक कुछ नहीं बचता।</p>
+
+    <div class="grid g2">
+      <div class="plan">
+        <div class="eyebrow">मुफ़्त</div>
+        <div class="big">€0</div>
+        <div class="per">हमेशा के लिए, बिना कार्ड और बिना समय सीमा</div>
+        <ul class="list" style="margin-top:20px">
+<li>प्रोफ़ाइल, और फ़ोटो से या हाथ से सत्र जोड़ना, बिना किसी सीमा</li>
+<li>हर उस ट्रैक पर अपना इतिहास और अपना रिकॉर्ड जहाँ आपने चलाया है</li>
+<li>पिछली बार से अंतर, XP, स्तर और बैज</li>
+<li>जिन ट्रैक पर आपने चलाया है उनका लीडरबोर्ड: पहले दस और आपका स्थान</li>
+<li>8 चालकों तक की एक टीम और अपनी टीम के समय</li>
+<li>हर ट्रैक की जानकारी: आकार, दिशा, लंबाई, कार्ट श्रेणियाँ</li>
+<li>दुनिया में कहीं भी नया ट्रैक जोड़ना</li>
+        </ul>
+      </div>
+      <div class="price">
+        <div class="eyebrow" style="color:var(--red)">Hotlap Pro</div>
+        <div class="big">€1</div>
+        <div class="per">प्रति माह, या साल में एक बार भुगतान — <b style="color:var(--ink)">€12 प्रति वर्ष</b></div>
+        <ul class="list" style="margin-top:20px">
+<li>पहले दस पर कटे बिना पूरे लीडरबोर्ड, दुनिया के हर ट्रैक पर, उन पर भी जहाँ आपने कभी नहीं चलाया</li>
+<li>किसी भी चालक की प्रोफ़ाइल और उसके समय</li>
+<li>विश्व और देश की रैंकिंग: दूसरे ट्रैक के चालकों के सामने सबसे तेज़ समय से आपका अनुपात</li>
+<li>देश, शहर, कार्ट श्रेणी और आयु वर्ग के अनुसार छानना</li>
+<li>दुनिया भर की टीमें: हर टीम का रिकॉर्ड, दूसरे ट्रैक की टीम से मुकाबला, टीमों की विश्व रैंकिंग</li>
+<li>एक से ज़्यादा टीम और आपके मुकाबलों का इतिहास</li>
+<li>रिकॉर्ड किस कार्ट नंबर पर बना, और कार्ट के हिसाब से आपका औसत</li>
+<li>अपने समय का निर्यात</li>
+        </ul>
+      </div>
+    </div>
+    <div class="note"><b>भुगतान अभी काम नहीं करता।</b> Pro अपने एक यूरो के लायक तभी है जब ऐप में सच में कई ट्रैक के चालक हों। तब तक यह एक मूल्य सूची है, बटन नहीं।</div>
+  </div>
+</section>
+
 <section id="tracks">
   <div class="wrap">
     <div class="eyebrow">ट्रैक संचालकों के लिए</div>
@@ -315,7 +369,7 @@ posthog.init("phc_zbBFHQt5aVYH9HuviHUQuwfh6TPCVPyXSrMWWgJ9UfLP",{api_host:"https
         <ul class="list" style="margin-top:20px">
 <li>पहले 30 दिन मुफ़्त</li>
 <li>न अनुबंध, न बंधन</li>
-<li>चालकों के लिए हमेशा मुफ़्त</li>
+<li>चालक मुफ़्त चलाते हैं; वे केवल दुनिया भर के दृश्य के लिए भुगतान करते हैं</li>
         </ul>
       </div>
       <div class="card">
@@ -342,6 +396,7 @@ posthog.init("phc_zbBFHQt5aVYH9HuviHUQuwfh6TPCVPyXSrMWWgJ9UfLP",{api_host:"https
 <li><b>फ़ोटो से पढ़ना अभी नहीं चलता।</b> ऐप के डेटाबेस से जुड़ने पर यह चालू होगा।</li>
 <li><b>ऐप को आपका औसत लैप नहीं पता।</b> वह सबसे तेज़ लैप और लैप की संख्या रखता है, पूरे सत्र का समय नहीं। औसत गढ़ा हुआ होता।</li>
 <li><b>सर्किट का आकार अपने आप नहीं बनता।</b> इनडोर में GPS काम नहीं करता। हम ट्रैक के अपने नक़्शे से लेआउट हाथ से बनाते हैं।</li>
+<li><b>भुगतान और खाते अभी बने नहीं हैं।</b> मुफ़्त और Pro दोनों अभी मूल्य सूची हैं। कुछ भी भुगतान नहीं किया जा सकता और कुछ भी बंद नहीं है।</li>
     </ul>
   </div>
 </section>

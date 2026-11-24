@@ -69,6 +69,8 @@ nav .links{margin-inline-start:auto;display:flex;gap:22px;font-size:14.5px}
 nav .links a{color:var(--ink2)}
 nav .links a:hover{color:var(--ink);text-decoration:none}
 @media(max-width:720px){nav .links{display:none}}
+/* lista je prilepena hore, takze skok z navigacie musi zastavit pod nou */
+section[id]{scroll-margin-top:74px}
 
 /* hero */
 header{position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
@@ -136,6 +138,10 @@ tbody tr:last-child td{border-bottom:none}
        border:1px solid rgba(255,45,45,.35);border-radius:var(--r);padding:28px}
 .price .big{font-family:'JetBrains Mono',monospace;font-size:46px;font-weight:800;line-height:1;letter-spacing:-.03em}
 .price .per{color:var(--ink2);font-size:15.5px;margin-top:8px}
+.plan{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:28px}
+.plan .big{font-family:'JetBrains Mono',monospace;font-size:46px;font-weight:800;line-height:1;letter-spacing:-.03em;color:var(--ink2)}
+.plan .per{color:var(--ink3);font-size:15.5px;margin-top:8px}
+.plan .list li:before{background:var(--ink3)}
 .list{list-style:none;margin-top:18px}
 .list li{position:relative;padding-block:8px;padding-inline:28px 0;color:var(--ink2);font-size:15.5px;border-bottom:1px solid var(--line)}
 .list li:last-child{border:none}
@@ -150,6 +156,7 @@ tbody tr:last-child td{border-bottom:none}
   font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:700;color:var(--red)}
 .steps p{color:var(--ink2);font-size:15.5px}
 
+.demo{color:var(--ink3);font-size:14px;margin-top:14px;max-width:54ch}
 .note{border-inline-start:2px solid var(--amber);padding-block:4px;padding-inline:18px 0;color:var(--ink2);font-size:15.5px;margin-top:20px}
 .note b{color:var(--amber)}
 
@@ -175,7 +182,7 @@ posthog.init("phc_zbBFHQt5aVYH9HuviHUQuwfh6TPCVPyXSrMWWgJ9UfLP",{api_host:"https
 
 <nav><div class="wrap">
   <a href="https://projektargo.com/hotlap/ru/" class="logo"><span class="mark"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"><path d="M13 3 5 14h6l-2 7 9-12h-6l1-6Z"/></svg></span>HOTLAP</a>
-  <div class="links"><a href="#how">Как это работает</a><a href="#xp">Опыт и уровни</a><a href="#teams">Команды и дуэли</a><a href="#tracks">Для трасс</a></div>
+  <div class="links"><a href="#how">Как это работает</a><a href="#xp">Опыт и уровни</a><a href="#teams">Команды и дуэли</a><a href="#plans">Цена</a><a href="#tracks">Для трасс</a></div>
 </div></nav>
 
 <header>
@@ -185,9 +192,11 @@ posthog.init("phc_zbBFHQt5aVYH9HuviHUQuwfh6TPCVPyXSrMWWgJ9UfLP",{api_host:"https
     <h1>Твои круги.<br>Любая трасса.<br><em>Один профиль.</em></h1>
     <p class="lede">Hotlap собирает твои времена круга с картодромов в одном месте. Видно, становишься ли ты быстрее, где у тебя рекорд и как ты смотришься на фоне друзей — даже если вы катаетесь на разных трассах.</p>
     <div class="cta">
-      <a class="btn primary" href="#how">Я пилот</a>
+      <a class="btn primary" href="https://projektargo.com/hotlap/app/">Попробовать приложение</a>
+      <a class="btn ghost" href="#how">Я пилот</a>
       <a class="btn ghost" href="#tracks">У меня картодром</a>
     </div>
+    <p class="demo">Демоверсия — без регистрации. Твои времена остаются в этом браузере, поэтому в таблице пока стоят примерные пилоты.</p>
   </div></div>
 </header>
 
@@ -216,6 +225,10 @@ posthog.init("phc_zbBFHQt5aVYH9HuviHUQuwfh6TPCVPyXSrMWWgJ9UfLP",{api_host:"https
 <div><h3>Вводишь вручную</h3><p>Лучший круг, дата и номер карта. Десять секунд, и работает везде.</p></div>
     </div>
     <div class="note"><b>Чего Hotlap не делает:</b> он не измеряет время. Это делает хронометраж трассы. Hotlap берёт результат и придаёт ему смысл во времени.</div>
+    <div class="cta" style="margin-top:28px">
+      <a class="btn primary" href="https://projektargo.com/hotlap/app/">Попробовать приложение</a>
+    </div>
+    <p class="demo">Демоверсия — без регистрации. Твои времена остаются в этом браузере, поэтому в таблице пока стоят примерные пилоты.</p>
   </div>
 </section>
 
@@ -294,6 +307,47 @@ posthog.init("phc_zbBFHQt5aVYH9HuviHUQuwfh6TPCVPyXSrMWWgJ9UfLP",{api_host:"https
   </div>
 </section>
 
+<section id="plans">
+  <div class="wrap">
+    <div class="eyebrow">Цена для пилотов</div>
+    <h2>Бесплатно навсегда или весь мир за евро</h2>
+    <p class="sub">Одно правило: всё своё бесплатно, все остальные за евро. Записывать свои времена останется бесплатно навсегда, потому что без этих времён нечего сравнивать.</p>
+
+    <div class="grid g2">
+      <div class="plan">
+        <div class="eyebrow">Бесплатно</div>
+        <div class="big">0 €</div>
+        <div class="per">навсегда, без карты и без ограничения по времени</div>
+        <ul class="list" style="margin-top:20px">
+<li>Профиль и добавление заездов фотографией или вручную, без лимита</li>
+<li>Своя история и свой рекорд на каждом картодроме, где ты катался</li>
+<li>Разница с предыдущим заездом, XP, уровни и значки</li>
+<li>Таблица картодромов, где ты катался: первая десятка и твоё место</li>
+<li>Одна команда до 8 пилотов и времена своей команды</li>
+<li>Данные о каждом картодроме: конфигурация, направление, длина, классы картов</li>
+<li>Добавление нового картодрома в любой точке мира</li>
+        </ul>
+      </div>
+      <div class="price">
+        <div class="eyebrow" style="color:var(--red)">Hotlap Pro</div>
+        <div class="big">1 €</div>
+        <div class="per">в месяц или оплата раз в год — <b style="color:var(--ink)">12 € в год</b></div>
+        <ul class="list" style="margin-top:20px">
+<li>Полные таблицы без обрезки по десятке, на каждом картодроме мира, в том числе там, где ты никогда не катался</li>
+<li>Профиль любого пилота и его времена</li>
+<li>Мировой и национальный рейтинг: твоё отношение к самому быстрому времени против пилотов с других картодромов</li>
+<li>Фильтры по стране, городу, классу карта и возрастной группе</li>
+<li>Команды по всему миру: рекорд каждой команды, поединок с командой с другого картодрома, мировой рейтинг команд</li>
+<li>Больше одной команды и история твоих поединков</li>
+<li>На каком номере карта упал рекорд и твоё среднее по картам</li>
+<li>Экспорт своих времён</li>
+        </ul>
+      </div>
+    </div>
+    <div class="note"><b>Оплата пока не работает.</b> Pro стоит своего евро только тогда, когда в приложении реально будут пилоты с нескольких картодромов. До тех пор это прайс-лист, а не кнопка.</div>
+  </div>
+</section>
+
 <section id="tracks">
   <div class="wrap">
     <div class="eyebrow">Для операторов трасс</div>
@@ -315,7 +369,7 @@ posthog.init("phc_zbBFHQt5aVYH9HuviHUQuwfh6TPCVPyXSrMWWgJ9UfLP",{api_host:"https
         <ul class="list" style="margin-top:20px">
 <li>Первые 30 дней бесплатно</li>
 <li>Без договора и без обязательств</li>
-<li>Для пилотов всегда бесплатно</li>
+<li>Пилоты катаются бесплатно; они платят только за мировой обзор</li>
         </ul>
       </div>
       <div class="card">
@@ -342,6 +396,7 @@ posthog.init("phc_zbBFHQt5aVYH9HuviHUQuwfh6TPCVPyXSrMWWgJ9UfLP",{api_host:"https
 <li><b>Чтение с фотографий пока не работает.</b> Оно включится, когда приложение будет подключено к базе данных.</li>
 <li><b>Приложение не знает твой средний круг.</b> Оно хранит лучший круг и число кругов, а не общее время заезда. Среднее было бы выдумано.</li>
 <li><b>Контуры трасс не рисуются автоматически.</b> GPS в помещении не работает. Конфигурацию мы обводим вручную по плану трассы.</li>
+<li><b>Оплата и аккаунты ещё не построены.</b> И бесплатный план, и Pro пока прайс-лист. Заплатить нельзя ничего, и ничего не заблокировано.</li>
     </ul>
   </div>
 </section>

@@ -69,6 +69,8 @@ nav .links{margin-inline-start:auto;display:flex;gap:22px;font-size:14.5px}
 nav .links a{color:var(--ink2)}
 nav .links a:hover{color:var(--ink);text-decoration:none}
 @media(max-width:720px){nav .links{display:none}}
+/* lista je prilepena hore, takze skok z navigacie musi zastavit pod nou */
+section[id]{scroll-margin-top:74px}
 
 /* hero */
 header{position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
@@ -136,6 +138,10 @@ tbody tr:last-child td{border-bottom:none}
        border:1px solid rgba(255,45,45,.35);border-radius:var(--r);padding:28px}
 .price .big{font-family:'JetBrains Mono',monospace;font-size:46px;font-weight:800;line-height:1;letter-spacing:-.03em}
 .price .per{color:var(--ink2);font-size:15.5px;margin-top:8px}
+.plan{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:28px}
+.plan .big{font-family:'JetBrains Mono',monospace;font-size:46px;font-weight:800;line-height:1;letter-spacing:-.03em;color:var(--ink2)}
+.plan .per{color:var(--ink3);font-size:15.5px;margin-top:8px}
+.plan .list li:before{background:var(--ink3)}
 .list{list-style:none;margin-top:18px}
 .list li{position:relative;padding-block:8px;padding-inline:28px 0;color:var(--ink2);font-size:15.5px;border-bottom:1px solid var(--line)}
 .list li:last-child{border:none}
@@ -150,6 +156,7 @@ tbody tr:last-child td{border-bottom:none}
   font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:700;color:var(--red)}
 .steps p{color:var(--ink2);font-size:15.5px}
 
+.demo{color:var(--ink3);font-size:14px;margin-top:14px;max-width:54ch}
 .note{border-inline-start:2px solid var(--amber);padding-block:4px;padding-inline:18px 0;color:var(--ink2);font-size:15.5px;margin-top:20px}
 .note b{color:var(--amber)}
 
@@ -175,7 +182,7 @@ posthog.init("phc_zbBFHQt5aVYH9HuviHUQuwfh6TPCVPyXSrMWWgJ9UfLP",{api_host:"https
 
 <nav><div class="wrap">
   <a href="https://projektargo.com/hotlap/sk/" class="logo"><span class="mark"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"><path d="M13 3 5 14h6l-2 7 9-12h-6l1-6Z"/></svg></span>HOTLAP</a>
-  <div class="links"><a href="#how">Ako to funguje</a><a href="#xp">XP a levely</a><a href="#teams">Tímy a súboje</a><a href="#tracks">Pre trate</a></div>
+  <div class="links"><a href="#how">Ako to funguje</a><a href="#xp">XP a levely</a><a href="#teams">Tímy a súboje</a><a href="#plans">Cena</a><a href="#tracks">Pre trate</a></div>
 </div></nav>
 
 <header>
@@ -185,9 +192,11 @@ posthog.init("phc_zbBFHQt5aVYH9HuviHUQuwfh6TPCVPyXSrMWWgJ9UfLP",{api_host:"https
     <h1>Tvoje časy.<br>Všetky trate.<br><em>Jeden profil.</em></h1>
     <p class="lede">Hotlap zbiera časy z motokárových tratí do jedného miesta. Vidíš, či sa zlepšuješ, kde držíš rekord a ako si na tom proti kamarátom — aj keď jazdíte na rôznych dráhach.</p>
     <div class="cta">
-      <a class="btn primary" href="#how">Som jazdec</a>
+      <a class="btn primary" href="https://projektargo.com/hotlap/app/">Vyskúšať appku</a>
+      <a class="btn ghost" href="#how">Som jazdec</a>
       <a class="btn ghost" href="#tracks">Som prevádzkovateľ trate</a>
     </div>
+    <p class="demo">Ukážka — netreba registráciu. Časy zostávajú v tomto prehliadači, takže v rebríčku sú zatiaľ ukážkoví jazdci.</p>
   </div></div>
 </header>
 
@@ -216,6 +225,10 @@ posthog.init("phc_zbBFHQt5aVYH9HuviHUQuwfh6TPCVPyXSrMWWgJ9UfLP",{api_host:"https
 <div><h3>Zapíšeš ručne</h3><p>Zadáš čas najlepšieho kola, dátum a číslo motokáry. Trvá to desať sekúnd a funguje to všade.</p></div>
     </div>
     <div class="note"><b>Čo Hotlap nerobí:</b> nemeria čas. Meranie robí časomiera trate, Hotlap si z nej berie výsledok a dáva mu zmysel v čase.</div>
+    <div class="cta" style="margin-top:28px">
+      <a class="btn primary" href="https://projektargo.com/hotlap/app/">Vyskúšať appku</a>
+    </div>
+    <p class="demo">Ukážka — netreba registráciu. Časy zostávajú v tomto prehliadači, takže v rebríčku sú zatiaľ ukážkoví jazdci.</p>
   </div>
 </section>
 
@@ -294,6 +307,47 @@ posthog.init("phc_zbBFHQt5aVYH9HuviHUQuwfh6TPCVPyXSrMWWgJ9UfLP",{api_host:"https
   </div>
 </section>
 
+<section id="plans">
+  <div class="wrap">
+    <div class="eyebrow">Cena pre jazdcov</div>
+    <h2>Zadarmo navždy, alebo celý svet za euro</h2>
+    <p class="sub">Jedno pravidlo: všetko svoje máš zadarmo, všetkých ostatných za euro. Zapisovanie vlastných časov zostane zadarmo natrvalo, pretože bez tých časov nie je čo porovnávať.</p>
+
+    <div class="grid g2">
+      <div class="plan">
+        <div class="eyebrow">Zadarmo</div>
+        <div class="big">0 €</div>
+        <div class="per">navždy, bez karty a bez časového limitu</div>
+        <ul class="list" style="margin-top:20px">
+<li>Profil a pridávanie jázd fotkou aj ručne, bez limitu</li>
+<li>Vlastná história a vlastný rekord na každej trati, kde si jazdil</li>
+<li>Rozdiel oproti predchádzajúcej jazde, XP, levely a odznaky</li>
+<li>Rebríček tratí, kde si jazdil: prvá desiatka a tvoje miesto</li>
+<li>Jeden tím do 8 jazdcov a časy vlastného tímu</li>
+<li>Fakty o každej trati: tvar, smer jazdy, dĺžka, triedy motokár</li>
+<li>Pridanie novej trate kdekoľvek na svete</li>
+        </ul>
+      </div>
+      <div class="price">
+        <div class="eyebrow" style="color:var(--red)">Hotlap Pro</div>
+        <div class="big">1 €</div>
+        <div class="per">mesačne, alebo zaplať raz ročne — <b style="color:var(--ink)">12 € na rok</b></div>
+        <ul class="list" style="margin-top:20px">
+<li>Celé rebríčky bez odrezania desiatkou, na každej trati na svete, aj tam, kde si nikdy nejazdil</li>
+<li>Profil ktoréhokoľvek jazdca a jeho časy</li>
+<li>Svetové a krajinové poradie: tvoj podiel k najrýchlejšiemu času proti jazdcom z iných tratí</li>
+<li>Filtre podľa krajiny, mesta, triedy motokáry a vekovej kategórie</li>
+<li>Tímy po celom svete: rekord každého tímu, súboj proti tímu z inej trate, svetové poradie tímov</li>
+<li>Viac tímov než jeden a história tvojich súbojov</li>
+<li>Na ktorej motokáre padol rekord a tvoj priemer podľa čísla motokáry</li>
+<li>Export vlastných časov</li>
+        </ul>
+      </div>
+    </div>
+    <div class="note"><b>Platba ešte nebeží.</b> Pro má cenu až vtedy, keď v appke reálne budú jazdci z viacerých tratí. Dovtedy je toto cenník, nie tlačidlo.</div>
+  </div>
+</section>
+
 <section id="tracks">
   <div class="wrap">
     <div class="eyebrow">Pre prevádzkovateľov tratí</div>
@@ -315,7 +369,7 @@ posthog.init("phc_zbBFHQt5aVYH9HuviHUQuwfh6TPCVPyXSrMWWgJ9UfLP",{api_host:"https
         <ul class="list" style="margin-top:20px">
 <li>Prvých 30 dní zadarmo</li>
 <li>Bez zmluvy a bez viazanosti</li>
-<li>Pre jazdcov je Hotlap zadarmo, vždy</li>
+<li>Jazdci jazdia zadarmo, platia len za svetový prehľad</li>
         </ul>
       </div>
       <div class="card">
@@ -342,6 +396,7 @@ posthog.init("phc_zbBFHQt5aVYH9HuviHUQuwfh6TPCVPyXSrMWWgJ9UfLP",{api_host:"https
 <li><b>Rozpoznávanie z fotky ešte nebeží.</b> Zapne sa, keď bude appka pripojená k databáze.</li>
 <li><b>Priemerný čas na kolo appka nepozná.</b> Ukladá najlepšie kolo a počet kôl, nie celkový čas jazdy. Priemer by bol vymyslený.</li>
 <li><b>Tvar dráhy sa nekreslí automaticky.</b> GPS v hale nefunguje. Nákres dráhy zadávame ručne podľa plánu trate.</li>
+<li><b>Platby a účty ešte nie sú postavené.</b> Zadarmo aj Pro sú zatiaľ cenník. Nedá sa nič zaplatiť a nič nie je zamknuté.</li>
     </ul>
   </div>
 </section>

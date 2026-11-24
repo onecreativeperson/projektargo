@@ -69,6 +69,8 @@ nav .links{margin-inline-start:auto;display:flex;gap:22px;font-size:14.5px}
 nav .links a{color:var(--ink2)}
 nav .links a:hover{color:var(--ink);text-decoration:none}
 @media(max-width:720px){nav .links{display:none}}
+/* lista je prilepena hore, takze skok z navigacie musi zastavit pod nou */
+section[id]{scroll-margin-top:74px}
 
 /* hero */
 header{position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
@@ -136,6 +138,10 @@ tbody tr:last-child td{border-bottom:none}
        border:1px solid rgba(255,45,45,.35);border-radius:var(--r);padding:28px}
 .price .big{font-family:'JetBrains Mono',monospace;font-size:46px;font-weight:800;line-height:1;letter-spacing:-.03em}
 .price .per{color:var(--ink2);font-size:15.5px;margin-top:8px}
+.plan{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:28px}
+.plan .big{font-family:'JetBrains Mono',monospace;font-size:46px;font-weight:800;line-height:1;letter-spacing:-.03em;color:var(--ink2)}
+.plan .per{color:var(--ink3);font-size:15.5px;margin-top:8px}
+.plan .list li:before{background:var(--ink3)}
 .list{list-style:none;margin-top:18px}
 .list li{position:relative;padding-block:8px;padding-inline:28px 0;color:var(--ink2);font-size:15.5px;border-bottom:1px solid var(--line)}
 .list li:last-child{border:none}
@@ -150,6 +156,7 @@ tbody tr:last-child td{border-bottom:none}
   font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:700;color:var(--red)}
 .steps p{color:var(--ink2);font-size:15.5px}
 
+.demo{color:var(--ink3);font-size:14px;margin-top:14px;max-width:54ch}
 .note{border-inline-start:2px solid var(--amber);padding-block:4px;padding-inline:18px 0;color:var(--ink2);font-size:15.5px;margin-top:20px}
 .note b{color:var(--amber)}
 
@@ -175,7 +182,7 @@ posthog.init("phc_zbBFHQt5aVYH9HuviHUQuwfh6TPCVPyXSrMWWgJ9UfLP",{api_host:"https
 
 <nav><div class="wrap">
   <a href="https://projektargo.com/hotlap/ar/" class="logo"><span class="mark"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"><path d="M13 3 5 14h6l-2 7 9-12h-6l1-6Z"/></svg></span>HOTLAP</a>
-  <div class="links"><a href="#how">كيف يعمل</a><a href="#xp">نقاط الخبرة والمستويات</a><a href="#teams">الفرق والمواجهات</a><a href="#tracks">للحلبات</a></div>
+  <div class="links"><a href="#how">كيف يعمل</a><a href="#xp">نقاط الخبرة والمستويات</a><a href="#teams">الفرق والمواجهات</a><a href="#plans">السعر</a><a href="#tracks">للحلبات</a></div>
 </div></nav>
 
 <header>
@@ -185,9 +192,11 @@ posthog.init("phc_zbBFHQt5aVYH9HuviHUQuwfh6TPCVPyXSrMWWgJ9UfLP",{api_host:"https
     <h1>أوقاتك.<br>كل الحلبات.<br><em>ملف واحد.</em></h1>
     <p class="lede">يجمع Hotlap أوقات لفاتك من حلبات الكارتينج في مكان واحد. ترى إن كنت تتحسن، وأين تحمل رقمًا قياسيًا، وأين تقف أمام أصدقائك — حتى لو كنتم تقودون على حلبات مختلفة.</p>
     <div class="cta">
-      <a class="btn primary" href="#how">أنا سائق</a>
+      <a class="btn primary" href="https://projektargo.com/hotlap/app/">جرّب التطبيق</a>
+      <a class="btn ghost" href="#how">أنا سائق</a>
       <a class="btn ghost" href="#tracks">أنا أدير حلبة</a>
     </div>
+    <p class="demo">نسخة تجريبية — بلا تسجيل. تبقى أوقاتك في هذا المتصفّح، لذلك ما زال الترتيب يعرض سائقين للعرض فقط.</p>
   </div></div>
 </header>
 
@@ -216,6 +225,10 @@ posthog.init("phc_zbBFHQt5aVYH9HuviHUQuwfh6TPCVPyXSrMWWgJ9UfLP",{api_host:"https
 <div><h3>تكتبه يدويًا</h3><p>أفضل لفة والتاريخ ورقم الكارت. عشر ثوانٍ، ويعمل في كل مكان.</p></div>
     </div>
     <div class="note"><b>ما لا يفعله Hotlap:</b> لا يقيس الزمن. هذا عمل نظام التوقيت في الحلبة. يأخذ Hotlap النتيجة ويمنحها معنى عبر الزمن.</div>
+    <div class="cta" style="margin-top:28px">
+      <a class="btn primary" href="https://projektargo.com/hotlap/app/">جرّب التطبيق</a>
+    </div>
+    <p class="demo">نسخة تجريبية — بلا تسجيل. تبقى أوقاتك في هذا المتصفّح، لذلك ما زال الترتيب يعرض سائقين للعرض فقط.</p>
   </div>
 </section>
 
@@ -294,6 +307,47 @@ posthog.init("phc_zbBFHQt5aVYH9HuviHUQuwfh6TPCVPyXSrMWWgJ9UfLP",{api_host:"https
   </div>
 </section>
 
+<section id="plans">
+  <div class="wrap">
+    <div class="eyebrow">السعر للسائقين</div>
+    <h2>مجاني للأبد، أو العالم كله بيورو واحد</h2>
+    <p class="sub">قاعدة واحدة: كل ما هو لك مجاني، وكل الآخرين بيورو واحد. تسجيل أوقاتك يبقى مجانيًا للأبد، لأنه بدون تلك الأوقات لا يوجد ما يُقارن.</p>
+
+    <div class="grid g2">
+      <div class="plan">
+        <div class="eyebrow">مجاني</div>
+        <div class="big">0 €</div>
+        <div class="per">للأبد، بلا بطاقة وبلا حد زمني</div>
+        <ul class="list" style="margin-top:20px">
+<li>ملف شخصي وإضافة الجولات بالصورة أو يدويًا، بلا حد</li>
+<li>سجلك الخاص ورقمك القياسي في كل حلبة قدت فيها</li>
+<li>الفرق عن جولتك السابقة، ونقاط الخبرة والمستويات والشارات</li>
+<li>ترتيب الحلبات التي قدت فيها: العشرة الأوائل وموقعك أنت</li>
+<li>فريق واحد حتى 8 سائقين وأوقات فريقك</li>
+<li>معلومات كل حلبة: الشكل واتجاه السير والطول وفئات الكارت</li>
+<li>إضافة حلبة جديدة في أي مكان في العالم</li>
+        </ul>
+      </div>
+      <div class="price">
+        <div class="eyebrow" style="color:var(--red)">Hotlap Pro</div>
+        <div class="big">1 €</div>
+        <div class="per">شهريًا، أو الدفع مرة واحدة سنويًا — <b style="color:var(--ink)">12 € في السنة</b></div>
+        <ul class="list" style="margin-top:20px">
+<li>ترتيب كامل بلا اقتصار على العشرة الأوائل، في كل حلبة في العالم، وحتى في حلبات لم تقد فيها قط</li>
+<li>ملف أي سائق وأوقاته</li>
+<li>الترتيب العالمي وترتيب بلدك: نسبتك إلى أسرع وقت أمام سائقين من حلبات أخرى</li>
+<li>مرشحات بحسب البلد والمدينة وفئة الكارت والفئة العمرية</li>
+<li>فرق من العالم كله: رقم كل فريق، ومواجهة فريق من حلبة أخرى، والترتيب العالمي للفرق</li>
+<li>أكثر من فريق واحد وسجل مواجهاتك</li>
+<li>برقم أي كارت سقط الرقم القياسي، ومتوسطك لكل كارت</li>
+<li>تصدير أوقاتك</li>
+        </ul>
+      </div>
+    </div>
+    <div class="note"><b>الدفع لا يعمل بعد.</b> لا يستحق Pro يوروه إلا حين يكون في التطبيق سائقون من عدة حلبات فعلًا. حتى ذلك الحين هذه قائمة أسعار، لا زر.</div>
+  </div>
+</section>
+
 <section id="tracks">
   <div class="wrap">
     <div class="eyebrow">لمشغّلي الحلبات</div>
@@ -315,7 +369,7 @@ posthog.init("phc_zbBFHQt5aVYH9HuviHUQuwfh6TPCVPyXSrMWWgJ9UfLP",{api_host:"https
         <ul class="list" style="margin-top:20px">
 <li>أول 30 يومًا مجانًا</li>
 <li>بلا عقد وبلا التزام</li>
-<li>مجاني للسائقين دائمًا</li>
+<li>يقود السائقون مجانًا؛ يدفعون فقط مقابل النظرة العالمية</li>
         </ul>
       </div>
       <div class="card">
@@ -342,6 +396,7 @@ posthog.init("phc_zbBFHQt5aVYH9HuviHUQuwfh6TPCVPyXSrMWWgJ9UfLP",{api_host:"https
 <li><b>القراءة من الصور لا تعمل بعد.</b> ستُفعّل حين يُوصل التطبيق بقاعدة بيانات.</li>
 <li><b>التطبيق لا يعرف متوسط لفتك.</b> يحفظ أفضل لفة وعدد اللفات، لا زمن الجولة الكلي. والمتوسط سيكون مُختلقًا.</li>
 <li><b>أشكال الحلبات لا تُرسم تلقائيًا.</b> نظام تحديد المواقع لا يعمل داخل الصالات. نرسم المسار يدويًا من مخطط الحلبة.</li>
+<li><b>الدفع والحسابات لم تُبنَ بعد.</b> المجاني وPro كلاهما قائمة أسعار حتى الآن. لا يمكن دفع شيء ولا شيء مقفل.</li>
     </ul>
   </div>
 </section>
