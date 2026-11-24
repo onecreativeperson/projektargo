@@ -1844,6 +1844,7 @@ function renderTeam(){
       <label>Kód tímu</label>
       <input id="tmCode" class="field mono" placeholder="5 znakov" maxlength="5" style="text-transform:uppercase">
       <button class="btn ghost" data-act="doJoinTeam">Pripojiť sa</button>
+      <p class="hint" style="margin-top:10px">Zatiaľ sa vieš pripojiť len k tímu, ktorý vznikol v tomto prehliadači. Kódy od kamarátov začnú fungovať, keď bude appka pripojená k databáze.</p>
     </div>`;
    return;
  }
@@ -1906,7 +1907,7 @@ function doCreateTeam(){
 }
 function doJoinTeam(){
  const r=joinTeam($('#tmCode').value);
- if(r==='nenajdeny'){ alert('Tím s týmto kódom neexistuje.'); return }
+ if(r==='nenajdeny'){ alert('Tento kód tu nie je. Tímy zatiaľ žijú len v tomto prehliadači, takže kód od kamaráta z iného telefónu Hotlap nenájde — pôjde to, až keď bude appka pripojená k databáze. Ak si tím založil tu, skontroluj preklep.'); return }
  if(r==='plny'){ alert('Tím je plný, má už 8 jazdcov.'); return }
  render();
 }
