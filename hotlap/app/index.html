@@ -2,7 +2,7 @@
 <html lang="sk">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-src 'none'; form-action 'none'; script-src 'self' https://*.posthog.com 'sha256-WYXv4T0Sp4nsWGqxcZTrCFqOWXC4JrvQ7XW5xjyqzek=' 'sha256-XWUuY3cFzKCIaJ6JKjNNFlSdPeHnBGEnZNdZjzIseeU='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: https://*.posthog.com; connect-src 'self' https://*.posthog.com https://asnpyrrdeauhkskkkmuc.supabase.co https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://firestore.googleapis.com; worker-src 'self' blob: data:">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-src 'none'; form-action 'none'; script-src 'self' https://*.posthog.com 'sha256-WYXv4T0Sp4nsWGqxcZTrCFqOWXC4JrvQ7XW5xjyqzek=' 'sha256-hcqy9HvXvEzHfWE4nBZweFLWhODwPdz90ndQLNeJIyQ='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: https://*.posthog.com; connect-src 'self' https://*.posthog.com https://asnpyrrdeauhkskkkmuc.supabase.co https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://firestore.googleapis.com; worker-src 'self' blob: data:">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
@@ -1152,7 +1152,11 @@ function cloudChyba(e){
 
 function teamCode(){ let c=''; for(let i=0;i<5;i++) c+='ABCDEFGHJKLMNPQRSTUVWXYZ23456789'[Math.floor(Math.random()*32)]; return c }
 const myUid=()=>(S.user&&S.user.uid)||(fbTok&&fbTok.uid)||null;
-const myTeam=()=>(S.teams||[]).find(t=>t.members.some(m=>(myUid()&&m.uid===myUid())||(!m.uid&&m.name===S.user.name)))||null;
+const inTeam=m=>{ const u=myUid();
+ // ked oboje poznam, porovnam identifikatory; inak (napr. offline) padnem na meno
+ return (u&&m.uid) ? m.uid===u : m.name===(S.user&&S.user.name);
+};
+const myTeam=()=>(S.teams||[]).find(t=>t.members.some(inTeam))||null;
 const teamById=id=>(S.teams||[]).find(t=>t.id===id)||null;
 
 function createTeam(name){
@@ -2001,6 +2005,7 @@ function renderTeam(){
     </div>`;
    return;
  }
+ const stary = cloudOn() && !t.cloud;
  const names=t.members.map(m=>m.name);
  const mine=S.sessions.filter(x=>!isArchived(x));
  const perMember=names.map(n=>{
@@ -2020,7 +2025,8 @@ function renderTeam(){
         <div class="dsub">${t.members.length} ${pl(t.members.length,'jazdec','jazdci','jazdcov')} · kód <b class="mono" style="color:var(--red)">${esc(t.code)}</b></div>
       </div>
     </div>
-    <p class="hint" style="margin:12px 0 0">Pošli kód kamarátovi, zadá ho pri pripojení k tímu.</p>
+    <p class="hint" style="margin:12px 0 0">${stary ? 'Tento tím vznikol ešte predtým, než mal Hotlap spoločnú databázu, takže existuje len v tomto prehliadači a nikto sa k nemu nepripojí.' : 'Pošli kód kamarátovi, zadá ho pri pripojení k tímu.'}</p>
+    ${stary ? `<button class="btn primary" data-act="znovaTim" style="width:100%;margin-top:12px">Založiť tím znova, nech funguje</button>` : ''}
   </div>
 
   <h2>Kto je najrýchlejší</h2>
@@ -2077,6 +2083,19 @@ async function doJoinTeam(){
  if(r==='nenajdeny'){ alert('Tím s týmto kódom neexistuje. Skontroluj, či si kód prepísal presne.'); return }
  if(r==='plny'){ alert('Tím je plný, má už 8 jazdcov.'); return }
  render();
+}
+async function znovaTim(){
+ const t=myTeam(); if(!t) return;
+ const b=$('[data-act="znovaTim"]'); if(b){b.disabled=true;b.textContent='Zakladám…'}
+ try{
+   const novy=await cloudCreateTeam(t.name);
+   mirrorTeam(novy);
+   render();
+   alert('Hotovo. Tím má nový kód '+novy.code+' a ten už funguje aj z iného telefónu.');
+ }catch(e){
+   alert(cloudChyba(e));
+   if(b){b.disabled=false;b.textContent='Založiť tím znova, nech funguje'}
+ }
 }
 async function doLeaveTeam(){
  if(!confirm('Naozaj chceš opustiť tím?')) return;
@@ -2288,6 +2307,7 @@ const ACT={
  toggleAdmin:()=>toggleAdmin(),
  wipe:()=>wipe(),
  doCreateTeam:()=>doCreateTeam(),
+ znovaTim:()=>znovaTim(),
  doJoinTeam:()=>doJoinTeam(),
  doLeaveTeam:()=>doLeaveTeam(),
  openNewDuel:()=>openNewDuel(),
