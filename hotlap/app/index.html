@@ -2,7 +2,7 @@
 <html lang="sk">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-src 'none'; form-action 'none'; script-src 'self' https://*.posthog.com 'sha256-WYXv4T0Sp4nsWGqxcZTrCFqOWXC4JrvQ7XW5xjyqzek=' 'sha256-J9ft6I65Jz2hoSV8q+clqOpCV71dlxKYCVB9fuvpsL8='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: https://*.posthog.com; connect-src 'self' https://*.posthog.com https://asnpyrrdeauhkskkkmuc.supabase.co https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://firestore.googleapis.com; worker-src 'self' blob: data:">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-src 'none'; form-action 'none'; script-src 'self' https://*.posthog.com 'sha256-WYXv4T0Sp4nsWGqxcZTrCFqOWXC4JrvQ7XW5xjyqzek=' 'sha256-XWUuY3cFzKCIaJ6JKjNNFlSdPeHnBGEnZNdZjzIseeU='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: https://*.posthog.com; connect-src 'self' https://*.posthog.com https://asnpyrrdeauhkskkkmuc.supabase.co https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://firestore.googleapis.com; worker-src 'self' blob: data:">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
@@ -2030,7 +2030,7 @@ function renderTeam(){
       <div class="main"><div class="t">${esc(m.n)}${m.n===S.user.name?' <span class="tag new">ty</span>':''}</div>
         <div class="s">${nJazd(m.rides)}</div></div>
       <div class="time ${i===0?'is-pb':''}">${m.best?fmt(m.best):'—'}</div></div>`).join('')}</div>
-  <p class="hint">Pokiaľ nie je pripojená databáza, vidíš len svoje časy. Ostatní členovia sa objavia, keď sa appka pripojí.</p>
+  <p class="hint">Členov tímu vidíš naživo z databázy. Časy sa zatiaľ ukladajú v prehliadači každého jazdca, takže v tomto zozname vidíš len svoje — spoločné budú hneď v ďalšom kroku.</p>
 
   ${tracks.length?`<h2>Najrýchlejšia motokára</h2>${tracks.map(tid=>{
     const t2=trackById(tid), ks=kartStats(tid);
