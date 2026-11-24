@@ -1,0 +1,2189 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-src 'none'; form-action 'none'; script-src 'self' https://*.posthog.com 'sha256-WYXv4T0Sp4nsWGqxcZTrCFqOWXC4JrvQ7XW5xjyqzek=' 'sha256-qgrBIk/Z1YU1FubQ6G9V82wP+GSxeo1oyL0wzBogfLk='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: https://*.posthog.com; connect-src 'self' https://*.posthog.com https://asnpyrrdeauhkskkkmuc.supabase.co; worker-src 'self' blob: data:">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<link rel="icon" href="/hotlap/favicon.svg" type="image/svg+xml">
+<title>Hotlap</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600;700&family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#09090B; --bg2:#0E0E12;
+  --card:#141419; --card2:#1B1B22; --glass:rgba(255,255,255,.045);
+  --line:rgba(255,255,255,.08); --line2:rgba(255,255,255,.14);
+  --ink:#F5F6F7; --ink2:#A2A8B0; --ink3:#868D96;
+  --red:#FF2D2D; --redfill:#E51A1A; --red2:#C71212;
+  --pb:#13E27B;
+  --amber:#FFC247;
+  --r:16px; --r2:12px; --r3:8px;
+  --ease:cubic-bezier(.2,.8,.2,1);
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%}
+body{
+  background:var(--bg);color:var(--ink);
+  font-family:'Chakra Petch',system-ui,sans-serif;font-size:16px;line-height:1.45;
+  overflow-x:hidden;
+}
+body:before{
+  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+   radial-gradient(900px 500px at 78% -8%, rgba(255,45,45,.20), transparent 62%),
+   radial-gradient(700px 420px at 8% 24%, rgba(255,45,45,.07), transparent 60%);
+}
+.mono{font-family:'JetBrains Mono',ui-monospace,monospace;font-variant-numeric:tabular-nums}
+button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
+input,select{font:inherit}
+::selection{background:var(--red);color:#fff}
+
+#app{max-width:520px;margin:0 auto;min-height:100%;position:relative;z-index:1;padding-bottom:104px}
+.screen{display:none;animation:in .24s var(--ease)}
+.screen.on{display:block}
+@keyframes in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+.wrap{padding:0 16px}
+
+/* ---------- topbar ---------- */
+.top{display:flex;align-items:center;justify-content:space-between;padding:16px 16px 12px}
+.logo{display:flex;align-items:center;gap:9px;font-weight:700;font-size:17px;letter-spacing:.04em}
+.logo .mark{width:26px;height:26px;border-radius:7px;background:var(--red);display:grid;place-items:center;flex:none}
+.logo .mark svg{width:15px;height:15px}
+.pill{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:600;letter-spacing:.06em;
+      padding:6px 11px;border-radius:999px;background:var(--glass);border:1px solid var(--line);color:var(--ink2)}
+.pill b{color:var(--ink);font-family:'JetBrains Mono',monospace}
+
+/* ---------- hero ---------- */
+.hero{position:relative;border-radius:var(--r);overflow:hidden;background:var(--card);
+      border:1px solid var(--line);margin-bottom:12px;min-height:206px}
+.hero .photo{position:absolute;inset:0;background-size:cover;background-position:center}
+.hero .grad{position:absolute;inset:0;background:linear-gradient(180deg,rgba(9,9,11,.45),rgba(9,9,11,.90) 82%)}
+.camBtn{z-index:3;}
+.hero .camBtn{position:absolute;right:10px;top:10px;z-index:3;width:30px;height:30px;border-radius:9px;
+  background:rgba(9,9,11,.6);border:1px solid var(--line2);display:grid;place-items:center;backdrop-filter:blur(8px)}
+.hero .camBtn svg{width:14px;height:14px;color:var(--ink2)}
+.hero .art{position:absolute;right:-6%;top:50%;transform:translateY(-50%);width:66%;opacity:.26;color:var(--red)}
+.hero .shade{position:absolute;inset:0;background:linear-gradient(100deg,rgba(9,9,11,.88) 24%,rgba(9,9,11,.40) 72%,rgba(9,9,11,.22))}
+.hero .in{position:relative;padding:18px}
+.hero .tagline{font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--red);font-weight:700;margin-bottom:8px}
+.hero h1{font-size:38px;font-weight:700;line-height:.98;letter-spacing:-.02em;margin-bottom:4px}
+.hero .sub{font-size:13px;color:var(--ink2);margin-bottom:16px}
+.hero .big{font-family:'JetBrains Mono',monospace;font-size:44px;font-weight:800;line-height:1;letter-spacing:-.03em}
+.live{display:inline-flex;align-items:center;gap:6px;background:var(--redfill);color:#fff;font-size:10px;font-weight:700;
+      letter-spacing:.14em;text-transform:uppercase;padding:4px 9px;border-radius:999px;vertical-align:middle;margin-left:8px}
+.live i{width:5px;height:5px;border-radius:50%;background:#fff;animation:blink 1.6s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
+
+/* ---------- tiles ---------- */
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:var(--r2);padding:13px 12px}
+.tile b{display:block;font-family:'JetBrains Mono',monospace;font-size:21px;font-weight:700;line-height:1.1}
+.tile span{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);display:block;margin-top:3px}
+
+/* ---------- cards ---------- */
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px;margin-bottom:12px}
+.card.pad0{padding:0;overflow:hidden}
+h2{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink3);font-weight:700;margin:22px 0 10px;display:flex;align-items:center;justify-content:space-between}
+h2:first-child{margin-top:6px}
+h2 a{font-size:11px;color:var(--red);letter-spacing:.06em;text-transform:none;cursor:pointer}
+
+/* ---------- driver card ---------- */
+.dcard{position:relative;overflow:hidden;border-radius:var(--r);border:1px solid var(--line);
+       background:linear-gradient(135deg,#1A1A21,#101014);padding:18px;margin-bottom:12px}
+.dcard .ghost{position:absolute;right:-10px;top:-30px;font-family:'JetBrains Mono',monospace;font-size:140px;
+              font-weight:800;color:#fff;opacity:.06;line-height:1;letter-spacing:-.06em}
+.dcard .row1{display:flex;align-items:center;gap:13px;position:relative}
+.avatar{width:54px;height:54px;border-radius:14px;flex:none;overflow:hidden;background:var(--card2);
+        border:1px solid var(--line2);display:grid;place-items:center;position:relative;cursor:pointer}
+.avatar img{width:100%;height:100%;object-fit:cover}
+.avatar .ini{font-size:19px;font-weight:700;color:var(--ink2)}
+.avatar .cam{position:absolute;right:-3px;bottom:-3px;width:19px;height:19px;border-radius:50%;background:var(--red);
+             display:grid;place-items:center;border:2px solid var(--card)}
+.avatar .cam svg{width:9px;height:9px}
+.dname{font-size:21px;font-weight:700;line-height:1.1;letter-spacing:-.01em}
+.dsub{font-size:12px;color:var(--ink2);margin-top:1px}
+.score{margin-left:auto;text-align:right;flex:none}
+.score b{display:block;font-family:'JetBrains Mono',monospace;font-size:25px;font-weight:800;line-height:1;color:var(--red)}
+.score span{font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3)}
+.xpbar{margin-top:15px;position:relative}
+.xpbar .meta{display:flex;justify-content:space-between;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);margin-bottom:7px}
+.track{height:5px;background:rgba(255,255,255,.08);border-radius:999px;overflow:hidden}
+.fill{height:100%;background:linear-gradient(90deg,var(--red2),var(--red));width:0;transition:width .8s var(--ease);border-radius:999px}
+
+/* ---------- buttons ---------- */
+.btn{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;padding:15px 18px;border-radius:var(--r2);
+     font-weight:700;font-size:15px;letter-spacing:.02em;transition:transform .12s var(--ease),filter .15s}
+.btn:active{transform:scale(.985)}
+.btn.primary{background:var(--redfill);color:#fff;box-shadow:0 8px 24px -10px rgba(255,45,45,.8)}
+.btn.primary:hover{filter:brightness(1.08)}
+.btn.ghost{border:1px solid var(--line2);color:var(--ink);background:var(--glass)}
+.btn.ghost:hover{background:rgba(255,255,255,.08)}
+.btn[disabled]{opacity:.4;pointer-events:none}
+
+/* ---------- rows ---------- */
+.row{display:flex;align-items:center;gap:12px;padding:13px 16px;border-bottom:1px solid var(--line)}
+.row:last-child{border-bottom:none}
+.row .main{flex:1;min-width:0}
+.row .t{font-weight:600;font-size:14.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.row .s{font-size:11.5px;color:var(--ink3);display:flex;align-items:center;gap:5px;flex-wrap:wrap;margin-top:1px}
+.row .time{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:16px;flex:none}
+.pos{width:25px;height:25px;flex:none;display:grid;place-items:center;font-family:'JetBrains Mono',monospace;
+     font-size:11.5px;font-weight:700;background:var(--card2);border-radius:7px;color:var(--ink2)}
+.pos.p1{background:var(--redfill);color:#fff}
+.is-pb{color:var(--pb)}
+.is-red{color:var(--red)}
+.cc{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.06em;
+    background:var(--card2);border:1px solid var(--line);padding:2px 5px;border-radius:4px;color:var(--ink2);flex:none}
+
+/* ---------- badges ---------- */
+.badges{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.badge{border:1px solid var(--line);border-radius:var(--r2);padding:12px 6px;text-align:center;background:var(--card)}
+.badge.locked{opacity:.28}
+.badge.got{border-color:rgba(255,45,45,.4);background:linear-gradient(160deg,rgba(255,45,45,.1),transparent)}
+.badge svg{width:22px;height:22px;margin-bottom:6px}
+.badge .nm{font-size:9.5px;font-weight:600;line-height:1.25;color:var(--ink2)}
+
+/* ---------- nav ---------- */
+.nav{position:fixed;bottom:0;left:0;right:0;z-index:40;padding:0 16px 16px;pointer-events:none}
+.nav-in{max-width:488px;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr);pointer-events:auto;
+        background:rgba(20,20,25,.86);backdrop-filter:blur(18px);border:1px solid var(--line2);
+        border-radius:18px;padding:7px;box-shadow:0 12px 40px -12px rgba(0,0,0,.9)}
+.nav button{min-height:50px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;
+            color:var(--ink3);font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;font-weight:600;border-radius:12px;position:relative}
+.nav button.on{color:var(--ink);background:var(--glass)}
+.nav button.on svg{color:var(--red)}
+.nav svg{width:20px;height:20px;pointer-events:none}
+.nav .add{background:var(--redfill)!important;color:#fff!important}
+.nav .add svg{color:#fff!important}
+
+/* ---------- auth ---------- */
+#auth{position:fixed;inset:0;z-index:60;background:var(--bg);display:none;overflow-y:auto}
+#auth.on{display:block}
+#auth:before{content:'';position:fixed;inset:0;background-image:url('img/bg3.webp');
+   background-size:cover;background-position:center;pointer-events:none}
+#auth:after{content:'';position:fixed;inset:0;pointer-events:none;background:
+   linear-gradient(180deg,rgba(9,9,11,.72),rgba(9,9,11,.94) 62%),
+   radial-gradient(760px 440px at 74% 8%, rgba(255,45,45,.26), transparent 64%)}
+.auth-in{max-width:520px;margin:0 auto;padding:0 22px 36px;min-height:100%;display:flex;flex-direction:column;justify-content:center;position:relative}
+.lights{display:flex;gap:7px;margin-bottom:24px}
+.lights i{width:13px;height:13px;border-radius:50%;background:rgba(255,255,255,.07);border:1px solid var(--line2);display:block;transition:.2s}
+.lights i.lit{background:var(--red);border-color:var(--red);box-shadow:0 0 16px rgba(255,45,45,.75)}
+.lights i.green{background:var(--pb);border-color:var(--pb);box-shadow:0 0 16px rgba(19,226,123,.6)}
+.hero-t{font-size:42px;font-weight:700;line-height:1;letter-spacing:-.03em;margin-bottom:14px}
+.hero-t em{font-style:normal;color:var(--red)}
+.lede{color:var(--ink2);font-size:14.5px;margin-bottom:26px;max-width:32ch}
+.oauth{display:grid;gap:9px;margin-bottom:16px}
+.oauth button{display:flex;align-items:center;gap:12px;padding:14px 16px;border:1px solid var(--line2);border-radius:var(--r2);
+              background:var(--glass);font-weight:600;font-size:15px;text-align:left;transition:.15s}
+.oauth button:hover{background:rgba(255,255,255,.08);border-color:var(--ink3)}
+.oauth svg{width:19px;height:19px;flex:none}
+.or{display:flex;align-items:center;gap:12px;color:var(--ink3);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;margin:2px 0 14px}
+.or:before,.or:after{content:'';flex:1;height:1px;background:var(--line)}
+label{display:block;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);margin-bottom:6px;font-weight:700}
+.field{width:100%;padding:13px 14px;background:var(--card);border:1px solid var(--line2);border-radius:var(--r2);
+       color:var(--ink);margin-bottom:12px;outline:none;transition:border-color .15s}
+.field:focus{border-color:var(--red)}
+.fine{font-size:12px;color:var(--ink3);margin-top:14px;line-height:1.55}
+
+/* ---------- sheet ---------- */
+.sheet{position:fixed;inset:0;z-index:50;display:none}
+.sheet.on{display:block}
+.sheet .veil{position:absolute;inset:0;background:rgba(0,0,0,.76);backdrop-filter:blur(3px)}
+.sheet .panel{position:absolute;left:0;right:0;bottom:0;max-width:520px;margin:0 auto;background:var(--bg2);
+   border:1px solid var(--line2);border-bottom:none;border-radius:22px 22px 0 0;
+   padding:8px 18px calc(20px + env(safe-area-inset-bottom));max-height:90vh;overflow-y:auto;animation:up .28s var(--ease)}
+@keyframes up{from{transform:translateY(100%)}to{transform:none}}
+.grab{width:38px;height:4px;border-radius:999px;background:var(--line2);margin:0 auto 16px}
+.sheet h3{font-size:20px;font-weight:700;margin-bottom:3px;letter-spacing:-.01em}
+.sheet .sub{font-size:13px;color:var(--ink3);margin-bottom:18px}
+.seg{display:grid;grid-auto-flow:column;gap:4px;background:var(--card);border:1px solid var(--line);border-radius:var(--r2);padding:4px;margin-bottom:14px}
+.seg button{padding:10px 6px;border-radius:9px;font-size:13px;font-weight:600;color:var(--ink3)}
+.seg button.on{background:var(--redfill);color:#fff}
+
+/* ---------- result ---------- */
+.result{text-align:center;padding:10px 0 4px}
+.result .big{font-family:'JetBrains Mono',monospace;font-size:54px;font-weight:800;line-height:1;letter-spacing:-.035em}
+.result .lbl{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink3);margin-top:8px}
+.delta{display:inline-flex;align-items:center;gap:6px;margin-top:14px;padding:7px 13px;border-radius:999px;
+       font-weight:700;font-size:13.5px;font-family:'JetBrains Mono',monospace}
+.delta.good{background:rgba(19,226,123,.14);color:var(--pb)}
+.delta.bad{background:rgba(255,194,71,.12);color:var(--amber)}
+.gain{display:flex;align-items:center;justify-content:center;gap:9px;margin-top:15px;font-weight:700;font-size:15px;color:var(--red)}
+.unlocked{border:1px solid rgba(255,45,45,.4);background:linear-gradient(160deg,rgba(255,45,45,.1),transparent);
+          border-radius:var(--r2);padding:13px;margin-top:13px;display:flex;align-items:center;gap:12px;text-align:left}
+.unlocked svg{width:28px;height:28px;flex:none}
+
+/* ---------- misc ---------- */
+.empty{text-align:center;padding:34px 16px;color:var(--ink3);font-size:13.5px;line-height:1.6}
+.tag{display:inline-block;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;padding:3px 7px;border-radius:5px;font-weight:700;vertical-align:middle}
+.tag.new{background:var(--redfill);color:#fff}
+.tag.un{border:1px solid var(--line2);color:var(--ink3)}
+.tag.pb{background:var(--pb);color:#04140C}
+.tag.ok{border:1px solid rgba(19,226,123,.45);color:var(--pb)}
+.quest{display:flex;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+.quest:last-child{border:none}
+.quest .q{flex:1}
+.quest .qt{font-weight:600;font-size:14px}
+.quest .qs{font-size:11.5px;color:var(--ink3)}
+.quest .qx{font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--red);font-size:13px;flex:none}
+.hint{font-size:12px;color:var(--ink3);line-height:1.6;margin-top:10px}
+.banner{border:1px solid rgba(255,194,71,.3);background:rgba(255,194,71,.06);border-radius:var(--r2);
+        padding:12px 13px;font-size:12.5px;color:var(--ink2);margin-bottom:12px;line-height:1.55}
+.banner b{color:var(--amber)}
+.facts{display:flex;flex-wrap:wrap;gap:6px;margin:-4px 0 12px}
+.facts span{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;color:var(--ink2);background:var(--card2);border-radius:8px;padding:6px 10px}
+.linkbtn{display:block;font-size:12px;color:var(--ink3);text-decoration:underline;text-underline-offset:3px;margin:-4px 0 14px;padding:4px 0}
+.linkbtn:hover{color:var(--ink2)}
+.steps{counter-reset:n;margin:4px 0 14px}
+.steps div{position:relative;padding:9px 0 9px 32px;font-size:13px;color:var(--ink2);line-height:1.5;border-bottom:1px solid var(--line)}
+.steps div:last-child{border:none}
+.steps div:before{counter-increment:n;content:counter(n);position:absolute;left:0;top:9px;width:21px;height:21px;
+   background:var(--card2);border-radius:6px;display:grid;place-items:center;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;color:var(--ink2)}
+.votes{display:flex;gap:5px;margin:12px 0 4px}
+.votes i{flex:1;height:5px;background:rgba(255,255,255,.08);border-radius:999px}
+.votes i.got{background:var(--red)}
+.circuit{width:100%;height:auto;display:block}
+.monthrow{padding:9px 16px;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink3);
+  background:var(--card2);border-bottom:1px solid var(--line);font-weight:700}
+.chart{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:14px 12px 10px;margin-bottom:12px}
+.chart .ct{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);font-weight:700;margin:0 4px 10px;
+  display:flex;justify-content:space-between}
+.chart .ct b{color:var(--pb);font-family:'JetBrains Mono',monospace;letter-spacing:0}
+.delta-s{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;flex:none;min-width:54px;text-align:right}
+#mineList .t,#trackList .t,#trackRecords .t,#recent .t{white-space:normal;line-height:1.25}
+#mineList .time{font-size:15px}
+#mineList .row{align-items:flex-start;gap:9px}
+.trackmini{width:52px;height:38px;flex:none;opacity:.75}
+.rowthumb{width:52px;height:38px;flex:none;border-radius:8px;background-size:cover;background-position:center;border:1px solid var(--line)}
+.rowlink{cursor:pointer;transition:background .15s}
+.rowlink:hover,.rowlink:focus-visible{background:var(--glass);outline:none}
+</style>
+<script>
+!function(t,e){var o,n,p,r;e.__SV||(window.posthog && window.posthog.__loaded)||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}p||((p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",p.onerror=function(){p=null},(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r));var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],Object.defineProperty(u,"toString",{configurable:!0,enumerable:!0,writable:!0,value:function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e}}),Object.defineProperty(u.people,"toString",{configurable:!0,enumerable:!0,writable:!0,value:function(){return u.toString(1)+".people (stub)"}}),o="init capture register register_once register_for_session unregister unregister_for_session getFeatureFlag getFeatureFlagResult isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey getNextSurveyStep identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty createPersonProfile opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing debug".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+posthog.init("phc_zbBFHQt5aVYH9HuviHUQuwfh6TPCVPyXSrMWWgJ9UfLP",{api_host:"https://eu.i.posthog.com",defaults:"2026-08-30",cookieless_mode:"always",person_profiles:"identified_only",disable_session_recording:true});
+</script>
+</head>
+<body>
+
+<!-- ============ AUTH ============ -->
+<div id="auth" class="on">
+  <div class="auth-in">
+    <div class="lights" id="lights"><i></i><i></i><i></i><i></i><i></i></div>
+    <h1 class="hero-t">Tvoje časy.<br>Všetky trate.<br><em>Jeden profil.</em></h1>
+    <p class="lede">Odfoť výsledky z dráhy alebo ich zapíš ručne. Hotlap si pamätá každé kolo, počíta skóre a porovná ťa s ostatnými.</p>
+
+    <div class="oauth">
+      <button data-act="login" data-a="google">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M21.6 12.23c0-.73-.07-1.43-.19-2.1H12v3.98h5.38a4.6 4.6 0 0 1-2 3.02v2.5h3.24c1.89-1.74 2.98-4.3 2.98-7.4Z" fill="#4285F4"/><path d="M12 22c2.7 0 4.96-.9 6.62-2.42l-3.24-2.5c-.9.6-2.04.96-3.38.96-2.6 0-4.8-1.76-5.59-4.12H3.07v2.58A10 10 0 0 0 12 22Z" fill="#34A853"/><path d="M6.41 13.92a6 6 0 0 1 0-3.84V7.5H3.07a10 10 0 0 0 0 9l3.34-2.58Z" fill="#FBBC05"/><path d="M12 5.96c1.47 0 2.79.5 3.83 1.5l2.87-2.87C16.95 2.98 14.7 2 12 2a10 10 0 0 0-8.93 5.5l3.34 2.58C7.2 7.72 9.4 5.96 12 5.96Z" fill="#EA4335"/></svg>
+        Pokračovať cez Google</button>
+      <button data-act="login" data-a="facebook">
+        <svg viewBox="0 0 24 24"><path fill="#1877F2" d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5.02 3.66 9.18 8.44 9.94v-7.03H7.9v-2.9h2.54V9.85c0-2.52 1.49-3.91 3.78-3.91 1.1 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.78-1.63 1.57v1.89h2.78l-.45 2.9h-2.33V22c4.78-.76 8.43-4.92 8.43-9.94Z"/></svg>
+        Pokračovať cez Facebook</button>
+    </div>
+
+    <div class="or">alebo e-mailom</div>
+    <label for="em">E-mail</label>
+    <input id="em" class="field" type="email" placeholder="tvoj@email.sk" autocomplete="email">
+    <label for="nk">Prezývka na dráhe</label>
+    <input id="nk" class="field" type="text" placeholder="Ako ťa píšu na výsledky" autocomplete="nickname" maxlength="20">
+    <button class="btn primary" data-act="login" data-a="email">Vytvoriť profil</button>
+    <p class="fine">Prezývka je dôležitá: podľa nej ťa Hotlap nájde na výsledkovej listine, keď odfotíš papier. Doplniť ďalšie sa dá kedykoľvek v profile.</p>
+  </div>
+</div>
+
+<!-- ============ APP ============ -->
+<div id="app">
+  <div class="top">
+    <div class="logo">
+      <span class="mark"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"><path d="M13 3 5 14h6l-2 7 9-12h-6l1-6Z"/></svg></span>
+      HOTLAP
+    </div>
+    <div class="pill" id="streakChip">séria <b>0</b></div>
+  </div>
+
+  <!-- HOME -->
+  <section class="screen on" id="s-home">
+    <div class="wrap">
+
+      <div class="hero" id="heroCard"></div>
+
+      <div class="dcard">
+        <div class="ghost" id="hGhost">1</div>
+        <div class="row1">
+          <div class="avatar" data-act="pickAvatar" id="avatarBox"></div>
+          <div style="min-width:0">
+            <div class="dname" id="hName">—</div>
+            <div class="dsub" id="hLevel">Level 1 · Nováčik</div>
+          </div>
+          <div class="score"><b id="hElo">1200</b><span>skóre</span></div>
+        </div>
+        <div class="xpbar">
+          <div class="meta"><span id="xpNow">0 XP</span><span id="xpNext">do levelu 2</span></div>
+          <div class="track"><div class="fill" id="xpFill"></div></div>
+        </div>
+      </div>
+
+      <div class="tiles">
+        <div class="tile"><b id="stRides">0</b><span id="lbRides">jázd</span></div>
+        <div class="tile"><b id="stTracks">0</b><span id="lbTracks">tratí</span></div>
+        <div class="tile"><b id="stPB">0</b><span>rekordov</span></div>
+      </div>
+
+      <div id="feedCard"></div>
+      <button class="btn" id="addBtn" data-act="openAdd">
+        <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        Pridať jazdu</button>
+
+      <h2 id="recH">Tvoje rekordy podľa tratí</h2>
+      <div class="card pad0" id="trackRecords"></div>
+
+      <h2>Výzvy tohto týždňa</h2>
+      <div class="card" id="quests"></div>
+
+      <h2>Posledné jazdy <a data-act="goHistory">Celá história →</a></h2>
+      <div class="card pad0" id="recent"></div>
+    </div>
+  </section>
+
+  <!-- CASY: moje casy + rebricek -->
+  <section class="screen" id="s-board">
+    <div class="wrap">
+      <h2 id="boardH2">Moje časy</h2>
+      <div class="seg">
+        <button class="on" id="segMine" data-act="setTab" data-a="mine">Moje časy</button>
+        <button id="segBoard" data-act="setTab" data-a="board">Rebríček</button>
+        <button id="segTeam" data-act="setTab" data-a="team">Tím</button>
+      </div>
+
+      <div id="paneMine">
+        <div class="tiles" id="mineStats"></div>
+        <div id="minePick"></div>
+        <div id="mineChart"></div>
+        <h2 id="mineH">História jázd</h2>
+        <div class="card pad0" id="mineList"></div>
+        <p class="hint">Rozdiel vpravo je oproti tvojej predchádzajúcej jazde na tej istej dráhe, triede a verzii. Časy z prestavanej dráhy sú označené a do rekordu sa nerátajú.</p>
+      </div>
+
+      <div id="paneTeam" style="display:none"></div>
+
+      <div id="paneBoard" style="display:none">
+        <div class="seg" id="boardSeg">
+          <button class="on" data-act="setBoard" data-a="global">Celkovo</button>
+          <button data-act="setBoard" data-a="track">Podľa trate</button>
+        </div>
+        <div id="boardTrackPick"></div>
+        <div class="card pad0" id="board"></div>
+        <p class="hint" id="boardNote"></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRACKS -->
+  <section class="screen" id="s-tracks">
+    <div class="wrap">
+      <h2>Trate</h2>
+      <p class="hint" style="margin:-2px 0 12px">Ťukni na trať a uvidíš smer jazdy, dĺžku, verziu dráhy a nahlásiš zmenu.</p>
+      <div id="trackCta"></div>
+      <div class="card pad0" id="trackList" style="margin-top:12px"></div>
+    </div>
+  </section>
+
+  <!-- PROFILE -->
+  <section class="screen" id="s-profile">
+    <div class="wrap">
+      <h2>Profil</h2>
+      <div class="card pad0">
+        <div class="row"><div class="main"><div class="t" id="pName">—</div><div class="s" id="pMail">—</div></div></div>
+        <div class="row"><div class="main"><div class="t">Prezývky na dráhe</div><div class="s" id="pAliases">—</div></div>
+          <button class="tag un" data-act="addAlias">pridať</button></div>
+        <div class="row"><div class="main"><div class="t">Fotka jazdca</div><div class="s">Tvoja vlastná, z tohto zariadenia</div></div>
+          <button class="tag un" data-act="pickAvatar">zmeniť</button></div>
+        <div class="row"><div class="main"><div class="t">Prihlásenie</div><div class="s" id="pProv">—</div></div></div>
+      </div>
+
+      <h2 id="admH">Administrácia</h2>
+      <div class="card pad0" id="admCard"></div>
+
+      <h2>Odznaky</h2>
+      <div class="badges" id="badges"></div>
+
+      <h2>Údaje</h2>
+      <div class="card" style="margin-bottom:12px">
+        <div class="t" style="font-weight:600;margin-bottom:3px">Režim administrátora</div>
+        <p class="hint" style="margin:0 0 12px">Administrátor zakladá trate, zadáva oficiálne údaje, obkresľuje tvar dráhy a vybavuje hlásenia od jazdcov. V ostrej verzii to bude viazané na účet, tu si to prepneš sám.</p>
+        <button class="btn ghost" data-act="toggleAdmin" id="admBtn">Zapnúť</button>
+      </div>
+      <div class="card">
+        <p class="hint" style="margin:0 0 12px">Dáta sú zatiaľ uložené len v tomto prehliadači. Po pripojení databázy sa presunú do účtu a budeš ich mať na každom zariadení.</p>
+        <button class="btn ghost" data-act="wipe">Vymazať všetko a začať odznova</button>
+      </div>
+    </div>
+  </section>
+</div>
+
+<input type="file" id="avaInput" accept="image/*" style="display:none" data-chg="onAvatar">
+<input type="file" id="covInput" accept="image/*" style="display:none" data-chg="onCover">
+<input type="file" id="planInput" accept="image/*" style="display:none" data-chg="onPlan">
+
+<!-- ============ NAV ============ -->
+<nav class="nav">
+  <div class="nav-in">
+    <button class="on" data-s="home" data-act="go" data-a="home">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1v-9.5Z"/></svg>Domov</button>
+    <button data-s="board" data-act="go" data-a="board">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M4 20V10m6 10V4m6 16v-7m4 7H2"/></svg>Časy</button>
+    <button class="add" data-act="openAdd">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Pridať</button>
+    <button data-s="tracks" data-act="go" data-a="tracks">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M5 20c-2 0-3-1.3-3-3s1-3 3-3h9c2.2 0 3-1 3-2.5S16.2 9 14 9H8C5.8 9 5 8 5 6.5S5.8 4 8 4h11"/></svg>Trate</button>
+    <button data-s="profile" data-act="go" data-a="profile">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="12" cy="8" r="3.6"/><path d="M4.5 20c.8-3.6 3.8-5.6 7.5-5.6s6.7 2 7.5 5.6"/></svg>Profil</button>
+  </div>
+</nav>
+
+<!-- ============ SHEET ============ -->
+<div class="sheet" id="sheet">
+  <div class="veil" data-act="closeSheet"></div>
+  <div class="panel" id="panel"></div>
+</div>
+
+<script>
+/* ================= storage ================= */
+const KEY='hotlap.v1';
+function load(){try{const r=localStorage.getItem(KEY);return r?JSON.parse(r):null}catch(e){return null}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S));return true}
+ catch(e){console.warn('localStorage full',e);return false}}
+
+/* layout: dir 'cw'/'ccw', len v m, ver = verzia konfiguracie, reports = hlasenia o prestavbe */
+const L=(id,name,dir,len)=>({id,name,dir:dir||null,len:len||null,ver:1,since:null,reports:[]});
+const SEED_TRACKS=[
+ {id:'t1',name:'Hop & Drive Motokáry',city:'Prešov',country:'SK',indoor:null,verified:true,claimed:false,shape:0,
+  layouts:[L('l1','Hlavná dráha',null,null)],classes:[{id:'c1',name:'Dospelí'},{id:'c2',name:'Junior'}]},
+ {id:'t2',name:'Motokáry Šariš',city:'Veľký Šariš',country:'SK',indoor:null,verified:true,claimed:false,shape:1,
+  layouts:[L('l1','Hlavná dráha',null,null)],classes:[{id:'c1',name:'Dospelí'},{id:'c2',name:'Junior'}]},
+ {id:'t3',name:'Kart One Arena',city:'Bratislava',country:'SK',indoor:null,verified:true,claimed:false,shape:2,
+  layouts:[L('l1','Hlavná dráha',null,null),L('l2','Krátka dráha',null,null)],classes:[{id:'c1',name:'Dospelí'},{id:'c2',name:'Junior'}]},
+ {id:'t4',name:'Paphos Karting Centre',city:'Paphos',country:'CY',indoor:null,verified:true,claimed:false,shape:3,
+  layouts:[L('l1','Hlavná dráha',null,null)],classes:[{id:'c1',name:'Dospelí'},{id:'c2',name:'Junior'}]}
+];
+const BGS=['img/bg1.webp','img/bg2.webp','img/bg3.webp','img/bg4.webp'];
+const bgFor=t=>t.photo||BGS[(typeof t.bg==='number'?t.bg:0)%BGS.length];
+function pl(n,one,few,many){const a=Math.abs(n);return a===1?one:(a>=2&&a<=4?few:many)}
+const nJazd=n=>n+' '+pl(n,'jazda','jazdy','jázd');
+const nKol =n=>n+' '+pl(n,'kolo','kolá','kôl');
+const nTrat=n=>n+' '+pl(n,'trať','trate','tratí');
+const lJazd=n=>pl(n,'jazda','jazdy','jázd');
+const lKol =n=>pl(n,'kolo','kolá','kôl');
+const lTrat=n=>pl(n,'trať','trate','tratí');
+const zo=n=>[4,6,7,100].includes(n)?'zo':'z';
+
+/* Dve urovne opravneni.
+   Jazdec zalozi MIESTO (podnik existuje) a zapisuje VLASTNE casy.
+   Prevadzkovatel urcuje OFICIALNE udaje o drahe a jej prestavbu.
+   Kym trat nema spravcu, rozhoduje zhoda jazdcov, lebo ina autorita neexistuje. */
+/* Odkial casy prichadzaju.
+   live    = trat je partner, casomiera posiela casy sama
+   pending = oslovena, caka sa na pripojenie
+   none    = nespolupracuje, jazdec zapisuje sam (foto alebo rucne) */
+const FEED={live:'časy chodia automaticky',pending:'čaká sa na pripojenie',none:'zapisuješ sám'};
+const isLive=t=>!!t && t.feed==='live';
+const liveTracks=()=>S.tracks.filter(isLive);
+const isAdmin=()=>!!S.user && S.user.admin===true;
+const isManager=t=>!!t && t.claimed===true && t.managedByMe===true;
+const hasManager=t=>!!t && t.claimed===true;
+const hasRidden=t=>!!t && S.sessions.some(x=>x.trackId===t.id);
+
+/* Autorita je jedna: administrátor Hotlapu. Prevádzkovateľ spravuje svoju vlastnú trať.
+   Jazdec nerozhoduje o ničom — môže len nahlásiť, a hlásenie ide administrátorovi. */
+function canEditFacts(t){
+ if(isAdmin()) return 'admin';
+ return isManager(t)?'manager':'no';
+}
+const canConfirmRebuild=canEditFacts;
+/* Jazdec môže založiť trať kdekoľvek na svete, aby si tam vedel hneď zapisovať časy —
+   ale len ak už tú trať nemáme. Taká trať je neoverená: drží len osobné časy
+   a čaká na potvrdenie administrátorom alebo prevzatie prevádzkovateľom. */
+const canAddTrack=()=>true;
+/* oficialny rebricek trate ma len overena trat */
+const isOfficial=t=>!!t && t.verified===true;
+function factBadge(t){
+ if(hasManager(t)) return '<span class="tag ok">spravuje prevádzkovateľ</span>';
+ if(t.verified)    return '<span class="tag ok">overené Hotlapom</span>';
+ return '<span class="tag un">čaká na overenie</span>';
+}
+const INDOOR=v=>v===true?'krytá':v===false?'vonkajšia':'typ neuvedený';
+const DIRS_SHORT={cw:'v smere hod. ručičiek',ccw:'proti smeru hod. ručičiek'};
+const dirLabel=d=>DIRS_SHORT[d]||'smer neuvedený';
+/* ISO 3166-1: 249 krajín. Dvojpísmenový kód sa ukladá, trojpísmenový zobrazuje.
+   Názvy po slovensky dáva prehliadač, aby sa v ručne písanom zozname nedali spraviť preklepy. */
+const CC_RAW='ADAND,AEARE,AFAFG,AGATG,AIAIA,ALALB,AMARM,AOAGO,AQATA,ARARG,ASASM,ATAUT,AUAUS,AWABW,AXALA,AZAZE,BABIH,BBBRB,BDBGD,BEBEL,BFBFA,BGBGR,BHBHR,BIBDI,BJBEN,BLBLM,BMBMU,BNBRN,BOBOL,BQBES,BRBRA,BSBHS,BTBTN,BVBVT,BWBWA,BYBLR,BZBLZ,CACAN,CCCCK,CDCOD,CFCAF,CGCOG,CHCHE,CICIV,CKCOK,CLCHL,CMCMR,CNCHN,COCOL,CRCRI,CUCUB,CVCPV,CWCUW,CXCXR,CYCYP,CZCZE,DEDEU,DJDJI,DKDNK,DMDMA,DODOM,DZDZA,ECECU,EEEST,EGEGY,EHESH,ERERI,ESESP,ETETH,FIFIN,FJFJI,FKFLK,FMFSM,FOFRO,FRFRA,GAGAB,GBGBR,GDGRD,GEGEO,GFGUF,GGGGY,GHGHA,GIGIB,GLGRL,GMGMB,GNGIN,GPGLP,GQGNQ,GRGRC,GSSGS,GTGTM,GUGUM,GWGNB,GYGUY,HKHKG,HMHMD,HNHND,HRHRV,HTHTI,HUHUN,IDIDN,IEIRL,ILISR,IMIMN,ININD,IOIOT,IQIRQ,IRIRN,ISISL,ITITA,JEJEY,JMJAM,JOJOR,JPJPN,KEKEN,KGKGZ,KHKHM,KIKIR,KMCOM,KNKNA,KPPRK,KRKOR,KWKWT,KYCYM,KZKAZ,LALAO,LBLBN,LCLCA,LILIE,LKLKA,LRLBR,LSLSO,LTLTU,LULUX,LVLVA,LYLBY,MAMAR,MCMCO,MDMDA,MEMNE,MFMAF,MGMDG,MHMHL,MKMKD,MLMLI,MMMMR,MNMNG,MOMAC,MPMNP,MQMTQ,MRMRT,MSMSR,MTMLT,MUMUS,MVMDV,MWMWI,MXMEX,MYMYS,MZMOZ,NANAM,NCNCL,NENER,NFNFK,NGNGA,NINIC,NLNLD,NONOR,NPNPL,NRNRU,NUNIU,NZNZL,OMOMN,PAPAN,PEPER,PFPYF,PGPNG,PHPHL,PKPAK,PLPOL,PMSPM,PNPCN,PRPRI,PSPSE,PTPRT,PWPLW,PYPRY,QAQAT,REREU,ROROU,RSSRB,RURUS,RWRWA,SASAU,SBSLB,SCSYC,SDSDN,SESWE,SGSGP,SHSHN,SISVN,SJSJM,SKSVK,SLSLE,SMSMR,SNSEN,SOSOM,SRSUR,SSSSD,STSTP,SVSLV,SXSXM,SYSYR,SZSWZ,TCTCA,TDTCD,TFATF,TGTGO,THTHA,TJTJK,TKTKL,TLTLS,TMTKM,TNTUN,TOTON,TRTUR,TTTTO,TVTUV,TWTWN,TZTZA,UAUKR,UGUGA,UMUMI,USUSA,UYURY,UZUZB,VAVAT,VCVCT,VEVEN,VGVGB,VIVIR,VNVNM,VUVUT,WFWLF,WSWSM,YEYEM,YTMYT,ZAZAF,ZMZMB,ZWZWE';
+const CC=Object.fromEntries(CC_RAW.split(',').map(x=>[x.slice(0,2),x.slice(2)]));
+const PINNED=['SK','CZ','CY','AT','HU','PL','DE','IT','GB','ES'];
+let _cn=null;
+function countryName(k){
+ if(!k) return '';
+ try{ if(!_cn) _cn=new Intl.DisplayNames(['sk'],{type:'region'}); const n=_cn.of(k); if(n&&n!==k) return n }catch(e){}
+ return CC[k]||k;
+}
+const cc=k=>`<span class="cc">${CC[k]||'INT'}</span>`;
+function countryOptions(sel){
+ const all=Object.keys(CC).map(k=>({k,n:countryName(k)}));
+ const pin=PINNED.map(k=>all.find(x=>x.k===k)).filter(Boolean);
+ const rest=all.filter(x=>!PINNED.includes(x.k)).sort((a,b)=>a.n.localeCompare(b.n,'sk'));
+ const opt=x=>`<option value="${x.k}" ${x.k===sel?'selected':''}>${esc(x.n)}</option>`;
+ return `<optgroup label="Najčastejšie">${pin.map(opt).join('')}</optgroup>`
+      + `<optgroup label="Všetky krajiny">${rest.map(opt).join('')}</optgroup>`;
+}
+
+/* vlastne nakreslene okruhy – nie su to skutocne trate, su to ilustracie */
+const SHAPES=[
+ 'M22 62 C14 40 30 20 56 20 L118 20 C150 20 156 46 136 56 L96 74 C78 82 86 96 104 96 L140 96 C164 96 168 70 150 62',
+ 'M24 86 C10 62 24 26 56 26 L104 26 C140 26 150 58 128 70 L92 88 C74 97 84 104 100 104 L146 104',
+ 'M20 54 C20 26 48 18 76 26 L116 38 C146 46 158 76 136 90 L96 104 C70 112 54 102 54 84 L54 70 C54 56 36 56 30 68',
+ 'M26 40 L120 40 C148 40 156 64 138 76 L74 100 C52 108 44 92 56 82 L108 56'
+];
+
+const BADGES=[
+ {id:'first',   nm:'Prvá jazda',  d:'Zapíš prvú jazdu'},
+ {id:'pb',      nm:'Osobák',      d:'Prekonaj vlastný rekord'},
+ {id:'t3',      nm:'Tri trate',   d:'Jazdi na troch tratiach'},
+ {id:'r10',     nm:'Desať jázd',  d:'Zapíš 10 jázd'},
+ {id:'streak3', nm:'Séria 3',     d:'Jazdi tri týždne po sebe'},
+ {id:'abroad',  nm:'Za hranicou', d:'Jazdi v inej krajine'},
+ {id:'hot',     nm:'Hotlap',      d:'Najrýchlejší čas na trati'},
+ {id:'lvl5',    nm:'Level 5',     d:'Dosiahni level 5'}
+];
+const LEVELS=['Nováčik','Jazdec','Pretekár','Špecialista','Expert','Majster','Legenda'];
+
+let S=load()||EMPTY();
+try{ S=migrate(S)||S }catch(e){ console.error('migrate zlyhala, zaciname s cistymi datami',e); S=EMPTY(); save(); }
+
+/* Doplni polia, ktore v starsich ulozenych datach neexistovali. */
+function EMPTY(){return {user:null,tracks:JSON.parse(JSON.stringify(SEED_TRACKS)),sessions:[],requests:[],teams:[],duels:[],rivals:seedRivals()}}
+function migrate(st){
+ if(!st||typeof st!=='object'||Array.isArray(st)) return EMPTY();
+ const repair = (st.schema||0) < 2;   // raz zmaz fakty, ktore appka kedysi vymyslela
+ st.schema=2;
+ if(!Array.isArray(st.rivals)||!st.rivals.length||typeof st.rivals[0].best!=='number') st.rivals=seedRivals();
+ if(!Array.isArray(st.tracks)) st.tracks=JSON.parse(JSON.stringify(SEED_TRACKS));
+ if(!Array.isArray(st.sessions)) st.sessions=[];
+ if(!Array.isArray(st.requests)) st.requests=[];
+ if(!Array.isArray(st.teams)) st.teams=[];
+ if(!Array.isArray(st.duels)) st.duels=[];
+ st.teams=st.teams.filter(t=>t&&t.id&&t.name&&Array.isArray(t.members));
+ st.duels=st.duels.filter(d=>d&&d.id&&d.teamA&&d.teamB&&d.from&&d.to);
+ /* Poskodene zaznamy zahod skor, nez sa cez ne prechadza — jeden zly riadok
+    nesmie zobrat jazdcovi vsetky ostatne casy. */
+ st.tracks  =st.tracks.filter(t=>t&&typeof t==='object'&&t.id);
+ st.sessions=st.sessions.filter(x=>x&&typeof x==='object'&&x.trackId&&typeof x.bestMs==='number'&&x.id);
+ st.requests=st.requests.filter(r=>r&&typeof r==='object'&&r.id&&r.status);
+ st.tracks.forEach((t,i)=>{
+   const seed=SEED_TRACKS.find(x=>x.id===t.id);
+   if(typeof t.indoor==='undefined') t.indoor=null;
+   if(repair&&seed) t.indoor=null;
+   if(typeof t.shape!=='number') t.shape=i%SHAPES.length;
+   if(typeof t.photo!=='string') t.photo='';
+   if(typeof t.shapePath!=='string') t.shapePath='';
+   if(!Array.isArray(t.shapePts)) t.shapePts=[];
+   if(typeof t.plan!=='string') t.plan='';
+   if(typeof t.managedByMe!=='boolean') t.managedByMe=false;
+   if(!FEED[t.feed]) t.feed='none';
+   if(typeof t.source!=='string') t.source = seed?'seed':'rider';
+   if(typeof t.bg!=='number') t.bg = seed?SEED_TRACKS.indexOf(seed):(i%BGS.length);
+   if(!Array.isArray(t.layouts)||!t.layouts.length) t.layouts=[L('l1','Hlavná dráha',null,null)];
+   t.layouts.forEach(l=>{
+     if(l.dir!==null&&!DIRS_SHORT[l.dir]) l.dir=null;
+     if(typeof l.len==='undefined') l.len=null;
+     if(repair&&seed&&seed.layouts.find(x=>x.id===l.id)){ l.dir=null; l.len=null; }
+     if(!l.ver) l.ver=1;
+     if(typeof l.since==='undefined') l.since=null;
+     if(!Array.isArray(l.reports)) l.reports=[];
+     if(!Array.isArray(l.history)) l.history=[];
+   });
+   if(!Array.isArray(t.classes)||!t.classes.length) t.classes=[{id:'c1',name:'Dospelí'},{id:'c2',name:'Junior'}];
+ });
+ st.sessions.forEach(s=>{ if(!s.layVer) s.layVer=1; if(!s.date) s.date=today(); if(typeof s.kart==='undefined') s.kart=null; });
+ if(st.user){
+   if(!Array.isArray(st.user.aliases)) st.user.aliases=[st.user.name];
+   if(!Array.isArray(st.user.badges)) st.user.badges=[];
+   if(typeof st.user.elo!=='number') st.user.elo=1200;
+   if(typeof st.user.xp!=='number') st.user.xp=0;
+   if(typeof st.user.streak!=='number') st.user.streak=0;
+   if(typeof st.user.photo!=='string') st.user.photo='';
+   if(typeof st.user.admin!=='boolean') st.user.admin=false;
+ }
+ save();
+ return st;
+}
+function seedRivals(){
+ return [{n:'Marek_K',elo:1412,rides:34,best:38420,at:'t3'},
+         {n:'TOMI',   elo:1356,rides:28,best:39110,at:'t1'},
+         {n:'Zuzka R',elo:1288,rides:19,best:41880,at:'t3'},
+         {n:'Dávid',  elo:1240,rides:22,best:42350,at:'t1'},
+         {n:'PETO 77',elo:1185,rides:11,best:44900,at:'t2'},
+         {n:'Andrej', elo:1120,rides:7, best:46700,at:'t4'}];
+}
+
+/* ================= helpers ================= */
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function fmt(ms){
+ if(ms==null) return '—';
+ const m=Math.floor(ms/60000), s=Math.floor(ms%60000/1000), t=Math.floor(ms%1000);
+ return (m?m+':':'')+(m?String(s).padStart(2,'0'):s)+'.'+String(t).padStart(3,'0');
+}
+function parseTime(v){
+ if(!v) return null;
+ v=String(v).trim().replace(',','.');
+ let m=v.match(/^(\d+):(\d+(?:\.\d+)?)$/);
+ if(m) return Math.round((+m[1]*60+ +m[2])*1000);
+ m=v.match(/^\d+(\.\d+)?$/);
+ if(m) return Math.round(parseFloat(v)*1000);
+ return null;
+}
+function ymd(dt){return dt.getFullYear()+'-'+String(dt.getMonth()+1).padStart(2,'0')+'-'+String(dt.getDate()).padStart(2,'0')}
+function today(){return ymd(new Date())}
+function weekKey(d){const dt=new Date(d+'T12:00:00');const day=(dt.getDay()+6)%7;dt.setDate(dt.getDate()-day);return ymd(dt)}
+function isPrevWeek(a,b){const da=new Date(a+'T12:00:00'),db=new Date(b+'T12:00:00');return Math.round((db-da)/86400000)===7}
+function levelOf(xp){return Math.min(LEVELS.length,Math.floor(xp/500)+1)}
+function levelFloor(l){return (l-1)*500}
+function trackById(id){return S.tracks.find(t=>t.id===id)}
+function initials(n){return String(n).trim().split(/\s+/).slice(0,2).map(w=>w[0]||'').join('').toUpperCase()}
+
+/* Skutocny tvar trate, ak ho administrator obkreslil. Inak ilustracia. */
+function art(t,cls,w,h){
+ if(t&&t.shapePath) return `<svg class="${cls||'circuit'}" ${w?`width="${w}" height="${h}"`:''} viewBox="0 0 360 240" fill="none" aria-hidden="true">
+   <path d="${t.shapePath}" stroke="currentColor" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" opacity=".9"/>
+   ${startMarker(t)}</svg>`;
+ return circuit(t?t.shape:0,cls,w,h);
+}
+/* ciara startu a sipka smeru jazdy v prvom bode trate */
+function startMarker(t){
+ const pts=t.shapePts||[];
+ if(pts.length<2) return '';
+ const [x,y]=pts[0], [x2,y2]=pts[1];
+ const a=Math.atan2(y2-y,x2-x), px=Math.cos(a+Math.PI/2), py=Math.sin(a+Math.PI/2);
+ const L=13;
+ const ax=x+Math.cos(a)*26, ay=y+Math.sin(a)*26;
+ return `<line x1="${(x+px*L).toFixed(1)}" y1="${(y+py*L).toFixed(1)}" x2="${(x-px*L).toFixed(1)}" y2="${(y-py*L).toFixed(1)}"
+   stroke="#fff" stroke-width="5" stroke-linecap="round"/>
+ <path d="M${ax.toFixed(1)} ${ay.toFixed(1)} l${(Math.cos(a-2.5)*13).toFixed(1)} ${(Math.sin(a-2.5)*13).toFixed(1)} M${ax.toFixed(1)} ${ay.toFixed(1)} l${(Math.cos(a+2.5)*13).toFixed(1)} ${(Math.sin(a+2.5)*13).toFixed(1)}"
+   stroke="#fff" stroke-width="4.5" stroke-linecap="round" fill="none"/>`;
+}
+function circuit(shapeIdx,cls,w,h){
+ const d=SHAPES[(shapeIdx||0)%SHAPES.length];
+ return `<svg class="${cls||'circuit'}" ${w?`width="${w}" height="${h}"`:''} viewBox="0 0 180 124" fill="none" aria-hidden="true">
+   <path d="${d}" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" opacity=".9"/>
+ </svg>`;
+}
+function dirIcon(dir){
+ if(!DIRS_SHORT[dir]) return `<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="12" cy="12" r="8.5"/><path d="M9.6 9.4a2.5 2.5 0 1 1 2.6 3.1v1.2M12.2 17h.01"/></svg>`;
+ const flip = dir==='ccw' ? ' transform="scale(-1,1) translate(-24,0)"' : '';
+ return `<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"${flip}><path d="M12 4.5a7.5 7.5 0 1 1-6.4 3.6"/><path d="M5.2 3.4v4.9h4.9"/></svg>`;
+}
+
+/* ================= auth ================= */
+function login(provider){
+ let name='', mail='';
+ if(provider==='email'){
+   mail=$('#em').value.trim(); name=$('#nk').value.trim();
+   if(!name){ $('#nk').style.borderColor='var(--red)'; $('#nk').focus(); return; }
+ } else {
+   const typed=$('#nk').value.trim();
+   name = typed || 'Jazdec'; mail = provider+'@ukazka.sk';
+ }
+ S.user={name,mail,provider,xp:0,elo:1200,streak:0,aliases:[name],badges:[],lastWeek:null,photo:'',admin:false};
+ save(); startLights();
+}
+function startLights(){
+ const L=[...document.querySelectorAll('#lights i')];
+ let i=0;
+ const t=setInterval(()=>{
+   if(i<5){L[i].classList.add('lit');i++}
+   else{clearInterval(t);L.forEach(x=>{x.classList.remove('lit');x.classList.add('green')});
+        setTimeout(()=>{$('#auth').classList.remove('on');render()},340)}
+ },130);
+}
+function wipe(){
+ if(!confirm('Vymazať profil aj všetky zapísané jazdy?')) return;
+ try{localStorage.removeItem(KEY)}catch(e){}
+ S={user:null,tracks:JSON.parse(JSON.stringify(SEED_TRACKS)),sessions:[],requests:[],rivals:seedRivals()};
+ $('#auth').classList.add('on');
+ document.querySelectorAll('#lights i').forEach(x=>x.className='');
+ $('#em').value='';$('#nk').value='';
+}
+
+/* ---- vlastna fotka jazdca (len v tomto zariadeni) ---- */
+let coverTarget=null;
+function pickCover(tid){ coverTarget=tid; $('#covInput').click() }
+function onCover(e){
+ const f=e.target.files&&e.target.files[0]; e.target.value='';
+ if(!f||!coverTarget) return;
+ if(f.size>8*1024*1024){ alert('Fotka je väčšia než 8 MB. Vyber menšiu.'); return }
+ const tid=coverTarget, r=new FileReader();
+ r.onload=()=>shrink(r.result,800,d=>{
+   const t=trackById(tid); if(!t) return;
+   const old=t.photo||'';
+   t.photo=d;
+   if(!save()){ t.photo=old; save(); alert('Pamäť prehliadača je plná. Zmaž fotku inej trate a skús znova.'); }
+   render();
+ });
+ r.readAsDataURL(f);
+}
+function clearCover(tid){ const t=trackById(tid); if(t){ t.photo=''; save(); render(); } }
+function pickAvatar(){ $('#avaInput').click() }
+function onAvatar(e){
+ const f=e.target.files&&e.target.files[0]; if(!f) return;
+ if(f.size>3*1024*1024){ alert('Fotka je väčšia než 3 MB. Vyber menšiu.'); e.target.value=''; return }
+ const r=new FileReader();
+ r.onload=()=>{ shrink(r.result,220,d=>{ S.user.photo=d; save(); render(); }) };
+ r.readAsDataURL(f);
+ e.target.value='';
+}
+function shrink(dataUrl,max,cb){
+ const img=new Image();
+ img.onload=()=>{
+   const s=Math.min(max/img.width,max/img.height,1);
+   const c=document.createElement('canvas');
+   c.width=Math.round(img.width*s); c.height=Math.round(img.height*s);
+   c.getContext('2d').drawImage(img,0,0,c.width,c.height);
+   try{ cb(c.toDataURL('image/jpeg', max>400?.70:.82)) }catch(err){ cb(dataUrl) }
+ };
+ img.onerror=()=>cb(dataUrl);
+ img.src=dataUrl;
+}
+
+/* ================= navigation ================= */
+function go(s,el){
+ document.querySelectorAll('.screen').forEach(x=>x.classList.remove('on'));
+ $('#s-'+s).classList.add('on');
+ document.querySelectorAll('.nav button[data-s]').forEach(b=>b.classList.remove('on'));
+ if(el&&el.dataset&&el.dataset.s) el.classList.add('on');
+ window.scrollTo(0,0);
+ render();
+}
+function openSheet(html){$('#panel').innerHTML='<div class="grab"></div>'+html;$('#sheet').classList.add('on')}
+function closeSheet(){$('#sheet').classList.remove('on')}
+
+/* ================= add ride ================= */
+let draft={trackId:null,layoutId:null,classId:null,mode:'manual'};
+function openAdd(){
+ draft={trackId:S.sessions.length?S.sessions[0].trackId:S.tracks[0].id,layoutId:null,classId:null,mode:'manual'};
+ stepTrack();
+}
+function stepTrack(){
+ const opts=S.tracks.map(t=>`<option value="${t.id}" ${t.id===draft.trackId?'selected':''}>${esc(t.name)} · ${esc(t.city)}</option>`).join('');
+ openSheet(`
+  <h3>Kde si jazdil?</h3><p class="sub">Krok 1 z 3</p>
+  <label>Trať</label>
+  <select class="field" id="dTrack" data-chg="chgTrack">${opts}</select>
+  ${layoutPick()}
+  <button class="btn primary" data-act="stepTime">Ďalej</button>
+ `);
+}
+function layoutPick(){
+ const t=trackById(draft.trackId); if(!t) return '';
+ if(!draft.layoutId||!t.layouts.some(l=>l.id===draft.layoutId)) draft.layoutId=t.layouts[0].id;
+ if(!draft.classId||!t.classes.some(c=>c.id===draft.classId)) draft.classId=t.classes[0].id;
+ const LO=t.layouts.map(l=>`<option value="${l.id}" ${l.id===draft.layoutId?'selected':''}>${esc(l.name)}</option>`).join('');
+ const C=t.classes.map(c=>`<option value="${c.id}" ${c.id===draft.classId?'selected':''}>${esc(c.name)}</option>`).join('');
+ const lay=t.layouts.find(l=>l.id===draft.layoutId);
+ return `<label>Konfigurácia dráhy</label>
+  <select class="field" id="dLay" data-chg="chgLayout">${LO}</select>
+  <div style="display:flex;gap:14px;align-items:center;margin:-2px 0 12px">
+    <span style="color:var(--red);flex:none">${art(t,'',64,46)}</span>
+    <div class="facts" style="margin:0">
+      <span>${dirIcon(lay.dir)} ${esc(dirLabel(lay.dir))}</span>
+      <span>${lay.len?lay.len+' m':'dĺžka neuvedená'}</span>
+      <span>${INDOOR(t.indoor)}</span>
+      ${lay.ver>1?`<span class="is-red">verzia ${lay.ver}${lay.since?' od '+lay.since:''}</span>`:''}
+    </div>
+  </div>
+  <button class="linkbtn" data-act="reportChange" data-a="${t.id}" data-b="${lay.id}">Dráha vyzerá inak, než mám uložené</button>
+  <label>Trieda motokáry</label>
+  <select class="field" id="dCls" data-chg="chgClass">${C}</select>
+  <p class="hint" style="margin-bottom:14px">Rekordy sa počítajú zvlášť pre každú dvojicu dráha plus trieda. Inak by sa porovnávali neporovnateľné časy.</p>`;
+}
+function stepTime(){
+ openSheet(`
+  <h3>Aký si mal čas?</h3><p class="sub">Krok 2 z 3</p>
+  ${isLive(trackById(draft.trackId))?`<div class="banner" style="border-color:rgba(19,226,123,.3);background:rgba(19,226,123,.06)">
+     <b style="color:var(--pb)">Táto trať posiela časy sama.</b> Po jazde ti pribudnú do Hotlapu bez toho, aby si čokoľvek zapisoval. Ručne zapisuj len vtedy, keď čas nedorazil alebo si jazdil pod iným menom.</div>`:''}
+  <div class="seg">
+    <button class="${draft.mode==='photo'?'on':''}" data-act="modePhoto">Odfotiť výsledky</button>
+    <button class="${draft.mode==='manual'?'on':''}" data-act="modeManual">Zapísať ručne</button>
+  </div>
+  ${draft.mode==='photo' ? photoBlock() : manualBlock()}`);
+ if(draft.mode==='manual') setTimeout(()=>{const e=$('#dBest'); if(e) e.focus()},80);
+}
+function photoBlock(){
+ return `<div class="card" style="text-align:center;padding:30px 16px">
+    <svg viewBox="0 0 24 24" width="38" height="38" fill="none" stroke="var(--ink3)" stroke-width="1.5" style="margin-bottom:10px"><rect x="2.5" y="6" width="19" height="14" rx="3"/><circle cx="12" cy="13" r="3.6"/><path d="M8.5 6l1.4-2.2h4.2L15.5 6"/></svg>
+    <div style="font-weight:600;margin-bottom:4px">Odfoť papier alebo monitor</div>
+    <div class="hint" style="margin:0">Hotlap z fotky prečíta mená a časy. Pred uložením ti ukáže, čo rozpoznal, a dá ti to opraviť.</div>
+  </div>
+  <div class="banner"><b>Zatiaľ nefunguje.</b> Rozpoznávanie z fotky sa zapne, keď sa appka pripojí k databáze. Dovtedy použi ručný zápis.</div>
+  <button class="btn ghost" data-act="modeManual">Zapísať ručne</button>`;
+}
+function manualBlock(){
+ return `<label>Najlepšie kolo</label>
+  <input id="dBest" class="field mono" inputmode="decimal" placeholder="napr. 42.812 alebo 1:02.45">
+  <label>Číslo motokáry (nepovinné)</label>
+  <input id="dKart" class="field mono" inputmode="numeric" placeholder="napr. 7" maxlength="3">
+  <label>Počet kôl (nepovinné)</label>
+  <input id="dLaps" class="field mono" inputmode="numeric" placeholder="napr. 12">
+  <label>Dátum</label>
+  <input id="dDate" class="field" type="date" value="${today()}">
+  <button class="btn primary" data-act="saveRide" style="margin-top:4px">Uložiť jazdu</button>
+  <p class="hint">Čas zapíš ako 42.812, 42,812 alebo 1:02.45 — Hotlap si to prepočíta sám.</p>`;
+}
+
+function saveRide(){
+ const el=$('#dBest'); const ms=parseTime(el.value);
+ if(ms===null||ms<8000||ms>600000){ el.style.borderColor='var(--red)'; el.focus(); return; }
+ const laps=parseInt($('#dLaps').value)||null;
+ const kart=($('#dKart').value||'').trim().slice(0,3)||null;
+ const date=$('#dDate').value||today();
+ const t=trackById(draft.trackId);
+ const lay=t.layouts.find(l=>l.id===draft.layoutId);
+ const layVer=lay?lay.ver:1;
+
+ const prior=S.sessions.filter(s=>s.trackId===draft.trackId&&s.layoutId===draft.layoutId&&s.classId===draft.classId&&(s.layVer||1)===layVer);
+ const prevBest=prior.length?Math.min(...prior.map(s=>s.bestMs)):null;
+ const isPB=prevBest===null||ms<prevBest;
+ const firstOnTrack=!S.sessions.some(s=>s.trackId===draft.trackId);
+ const newCountry=!S.sessions.some(s=>{const x=trackById(s.trackId);return x&&x.country===t.country});
+
+ let xp=50, why=[['Jazda zapísaná',50]];
+ if(isPB&&prevBest!==null){xp+=100;why.push(['Osobný rekord',100])}
+ if(firstOnTrack){xp+=150;why.push(['Nová trať',150])}
+ if(laps&&laps>=10){xp+=25;why.push(['10 a viac kôl',25])}
+
+ const wk=weekKey(date);
+ if(S.user.lastWeek!==wk){
+   if(S.user.lastWeek&&isPrevWeek(S.user.lastWeek,wk)) S.user.streak++;
+   else S.user.streak=1;
+   S.user.lastWeek=wk;
+   if(S.user.streak>=2){xp+=40;why.push(['Séria '+S.user.streak,40])}
+ }
+
+ const field=prior.length?prior.map(s=>s.bestMs):[ms];
+ const med=field.slice().sort((a,b)=>a-b)[Math.floor(field.length/2)];
+ const d=Math.max(-28,Math.min(32,Math.round((med-ms)/med*900)+8));
+ S.user.elo+=d;
+
+ const lvlBefore=levelOf(S.user.xp);
+ S.user.xp+=xp;
+ const lvlAfter=levelOf(S.user.xp);
+
+ S.sessions.unshift({id:'s'+Date.now(),trackId:draft.trackId,layoutId:draft.layoutId,layVer,
+                     classId:draft.classId,date,bestMs:ms,laps,kart,isPB,xp,elo:d});
+
+ const gained=grantBadges({isPB:isPB&&prevBest!==null,newCountry,lvl:lvlAfter});
+ save();
+ showResult(S.sessions[0],{why,xp,prevBest,isPB,d,levelUp:lvlAfter>lvlBefore,lvlAfter,gained});
+}
+
+function grantBadges(ctx){
+ const have=S.user.badges, out=[];
+ const give=id=>{if(!have.includes(id)){have.push(id);out.push(BADGES.find(b=>b.id===id))}};
+ if(S.sessions.length>=1) give('first');
+ if(ctx.isPB) give('pb');
+ if(new Set(S.sessions.map(s=>s.trackId)).size>=3) give('t3');
+ if(S.sessions.length>=10) give('r10');
+ if(S.user.streak>=3) give('streak3');
+ if(ctx.newCountry&&new Set(S.sessions.map(s=>{const t=trackById(s.trackId);return t?t.country:''})).size>=2) give('abroad');
+ if(ctx.lvl>=5) give('lvl5');
+ const f=S.sessions[0];
+ const best=bestOnTrack(f.trackId,f.layoutId,f.classId);
+ if(best&&best.id===f.id&&S.sessions.filter(s=>s.trackId===f.trackId).length>=3) give('hot');
+ return out;
+}
+function bestOnTrack(t,l,c){
+ const tr=trackById(t), lay=tr&&tr.layouts.find(x=>x.id===l), v=lay?lay.ver:1;
+ const f=S.sessions.filter(s=>s.trackId===t&&s.layoutId===l&&s.classId===c&&(s.layVer||1)===v);
+ return f.length?f.reduce((a,b)=>a.bestMs<=b.bestMs?a:b):null;
+}
+function isCurrentBest(s){
+ if(isArchived(s)) return false;
+ const b=bestOnTrack(s.trackId,s.layoutId,s.classId);
+ return !!b && b.id===s.id;
+}
+function isArchived(s){
+ const t=trackById(s.trackId); if(!t) return false;
+ const lay=t.layouts.find(l=>l.id===s.layoutId); if(!lay) return false;
+ return (s.layVer||1)<lay.ver;
+}
+
+function showResult(ses,r){
+ const t=trackById(ses.trackId);
+ let deltaHtml;
+ if(r.prevBest!==null){
+   const diff=ses.bestMs-r.prevBest;
+   deltaHtml=`<div class="delta ${diff<0?'good':'bad'}">${diff<0?'▼':'▲'} ${fmt(Math.abs(diff))} ${diff<0?'oproti rekordu':'za rekordom'}</div>`;
+ } else deltaHtml=`<div class="delta good">prvý čas na tejto konfigurácii</div>`;
+ const lines=r.why.map(w=>`<div class="quest"><div class="q"><div class="qt">${esc(w[0])}</div></div><div class="qx">+${w[1]} XP</div></div>`).join('');
+ const unlocked=r.gained.map(b=>`<div class="unlocked">${badgeIco(b.id)}<div><div style="font-weight:700">${esc(b.nm)}</div><div class="hint" style="margin:0">${esc(b.d)}</div></div></div>`).join('');
+ openSheet(`
+  <div class="result">
+    <div style="color:var(--red);opacity:.5;margin-bottom:-6px">${art(t,'',96,66)}</div>
+    <div class="big ${r.isPB?'is-pb':''}">${fmt(ses.bestMs)}</div>
+    <div class="lbl">${esc(t.name)} · ${esc(t.city)}</div>
+    ${deltaHtml}
+    <div class="gain">+${r.xp} XP &nbsp;·&nbsp; skóre ${r.d>=0?'+':''}${r.d}</div>
+    ${r.levelUp?`<div class="unlocked" style="justify-content:center;text-align:center"><div>
+       <div style="font-weight:700;color:var(--red)">Level ${r.lvlAfter} · ${esc(LEVELS[r.lvlAfter-1])}</div>
+       <div class="hint" style="margin:0">Postúpil si o úroveň</div></div></div>`:''}
+    ${unlocked}
+  </div>
+  <h2 style="margin-top:18px">Za čo máš body</h2>
+  <div class="card" style="margin-bottom:14px">${lines}</div>
+  <button class="btn primary" data-act="closeAndHome">Hotovo</button>`);
+}
+
+/* ================= zmena drahy ================= */
+function reportChange(tid,lid){
+ const t=trackById(tid), lay=t.layouts.find(l=>l.id===lid);
+ if(!Array.isArray(lay.reports)) lay.reports=[];
+ const mine=lay.reports.includes(S.user.name);
+ const n=lay.reports.length;
+ const right=canConfirmRebuild(t);
+ const jazdil=hasRidden(t);
+ openSheet(`
+  <h3>Dráha sa zmenila?</h3><p class="sub">${esc(t.name)} · ${esc(lay.name)}</p>
+  <p class="hint" style="margin-top:0">Keď trať prestavia dráhu, staré časy sa s novými porovnať nedajú. Hotlap preto založí novú verziu konfigurácie a staré rekordy odloží do archívu.</p>
+  ${right!=='no' ? `<div class="steps">
+      <div>Potvrdíš prestavbu a Hotlap založí novú verziu dráhy.</div>
+      <div>Doterajšie časy sa odložia do histórie, nezmažú sa.</div>
+      <div>Rebríček na novej dráhe začína odznova.</div></div>`
+   : hasManager(t) ? `<div class="steps">
+      <div>Túto trať spravuje prevádzkovateľ — prestavbu potvrdzuje len on.</div>
+      <div>${right==='manager'?'Si správca, takže ju potvrdíš jedným klikom.':'Tvoje hlásenie mu príde hneď, rozhodne on.'}</div>
+      <div>Po potvrdení začína rebríček na novej dráhe odznova.</div></div>`
+   : `<div class="steps">
+      <div>Hlásenie príde administrátorovi Hotlapu.</div>
+      <div>Overí ho a založí novú verziu dráhy.</div>
+      <div>Staré rekordy zostanú viditeľné ako čas na starej dráhe.</div></div>`}
+  ${right!=='no'
+   ? `<button class="btn primary" data-act="confirmChange" data-a="${tid}" data-b="${lid}" style="margin-top:14px">Potvrdiť prestavbu dráhy</button>`
+   : !jazdil ? `<div class="banner" style="margin-top:14px"><b>Zatiaľ si tu nejazdil.</b> Nahlásiť zmenu môže jazdec, ktorý tu má aspoň jednu jazdu.</div>`
+   : mine ? `<div class="banner" style="margin-top:14px"><b>Už si to nahlásil.</b> Pozrieme sa na to.</div>`
+   : `<button class="btn primary" data-act="reportToAdmin" data-a="${tid}" data-b="${lid}" style="margin-top:14px">Nahlásiť zmenu dráhy</button>`}
+  <button class="btn ghost" data-act="stepTrack" style="margin-top:8px">Späť</button>`);
+}
+function reportToAdmin(tid,lid){
+ const t=trackById(tid), lay=t.layouts.find(l=>l.id===lid);
+ if(!t||!lay||!hasRidden(t)) return;
+ if(!Array.isArray(lay.reports)) lay.reports=[];
+ if(!lay.reports.includes(S.user.name)) lay.reports.push(S.user.name);
+ addRequest('change',{trackId:tid,layoutId:lid,trackName:t.name+' · '+lay.name});
+ openSheet(`<div class="result"><div style="font-size:34px;color:var(--pb);margin-bottom:8px">✓</div>
+   <h3>Hlásenie odoslané</h3><p class="sub">Pozrieme sa na to. Kým sa prestavba nepotvrdí, tvoje časy sa počítajú ďalej k súčasnej dráhe.</p></div>
+   <button class="btn ghost" data-act="closeAndRender">Zavrieť</button>`);
+}
+function confirmChange(tid,lid){
+ const t=trackById(tid), lay=t.layouts.find(l=>l.id===lid);
+ const right=canConfirmRebuild(t);
+ if(right==='no') return;
+ if(!Array.isArray(lay.reports)) lay.reports=[];
+ const done = true;
+ if(done){
+   if(!Array.isArray(lay.history)) lay.history=[];
+   lay.history.push({ver:lay.ver,from:lay.since,to:today()});
+   lay.ver++; lay.since=today(); lay.reports=[];
+ }
+ save();
+ openSheet(`<div class="result" style="padding-top:4px">
+   <div style="color:${done?'var(--red)':'var(--pb)'};margin-bottom:6px">${art(t,'',96,66)}</div>
+   <h3>${done?'Založená nová verzia dráhy':'Hlásenie zaznamenané'}</h3>
+   <p class="sub">${done
+     ? esc(lay.name)+' je teraz verzia '+lay.ver+'. Nové časy sa porovnávajú len medzi sebou, staré rekordy zostali v archíve.'
+     : 'Hlásenie zaznamenané.'}</p>
+ </div>
+ <button class="btn primary" data-act="closeAndRender">Hotovo</button>`);
+}
+
+/* ================= tímy a súboje ================= */
+/* Jeden tím na jazdca. Členy drzí meno, lebo kym nie je databaza, iny identifikator neexistuje. */
+function teamCode(){ let c=''; for(let i=0;i<5;i++) c+='ABCDEFGHJKLMNPQRSTUVWXYZ23456789'[Math.floor(Math.random()*32)]; return c }
+const myTeam=()=>(S.teams||[]).find(t=>t.members.some(m=>m.name===S.user.name))||null;
+const teamById=id=>(S.teams||[]).find(t=>t.id===id)||null;
+
+function createTeam(name){
+ if(!name||myTeam()) return null;
+ const t={id:'tm'+Date.now(),name:name.slice(0,24),code:teamCode(),
+   members:[{name:S.user.name,joinedAt:today()}],createdBy:S.user.name,createdAt:today()};
+ S.teams.push(t); save(); return t;
+}
+function joinTeam(code){
+ if(myTeam()) return 'uz_v_time';
+ const t=(S.teams||[]).find(x=>x.code===String(code||'').trim().toUpperCase());
+ if(!t) return 'nenajdeny';
+ if(t.members.length>=8) return 'plny';
+ t.members.push({name:S.user.name,joinedAt:today()}); save(); return t;
+}
+function leaveTeam(){
+ const t=myTeam(); if(!t) return;
+ t.members=t.members.filter(m=>m.name!==S.user.name);
+ if(!t.members.length) S.teams=S.teams.filter(x=>x.id!==t.id);
+ save();
+}
+
+/* Jazdy, ktore sa do suboja ratajuu: v obdobi, v jeho rozsahu trati, nie z prestavanej drahy. */
+function duelRides(d){
+ return S.sessions.filter(x=>{
+   if(isArchived(x)) return false;
+   if(x.date<d.from||x.date>d.to) return false;
+   if(d.trackId&&x.trackId!==d.trackId) return false;
+   return true;
+ });
+}
+/* Kluc porovnatelnosti: rovnaka draha, trieda a verzia. Cez tieto hranice sa casy neporovnavaju. */
+const runKey=x=>x.trackId+'|'+x.layoutId+'|'+x.classId+'|'+(x.layVer||1);
+
+/* Pomer jazdca = jeho cas delenny najrychlejsim casom v tom istom kluci.
+   1.000 = najrychlejsi v suboji, 1.080 = o 8 % pomalsi.
+   Preto sa da superit aj na viacerych tratiach naraz: porovnavaju sa odstupy, nie sekundy. */
+function duelRatios(d){
+ const rides=duelRides(d);
+ const best={};
+ rides.forEach(x=>{ const k=runKey(x); if(!best[k]||x.bestMs<best[k]) best[k]=x.bestMs; });
+ const out={};
+ rides.forEach(x=>{
+   const r=x.bestMs/best[runKey(x)], who=x.rider||S.user.name;
+   if(!out[who]||r<out[who].ratio) out[who]={ratio:r,ride:x};
+ });
+ (d.sim||[]).forEach(v=>{ if(!out[v.name]) out[v.name]={ratio:v.ratio,ride:null} });
+ return out;
+}
+/* Skore timu = priemer pomerov. Rata sa tolko jazdcov, kolko ich nastupilo
+   za mensi tim, aby vacsi tim nevyhral tym, ze ich prislo viac. */
+function duelResult(d){
+ const A=teamById(d.teamA), B=teamById(d.teamB);
+ if(!A||!B) return null;
+ const R=duelRatios(d);
+ const vals=T=>T.members.map(m=>R[m.name]&&R[m.name].ratio).filter(v=>typeof v==='number').sort((a,b)=>a-b);
+ const a=vals(A), b=vals(B), n=Math.min(a.length,b.length);
+ const avg=v=>v.slice(0,n).reduce((x,y)=>x+y,0)/n;
+ return {A,B,R,n,ridersA:a.length,ridersB:b.length,
+   scoreA:n?avg(a):null, scoreB:n?avg(b):null};
+}
+/* Ktora motokara je na trati najrychlejsia. */
+function kartStats(trackId){
+ const by={};
+ S.sessions.filter(x=>x.trackId===trackId&&x.kart&&!isArchived(x)).forEach(x=>{
+   const k=String(x.kart);
+   if(!by[k]||x.bestMs<by[k].ms) by[k]={ms:x.bestMs,n:0};
+ });
+ S.sessions.filter(x=>x.trackId===trackId&&x.kart&&!isArchived(x)).forEach(x=>{ by[String(x.kart)].n++ });
+ return Object.entries(by).map(([kart,v])=>({kart,ms:v.ms,n:v.n})).sort((a,b)=>a.ms-b.ms);
+}
+
+/* ================= žiadosti od jazdcov ================= */
+function addRequest(kind,payload){
+ if(!Array.isArray(S.requests)) S.requests=[];
+ S.requests.unshift({id:'r'+Date.now()+Math.random().toString(36).slice(2,6),
+   kind,payload,by:S.user.name,date:today(),status:'open'});
+ save();
+}
+const openRequests=()=>(S.requests||[]).filter(r=>r.status==='open');
+
+function requestTrack(){
+ openSheet(`
+  <h3>Nahlásiť chýbajúcu trať</h3><p class="sub">Pridá ju administrátor Hotlapu</p>
+  <p class="hint" style="margin-top:0;margin-bottom:16px">Trate zakladá Hotlap, nie jazdci — inak by sa ten istý podnik objavil trikrát pod tromi názvami a rekordy by sa rozpadli. Napíš, kde si jazdil, a pridáme ju.</p>
+  <label>Názov trate</label><input id="rqName" class="field" placeholder="napr. Kart Aréna Košice">
+  <label>Mesto</label><input id="rqCity" class="field" placeholder="napr. Košice">
+  <label>Odkaz na web alebo mapu (nepovinné)</label><input id="rqUrl" class="field" placeholder="https://">
+  <button class="btn primary" data-act="sendTrackRequest">Odoslať</button>`);
+}
+function sendTrackRequest(){
+ const n=$('#rqName').value.trim();
+ if(!n){ $('#rqName').style.borderColor='var(--red)'; return }
+ addRequest('track',{name:n,city:$('#rqCity').value.trim(),url:$('#rqUrl').value.trim()});
+ openSheet(`<div class="result"><div style="font-size:34px;color:var(--pb);margin-bottom:8px">✓</div>
+   <h3>Odoslané</h3><p class="sub">Keď trať pridáme, nájdeš ju v zozname a budeš si tam vedieť zapisovať časy.</p></div>
+   <button class="btn ghost" data-act="closeAndRender">Zavrieť</button>`);
+}
+
+function adminPanel(){
+ if(!isAdmin()) return;
+ const open=openRequests();
+ openSheet(`
+  <h3>Administrácia</h3><p class="sub">Vidíš to, lebo si administrátor Hotlapu</p>
+  <button class="btn primary" data-act="openNewTrack">
+    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+    Pridať trať</button>
+  <h2 style="margin:20px 0 10px">Žiadosti od jazdcov ${open.length?`<span class="tag new">${open.length}</span>`:''}</h2>
+  <div class="card pad0">${open.length?open.map(r=>`
+    <div class="row">
+      <div class="main">
+        <div class="t">${r.kind==='track'?'Chýbajúca trať':'Zmena na trati'}</div>
+        <div class="s">${esc(r.kind==='track'?(r.payload.name+(r.payload.city?' · '+r.payload.city:'')+(r.payload.country?' · '+countryName(r.payload.country):'')):r.payload.trackName)}</div>
+        <div class="s">${esc(r.by)} · ${esc(r.date)}${r.payload.url?' · '+esc(r.payload.url):''}</div>
+      </div>
+      ${r.payload.newTrackId&&trackById(r.payload.newTrackId)
+        ? `<button class="tag new" data-act="approveTrack" data-a="${r.id}" data-b="${r.payload.newTrackId}">potvrdiť</button>
+           <button class="tag un" data-act="openMerge" data-a="${r.id}" data-b="${r.payload.newTrackId}">spojiť</button>`
+        : `<button class="tag new" data-act="resolveRequest" data-a="${r.id}" data-b="done">vybaviť</button>`}
+      <button class="tag un" data-act="resolveRequest" data-a="${r.id}" data-b="rejected">zamietnuť</button>
+    </div>`).join(''):`<div class="empty">Žiadne otvorené žiadosti.</div>`}</div>
+  <p class="hint">Hlásenia jazdcov nič nemenia samy — len ti ukážu, že sa niečo na trati zmenilo. Rozhoduješ ty.</p>`);
+}
+/* Zluc duplicitnu trat do spravnej: jazdy sa presunu, duplicita zmizne. */
+function mergeTracks(fromId,intoId){
+ if(!isAdmin()||fromId===intoId) return false;
+ const a=trackById(fromId), b=trackById(intoId);
+ if(!a||!b) return false;
+ const lay=b.layouts[0], cls=b.classes[0];
+ S.sessions.forEach(x=>{
+   if(x.trackId!==fromId) return;
+   x.trackId=intoId;
+   if(!b.layouts.some(l=>l.id===x.layoutId)){ x.layoutId=lay.id; x.layVer=lay.ver }
+   if(!b.classes.some(c=>c.id===x.classId)) x.classId=cls.id;
+ });
+ (S.duels||[]).forEach(d=>{ if(d.trackId===fromId) d.trackId=intoId });
+ S.tracks=S.tracks.filter(t=>t.id!==fromId);
+ save(); return true;
+}
+function openMerge(reqId,fromId){
+ const from=trackById(fromId);
+ if(!from||!isAdmin()) return;
+ const others=S.tracks.filter(t=>t.id!==fromId);
+ openSheet(`
+  <h3>Spojiť s existujúcou traťou</h3><p class="sub">${esc(from.name)} · ${esc(from.city)} · ${esc(countryName(from.country))}</p>
+  <p class="hint" style="margin-top:0;margin-bottom:14px">Jazdy z tejto trate sa presunú do vybranej a duplicita zmizne. Rekordy sa tým spoja, nestratia.</p>
+  ${others.length?`<label>Spojiť do</label>
+  <select id="mgInto" class="field">${others.map(t=>`<option value="${t.id}">${esc(t.name)} · ${esc(t.city)}</option>`).join('')}</select>
+  <button class="btn primary" data-act="doMerge" data-a="${reqId}" data-b="${fromId}">Spojiť</button>`
+  :`<div class="banner">Nie je s čím spojiť — iná trať v Hotlape nie je.</div>`}
+  <div style="height:8px"></div>
+  <button class="btn ghost" data-act="adminPanel">Späť</button>`);
+}
+function doMerge(reqId,fromId){
+ const into=$('#mgInto').value;
+ if(mergeTracks(fromId,into)) resolveRequest(reqId,'done'); else adminPanel();
+}
+function approveTrack(reqId,tid){
+ const t=trackById(tid);
+ if(!t||!isAdmin()) return;
+ t.verified=true; t.source='admin'; save();
+ resolveRequest(reqId,'done');
+}
+function resolveRequest(id,status){
+ const r=(S.requests||[]).find(x=>x.id===id);
+ if(!r||!isAdmin()) return;
+ r.status=status; save(); adminPanel();
+}
+
+/* ================= obkreslenie skutocneho tvaru trate ================= */
+let trace={tid:null,pts:[],closed:true,plan:''};
+
+/* Catmull-Rom prevedeny na bezier, aby krivka presla bodmi a bola hladka */
+function smoothPath(pts,closed){
+ if(pts.length<2) return '';
+ if(pts.length===2) return `M${pts[0][0]} ${pts[0][1]} L${pts[1][0]} ${pts[1][1]}`;
+ const p = closed
+   ? [pts[pts.length-1],...pts,pts[0],pts[1]]
+   : [pts[0],...pts,pts[pts.length-1]];
+ let d=`M${pts[0][0]} ${pts[0][1]}`;
+ for(let i=1;i<p.length-2;i++){
+   const a=p[i-1],b=p[i],c=p[i+1],e=p[i+2];
+   const c1=[b[0]+(c[0]-a[0])/6, b[1]+(c[1]-a[1])/6];
+   const c2=[c[0]-(e[0]-b[0])/6, c[1]-(e[1]-b[1])/6];
+   d+=` C${c1[0].toFixed(1)} ${c1[1].toFixed(1)}, ${c2[0].toFixed(1)} ${c2[1].toFixed(1)}, ${c[0].toFixed(1)} ${c[1].toFixed(1)}`;
+ }
+ if(closed) d+=' Z';
+ return d;
+}
+
+function openTracer(tid){
+ const t=trackById(tid);
+ if(!t||!isAdmin()) return;
+ trace={tid,pts:(t.shapePts||[]).map(p=>[p[0],p[1]]),closed:true,plan:t.plan||''};
+ drawTracer();
+}
+function drawTracer(){
+ const t=trackById(trace.tid);
+ const d=smoothPath(trace.pts,trace.closed&&trace.pts.length>2);
+ openSheet(`
+  <h3>Obkresliť tvar dráhy</h3><p class="sub">${esc(t.name)} · ${esc(t.city)}</p>
+  <p class="hint" style="margin-top:0;margin-bottom:12px">Nahraj plán dráhy alebo snímku z mapy a klikaj po trati. Appka z bodov spraví hladkú krivku. Prvý bod je štart a určuje, kde sa kreslí cieľová čiara a šípka smeru.</p>
+  <div style="position:relative;background:#0D0D11;border:1px solid var(--line2);border-radius:var(--r2);overflow:hidden">
+    ${trace.plan?`<img src="${trace.plan}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:.42">`:''}
+    <svg id="traceSvg" viewBox="0 0 360 240" style="width:100%;display:block;position:relative;touch-action:none;cursor:crosshair" data-act="tracePoint">
+      <rect width="360" height="240" fill="transparent"/>
+      ${d?`<path d="${d}" stroke="var(--red)" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round"/>`:''}
+      ${trace.pts.map((pt,i)=>`<circle cx="${pt[0]}" cy="${pt[1]}" r="${i===0?6:4}"
+         fill="${i===0?'#13E27B':'#09090B'}" stroke="${i===0?'#13E27B':'var(--red)'}" stroke-width="2.5"/>`).join('')}
+    </svg>
+  </div>
+  <div class="facts" style="margin:10px 0 12px">
+    <span>${trace.pts.length} ${pl(trace.pts.length,'bod','body','bodov')}</span>
+    <span>${trace.closed?'uzavretý okruh':'otvorená trasa'}</span>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
+    <button class="btn ghost" data-act="traceUndo">Späť o bod</button>
+    <button class="btn ghost" data-act="traceClear">Vymazať</button>
+    <button class="btn ghost" data-act="tracePlan">${trace.plan?'Zmeniť plán':'Nahrať plán'}</button>
+    <button class="btn ghost" data-act="toggleTraceClosed">${trace.closed?'Nechať otvorené':'Uzavrieť okruh'}</button>
+  </div>
+  <button class="btn primary" data-act="traceSave" ${trace.pts.length<3?'disabled':''}>Uložiť tvar dráhy</button>
+  <div style="height:8px"></div>
+  <button class="btn ghost" data-act="openTrack" data-a="${trace.tid}">Zrušiť</button>`);
+}
+function tracePoint(ev){
+ const svg=$('#traceSvg'); if(!svg) return;
+ const r=svg.getBoundingClientRect();
+ const x=Math.round((ev.clientX-r.left)/r.width*360);
+ const y=Math.round((ev.clientY-r.top)/r.height*240);
+ if(x<0||y<0||x>360||y>240) return;
+ trace.pts.push([x,y]); drawTracer();
+}
+function traceUndo(){ trace.pts.pop(); drawTracer() }
+function traceClear(){ trace.pts=[]; drawTracer() }
+function tracePlan(){ $('#planInput').click() }
+function onPlan(e){
+ const f=e.target.files&&e.target.files[0]; e.target.value='';
+ if(!f) return;
+ if(f.size>8*1024*1024){ alert('Obrázok je väčší než 8 MB.'); return }
+ const r=new FileReader();
+ r.onload=()=>shrink(r.result,900,d=>{ trace.plan=d; drawTracer() });
+ r.readAsDataURL(f);
+}
+function traceSave(){
+ const t=trackById(trace.tid);
+ if(!t||!isAdmin()||trace.pts.length<3) return;
+ t.shapePts=trace.pts.map(p=>[p[0],p[1]]);
+ t.shapePath=smoothPath(trace.pts,trace.closed);
+ t.plan=trace.plan;
+ if(!save()){ t.plan=''; save(); alert('Pamäť prehliadača je plná — tvar sa uložil, plán dráhy nie.'); }
+ openTrack(trace.tid);
+}
+function clearShape(tid){
+ const t=trackById(tid); if(!t||!isAdmin()) return;
+ t.shapePath=''; t.shapePts=[]; t.plan=''; save(); openTrack(tid);
+}
+
+/* ================= tracks ================= */
+function openNewTrack(){
+ openSheet(`
+  <h3>Pridať trať</h3><p class="sub">${isAdmin()?'Zakladáš ju ako administrátor Hotlapu':'Kdekoľvek na svete'}</p>
+  ${isAdmin()?'':`<div class="banner"><b>Založíš ju hneď a môžeš tu zapisovať časy.</b> Zostane označená ako neoverená a bude držať len tvoje osobné časy. Pozrieme sa na ňu a buď ju potvrdíme, alebo spojíme s traťou, ktorú už máme.</div>`}
+  <label>Názov trate</label><input id="ntName" class="field" placeholder="napr. Kart Aréna Košice">
+  <label>Mesto</label><input id="ntCity" class="field" placeholder="napr. Košice">
+  <label>Krajina</label>
+  <select id="ntCountry" class="field">${countryOptions('SK')}</select>
+  <label>Smer jazdy</label>
+  <select id="ntDir" class="field"><option value="">Neviem, doplním neskôr</option><option value="cw">V smere hodinových ručičiek</option><option value="ccw">Proti smeru hodinových ručičiek</option></select>
+  <label>Dĺžka dráhy v metroch (nepovinné)</label>
+  <input id="ntLen" class="field mono" inputmode="numeric" placeholder="napr. 550">
+  <label>Typ</label>
+  <select id="ntIndoor" class="field"><option value="">Neviem</option><option value="1">Krytá hala</option><option value="0">Vonkajšia dráha</option></select>
+  <button class="btn primary" data-act="saveTrack">Pridať trať</button>
+  <p class="hint">${isAdmin()
+    ? 'Údaje, ktoré tu zadáš, sú oficiálne. Prevádzkovateľ si trať môže neskôr prevziať a spravovať ju sám.'
+    : 'Oficiálny rebríček trate vznikne, až keď ju potvrdíme alebo si ju prevezme prevádzkovateľ. Dovtedy sú tvoje časy len tvoje.'}</p>`);
+}
+function norm(x){return String(x||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]/g,'')}
+function saveTrack(){
+ if(!canAddTrack()) return;
+ const n=$('#ntName').value.trim(), c=$('#ntCity').value.trim();
+ if(!n){$('#ntName').style.borderColor='var(--red)';return}
+ const dup=S.tracks.find(t=>norm(t.name)===norm(n) || (norm(t.city)===norm(c)&&norm(c)&&norm(t.name).includes(norm(n).slice(0,8))));
+ if(dup){
+   openSheet(`<h3>Túto trať už máme</h3><p class="sub">${esc(dup.name)} · ${esc(dup.city)}</p>
+    <p class="hint" style="margin-top:0">Aby sa rekordy nerozpadli na dve miesta, trate sa nezakladajú druhýkrát. Ak je to iná dráha toho istého podniku, pridá ju prevádzkovateľ ako ďalšiu konfiguráciu.</p>
+    <button class="btn primary" data-act="openTrack" data-a="${dup.id}">Otvoriť existujúcu trať</button>
+    <div style="height:8px"></div>
+    <button class="btn ghost" data-act="openNewTrack">Späť na formulár</button>`);
+   return;
+ }
+ const len=parseInt($('#ntLen').value)||null;
+ S.tracks.push({id:'t'+Date.now(),name:n,city:c||'—',country:$('#ntCountry').value,
+   indoor:$('#ntIndoor').value===''?null:$('#ntIndoor').value==='1',
+   verified:isAdmin(),claimed:false,managedByMe:false,feed:'none',source:isAdmin()?'admin':'rider',
+   shape:S.tracks.length%SHAPES.length,photo:'',bg:S.tracks.length%BGS.length,
+   layouts:[L('l1','Hlavná dráha',$('#ntDir').value||null,len)],classes:[{id:'c1',name:'Dospelí'},{id:'c2',name:'Junior'}]});
+ if(!isAdmin()) addRequest('track',{name:n,city:c||'',country:$('#ntCountry').value,newTrackId:S.tracks[S.tracks.length-1].id});
+ save();closeSheet();render();
+}
+function claimTrack(id){
+ const t=trackById(id);
+ openSheet(`
+  <h3>Prevziať trať</h3><p class="sub">${esc(t.name)} · ${esc(t.city)}</p>
+  <p class="hint" style="margin-top:0;margin-bottom:16px">Prevádzkovateľ trate dostane vlastnú stránku s výsledkami, rekordmi dňa a týždňa a správu konfigurácií. Za 3 € mesačne, účtované raz ročne.</p>
+  <label>Pracovný e-mail na trati</label><input id="clMail" class="field" type="email" placeholder="info@trat.sk">
+  <button class="btn primary" data-act="sendClaim" data-a="${id}">Poslať overovací odkaz</button>
+  <p class="hint">Na e-mail uvedený na webe trate pošleme odkaz. Kto ho otvorí, stáva sa správcom trate — žiadne telefonáty ani zmluvy.</p>`);
+}
+function sendClaim(tid){
+ const mail=($('#clMail').value||'').trim();
+ if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(mail)){ $('#clMail').style.borderColor='var(--red)'; return }
+ openSheet(`<div class="result"><div style="font-size:34px;color:var(--pb);margin-bottom:8px">✓</div>
+  <h3>Odkaz odoslaný</h3><p class="sub">Poslali sme ho na ${esc(mail)}. Kto ho otvorí, stáva sa správcom trate a jeho údaje o dráhe sú od tej chvíle oficiálne.</p></div>
+  <p class="hint">V tejto ukážke nie je e-mail pripojený. Tlačidlom nižšie si vyskúšaš, ako appka vyzerá očami prevádzkovateľa.</p>
+  <button class="btn primary" data-act="mockVerify" data-a="${tid}">Simulovať otvorenie odkazu</button>
+  <div style="height:8px"></div>
+  <button class="btn ghost" data-act="closeSheet">Zavrieť</button>`);
+}
+function mockVerify(tid){
+ const t=trackById(tid); if(!t) return;
+ t.claimed=true; t.managedByMe=true; t.verified=true;
+ t.layouts.forEach(l=>l.reports=[]);
+ save(); openTrack(tid);
+}
+/* casomieru pripaja prevadzkovatel trate, nie administrator Hotlapu */
+const canConnectFeed=t=>isManager(t);
+function toggleFeed(tid){
+ const t=trackById(tid); if(!t||!canConnectFeed(t)) return;
+ if(isLive(t)){ t.feed='none'; save(); openTrack(tid); return }
+ openSheet(`<h3>Pripojiť časomieru</h3><p class="sub">${esc(t.name)}</p>
+  <p class="hint" style="margin-top:0">Po pripojení posiela časomiera výsledky do Hotlapu sama. Jazdci prestanú čokoľvek zapisovať — čas im pribudne hneď po jazde, aj s konfiguráciou dráhy, ktorú máš nastavenú ty. Pripája ju prevádzkovateľ, lebo prístup do časomiery má on.</p>
+  <div class="steps">
+    <div>Povieš nám, akú časomieru na trati máte.</div>
+    <div>Pripojíme ju — export zo systému, alebo zdieľaná výsledková obrazovka.</div>
+    <div>Jazdca spárujeme podľa mena na výsledkovej listine, ktoré má uložené v profile.</div>
+  </div>
+  <div class="banner">V tejto ukážke nie je nič pripojené. Tlačidlom nižšie uvidíš, ako appka vyzerá, keď časy chodia samé.</div>
+  <button class="btn primary" data-act="mockFeed" data-a="${tid}">Simulovať pripojenú časomieru</button>
+  <div style="height:8px"></div>
+  <button class="btn ghost" data-act="openTrack" data-a="${tid}">Späť</button>`);
+}
+function mockFeed(tid){
+ const t=trackById(tid); if(!t||!canConnectFeed(t)) return;
+ t.feed='live'; save(); openTrack(tid);
+}
+function releaseTrack(tid){
+ const t=trackById(tid); if(!t) return;
+ if(!confirm('Vzdať sa správcovstva tejto trate?')) return;
+ t.claimed=false; t.managedByMe=false; save(); openTrack(tid);
+}
+function toggleAdmin(){
+ S.user.admin=!S.user.admin; save(); render();
+}
+function addAlias(){
+ const v=prompt('Pod akým ďalším menom ťa píšu na výsledky?');
+ if(v&&v.trim()){S.user.aliases.push(v.trim());save();render()}
+}
+
+/* ================= moje casy ================= */
+const MONTHS=['január','február','marec','apríl','máj','jún','júl','august','september','október','november','december'];
+function monthLabel(d){const x=new Date(d+'T12:00:00');return MONTHS[x.getMonth()]+' '+x.getFullYear()}
+function byDateAsc(a,b){return a.date<b.date?-1:a.date>b.date?1:(a.id<b.id?-1:1)}
+
+/* vsetky jazdy na tej istej drahe, triede a verzii, od najstarsej */
+function sameRun(s){
+ return S.sessions.filter(x=>x.trackId===s.trackId&&x.layoutId===s.layoutId&&
+   x.classId===s.classId&&(x.layVer||1)===(s.layVer||1)).sort(byDateAsc);
+}
+function deltaFor(s){
+ const run=sameRun(s), i=run.findIndex(x=>x.id===s.id);
+ return i>0 ? s.bestMs-run[i-1].bestMs : null;
+}
+function totalLaps(list){return list.reduce((n,s)=>n+(s.laps||0),0)}
+
+function progressChart(run,title){
+ if(run.length<2) return '';
+ const w=308,h=104,pl=4,pr=4,pt=8,pb=16;
+ const ms=run.map(s=>s.bestMs);
+ const lo=Math.min(...ms), hi=Math.max(...ms), span=(hi-lo)||1;
+ const X=i=>pl+(w-pl-pr)*(run.length===1?.5:i/(run.length-1));
+ const Y=v=>pt+(h-pt-pb)*((v-lo)/span);           // nizsi cas = vyssie
+ const pts=run.map((s,i)=>[X(i),Y(s.bestMs)]);
+ const line=pts.map((p,i)=>(i?'L':'M')+p[0].toFixed(1)+' '+p[1].toFixed(1)).join(' ');
+ const area=line+` L${pts[pts.length-1][0].toFixed(1)} ${h-pb} L${pts[0][0].toFixed(1)} ${h-pb} Z`;
+ const bestI=ms.indexOf(lo);
+ return `<div class="chart">
+   <div class="ct"><span>${esc(title)}</span><b>${fmt(lo)}</b></div>
+   <svg viewBox="0 0 ${w} ${h}" width="100%" height="${h}" fill="none" aria-label="Vývoj časov">
+     <defs><linearGradient id="g1" x1="0" y1="0" x2="0" y2="1">
+       <stop offset="0" stop-color="#FF2D2D" stop-opacity=".30"/><stop offset="1" stop-color="#FF2D2D" stop-opacity="0"/>
+     </linearGradient></defs>
+     <path d="${area}" fill="url(#g1)"/>
+     <path d="${line}" stroke="var(--red)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+     ${pts.map((pp,i)=>`<circle cx="${pp[0].toFixed(1)}" cy="${pp[1].toFixed(1)}" r="${i===bestI?4:2.6}"
+        fill="${i===bestI?'#13E27B':'#09090B'}" stroke="${i===bestI?'#13E27B':'var(--red)'}" stroke-width="2"/>`).join('')}
+   </svg>
+   <div class="ct" style="margin:6px 4px 0"><span>${esc(run[0].date)}</span><span style="color:var(--ink3)">${esc(run[run.length-1].date)}</span></div>
+   <div style="font-size:10.5px;color:var(--ink3);margin:8px 4px 0;text-align:center">vyššie v grafe = rýchlejší čas</div>
+ </div>`;
+}
+
+let mineTrack='';
+function setMineTrack(v){mineTrack=v;renderMine()}
+function goHistory(tid){
+ mineTrack=tid||''; boardTab='mine';
+ closeSheet();
+ go('board',document.querySelector('.nav button[data-s=board]'));
+ const a=$('#segMine'), b=$('#segBoard');
+ if(a&&b){a.classList.add('on');b.classList.remove('on')}
+ $('#paneMine').style.display=''; $('#paneBoard').style.display='none';
+ $('#boardH2').textContent='Moje časy';
+ renderMine();
+}
+let boardTab='mine';
+function setTab(t,el){
+ boardTab=t;
+ document.querySelectorAll('#segMine,#segBoard,#segTeam').forEach(b=>b.classList.remove('on'));
+ if(el) el.classList.add('on');
+ $('#paneMine').style.display = t==='mine'?'':'none';
+ $('#paneBoard').style.display= t==='board'?'':'none';
+ $('#paneTeam').style.display = t==='team'?'':'none';
+ $('#boardH2').textContent = {mine:'Moje časy',board:'Rebríček',team:'Tím'}[t];
+ render();
+}
+
+function renderMine(){
+ const all=S.sessions;
+ const list = mineTrack ? all.filter(s=>s.trackId===mineTrack) : all;
+ const live = list.filter(s=>!isArchived(s));
+ const best = live.length?Math.min(...live.map(s=>s.bestMs)):null;
+
+ $('#mineStats').innerHTML=`
+   <div class="tile"><b>${list.length}</b><span>${lJazd(list.length)}</span></div>
+   <div class="tile"><b>${totalLaps(list)||'—'}</b><span>${lKol(totalLaps(list))}</span></div>
+   <div class="tile"><b class="${best?'is-pb':''}" style="font-size:17px">${best?fmt(best):'—'}</b><span>najlepší čas</span></div>`;
+
+ $('#minePick').innerHTML=`<select class="field" data-chg="chgMineTrack" aria-label="Filter podľa trate">
+   <option value="">Všetky trate</option>
+   ${S.tracks.map(t=>`<option value="${t.id}" ${t.id===mineTrack?'selected':''}>${esc(t.name)}</option>`).join('')}
+ </select>`;
+
+ if(mineTrack){
+   const t=trackById(mineTrack);
+   const run=list.filter(s=>!isArchived(s)).sort(byDateAsc);
+   $('#mineChart').innerHTML = run.length>1
+     ? progressChart(run,'Vývoj tvojich časov')
+     : (list.length?`<p class="hint" style="margin:-2px 0 12px">Vývoj uvidíš po druhej jazde na tejto trati.</p>`:'');
+ } else $('#mineChart').innerHTML='';
+
+ if(!list.length){
+   $('#mineList').innerHTML=`<div class="empty">${mineTrack?'Na tejto trati zatiaľ nemáš jazdu.':'Zatiaľ žiadna jazda.<br>Zapíš prvú a začni zbierať časy.'}</div>`;
+   return;
+ }
+ const sorted=list.slice().sort((a,b)=>byDateAsc(b,a));
+ let out='', lastM='';
+ sorted.forEach(s=>{
+   const m=monthLabel(s.date);
+   if(m!==lastM){ out+=`<div class="monthrow">${esc(m)}</div>`; lastM=m }
+   const t=trackById(s.trackId);
+   const lay=t&&t.layouts.find(l=>l.id===s.layoutId);
+   const cl=t&&t.classes.find(c=>c.id===s.classId);
+   const arch=isArchived(s), d=deltaFor(s);
+   const dHtml = d===null ? `<span class="delta-s" style="color:var(--ink3)">prvá</span>`
+     : d<0 ? `<span class="delta-s is-pb">−${fmt(-d)}</span>`
+     : d>0 ? `<span class="delta-s" style="color:var(--ink3)">+${fmt(d)}</span>`
+           : `<span class="delta-s" style="color:var(--ink3)">0.000</span>`;
+   out+=`<div class="row">
+     <div class="main">
+       <div class="t">${esc(t?t.name:'—')}${isCurrentBest(s)?' <span class="tag pb">rekord</span>':''}${arch?' <span class="tag un">stará dráha</span>':''}</div>
+       <div class="s">${esc(s.date)} · ${esc(lay?lay.name:'—')} · ${esc(cl?cl.name:'—')}</div>
+       <div class="s">${s.kart?'motokára '+esc(s.kart)+' · ':''}${s.laps?nKol(s.laps)+' · ':''}+${s.xp} XP${s.elo!=null?` · skóre ${s.elo>=0?'+':''}${s.elo}`:''}</div>
+     </div>
+     <div class="time ${isCurrentBest(s)?'is-pb':''}" ${arch?'style="opacity:.45"':''}>${fmt(s.bestMs)}</div>
+     ${dHtml}</div>`;
+ });
+ $('#mineList').innerHTML=out;
+ $('#mineH').textContent = mineTrack ? 'História na tejto trati' : 'História jázd';
+}
+
+/* ================= leaderboard ================= */
+let boardMode='global', boardTrack=null, boardLayout='', boardClass='';
+function setBoard(m,el){
+ boardMode=m;
+ document.querySelectorAll('#boardSeg button').forEach(b=>b.classList.remove('on'));
+ el.classList.add('on'); render();
+}
+
+/* ================= render ================= */
+function badgeIco(id){
+ const m={
+  first:`<circle cx="12" cy="12" r="8"/><path d="M12 8v8M8 12h8"/>`,
+  pb:`<path d="M12 3l2.6 5.6 6 .8-4.4 4.2 1.1 6-5.3-2.9L6.7 19.6l1.1-6L3.4 9.4l6-.8L12 3Z"/>`,
+  t3:`<circle cx="6" cy="12" r="2.5"/><circle cx="12" cy="7" r="2.5"/><circle cx="18" cy="14" r="2.5"/>`,
+  r10:`<rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8 12h8M12 8v8"/>`,
+  streak3:`<path d="M12 3c3 4 5 6 5 9a5 5 0 0 1-10 0c0-3 2-5 5-9Z"/>`,
+  abroad:`<circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.5 2.6 2.5 14.4 0 17M12 3.5c-2.5 2.6-2.5 14.4 0 17"/>`,
+  hot:`<path d="M4 18l4-9 4 5 3-7 5 11"/>`,
+  lvl5:`<path d="M4 20V9m5 11V4m5 16v-8m5 8V7"/>`
+ };
+ return `<svg viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.7" stroke-linejoin="round">${m[id]||m.first}</svg>`;
+}
+
+function heroArt(t){
+ return `<div class="photo" style="background-image:url('${bgFor(t)}')"></div><div class="grad"></div>`
+  + `<div class="shade"></div>`
+  + `<button class="camBtn" data-act="pickCover" data-a="${t.id}" title="Fotka trate" aria-label="Pridať fotku trate">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2.5" y="6" width="19" height="14" rx="3"/><circle cx="12" cy="13" r="3.4"/><path d="M8.5 6l1.4-2.2h4.2L15.5 6"/></svg></button>`;
+}
+function trackFacts(t,lay){
+ return `<div class="facts" style="margin:10px 0 0">
+   <span>${dirIcon(lay.dir)} ${esc(dirLabel(lay.dir))}</span>
+   ${lay.len?`<span>${lay.len} m</span>`:''}
+   <span>${INDOOR(t.indoor)}</span>
+   ${lay.ver>1?`<span class="is-red">prestavaná · v${lay.ver}</span>`:''}
+ </div>`;
+}
+function renderHero(){
+ const last=S.sessions.find(x=>!isArchived(x))||S.sessions[0];
+ if(!last){
+   const t=S.tracks[0], lay=t.layouts[0];
+   $('#heroCard').innerHTML=heroArt(t)+`
+    <div class="in">
+      <div class="tagline">Začni tu</div>
+      <h1>Prvá jazda<br>čaká</h1>
+      <div class="sub" style="margin-bottom:0">Zapíš čas a Hotlap ti ukáže, kde stojíš medzi ostatnými.</div>
+    </div>`;
+   return;
+ }
+ const t=trackById(last.trackId);
+ const lay=t.layouts.find(l=>l.id===last.layoutId)||t.layouts[0];
+ const best=bestOnTrack(last.trackId,last.layoutId,last.classId);
+ $('#heroCard').innerHTML=heroArt(t)+`
+  <div class="in">
+    <div class="tagline">Tvoj rekord ${last.isPB?'<span class="live"><i></i>nový</span>':''}</div>
+    <div class="big is-pb">${fmt(best?best.bestMs:last.bestMs)}</div>
+    <div class="sub" style="margin-top:8px;margin-bottom:0">${esc(t.name)} · ${esc(t.city)} ${cc(t.country)}</div>
+    ${trackFacts(t,lay)}
+  </div>`;
+}
+
+function editFacts(tid){
+ const t=trackById(tid), lay=t.layouts[0];
+ const right=canEditFacts(t);
+ if(right==='no'){
+   openSheet(`<h3>Opraviť údaje</h3><p class="sub">${esc(t.name)}</p>
+    <div class="banner">${hasManager(t)
+      ? '<b>Túto trať spravuje prevádzkovateľ.</b> Oficiálne údaje o dráhe mení len on. Ty môžeš nahlásiť, že niečo nesedí — hlásenie mu príde.'
+      : '<b>Zatiaľ si tu nejazdil.</b> Údaje môže doplniť jazdec, ktorý tu má aspoň jednu jazdu, kým si trať neprevezme prevádzkovateľ.'}</div>
+    ${hasManager(t)?`<button class="btn primary" data-act="reportChange" data-a="${tid}" data-b="${t.layouts[0].id}">Nahlásiť, že údaj nesedí</button>
+    <div style="height:8px"></div>`:''}
+    <button class="btn ghost" data-act="openTrack" data-a="${tid}">Späť</button>`);
+   return;
+ }
+ openSheet(`
+  <h3>Opraviť údaje o trati</h3><p class="sub">${esc(t.name)} · ${esc(t.city)}</p>
+  <p class="hint" style="margin-top:0;margin-bottom:16px">${right==='manager'
+    ? 'Si správca tejto trate, takže tvoje údaje sú oficiálne a prepíšu to, čo doplnili jazdci.'
+    : 'Trať zatiaľ nemá správcu, preto údaje dopĺňajú jazdci, ktorí tu jazdili. Zostanú označené ako neoverené, kým si trať neprevezme prevádzkovateľ — ten ich môže kedykoľvek prepísať.'}
+   Oprava nezmaže žiadne rekordy. Na prestavbu dráhy, ktorá rekordy zneplatní, je samostatné hlásenie.</p>
+  <label>Smer jazdy</label>
+  <select id="efDir" class="field">
+    <option value="" ${!lay.dir?'selected':''}>Neviem</option>
+    <option value="cw" ${lay.dir==='cw'?'selected':''}>V smere hodinových ručičiek</option>
+    <option value="ccw" ${lay.dir==='ccw'?'selected':''}>Proti smeru hodinových ručičiek</option></select>
+  <label>Dĺžka dráhy v metroch</label>
+  <input id="efLen" class="field mono" inputmode="numeric" placeholder="neuvedená" value="${lay.len||''}">
+  <label>Typ dráhy</label>
+  <select id="efIndoor" class="field">
+    <option value="" ${t.indoor===null?'selected':''}>Neviem</option>
+    <option value="1" ${t.indoor===true?'selected':''}>Krytá hala</option>
+    <option value="0" ${t.indoor===false?'selected':''}>Vonkajšia dráha</option></select>
+  <button class="btn primary" data-act="saveFacts" data-a="${tid}">Uložiť opravu</button>
+  <button class="btn ghost" data-act="openTrack" data-a="${tid}" style="margin-top:8px">Zrušiť</button>`);
+}
+function saveFacts(tid){
+ const t=trackById(tid), lay=t.layouts[0];
+ lay.dir=$('#efDir').value||null;
+ const v=$('#efLen').value.trim();
+ lay.len = v===''?null:(parseInt(v)||null);
+ const ind=$('#efIndoor').value;
+ t.indoor = ind===''?null:(ind==='1');
+ save(); openTrack(tid);
+}
+
+/* ako trat vyzerala kedysi: verzia, obdobie, tvoj vtedajsi rekord */
+function layoutTimeline(t,lay){
+ const bestIn=v=>{
+   const f=S.sessions.filter(x=>x.trackId===t.id&&x.layoutId===lay.id&&(x.layVer||1)===v);
+   return f.length?Math.min(...f.map(x=>x.bestMs)):null;
+ };
+ const eras=[{ver:lay.ver,from:lay.since,to:null}]
+   .concat((lay.history||[]).slice().reverse().map(h=>({ver:h.ver,from:h.from,to:h.to})));
+ if(eras.length<2 && !(lay.history||[]).length && (lay.ver||1)===1) return '';
+ return `<h2 style="margin:20px 0 10px">História dráhy</h2>
+ <div class="card pad0">${eras.map(e=>{
+   const b=bestIn(e.ver), now=e.to===null;
+   return `<div class="row">
+     <div class="pos ${now?'p1':''}">v${e.ver}</div>
+     <div class="main"><div class="t">${now?'Dnešná dráha':'Staršia podoba dráhy'}</div>
+       <div class="s">${e.from?esc(e.from):'od začiatku'} ${now?'– dodnes':'– '+esc(e.to||'')}</div>
+       ${now?'':'<div class="s">tieto časy sa s dnešnými neporovnávajú</div>'}</div>
+     <div class="time ${now&&b?'is-pb':''}" ${now?'':'style="opacity:.5"'}>${b?fmt(b):'—'}</div></div>`;
+ }).join('')}</div>
+ <p class="hint">Keď trať dráhu prestaví, Hotlap založí novú verziu a staré časy odloží sem. Nezmažú sa — len sa prestanú porovnávať s dnešnými, lebo by to nedávalo zmysel.</p>`;
+}
+
+/* detail trate: tvar, smer jazdy, dlzka, verzia a hlasenie prestavby */
+function openTrack(tid){
+ const t=trackById(tid); if(!t) return;
+ const lay=t.layouts[0];
+ const mine=S.sessions.filter(x=>x.trackId===tid&&!isArchived(x));
+ const best=mine.length?Math.min(...mine.map(x=>x.bestMs)):null;
+ const old=S.sessions.filter(x=>x.trackId===tid&&isArchived(x));
+ openSheet(`
+  <h3>${esc(t.name)}</h3><p class="sub">${esc(t.city)} · ${esc(countryName(t.country))}</p>
+  <div style="margin:-10px 0 14px">${factBadge(t)}${isManager(t)?' <span class="tag new">spravuješ ju</span>':''}</div>
+  <div class="card pad0" style="position:relative;overflow:hidden;margin-bottom:12px">
+    <div style="height:132px;background-image:url('${bgFor(t)}');background-size:cover;background-position:center"></div>
+    <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(9,9,11,.1),rgba(20,20,25,.96) 86%)"></div>
+    <button class="camBtn" style="position:absolute;right:10px;top:10px" data-act="pickCover" data-a="${t.id}" aria-label="Vlastná fotka trate">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2.5" y="6" width="19" height="14" rx="3"/><circle cx="12" cy="13" r="3.4"/><path d="M8.5 6l1.4-2.2h4.2L15.5 6"/></svg></button>
+  </div>
+  <div class="card" style="text-align:center;padding:14px 10px 8px">
+    <span style="color:var(--red);display:block">${art(t,'',240,165)}</span>
+    <div style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);margin-top:-6px">
+      ${t.shapePath?'skutočný tvar dráhy':'ilustračný tvar · skutočný ešte nie je obkreslený'}</div>
+    ${isAdmin()?`<div style="display:flex;gap:8px;margin-top:12px">
+      <button class="btn ghost" data-act="openTracer" data-a="${t.id}" style="padding:10px">${t.shapePath?'Prekresliť':'Obkresliť tvar'}</button>
+      ${t.shapePath?`<button class="btn ghost" data-act="clearShape" data-a="${t.id}" style="padding:10px">Zmazať tvar</button>`:''}
+    </div>`:''}
+  </div>
+  <div class="card pad0">
+    <div class="row"><div class="main"><div class="t">Smer jazdy</div>
+      <div class="s">${lay.dir?'takto sa na tejto dráhe jazdí':'doplň ho nižšie, ak si tu jazdil'}</div></div>
+      <div style="color:${lay.dir?'var(--red)':'var(--ink3)'};display:flex;align-items:center;gap:7px;font-size:12px;flex:none">
+        ${dirIcon(lay.dir)} ${esc(dirLabel(lay.dir))}</div></div>
+    <div class="row"><div class="main"><div class="t">Dĺžka dráhy</div></div>
+      <div class="time" style="font-size:14px">${lay.len?lay.len+' m':'—'}</div></div>
+    <div class="row"><div class="main"><div class="t">Typ</div></div>
+      <div class="time" style="font-size:14px">${INDOOR(t.indoor)}</div></div>
+    <div class="row"><div class="main"><div class="t">Odkiaľ chodia časy</div>
+      <div class="s">${isLive(t)?'trať posiela výsledky automaticky':'zapisuješ ich sám, foto alebo ručne'}</div></div>
+      <div style="flex:none;display:flex;align-items:center;gap:6px;font-size:12px;color:${isLive(t)?'var(--pb)':'var(--ink3)'}">
+        ${isLive(t)?'<span style="width:7px;height:7px;border-radius:50%;background:var(--pb);display:block"></span>':''}${esc(FEED[t.feed])}</div></div>
+    <div class="row"><div class="main"><div class="t">Verzia dráhy</div>
+      <div class="s">${lay.ver>1?('prestavaná '+(lay.since||'')):'pôvodná konfigurácia'}</div></div>
+      <div class="time" style="font-size:14px">v${lay.ver}</div></div>
+    <div class="row"><div class="main"><div class="t">Tvoj rekord</div>
+      <div class="s">${nJazd(mine.length)} · ${nKol(totalLaps(mine))}${old.length?' · '+old.length+' na starej dráhe':''}</div></div>
+      <div class="time ${best?'is-pb':''}">${best?fmt(best):'—'}</div></div>
+  </div>
+  ${progressChart(mine.slice().sort(byDateAsc),'Vývoj tvojich časov')}
+  ${layoutTimeline(t,lay)}
+  <button class="btn ghost" data-act="goHistory" data-a="${t.id}">
+    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 7v5l3 2"/><circle cx="12" cy="12" r="9"/></svg>
+    Všetky jazdy na tejto trati</button>
+  <div style="height:8px"></div>
+  <button class="btn ghost" data-act="editFacts" data-a="${t.id}">
+    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L19 9a2.1 2.1 0 0 0-3-3L5 17v3Z"/></svg>
+    Opraviť údaje o trati</button>
+  <div style="height:8px"></div>
+  <button class="btn ghost" data-act="reportChange" data-a="${t.id}" data-b="${lay.id}">
+    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 8.5v5M12 17h.01"/><circle cx="12" cy="12" r="9"/></svg>
+    Dráha sa zmenila</button>
+  <div style="height:8px"></div>
+  <button class="btn ghost" data-act="pickCover" data-a="${t.id}">${t.photo?'Zmeniť fotku trate':'Pridať fotku trate'}</button>
+  ${t.photo?`<button class="linkbtn" data-act="clearCover" data-a="${t.id}" style="text-align:center;width:100%">Odstrániť fotku</button>`:''}
+  <div style="height:8px"></div>
+  ${canConnectFeed(t) ? `<button class="btn ${isLive(t)?'ghost':'primary'}" data-act="toggleFeed" data-a="${t.id}">
+       <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h3l2.5-6 3 12 2.5-6h3"/></svg>
+       ${isLive(t)?'Odpojiť časomieru':'Pripojiť časomieru trate'}</button><div style="height:8px"></div>`:''}
+  ${isManager(t)
+    ? `<button class="btn ghost" data-act="releaseTrack" data-a="${t.id}">Vzdať sa správcovstva</button>`
+    : hasManager(t)
+      ? `<div class="banner"><b>Trať má správcu.</b> Oficiálne údaje a prestavbu mení len prevádzkovateľ.</div>`
+      : `<button class="btn primary" data-act="claimTrack" data-a="${t.id}">Som prevádzkovateľ, prevziať trať</button>`}
+  <div class="card" style="margin-top:14px">
+    <div style="font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink3);font-weight:700;margin-bottom:10px">Kto čo smie</div>
+    <div class="quest"><div class="q"><div class="qt">Zapísať vlastný čas</div><div class="qs">ktorýkoľvek jazdec</div></div></div>
+    <div class="quest"><div class="q"><div class="qt">Založiť trať ako miesto</div><div class="qs">jazdec, ale zostane neoverená</div></div></div>
+    <div class="quest"><div class="q"><div class="qt">Oficiálne údaje o dráhe</div><div class="qs">${hasManager(t)?'len prevádzkovateľ':'zatiaľ dopĺňajú jazdci, prevádzkovateľ ich prepíše'}</div></div></div>
+    <div class="quest"><div class="q"><div class="qt">Potvrdiť prestavbu</div><div class="qs">${hasManager(t)?'len prevádzkovateľ':'zhoda troch jazdcov'}</div></div></div>
+    <div class="quest"><div class="q"><div class="qt">Oficiálny rebríček trate</div><div class="qs">${isOfficial(t)?'áno, trať je overená':'nie, zatiaľ len osobné časy'}</div></div></div>
+  </div>`);
+}
+
+function render(){
+ if(!S.user) return;
+ const u=S.user, lvl=levelOf(u.xp);
+
+ $('#hName').textContent=u.name;
+ $('#pName').textContent=u.name;
+ $('#pMail').textContent=u.mail||'—';
+ $('#pProv').textContent={google:'Google',facebook:'Facebook',email:'E-mail'}[u.provider]||'—';
+ $('#pAliases').textContent=u.aliases.join(', ');
+ $('#hLevel').textContent='Level '+lvl+' · '+LEVELS[lvl-1];
+ $('#hElo').textContent=u.elo;
+ $('#hGhost').textContent=lvl;
+ $('#streakChip').innerHTML='séria <b>'+u.streak+'</b>';
+
+ $('#avatarBox').innerHTML = (u.photo
+    ? `<img src="${u.photo}" alt="">`
+    : `<span class="ini">${esc(initials(u.name)||'?')}</span>`)
+   + `<span class="cam"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>`;
+
+ const inLvl=u.xp-levelFloor(lvl), need=500;
+ $('#xpNow').textContent=u.xp+' XP';
+ $('#xpNext').textContent= lvl>=LEVELS.length ? 'najvyšší level' : (need-inLvl)+' XP do levelu '+(lvl+1);
+ $('#xpFill').style.width=Math.min(100,inLvl/need*100)+'%';
+
+ const nR=S.sessions.length, nT=new Set(S.sessions.map(s=>s.trackId)).size;
+ $('#stRides').textContent=nR; $('#lbRides').textContent=lJazd(nR);
+ $('#stTracks').textContent=nT; $('#lbTracks').textContent=lTrat(nT);
+ $('#stPB').textContent=S.sessions.filter(isCurrentBest).length;
+
+ renderHero();
+
+ $('#trackCta').innerHTML =
+   (isAdmin()?'':`<div class="banner"><b>Trať tu chýba?</b> Založ ju — kdekoľvek na svete. Hneď si na nej vieš zapisovať časy. Zostane neoverená, kým ju nepotvrdíme alebo si ju neprevezme prevádzkovateľ.</div>`)
+   + `<button class="btn ${isAdmin()?'primary':'ghost'}" data-act="openNewTrack">
+       <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+       Pridať trať kdekoľvek na svete</button>`;
+
+ const live=liveTracks();
+ $('#feedCard').innerHTML = live.length
+  ? `<div class="card" style="border-color:rgba(19,226,123,.28);background:linear-gradient(160deg,rgba(19,226,123,.07),transparent);margin-bottom:10px">
+      <div style="display:flex;align-items:center;gap:10px">
+        <span style="width:9px;height:9px;border-radius:50%;background:var(--pb);flex:none;box-shadow:0 0 12px rgba(19,226,123,.8)"></span>
+        <div style="flex:1"><div style="font-weight:700;font-size:14.5px">Časy chodia samé</div>
+        <div class="s" style="color:var(--ink3);font-size:12px">${live.map(t=>esc(t.name)).join(', ')} ${pl(live.length,'posiela','posielajú','posiela')} výsledky priamo do Hotlapu</div></div>
+      </div></div>`
+  : `<div class="card" style="margin-bottom:10px">
+      <div style="font-weight:700;font-size:14.5px;margin-bottom:3px">Zatiaľ žiadna trať neposiela časy</div>
+      <div class="hint" style="margin:0">Kým trať nie je pripojená, zapisuješ čas sám — odfotením výsledkovej listiny alebo ručne. Keď sa trať pripojí, prestaneš zapisovať úplne.</div>
+     </div>`;
+ $('#addBtn').className = live.length?'btn ghost':'btn primary';
+
+ const withTimes=S.tracks.map(t=>{
+   const rides=S.sessions.filter(x=>x.trackId===t.id);
+   const live=rides.filter(x=>!isArchived(x));
+   if(!rides.length) return null;
+   return {t,rides,best:live.length?Math.min(...live.map(x=>x.bestMs)):null,laps:totalLaps(rides)};
+ }).filter(Boolean).sort((a,b)=>b.rides.length-a.rides.length);
+
+ $('#recH').style.display = withTimes.length?'':'none';
+ $('#trackRecords').style.display = withTimes.length?'':'none';
+ $('#trackRecords').innerHTML = withTimes.map(({t,rides,best,laps})=>`
+   <div class="row rowlink" data-act="goHistory" data-a="${t.id}" role="button" tabindex="0">
+     <span class="rowthumb" style="background-image:url('${bgFor(t)}')"></span>
+     <div class="main"><div class="t">${esc(t.name)}</div>
+       <div class="s">${cc(t.country)}${esc(t.city)}</div>
+       <div class="s">${nJazd(rides.length)}${laps?' · '+nKol(laps):''}</div></div>
+     <div class="time ${best?'is-pb':''}">${best?fmt(best):'—'}</div>
+     <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="var(--ink3)" stroke-width="2" stroke-linecap="round" style="flex:none"><path d="M9 5l7 7-7 7"/></svg>
+   </div>`).join('');
+
+ const tracksDone=new Set(S.sessions.map(s=>s.trackId)).size;
+ const q=[
+  {t:'Zapíš jazdu tento týždeň',s:u.lastWeek===weekKey(today())?'splnené':'nesplnené',x:50},
+  {t:'Prekonaj vlastný rekord',s:S.sessions.slice(0,3).some(s=>s.isPB)?'splnené':'nesplnené',x:100},
+  {t:'Jazdi na trati, kde si ešte nebol',s:nTrat(tracksDone)+' '+zo(S.tracks.length)+' '+S.tracks.length,x:150}
+ ];
+ $('#quests').innerHTML=q.map(i=>`<div class="quest"><div class="q"><div class="qt">${i.t}</div><div class="qs">${i.s}</div></div><div class="qx">+${i.x} XP</div></div>`).join('');
+
+ $('#recent').innerHTML = S.sessions.length ? S.sessions.slice(0,6).map(s=>{
+   const t=trackById(s.trackId), arch=isArchived(s);
+   return `<div class="row">
+     <span style="color:var(--red);flex:none;opacity:.8">${art(t,'trackmini')}</span>
+     <div class="main"><div class="t">${esc(t?t.name:'—')}${isCurrentBest(s)?' <span class="tag pb">rekord</span>':''}${arch?' <span class="tag un">stará dráha</span>':''}</div>
+     <div class="s">${t?cc(t.country):''}${s.date}${s.laps?' · '+nKol(s.laps):''} · +${s.xp} XP</div></div>
+     <div class="time ${isCurrentBest(s)?'is-pb':''}" ${arch?'style="opacity:.45"':''}>${fmt(s.bestMs)}</div></div>`;
+ }).join('') : `<div class="empty">Zatiaľ žiadna jazda.<br>Zapíš prvú a začni zbierať skóre.</div>`;
+
+ const adm=isAdmin();
+ $('#admBtn').textContent = adm?'Vypnúť režim administrátora':'Zapnúť';
+ $('#admH').style.display = adm?'':'none';
+ $('#admCard').style.display = adm?'':'none';
+ if(adm){
+   const open=openRequests().length;
+   $('#admCard').innerHTML=`
+    <div class="row rowlink" data-act="adminPanel" role="button" tabindex="0">
+      <div class="main"><div class="t">Žiadosti od jazdcov</div>
+        <div class="s">${open?'čakajú na vybavenie':'nič nové'}</div></div>
+      ${open?`<span class="tag new">${open}</span>`:'<span class="tag un">0</span>'}
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="var(--ink3)" stroke-width="2" stroke-linecap="round" style="flex:none"><path d="M9 5l7 7-7 7"/></svg></div>
+    <div class="row rowlink" data-act="openNewTrack" role="button" tabindex="0">
+      <div class="main"><div class="t">Pridať trať</div>
+        <div class="s">${nTrat(S.tracks.length)} v Hotlape · ${S.tracks.filter(x=>x.shapePath).length} ${pl(S.tracks.filter(x=>x.shapePath).length,'obkreslená','obkreslené','obkreslených')}</div></div>
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="var(--ink3)" stroke-width="2" stroke-linecap="round" style="flex:none"><path d="M9 5l7 7-7 7"/></svg></div>`;
+ }
+
+ $('#badges').innerHTML=BADGES.map(b=>{
+   const has=u.badges.includes(b.id);
+   return `<div class="badge ${has?'got':'locked'}" title="${esc(b.d)}">${badgeIco(b.id)}<div class="nm">${esc(b.nm)}</div></div>`;
+ }).join('');
+
+ $('#trackList').innerHTML=S.tracks.map(t=>{
+   const mine=S.sessions.filter(s=>s.trackId===t.id);
+   const live=mine.filter(s=>!isArchived(s));
+   const best=live.length?Math.min(...live.map(s=>s.bestMs)):null;
+   const lay=t.layouts[0];
+   const thumb=`<span class="rowthumb" style="background-image:url('${bgFor(t)}')"></span>`;
+   return `<div class="row rowlink" data-act="openTrack" data-a="${t.id}" role="button" tabindex="0">
+     ${thumb}
+     <div class="main"><div class="t">${esc(t.name)}</div>
+     <div class="s" style="margin:3px 0">${factBadge(t)}${isLive(t)?' <span class="tag ok">časy chodia samé</span>':''}</div>
+     <div class="s">${cc(t.country)}${esc(t.city)} · ${INDOOR(t.indoor)} · ${nJazd(mine.length)}${lay.ver>1?' · <span class="is-red">prestavaná</span>':''}</div>
+     <div class="s">${dirIcon(lay.dir)} ${esc(dirLabel(lay.dir))}${lay.len?' · '+lay.len+' m':''}</div></div>
+     <div class="time ${best?'is-pb':''}" style="font-size:14px">${best?fmt(best):'—'}</div>
+     <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="var(--ink3)" stroke-width="2" stroke-linecap="round" style="flex:none"><path d="M9 5l7 7-7 7"/></svg>
+     </div>`;
+ }).join('');
+
+ renderMine();
+ renderTeam();
+ renderBoard();
+}
+
+function myOverallBest(){
+ const live=S.sessions.filter(x=>!isArchived(x));
+ if(!live.length) return null;
+ const b=live.reduce((a,c)=>a.bestMs<=c.bestMs?a:c);
+ const t=trackById(b.trackId);
+ return {ms:b.bestMs,at:t?t.name:'—'};
+}
+const GLOBAL_NOTE='Celkové poradie je podľa bodov, lebo čas kola sa medzi traťami porovnať nedá — 40 sekúnd v krátkej hale nie je to isté čo 40 sekúnd na dlhom okruhu. Najlepší čas je preto pri každom jazdcovi uvedený aj s traťou, kde padol.';
+
+function renderTeam(){
+ const t=myTeam();
+ if(!t){
+   $('#paneTeam').innerHTML=`
+    <div class="card">
+      <div style="font-weight:700;font-size:16px;margin-bottom:4px">Jazdiť s kamarátmi</div>
+      <p class="hint" style="margin:0 0 14px">Tím je skupina 2 až 8 jazdcov. Vidíte si navzájom časy, máte spoločný rekord na každej trati a môžete vyzvať iný tím na súboj.</p>
+      <label>Názov tímu</label>
+      <input id="tmName" class="field" placeholder="napr. Neďelní hrdinovia" maxlength="24">
+      <button class="btn primary" data-act="doCreateTeam">Založiť tím</button>
+      <div class="or">alebo sa pridaj k existujúcemu</div>
+      <label>Kód tímu</label>
+      <input id="tmCode" class="field mono" placeholder="5 znakov" maxlength="5" style="text-transform:uppercase">
+      <button class="btn ghost" data-act="doJoinTeam">Pripojiť sa</button>
+    </div>`;
+   return;
+ }
+ const names=t.members.map(m=>m.name);
+ const mine=S.sessions.filter(x=>!isArchived(x));
+ const perMember=names.map(n=>{
+   const rs = n===S.user.name ? mine : [];
+   const best=rs.length?Math.min(...rs.map(x=>x.bestMs)):null;
+   return {n,rides:rs.length,best};
+ }).sort((a,b)=>(a.best||9e9)-(b.best||9e9));
+ const tracks=[...new Set(mine.map(x=>x.trackId))];
+ const duels=(S.duels||[]).filter(d=>d.teamA===t.id||d.teamB===t.id);
+
+ $('#paneTeam').innerHTML=`
+  <div class="dcard" style="margin-bottom:12px">
+    <div class="ghost">${t.members.length}</div>
+    <div class="row1">
+      <div style="min-width:0;flex:1">
+        <div class="dname">${esc(t.name)}</div>
+        <div class="dsub">${t.members.length} ${pl(t.members.length,'jazdec','jazdci','jazdcov')} · kód <b class="mono" style="color:var(--red)">${esc(t.code)}</b></div>
+      </div>
+    </div>
+    <p class="hint" style="margin:12px 0 0">Pošli kód kamarátovi, zadá ho pri pripojení k tímu.</p>
+  </div>
+
+  <h2>Kto je najrýchlejší</h2>
+  <div class="card pad0">${perMember.map((m,i)=>`
+    <div class="row">
+      <div class="pos ${i===0?'p1':''}">${i+1}</div>
+      <div class="main"><div class="t">${esc(m.n)}${m.n===S.user.name?' <span class="tag new">ty</span>':''}</div>
+        <div class="s">${nJazd(m.rides)}</div></div>
+      <div class="time ${i===0?'is-pb':''}">${m.best?fmt(m.best):'—'}</div></div>`).join('')}</div>
+  <p class="hint">Pokiaľ nie je pripojená databáza, vidíš len svoje časy. Ostatní členovia sa objavia, keď sa appka pripojí.</p>
+
+  ${tracks.length?`<h2>Najrýchlejšia motokára</h2>${tracks.map(tid=>{
+    const t2=trackById(tid), ks=kartStats(tid);
+    if(!ks.length) return '';
+    return `<div class="card pad0" style="margin-bottom:10px">
+      <div class="monthrow">${esc(t2?t2.name:'—')}</div>
+      ${ks.slice(0,4).map((k,i)=>`<div class="row">
+        <div class="pos ${i===0?'p1':''}">${esc(k.kart)}</div>
+        <div class="main"><div class="t">Motokára ${esc(k.kart)}</div><div class="s">${nJazd(k.n)}</div></div>
+        <div class="time ${i===0?'is-pb':''}">${fmt(k.ms)}</div></div>`).join('')}</div>`;
+  }).join('')}
+  <p class="hint" style="margin-top:-2px">Zapisuj číslo motokáry pri jazde a uvidíš, ktorá na trati naozaj ide.</p>`
+  :`<h2>Najrýchlejšia motokára</h2><div class="card"><p class="hint" style="margin:0">Pri zapisovaní jazdy vyplň číslo motokáry. Po niekoľkých jazdách uvidíš, ktoré motokáry na trati idú a ktoré nie.</p></div>`}
+
+  <h2>Súboj tím proti tímu <a data-act="openNewDuel">Vyzvať →</a></h2>
+  <div id="duelList">${duels.length?duels.map(d=>duelCard(d)).join(''):`
+    <div class="card"><p class="hint" style="margin:0">Zatiaľ žiadny súboj. Vyzvi iný tím na jednu trať alebo na všetky naraz.</p></div>`}</div>
+
+  <div class="card" style="margin-top:12px">
+    <button class="btn ghost" data-act="doLeaveTeam">Opustiť tím</button>
+  </div>`;
+}
+function doCreateTeam(){
+ const n=($('#tmName').value||'').trim();
+ if(!n){ $('#tmName').style.borderColor='var(--red)'; return }
+ createTeam(n); render();
+}
+function doJoinTeam(){
+ const r=joinTeam($('#tmCode').value);
+ if(r==='nenajdeny'){ alert('Tím s týmto kódom neexistuje.'); return }
+ if(r==='plny'){ alert('Tím je plný, má už 8 jazdcov.'); return }
+ render();
+}
+function doLeaveTeam(){
+ if(!confirm('Naozaj chceš opustiť tím?')) return;
+ leaveTeam(); render();
+}
+/* ---------- subuoj: karta, zalozenie, pravidla ---------- */
+function duelCard(d){
+ const r=duelResult(d);
+ if(!r) return '';
+ const me=myTeam();
+ const mineIsA = me && me.id===r.A.id;
+ const myScore = mineIsA?r.scoreA:r.scoreB, opScore = mineIsA?r.scoreB:r.scoreA;
+ const myTeamN = mineIsA?r.A:r.B, opTeam = mineIsA?r.B:r.A;
+ const live = today()>=d.from && today()<=d.to;
+ const done = today()>d.to;
+ const lead = (myScore!==null&&opScore!==null) ? (myScore<opScore?'vedieš':myScore>opScore?'prehrávaš':'remíza') : null;
+ const tr = d.trackId?trackById(d.trackId):null;
+ return `<div class="card pad0" style="margin-bottom:10px">
+   <div class="monthrow">${live?'<span class="is-pb">prebieha</span>':done?'ukončený':'začne '+esc(d.from)} · ${tr?esc(tr.name):'všetky trate'} · do ${esc(d.to)}</div>
+   <div class="row">
+     <div class="main"><div class="t">${esc(myTeamN.name)}${mineIsA?'':''}</div>
+       <div class="s">${r.n?nJazd(mineIsA?r.ridersA:r.ridersB)+' sa ráta '+r.n:'zatiaľ bez času'}</div></div>
+     <div class="time ${lead==='vedieš'?'is-pb':''}">${myScore!==null?myScore.toFixed(3):'—'}</div></div>
+   <div class="row">
+     <div class="main"><div class="t">${esc(opTeam.name)}</div>
+       <div class="s">${r.n?nJazd(mineIsA?r.ridersB:r.ridersA)+' sa ráta '+r.n:'zatiaľ bez času'}</div></div>
+     <div class="time ${lead==='prehrávaš'?'is-red':''}">${opScore!==null?opScore.toFixed(3):'—'}</div></div>
+   ${lead?`<div class="row"><div class="main"><div class="t ${lead==='vedieš'?'is-pb':lead==='prehrávaš'?'is-red':''}">${done?(lead==='vedieš'?'Vyhrali ste':lead==='prehrávaš'?'Prehrali ste':'Remíza'):(lead==='vedieš'?'Vediete':lead==='prehrávaš'?'Prehrávate':'Remíza')}</div>
+     <div class="s">nižšie číslo vyhráva · 1.000 = najrýchlejší čas súboja</div></div></div>`:''}
+   <div class="row"><button class="tag un" data-act="duelRules" data-a="${d.id}" style="margin-left:auto">ako sa to počíta</button></div>
+ </div>`;
+}
+function duelRules(id){
+ const d=(S.duels||[]).find(x=>x.id===id); if(!d) return;
+ const r=duelResult(d); if(!r) return;
+ const rows=Object.entries(r.R).sort((a,b)=>a[1].ratio-b[1].ratio);
+ openSheet(`
+  <h3>Ako sa súboj počíta</h3><p class="sub">${esc(r.A.name)} proti ${esc(r.B.name)}</p>
+  <p class="hint" style="margin-top:0;margin-bottom:14px">Časy z rôznych tratí sa porovnať nedajú, preto sa neporovnávajú sekundy, ale <b style="color:var(--ink2)">odstup od najrýchlejšieho</b>. Na každej dráhe a triede sa nájde najrýchlejší čas súboja, ten dostane 1.000, a každý ďalistek sa k nemu pomerom.</p>
+  <div class="steps">
+    <div>Z každého jazdca sa berie jeho najlepší pomer, nie všetky jazdy.</div>
+    <div>Skore tímu je priemer pomerov jeho jazdcov.</div>
+    <div>Ráta sa toľko jazdcov, koľko ich nastúpilo za menší tím — teraz ${r.n||0}. Väčší tím teda nevyhrá počtom ľudí.</div>
+    <div>Nižšie číslo vyhráva. 1.080 znamená o 8 % pomalší než najrýchlejší čas súboja.</div>
+  </div>
+  ${rows.length?`<h2 style="margin-top:18px">Jazdci v súboji</h2>
+  <div class="card pad0">${rows.map(([n,v],i)=>`<div class="row">
+    <div class="pos ${i===0?'p1':''}">${i+1}</div>
+    <div class="main"><div class="t">${esc(n)}${n===S.user.name?' <span class="tag new">ty</span>':''}</div>
+      <div class="s">${v.ride?fmt(v.ride.bestMs)+' · '+esc((trackById(v.ride.trackId)||{}).name||'')+(v.ride.kart?' · motokára '+esc(v.ride.kart):''):'ukážkový súper'}</div></div>
+    <div class="time ${i===0?'is-pb':''}" style="font-size:15px">${v.ratio.toFixed(3)}</div></div>`).join('')}</div>`:''}
+  <button class="btn ghost" data-act="closeSheet" style="margin-top:14px">Zavrieť</button>`);
+}
+function openNewDuel(){
+ const t=myTeam(); if(!t) return;
+ const from=today();
+ const d2=new Date(); d2.setDate(d2.getDate()+7);
+ openSheet(`
+  <h3>Vyzvať tím na súboj</h3><p class="sub">${esc(t.name)}</p>
+  <label>Proti komu</label>
+  <input id="duOpp" class="field" placeholder="názov súperovho tímu" maxlength="24" value="Mazáci z Bratislavy">
+  <label>Kde sa jazdí</label>
+  <select id="duTrack" class="field">
+    <option value="">Všetky trate — porovnávajú sa odstupy</option>
+    ${S.tracks.map(x=>`<option value="${x.id}">${esc(x.name)}</option>`).join('')}
+  </select>
+  <label>Od</label><input id="duFrom" class="field" type="date" value="${from}">
+  <label>Do</label><input id="duTo" class="field" type="date" value="${ymd(d2)}">
+  <button class="btn primary" data-act="saveDuel">Založiť súboj</button>
+  <p class="hint">Kým nie je pripojená databáza, súper je ukážkový — uvidíš na ňom, ako výpočet funguje. Po pripojení sa vyzve skutočný tím kódom.</p>`);
+}
+function saveDuel(){
+ const me=myTeam(); if(!me) return;
+ const nm=($('#duOpp').value||'').trim()||'Súperi';
+ const from=$('#duFrom').value||today(), to=$('#duTo').value||today();
+ if(to<from){ $('#duTo').style.borderColor='var(--red)'; return }
+ let opp=(S.teams||[]).find(x=>x.name===nm&&x.id!==me.id);
+ if(!opp){
+   opp={id:'tm'+Date.now()+'o',name:nm,code:teamCode(),demo:true,
+     members:[{name:nm+' 1'},{name:nm+' 2'},{name:nm+' 3'}],createdBy:'ukážka',createdAt:today()};
+   S.teams.push(opp);
+ }
+ S.duels.unshift({id:'du'+Date.now(),teamA:me.id,teamB:opp.id,
+   trackId:$('#duTrack').value||null,from,to,createdBy:S.user.name,
+   sim:opp.members.map((m,i)=>({name:m.name,ratio:1+0.03*(i+1)}))});
+ save(); closeSheet(); render();
+}
+
+function renderBoard(){
+ const u=S.user;
+ if(boardMode==='global'){
+   $('#boardTrackPick').innerHTML='';
+   $('#boardNote').textContent=GLOBAL_NOTE;
+   const mb=myOverallBest();
+   const all=[...S.rivals.map(r=>{const t=trackById(r.at);
+                return {n:r.n,v:r.elo,me:false,s:nJazd(r.rides),best:r.best,at:t?t.name:'—'}}),
+              {n:u.name,v:u.elo,me:true,s:nJazd(S.sessions.length),
+               best:mb?mb.ms:null,at:mb?mb.at:null}].sort((a,b)=>b.v-a.v);
+   $('#board').innerHTML=all.map((r,i)=>`<div class="row" ${r.me?'style="background:linear-gradient(90deg,rgba(255,45,45,.12),transparent)"':''}>
+     <div class="pos ${i===0?'p1':''}">${i+1}</div>
+     <div class="main"><div class="t">${esc(r.n)}${r.me?' <span class="tag new">ty</span>':''}</div>
+       <div class="s">${esc(r.s)}</div>
+       <div class="s">${r.best?`<span class="is-pb mono" style="font-weight:700">${fmt(r.best)}</span> · ${esc(r.at)}`:'zatiaľ žiadny čas'}</div></div>
+     <div style="flex:none;text-align:right">
+       <div class="time ${i===0?'is-red':''}">${r.v}</div>
+       <div style="font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);font-weight:700">bodov</div>
+     </div></div>`).join('');
+   return;
+ }
+ if(!boardTrack||!trackById(boardTrack)) boardTrack=S.tracks[0].id;
+ const bt=trackById(boardTrack);
+ if(!bt.layouts.some(l=>l.id===boardLayout)) boardLayout=bt.layouts[0].id;
+ if(!bt.classes.some(c=>c.id===boardClass)) boardClass=bt.classes[0].id;
+ const blay=bt.layouts.find(l=>l.id===boardLayout);
+ const bcls=bt.classes.find(c=>c.id===boardClass);
+ $('#boardTrackPick').innerHTML=
+   `<select class="field" data-chg="chgBoardTrack">${
+     S.tracks.map(t=>`<option value="${t.id}" ${t.id===boardTrack?'selected':''}>${esc(t.name)}</option>`).join('')}</select>`
+  +(bt.layouts.length>1?`<select class="field" data-chg="chgBoardLayout">${
+     bt.layouts.map(l=>`<option value="${l.id}" ${l.id===boardLayout?'selected':''}>${esc(l.name)}</option>`).join('')}</select>`:'')
+  +(bt.classes.length>1?`<select class="field" data-chg="chgBoardClass">${
+     bt.classes.map(c=>`<option value="${c.id}" ${c.id===boardClass?'selected':''}>${esc(c.name)}</option>`).join('')}</select>`:'');
+ const mine=S.sessions.filter(s=>s.trackId===boardTrack&&s.layoutId===boardLayout&&
+                                 s.classId===boardClass&&!isArchived(s));
+ const myBest=mine.length?Math.min(...mine.map(s=>s.bestMs)):null;
+ const base=48000+(boardTrack.charCodeAt(1)%7)*1400+(boardLayout.charCodeAt(1)%3)*900;
+ const list=S.rivals.slice(0,5).map((r,i)=>({n:r.n,v:base+i*680+(i%2?250:0),me:false,s:'—'}));
+ if(myBest!==null) list.push({n:u.name,v:myBest,me:true,s:nJazd(mine.length)});
+ list.sort((a,b)=>a.v-b.v);
+ $('#board').innerHTML=(isOfficial(bt)?'':`<div class="monthrow">neoficiálny · trať zatiaľ nemá správcu</div>`)
+   +list.map((r,i)=>rowFor(r,i,fmt(r.v))).join('')
+   +(myBest===null?`<div class="empty" style="padding:18px 0">Na tejto konfigurácii ešte nemáš čas.</div>`:'');
+ $('#boardNote').textContent=`Porovnáva sa len ${blay.name} · ${bcls?bcls.name:''}${blay.ver>1?' · verzia '+blay.ver:''}. Iná dráha alebo iná trieda motokáry je iný rebríček, lebo tie časy sa porovnať nedajú.`;
+}
+
+function rowFor(r,i,val){
+ return `<div class="row" ${r.me?'style="background:linear-gradient(90deg,rgba(255,45,45,.12),transparent)"':''}>
+   <div class="pos ${i===0?'p1':''}">${i+1}</div>
+   <div class="main"><div class="t">${esc(r.n)}${r.me?' <span class="tag new">ty</span>':''}</div><div class="s">${esc(r.s)}</div></div>
+   <div class="time ${i===0?'is-red':''}">${val}</div></div>`;
+}
+
+/* ================= obsluha udalosti =================
+   Ziadne inline onclick: obsah webu bezi pod CSP, ktora inline obsluhu
+   udalosti blokuje. Vsetko ide cez data-act / data-chg a jednu tabulku. */
+function chgTrack(el){ draft.trackId=el.value; stepTrack() }
+function chgLayout(el){ draft.layoutId=el.value; stepTrack() }
+function chgClass(el){ draft.classId=el.value }
+function chgBoardTrack(el){ boardTrack=el.value; boardLayout=''; boardClass=''; renderBoard() }
+function chgBoardLayout(el){ boardLayout=el.value; renderBoard() }
+function chgBoardClass(el){ boardClass=el.value; renderBoard() }
+function chgMineTrack(el){ setMineTrack(el.value) }
+function modePhoto(){ draft.mode='photo'; stepTime() }
+function modeManual(){ draft.mode='manual'; stepTime() }
+function closeAndHome(){ closeSheet(); go('home',document.querySelector('.nav button[data-s=home]')) }
+function closeAndRender(){ closeSheet(); render() }
+function toggleTraceClosed(){ trace.closed=!trace.closed; drawTracer() }
+function reloadPage(){ location.reload() }
+
+const ACT={
+ login:(el,a)=>login(a),
+ go:(el,a)=>go(a,el),
+ setTab:(el,a)=>setTab(a,el),
+ setBoard:(el,a)=>setBoard(a,el),
+ setMineTrack:(el,a)=>setMineTrack(a),
+ goHistory:(el,a)=>goHistory(a||null),
+ openAdd:()=>openAdd(),
+ stepTrack:()=>stepTrack(),
+ stepTime:()=>stepTime(),
+ saveRide:()=>saveRide(),
+ closeSheet:()=>closeSheet(),
+ openTrack:(el,a)=>openTrack(a),
+ openNewTrack:()=>openNewTrack(),
+ saveTrack:()=>saveTrack(),
+ claimTrack:(el,a)=>claimTrack(a),
+ sendClaim:(el,a)=>sendClaim(a),
+ mockVerify:(el,a)=>mockVerify(a),
+ mockFeed:(el,a)=>mockFeed(a),
+ toggleFeed:(el,a)=>toggleFeed(a),
+ releaseTrack:(el,a)=>releaseTrack(a),
+ editFacts:(el,a)=>editFacts(a),
+ saveFacts:(el,a)=>saveFacts(a),
+ reportChange:(el,a,b)=>reportChange(a,b),
+ reportToAdmin:(el,a,b)=>reportToAdmin(a,b),
+ confirmChange:(el,a,b)=>confirmChange(a,b),
+ requestTrack:()=>requestTrack(),
+ sendTrackRequest:()=>sendTrackRequest(),
+ adminPanel:()=>adminPanel(),
+ resolveRequest:(el,a,b)=>resolveRequest(a,b),
+ approveTrack:(el,a,b)=>approveTrack(a,b),
+ openMerge:(el,a,b)=>openMerge(a,b),
+ doMerge:(el,a,b)=>doMerge(a,b),
+ openTracer:(el,a)=>openTracer(a),
+ traceUndo:()=>traceUndo(),
+ traceClear:()=>traceClear(),
+ tracePlan:()=>tracePlan(),
+ traceSave:()=>traceSave(),
+ clearShape:(el,a)=>clearShape(a),
+ tracePoint:(el,a,b,ev)=>tracePoint(ev),
+ pickAvatar:()=>pickAvatar(),
+ pickCover:(el,a)=>pickCover(a),
+ clearCover:(el,a)=>clearCover(a),
+ onAvatar:(el,a,b,ev)=>onAvatar(ev),
+ onCover:(el,a,b,ev)=>onCover(ev),
+ onPlan:(el,a,b,ev)=>onPlan(ev),
+ addAlias:()=>addAlias(),
+ toggleAdmin:()=>toggleAdmin(),
+ wipe:()=>wipe(),
+ doCreateTeam:()=>doCreateTeam(),
+ doJoinTeam:()=>doJoinTeam(),
+ doLeaveTeam:()=>doLeaveTeam(),
+ openNewDuel:()=>openNewDuel(),
+ saveDuel:()=>saveDuel(),
+ duelRules:(el,a)=>duelRules(a),
+ chgTrack, chgLayout, chgClass, chgBoardTrack, chgBoardLayout, chgBoardClass, chgMineTrack,
+ modePhoto, modeManual, closeAndHome, closeAndRender, toggleTraceClosed, reloadPage
+};
+
+function runAct(el,key,ev){
+ const name=el.dataset[key];
+ const f=ACT[name];
+ if(!f){ console.warn('nezn\u00e1ma akcia',name); return }
+ f(el, el.dataset.a, el.dataset.b, ev);
+}
+document.addEventListener('click',ev=>{
+ const el=ev.target.closest('[data-act]');
+ if(el) runAct(el,'act',ev);
+});
+document.addEventListener('change',ev=>{
+ const el=ev.target.closest('[data-chg]');
+ if(el) runAct(el,'chg',ev);
+});
+document.addEventListener('keydown',ev=>{
+ if(ev.key!=='Enter'&&ev.key!==' ') return;
+ const el=ev.target.closest('[data-act][role="button"]');
+ if(!el) return;
+ ev.preventDefault();
+ runAct(el,'act',ev);
+});
+
+/* ================= boot ================= */
+/* Ziadna chyba v datach nesmie nechat jazdca pri prazdnej obrazovke.
+   Skusime appku opravit migraciou; ak ani to nepomoze, ponukneme restart. */
+let renderFails=0;
+const _render=render;
+render=function(){
+ try{ _render(); renderFails=0 }
+ catch(e){
+   console.error('render zlyhal',e);
+   if(++renderFails===1){ try{ S=migrate(S)||S; _render(); renderFails=0; return }catch(e2){ console.error(e2) } }
+   showBreak();
+ }
+};
+function showBreak(){
+ const el=$('#s-home');
+ if(el) el.innerHTML=`<div class="wrap"><div class="card" style="margin-top:20px">
+   <div style="font-weight:700;font-size:16px;margin-bottom:6px">Niečo sa pokazilo</div>
+   <p class="hint" style="margin:0 0 14px">Uložené dáta v tomto prehliadači sa nepodarilo načítať. Tvoje zapísané časy sa pravdepodobne dajú zachrániť — skús appku najprv načítať znova.</p>
+   <button class="btn primary" data-act="reloadPage">Načítať znova</button>
+   <div style="height:8px"></div>
+   <button class="btn ghost" data-act="wipe">Začať s čistými dátami</button></div></div>`;
+ document.querySelectorAll('.screen').forEach(x=>x.classList.remove('on'));
+ if(el) el.classList.add('on');
+}
+if(S.user){$('#auth').classList.remove('on');render()}
+</script>
+</body>
+</html>

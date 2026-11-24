@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="el" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-src 'none'; form-action 'none'; script-src 'self' https://*.posthog.com 'sha256-WYXv4T0Sp4nsWGqxcZTrCFqOWXC4JrvQ7XW5xjyqzek='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: https://*.posthog.com; connect-src 'self' https://*.posthog.com https://asnpyrrdeauhkskkkmuc.supabase.co; worker-src 'self' blob: data:">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Hotlap · Οι χρόνοι σου από κάθε πίστα σε ένα μέρος</title>
+<meta name="description" content="Το Hotlap συγκεντρώνει τους χρόνους γύρου σου από πίστες καρτ σε ένα προφίλ. Ρεκόρ, κατατάξεις, μονομαχίες ομάδων. Για τις πίστες 3 € τον μήνα, με ετήσια χρέωση.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://projektargo.com/hotlap/el/">
+<link rel="alternate" hreflang="en" href="https://projektargo.com/hotlap/">
+<link rel="alternate" hreflang="sk" href="https://projektargo.com/hotlap/sk/">
+<link rel="alternate" hreflang="de" href="https://projektargo.com/hotlap/de/">
+<link rel="alternate" hreflang="fr" href="https://projektargo.com/hotlap/fr/">
+<link rel="alternate" hreflang="es" href="https://projektargo.com/hotlap/es/">
+<link rel="alternate" hreflang="it" href="https://projektargo.com/hotlap/it/">
+<link rel="alternate" hreflang="pl" href="https://projektargo.com/hotlap/pl/">
+<link rel="alternate" hreflang="el" href="https://projektargo.com/hotlap/el/">
+<link rel="alternate" hreflang="ru" href="https://projektargo.com/hotlap/ru/">
+<link rel="alternate" hreflang="ar" href="https://projektargo.com/hotlap/ar/">
+<link rel="alternate" hreflang="zh-Hans" href="https://projektargo.com/hotlap/zh/">
+<link rel="alternate" hreflang="hi" href="https://projektargo.com/hotlap/hi/">
+<link rel="alternate" hreflang="x-default" href="https://projektargo.com/hotlap/">
+<link rel="icon" href="/hotlap/favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#09090B">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Hotlap">
+<meta property="og:title" content="Hotlap · Οι χρόνοι σου από κάθε πίστα σε ένα μέρος">
+<meta property="og:description" content="Το Hotlap συγκεντρώνει τους χρόνους γύρου σου από πίστες καρτ σε ένα προφίλ. Ρεκόρ, κατατάξεις, μονομαχίες ομάδων. Για τις πίστες 3 € τον μήνα, με ετήσια χρέωση.">
+<meta property="og:url" content="https://projektargo.com/hotlap/el/">
+<meta property="og:image" content="https://projektargo.com/hotlap/og.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600;700&family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+
+:root{
+  --bg:#09090B; --card:#141419; --card2:#1B1B22;
+  --line:rgba(255,255,255,.08); --line2:rgba(255,255,255,.14);
+  --ink:#F5F6F7; --ink2:#A2A8B0; --ink3:#868D96;
+  --red:#FF2D2D; --redfill:#E51A1A; --red2:#C71212;
+  --pb:#13E27B; --amber:#FFC247;
+  --r:16px; --r2:12px;
+  --ease:cubic-bezier(.2,.8,.2,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:'Chakra Petch',system-ui,sans-serif;
+     font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+.mono{font-family:'JetBrains Mono',ui-monospace,monospace;font-variant-numeric:tabular-nums}
+a{color:var(--red);text-decoration:none}
+a:hover{text-decoration:underline;text-underline-offset:3px}
+::selection{background:var(--red);color:#fff}
+.wrap{max-width:980px;margin:0 auto;padding:0 20px}
+.narrow{max-width:720px}
+
+/* nav */
+nav{position:sticky;top:0;z-index:50;background:rgba(9,9,11,.82);backdrop-filter:blur(16px);
+    border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;gap:20px;min-height:62px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:18px;letter-spacing:.04em;color:var(--ink)}
+.logo .mark{width:28px;height:28px;border-radius:8px;background:var(--redfill);display:grid;place-items:center;flex:none}
+.logo .mark svg{width:16px;height:16px}
+nav .links{margin-inline-start:auto;display:flex;gap:22px;font-size:14.5px}
+nav .links a{color:var(--ink2)}
+nav .links a:hover{color:var(--ink);text-decoration:none}
+@media(max-width:720px){nav .links{display:none}}
+
+/* hero */
+header{position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
+header .photo{position:absolute;inset:0;background:url('/hotlap/img/bg1.webp') center/cover}
+header .shade{position:absolute;inset:0;background:
+  linear-gradient(100deg,rgba(9,9,11,.96) 34%,rgba(9,9,11,.55) 70%,rgba(9,9,11,.3)),
+  linear-gradient(180deg,rgba(9,9,11,.4),rgba(9,9,11,.9))}
+header .in{position:relative;padding:88px 0 76px}
+.kicker{font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--red);font-weight:700;margin-bottom:16px}
+h1{font-size:clamp(38px,7vw,66px);font-weight:700;line-height:1.02;letter-spacing:-.025em;margin-bottom:20px;max-width:16ch}
+h1 em{font-style:normal;color:var(--red)}
+.lede{font-size:clamp(17px,2.2vw,20px);color:var(--ink2);max-width:46ch;margin-bottom:32px}
+.cta{display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:15px 24px;border-radius:var(--r2);
+     font-weight:700;font-size:16px;transition:filter .15s,background .15s;cursor:pointer;border:none;font-family:inherit}
+.btn.primary{background:var(--redfill);color:#fff;box-shadow:0 10px 30px -12px rgba(255,45,45,.9)}
+.btn.primary:hover{filter:brightness(1.1);text-decoration:none}
+.btn.ghost{border:1px solid var(--line2);color:var(--ink);background:rgba(255,255,255,.045)}
+.btn.ghost:hover{background:rgba(255,255,255,.09);text-decoration:none}
+
+/* sections */
+section{padding:72px 0;border-bottom:1px solid var(--line)}
+section:last-of-type{border-bottom:none}
+h2{font-size:clamp(26px,4vw,38px);font-weight:700;letter-spacing:-.02em;line-height:1.1;margin-bottom:14px}
+h3{font-size:19px;font-weight:700;margin-bottom:6px}
+.sub{color:var(--ink2);max-width:58ch;margin-bottom:34px;font-size:16.5px}
+.eyebrow{font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink3);font-weight:700;margin-bottom:12px}
+
+.grid{display:grid;gap:14px}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g2{grid-template-columns:repeat(2,1fr)}
+@media(max-width:800px){.g3,.g2{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:22px}
+.card p{color:var(--ink2);font-size:15.5px}
+.card .num{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:800;color:var(--red);
+           display:block;margin-bottom:10px;letter-spacing:.1em}
+
+table{width:100%;border-collapse:collapse;font-size:15.5px}
+th,td{text-align:start;padding:13px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);font-weight:700}
+td.r,th.r{text-align:end;white-space:nowrap}
+tbody tr:last-child td{border-bottom:none}
+.tbl{background:var(--card);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.xp{font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--red)}
+.good{color:var(--pb)}
+
+.badges{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+@media(max-width:800px){.badges{grid-template-columns:repeat(2,1fr)}}
+.badge{border:1px solid var(--line);border-radius:var(--r2);padding:18px 12px;text-align:center;background:var(--card)}
+.badge svg{width:26px;height:26px;margin-bottom:10px}
+.badge .nm{font-size:14px;font-weight:700;margin-bottom:2px}
+.badge .ds{font-size:12.5px;color:var(--ink3);line-height:1.4}
+
+.calc{background:var(--card);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;margin-top:18px}
+.calc .hd{padding:14px 18px;background:var(--card2);border-bottom:1px solid var(--line);
+          font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);font-weight:700}
+.calc .row{display:flex;align-items:center;gap:14px;padding:13px 18px;border-bottom:1px solid var(--line)}
+.calc .row:last-child{border-bottom:none}
+.calc .row .who{flex:1;font-weight:600}
+.calc .row .t{font-family:'JetBrains Mono',monospace;font-size:15px;color:var(--ink2)}
+.calc .row .ratio{font-family:'JetBrains Mono',monospace;font-weight:700;min-width:70px;text-align:end}
+.calc .foot{padding:14px 18px;background:rgba(255,45,45,.06);border-top:1px solid var(--line);font-size:15px}
+
+.price{background:linear-gradient(160deg,rgba(255,45,45,.1),transparent);
+       border:1px solid rgba(255,45,45,.35);border-radius:var(--r);padding:28px}
+.price .big{font-family:'JetBrains Mono',monospace;font-size:46px;font-weight:800;line-height:1;letter-spacing:-.03em}
+.price .per{color:var(--ink2);font-size:15.5px;margin-top:8px}
+.list{list-style:none;margin-top:18px}
+.list li{position:relative;padding-block:8px;padding-inline:28px 0;color:var(--ink2);font-size:15.5px;border-bottom:1px solid var(--line)}
+.list li:last-child{border:none}
+.list li:before{content:'';position:absolute;inset-inline-start:4px;top:17px;width:7px;height:7px;border-radius:50%;background:var(--red)}
+.list li b{color:var(--ink)}
+
+.steps{counter-reset:n;margin-top:4px}
+.steps > div{position:relative;padding-block:16px;padding-inline:50px 0;border-bottom:1px solid var(--line)}
+.steps > div:last-child{border:none}
+.steps > div:before{counter-increment:n;content:counter(n);position:absolute;inset-inline-start:0;top:16px;
+  width:32px;height:32px;background:var(--card2);border:1px solid var(--line2);border-radius:9px;display:grid;place-items:center;
+  font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:700;color:var(--red)}
+.steps p{color:var(--ink2);font-size:15.5px}
+
+.note{border-inline-start:2px solid var(--amber);padding-block:4px;padding-inline:18px 0;color:var(--ink2);font-size:15.5px;margin-top:20px}
+.note b{color:var(--amber)}
+
+footer{padding:56px 0 72px;color:var(--ink3);font-size:14.5px}
+footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center}
+.shot{border:1px solid var(--line2);border-radius:var(--r);overflow:hidden;background:var(--card)}
+.shot img{width:100%;display:block}
+
+[dir=rtl] header .shade{background:
+  linear-gradient(260deg,rgba(9,9,11,.96) 34%,rgba(9,9,11,.55) 70%,rgba(9,9,11,.3)),
+  linear-gradient(180deg,rgba(9,9,11,.4),rgba(9,9,11,.9))}
+[dir=rtl] .border-left-red{border-inline-start-color:var(--red)}
+footer .wrap a{color:var(--ink3)}
+footer .wrap a:hover{color:var(--ink2)}
+
+</style>
+<script>
+!function(t,e){var o,n,p,r;e.__SV||(window.posthog && window.posthog.__loaded)||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}p||((p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",p.onerror=function(){p=null},(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r));var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],Object.defineProperty(u,"toString",{configurable:!0,enumerable:!0,writable:!0,value:function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e}}),Object.defineProperty(u.people,"toString",{configurable:!0,enumerable:!0,writable:!0,value:function(){return u.toString(1)+".people (stub)"}}),o="init capture register register_once register_for_session unregister unregister_for_session getFeatureFlag getFeatureFlagResult isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey getNextSurveyStep identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty createPersonProfile opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing debug".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+posthog.init("phc_zbBFHQt5aVYH9HuviHUQuwfh6TPCVPyXSrMWWgJ9UfLP",{api_host:"https://eu.i.posthog.com",defaults:"2026-08-30",cookieless_mode:"always",person_profiles:"identified_only",disable_session_recording:true});
+</script>
+</head>
+<body>
+
+<nav><div class="wrap">
+  <a href="https://projektargo.com/hotlap/el/" class="logo"><span class="mark"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"><path d="M13 3 5 14h6l-2 7 9-12h-6l1-6Z"/></svg></span>HOTLAP</a>
+  <div class="links"><a href="#how">Πώς λειτουργεί</a><a href="#xp">XP και επίπεδα</a><a href="#teams">Ομάδες και μονομαχίες</a><a href="#tracks">Για πίστες</a></div>
+</div></nav>
+
+<header>
+  <div class="photo"></div><div class="shade"></div>
+  <div class="in"><div class="wrap">
+    <div class="kicker">Για οδηγούς και για πίστες</div>
+    <h1>Οι χρόνοι σου.<br>Κάθε πίστα.<br><em>Ένα προφίλ.</em></h1>
+    <p class="lede">Το Hotlap συγκεντρώνει τους χρόνους γύρου σου από πίστες καρτ σε ένα μέρος. Βλέπεις αν βελτιώνεσαι, πού κρατάς ρεκόρ και πώς τα πας απέναντι στους φίλους σου — ακόμη κι αν τρέχετε σε διαφορετικές πίστες.</p>
+    <div class="cta">
+      <a class="btn primary" href="#how">Είμαι οδηγός</a>
+      <a class="btn ghost" href="#tracks">Διαχειρίζομαι πίστα</a>
+    </div>
+  </div></div>
+</header>
+
+<section>
+  <div class="wrap">
+    <div class="eyebrow">Γιατί υπάρχει</div>
+    <h2>Ένας χρόνος γύρου ζει περίπου δέκα λεπτά</h2>
+    <p class="sub">Τρέχεις, παίρνεις μια εκτύπωση ή φωτογραφίζεις την οθόνη, και μια εβδομάδα μετά δεν ξέρεις αν ήσουν ταχύτερος από την προηγούμενη φορά. Κάθε πίστα έχει το δικό της σύστημα και κανένα δεν ξέρει για τα άλλα.</p>
+    <div class="grid g3">
+<div class="card"><h3>Το χαρτί χάνεται</h3><p>Η εκτύπωση καταλήγει στην τσέπη και μετά στο πλυντήριο.</p></div>
+<div class="card"><h3>Κάθε πίστα μόνη της</h3><p>Το Prešov δεν ξέρει τίποτα για την Μπρατισλάβα. Σε νέα πίστα ξεκινάς από το μηδέν.</p></div>
+<div class="card"><h3>Δεν ξέρεις αν προοδεύεις</h3><p>Χωρίς ιστορικό, τα 42,8 δευτερόλεπτα είναι απλώς ένας αριθμός. Δεν σου λέει αν είναι καλός.</p></div>
+    </div>
+    <div class="note" style="border-left-color:var(--red)"><b>Δεν υπάρχει η πίστα σου;</b> Την προσθέτεις μόνος σου — οπουδήποτε στον κόσμο. Μπορείς να καταγράφεις χρόνους αμέσως. Μένει σημειωμένη ως μη επαληθευμένη μέχρι να την επιβεβαιώσουμε ή να την αναλάβει ο ιδιοκτήτης. Έτσι μετράνε και οι διακοπές στην Κύπρο για το προφίλ σου.</div>
+  </div>
+</section>
+
+<section id="how">
+  <div class="wrap">
+    <div class="eyebrow">Πώς λειτουργεί</div>
+    <h2>Τρεις τρόποι να φτάσει ένας χρόνος στην εφαρμογή</h2>
+    <p class="sub">Χρησιμοποιείται ο καλύτερος που είναι εφικτός σε εκείνη την πίστα. Στόχος είναι στο τέλος να μην πληκτρολογείς τίποτα.</p>
+    <div class="steps">
+<div><h3>Η πίστα στέλνει μόνη της τους χρόνους <span class="good" style="font-size:13px">το καλύτερο</span></h3><p>Αν η πίστα είναι συνδεδεμένη, ο χρόνος φτάνει στο προφίλ σου δευτερόλεπτα μετά τη βόλτα. Δεν κάνεις τίποτα. Αυτό θέλουμε σε κάθε πίστα.</p></div>
+<div><h3>Φωτογραφίζεις το φύλλο αποτελεσμάτων</h3><p>Όταν η πίστα δεν είναι συνδεδεμένη, φωτογραφίζεις την εκτύπωση ή την οθόνη. Η εφαρμογή διαβάζει ονόματα και χρόνους από τη φωτογραφία και σου δείχνει τι αναγνώρισε, για να το διορθώσεις.</p></div>
+<div><h3>Το γράφεις με το χέρι</h3><p>Καλύτερος γύρος, ημερομηνία και αριθμός καρτ. Δέκα δευτερόλεπτα, και δουλεύει παντού.</p></div>
+    </div>
+    <div class="note"><b>Τι δεν κάνει το Hotlap:</b> δεν μετράει χρόνο. Αυτό το κάνει η χρονομέτρηση της πίστας. Το Hotlap παίρνει το αποτέλεσμα και του δίνει νόημα μέσα στον χρόνο.</div>
+  </div>
+</section>
+
+<section id="xp">
+  <div class="wrap">
+    <div class="eyebrow">XP και επίπεδα</div>
+    <h2>Για τι κερδίζεις πόντους</h2>
+    <p class="sub">Τα XP δεν είναι βαθμολογία ταχύτητας. Ανταμείβουν το ότι οδηγείς και δοκιμάζεις καινούργια πράγματα — ώστε μια βόλτα στην πίστα να αξίζει ακόμη κι όταν δεν είσαι ο ταχύτερος της πόλης.</p>
+    <div class="tbl">
+      <table>
+        <thead><tr><th>Για τι</th><th>Γιατί γι&#x27; αυτό</th><th class="r">XP</th></tr></thead>
+        <tbody>
+<tr><td><b>Καταγεγραμμένη βόλτα</b></td><td>Η βάση. Κάθε βόλτα μετράει, και η αργή.</td><td class="r"><span class="xp">+50</span></td></tr>
+<tr><td><b>Ατομικό ρεκόρ</b></td><td>Ξεπέρασες τον εαυτό σου, στην ίδια διαμόρφωση και κατηγορία καρτ.</td><td class="r"><span class="xp">+100</span></td></tr>
+<tr><td><b>Νέα πίστα</b></td><td>Οι περισσότεροι πόντοι, γιατί μια άγνωστη πίστα είναι πιο δύσκολη από τη βελτίωση στην έδρα σου.</td><td class="r"><span class="xp">+150</span></td></tr>
+<tr><td><b>10 γύροι ή περισσότεροι</b></td><td>Μεγαλύτερη βόλτα, περισσότερες ευκαιρίες βελτίωσης.</td><td class="r"><span class="xp">+25</span></td></tr>
+<tr><td><b>Σερί εβδομάδων</b></td><td>Οδήγησες και την περασμένη εβδομάδα. Ανταμείβεται η συνέπεια, όχι μία επίδοση.</td><td class="r"><span class="xp">+40</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 style="margin-top:36px">Επίπεδα</h3>
+    <p class="sub" style="margin-bottom:16px">Κάθε 500 XP ένα επίπεδο. Επτά βαθμίδες, από Αρχάριος έως Θρύλος.</p>
+
+    <h3 style="margin-top:36px">Η βαθμολογία δεν είναι τα XP</h3>
+    <p class="sub" style="margin-bottom:16px">Η βαθμολογία ξεκινά στο 1200 και αλλάζει ανάλογα με το πώς οδήγησες απέναντι στους άλλους στην ίδια διαμόρφωση. Είναι ο μόνος αριθμός που συγκρίνεται ανάμεσα σε πίστες — οι χρόνοι γύρου δεν είναι, γιατί 40 δευτερόλεπτα σε μια μικρή κλειστή πίστα δεν είναι 40 δευτερόλεπτα σε μια μεγάλη υπαίθρια.</p>
+
+    <h3 style="margin-top:36px">Διακριτικά</h3>
+    <p class="sub" style="margin-bottom:18px">Οκτώ πράγματα για ξεκλείδωμα. Κερδίζονται μία φορά και μένουν στο προφίλ.</p>
+    <div class="badges">
+<div class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.7"><circle cx="12" cy="12" r="8"/><path d="M12 8v8M8 12h8"/></svg><div class="nm">Πρώτη βόλτα</div><div class="ds">Κατέγραψε την πρώτη σου βόλτα</div></div>
+<div class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.7" stroke-linejoin="round"><path d="M12 3l2.6 5.6 6 .8-4.4 4.2 1.1 6-5.3-2.9L6.7 19.6l1.1-6L3.4 9.4l6-.8L12 3Z"/></svg><div class="nm">Ατομικό ρεκόρ</div><div class="ds">Ξεπέρασε το δικό σου ρεκόρ</div></div>
+<div class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.7"><circle cx="6" cy="12" r="2.5"/><circle cx="12" cy="7" r="2.5"/><circle cx="18" cy="14" r="2.5"/></svg><div class="nm">Τρεις πίστες</div><div class="ds">Οδήγησε σε τρεις πίστες</div></div>
+<div class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.7"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8 12h8M12 8v8"/></svg><div class="nm">Δέκα βόλτες</div><div class="ds">Κατέγραψε 10 βόλτες</div></div>
+<div class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.7" stroke-linejoin="round"><path d="M12 3c3 4 5 6 5 9a5 5 0 0 1-10 0c0-3 2-5 5-9Z"/></svg><div class="nm">Σερί 3</div><div class="ds">Οδήγησε τρεις συνεχόμενες εβδομάδες</div></div>
+<div class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.7"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.5 2.6 2.5 14.4 0 17M12 3.5c-2.5 2.6-2.5 14.4 0 17"/></svg><div class="nm">Στο εξωτερικό</div><div class="ds">Οδήγησε σε άλλη χώρα</div></div>
+<div class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.7" stroke-linejoin="round"><path d="M4 18l4-9 4 5 3-7 5 11"/></svg><div class="nm">Hotlap</div><div class="ds">Ταχύτερος χρόνος σε πίστα</div></div>
+<div class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.7"><path d="M4 20V9m5 11V4m5 16v-8m5 8V7"/></svg><div class="nm">Επίπεδο 5</div><div class="ds">Έφτασε στο επίπεδο 5</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="teams">
+  <div class="wrap">
+    <div class="eyebrow">Ομάδες και μονομαχίες</div>
+    <h2>Τρεις φίλοι απέναντι σε τρεις άλλους</h2>
+    <p class="sub">Μια ομάδα είναι 2 έως 8 οδηγοί. Τη φτιάχνεις, στέλνεις στους φίλους σου έναν κωδικό πέντε χαρακτήρων και βλέπετε ο ένας τους χρόνους του άλλου. Μετά μπορείτε να προκαλέσετε άλλη ομάδα.</p>
+
+    <div class="grid g2" style="margin-bottom:34px">
+<div class="card"><span class="num">ΣΤΗΝ ΟΜΑΔΑ ΒΛΕΠΕΤΕ</span><h3>Ποιος είναι ο ταχύτερος</h3><p>Τα μέλη ταξινομημένα κατά καλύτερο γύρο, όχι κατά το ποιος το λέει πιο δυνατά.</p></div>
+<div class="card"><span class="num">ΣΤΗΝ ΟΜΑΔΑ ΒΛΕΠΕΤΕ</span><h3>Ποιο καρτ τραβάει</h3><p>Αν σημειώνετε τον αριθμό του καρτ με τη βόλτα, το Hotlap δείχνει ποια καρτ εκείνης της πίστας πράγματι τραβάνε και ποια όχι.</p></div>
+    </div>
+
+    <h3>Ομάδα εναντίον ομάδας</h3>
+    <p class="sub" style="margin-bottom:10px">Διαλέγετε αντίπαλο, περίοδο και αν τρέχετε σε μία συγκεκριμένη πίστα ή σε όλες μαζί. Η δεύτερη επιλογή είναι η ενδιαφέρουσα — και αυτή που χρειάζεται εξήγηση.</p>
+
+    <h3 style="margin-top:30px">Πώς γίνεται μονομαχία ανάμεσα σε διαφορετικές πίστες</h3>
+    <p class="sub" style="margin-bottom:6px">Τα δευτερόλεπτα από διαφορετικές πίστες δεν συγκρίνονται. Γι&#x27; αυτό δεν συγκρίνονται δευτερόλεπτα, αλλά η <b style="color:var(--ink)">απόσταση από τον ταχύτερο</b> . Σε κάθε διαμόρφωση και κατηγορία, ο ταχύτερος χρόνος της μονομαχίας παίρνει 1,000 και όλοι οι άλλοι μετριούνται ως προς αυτόν.</p>
+
+    <div class="calc">
+      <div class="hd">Παράδειγμα · μονομαχία σε δύο πίστες</div>
+<div class="row"><span class="who">Marek — Prešov</span><span class="t">41,650</span><span class="ratio good">1,000</span></div>
+<div class="row"><span class="who">Jana — Prešov</span><span class="t">43,730</span><span class="ratio">1,050</span></div>
+<div class="row"><span class="who">Peter — Μπρατισλάβα</span><span class="t">38,200</span><span class="ratio good">1,000</span></div>
+<div class="row"><span class="who">Tomáš — Μπρατισλάβα</span><span class="t">40,110</span><span class="ratio">1,050</span></div>
+      <div class="foot">Ο Marek και ο Peter έτρεξαν σε εντελώς διαφορετικές πίστες και έχουν και οι δύο 1,000 — ο καθένας ήταν ο ταχύτερος της μονομαχίας στη δική του πίστα. Η Jana και ο Tomáš έχασαν 5 % και έχουν 1,050. <b>Κερδίζει ο μικρότερος αριθμός.</b></div>
+    </div>
+
+    <h3 style="margin-top:34px">Τέσσερις κανόνες που το κρατούν δίκαιο</h3>
+    <ul class="list">
+<li><b>Μετράνε τόσοι οδηγοί όσους παρέταξε η μικρότερη ομάδα.</b> Αν έτρεξαν τρεις δικοί σας και δύο δικοί τους, μετράνε οι δύο καλύτεροι από κάθε πλευρά. Η μεγαλύτερη ομάδα δεν κερδίζει με τον αριθμό.</li>
+<li><b>Από κάθε οδηγό μετράει η καλύτερη αναλογία του, όχι όλες οι βόλτες.</b> Δέκα αργές βόλτες ούτε χειροτερεύουν ούτε βελτιώνουν το αποτέλεσμά σας.</li>
+<li><b>Οι χρόνοι από αλλαγμένη διαμόρφωση δεν μετράνε.</b> Όταν μια πίστα αλλάξει τη διαδρομή, οι παλιοί χρόνοι πάνε στο ιστορικό και η μονομαχία τρέχει μόνο στην τρέχουσα διαμόρφωση.</li>
+<li><b>Συγκρίνονται μόνο ίδια διαμόρφωση, κατηγορία καρτ και έκδοση.</b> Τα παιδικά και τα ενήλικα καρτ δεν είναι η ίδια κατάταξη.</li>
+    </ul>
+  </div>
+</section>
+
+<section id="tracks">
+  <div class="wrap">
+    <div class="eyebrow">Για ιδιοκτήτες πιστών</div>
+    <h2>Οδηγοί που επιστρέφουν, γιατί έχουν κάτι να ξεπεράσουν</h2>
+    <p class="sub">Το Hotlap δεν αντικαθιστά ούτε τη χρονομέτρηση ούτε το ταμείο σας. Παίρνει το αποτέλεσμα και το κάνει λόγο για να ξανάρθουν.</p>
+
+    <div class="grid g2" style="margin-bottom:30px">
+<div class="card"><span class="num">ΤΙ ΠΑΙΡΝΕΤΕ</span><h3>Δική σας σελίδα πίστας</h3><p>Ρεκόρ ημέρας, εβδομάδας και μήνα, κατατάξεις ανά διαμόρφωση και κατηγορία καρτ. Ενημερώνεται μόνη της.</p></div>
+<div class="card"><span class="num">ΤΙ ΠΑΙΡΝΕΤΕ</span><h3>Λόγο να ξανάρθουν</h3><p>Ένας οδηγός με αποθηκευμένο ατομικό ρεκόρ έχει κάτι να ξεπεράσει. Ένας με ένα χαρτάκι όχι.</p></div>
+<div class="card"><span class="num">ΤΙ ΠΑΙΡΝΕΤΕ</span><h3>Έλεγχο στα δεδομένα σας</h3><p>Τη φορά οδήγησης, το μήκος, τις διαμορφώσεις και τις κατηγορίες τις ορίζετε εσείς. Επιβεβαιώνετε μια αλλαγή με ένα κλικ και η κατάταξη ξεκινά από την αρχή.</p></div>
+<div class="card"><span class="num">ΤΙ ΠΑΙΡΝΕΤΕ</span><h3>Ομάδες που έρχονται μαζί</h3><p>Μια μονομαχία ομάδων είναι λόγος να έρθουν πέντε αντί για έναν.</p></div>
+    </div>
+
+    <div class="grid g2">
+      <div class="price">
+        <div class="eyebrow" style="color:var(--red)">Τιμή</div>
+        <div class="big">3 €</div>
+        <div class="per">τον μήνα ανά πίστα, με χρέωση μία φορά τον χρόνο — <b style="color:var(--ink)">36 € τον χρόνο</b></div>
+        <ul class="list" style="margin-top:20px">
+<li>Οι πρώτες 30 ημέρες δωρεάν</li>
+<li>Χωρίς συμβόλαιο και χωρίς δέσμευση</li>
+<li>Για τους οδηγούς πάντα δωρεάν</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="eyebrow">Πώς συνδέεται μια πίστα</div>
+        <div class="steps" style="margin-top:-4px">
+<div><h3 style="font-size:16px">Μας γράφετε</h3><p>Αρκεί μία πληροφορία: ποια χρονομέτρηση έχετε.</p></div>
+<div><h3 style="font-size:16px">Τη συνδέουμε</h3><p>Ένα webhook, ένα API, ή ένα μικρό πρόγραμμα που παρακολουθεί τον φάκελο εξαγωγής σας. Η τελευταία επιλογή δουλεύει σε κάθε σύστημα που μπορεί να αποθηκεύσει αρχείο.</p></div>
+<div><h3 style="font-size:16px">Αναλαμβάνετε τη σελίδα</h3><p>Ένας σύνδεσμος επαλήθευσης πάει σε διεύθυνση στο δικό σας domain. Όποιος τον ανοίξει γίνεται διαχειριστής.</p></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="note"><b>Τι παίρνουμε από το σύστημά σας:</b> το όνομα από το φύλλο αποτελεσμάτων, τον αριθμό του καρτ και τους χρόνους. Τίποτε άλλο. Ούτε τηλέφωνα, ούτε e-mail, ούτε στοιχεία πληρωμών — ακόμη κι αν τα στέλνει το σύστημα, το API τα απορρίπτει.</div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap narrow">
+    <div class="eyebrow">Ανοιχτά</div>
+    <h2>Τι δεν μπορεί ακόμη το Hotlap</h2>
+    <p class="sub">Είναι έργο σε εξέλιξη και δεν έχει νόημα να προσποιούμαστε το αντίθετο.</p>
+    <ul class="list">
+<li><b>Καμία πίστα δεν είναι ακόμη συνδεδεμένη.</b> Η αυτόματη αποστολή χρόνων είναι σχεδιασμένη και έτοιμη, αλλά την πρώτη πίστα την ψάχνουμε ακόμη.</li>
+<li><b>Η ανάγνωση από φωτογραφίες δεν λειτουργεί ακόμη.</b> Θα ενεργοποιηθεί όταν η εφαρμογή συνδεθεί σε βάση δεδομένων.</li>
+<li><b>Η εφαρμογή δεν ξέρει τον μέσο γύρο σου.</b> Αποθηκεύει τον καλύτερο γύρο και τον αριθμό γύρων, όχι τον συνολικό χρόνο. Ένας μέσος όρος θα ήταν επινοημένος.</li>
+<li><b>Τα σχήματα των πιστών δεν σχεδιάζονται αυτόματα.</b> Το GPS δεν δουλεύει σε κλειστό χώρο. Σχεδιάζουμε τη διαδρομή στο χέρι από το σχέδιο της πίστας.</li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <div class="logo" style="margin-bottom:8px"><span class="mark"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"><path d="M13 3 5 14h6l-2 7 9-12h-6l1-6Z"/></svg></span>HOTLAP</div>
+      <div>Projekt Argo · Σλοβακία</div>
+    </div>
+    <div style="text-align:right">
+      <div>Πίστες: πείτε μας ποια χρονομέτρηση έχετε.</div>
+      <div style="margin-top:4px"><a href="https://projektargo.com">projektargo.com</a></div>
+    </div>
+  </div>
+  <div class="wrap" style="margin-top:22px;font-size:13.5px"><a href="https://projektargo.com/hotlap/" hreflang="en" lang="en">English</a> · <a href="https://projektargo.com/hotlap/sk/" hreflang="sk" lang="sk">Slovensky</a> · <a href="https://projektargo.com/hotlap/de/" hreflang="de" lang="de">Deutsch</a> · <a href="https://projektargo.com/hotlap/fr/" hreflang="fr" lang="fr">Français</a> · <a href="https://projektargo.com/hotlap/es/" hreflang="es" lang="es">Español</a> · <a href="https://projektargo.com/hotlap/it/" hreflang="it" lang="it">Italiano</a> · <a href="https://projektargo.com/hotlap/pl/" hreflang="pl" lang="pl">Polski</a> · <a href="https://projektargo.com/hotlap/ru/" hreflang="ru" lang="ru">Русский</a> · <a href="https://projektargo.com/hotlap/ar/" hreflang="ar" lang="ar">العربية</a> · <a href="https://projektargo.com/hotlap/zh/" hreflang="zh-Hans" lang="zh-Hans">中文</a> · <a href="https://projektargo.com/hotlap/hi/" hreflang="hi" lang="hi">हिन्दी</a></div>
+</footer>
+
+</body>
+</html>

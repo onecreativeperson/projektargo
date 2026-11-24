@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="zh-Hans" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-src 'none'; form-action 'none'; script-src 'self' https://*.posthog.com 'sha256-WYXv4T0Sp4nsWGqxcZTrCFqOWXC4JrvQ7XW5xjyqzek='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: https://*.posthog.com; connect-src 'self' https://*.posthog.com https://asnpyrrdeauhkskkkmuc.supabase.co; worker-src 'self' blob: data:">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Hotlap · 把每条赛道的圈速收进一个地方</title>
+<meta name="description" content="Hotlap 把你在各家卡丁车场的圈速汇总到一个档案里。个人纪录、排行榜、车队对决。赛道每月 3 欧元，一年一次结算。">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://projektargo.com/hotlap/zh/">
+<link rel="alternate" hreflang="en" href="https://projektargo.com/hotlap/">
+<link rel="alternate" hreflang="sk" href="https://projektargo.com/hotlap/sk/">
+<link rel="alternate" hreflang="de" href="https://projektargo.com/hotlap/de/">
+<link rel="alternate" hreflang="fr" href="https://projektargo.com/hotlap/fr/">
+<link rel="alternate" hreflang="es" href="https://projektargo.com/hotlap/es/">
+<link rel="alternate" hreflang="it" href="https://projektargo.com/hotlap/it/">
+<link rel="alternate" hreflang="pl" href="https://projektargo.com/hotlap/pl/">
+<link rel="alternate" hreflang="el" href="https://projektargo.com/hotlap/el/">
+<link rel="alternate" hreflang="ru" href="https://projektargo.com/hotlap/ru/">
+<link rel="alternate" hreflang="ar" href="https://projektargo.com/hotlap/ar/">
+<link rel="alternate" hreflang="zh-Hans" href="https://projektargo.com/hotlap/zh/">
+<link rel="alternate" hreflang="hi" href="https://projektargo.com/hotlap/hi/">
+<link rel="alternate" hreflang="x-default" href="https://projektargo.com/hotlap/">
+<link rel="icon" href="/hotlap/favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#09090B">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Hotlap">
+<meta property="og:title" content="Hotlap · 把每条赛道的圈速收进一个地方">
+<meta property="og:description" content="Hotlap 把你在各家卡丁车场的圈速汇总到一个档案里。个人纪录、排行榜、车队对决。赛道每月 3 欧元，一年一次结算。">
+<meta property="og:url" content="https://projektargo.com/hotlap/zh/">
+<meta property="og:image" content="https://projektargo.com/hotlap/og.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600;700&family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+
+:root{
+  --bg:#09090B; --card:#141419; --card2:#1B1B22;
+  --line:rgba(255,255,255,.08); --line2:rgba(255,255,255,.14);
+  --ink:#F5F6F7; --ink2:#A2A8B0; --ink3:#868D96;
+  --red:#FF2D2D; --redfill:#E51A1A; --red2:#C71212;
+  --pb:#13E27B; --amber:#FFC247;
+  --r:16px; --r2:12px;
+  --ease:cubic-bezier(.2,.8,.2,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:'Chakra Petch',system-ui,sans-serif;
+     font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+.mono{font-family:'JetBrains Mono',ui-monospace,monospace;font-variant-numeric:tabular-nums}
+a{color:var(--red);text-decoration:none}
+a:hover{text-decoration:underline;text-underline-offset:3px}
+::selection{background:var(--red);color:#fff}
+.wrap{max-width:980px;margin:0 auto;padding:0 20px}
+.narrow{max-width:720px}
+
+/* nav */
+nav{position:sticky;top:0;z-index:50;background:rgba(9,9,11,.82);backdrop-filter:blur(16px);
+    border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;gap:20px;min-height:62px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:18px;letter-spacing:.04em;color:var(--ink)}
+.logo .mark{width:28px;height:28px;border-radius:8px;background:var(--redfill);display:grid;place-items:center;flex:none}
+.logo .mark svg{width:16px;height:16px}
+nav .links{margin-inline-start:auto;display:flex;gap:22px;font-size:14.5px}
+nav .links a{color:var(--ink2)}
+nav .links a:hover{color:var(--ink);text-decoration:none}
+@media(max-width:720px){nav .links{display:none}}
+
+/* hero */
+header{position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
+header .photo{position:absolute;inset:0;background:url('/hotlap/img/bg1.webp') center/cover}
+header .shade{position:absolute;inset:0;background:
+  linear-gradient(100deg,rgba(9,9,11,.96) 34%,rgba(9,9,11,.55) 70%,rgba(9,9,11,.3)),
+  linear-gradient(180deg,rgba(9,9,11,.4),rgba(9,9,11,.9))}
+header .in{position:relative;padding:88px 0 76px}
+.kicker{font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--red);font-weight:700;margin-bottom:16px}
+h1{font-size:clamp(38px,7vw,66px);font-weight:700;line-height:1.02;letter-spacing:-.025em;margin-bottom:20px;max-width:16ch}
+h1 em{font-style:normal;color:var(--red)}
+.lede{font-size:clamp(17px,2.2vw,20px);color:var(--ink2);max-width:46ch;margin-bottom:32px}
+.cta{display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:15px 24px;border-radius:var(--r2);
+     font-weight:700;font-size:16px;transition:filter .15s,background .15s;cursor:pointer;border:none;font-family:inherit}
+.btn.primary{background:var(--redfill);color:#fff;box-shadow:0 10px 30px -12px rgba(255,45,45,.9)}
+.btn.primary:hover{filter:brightness(1.1);text-decoration:none}
+.btn.ghost{border:1px solid var(--line2);color:var(--ink);background:rgba(255,255,255,.045)}
+.btn.ghost:hover{background:rgba(255,255,255,.09);text-decoration:none}
+
+/* sections */
+section{padding:72px 0;border-bottom:1px solid var(--line)}
+section:last-of-type{border-bottom:none}
+h2{font-size:clamp(26px,4vw,38px);font-weight:700;letter-spacing:-.02em;line-height:1.1;margin-bottom:14px}
+h3{font-size:19px;font-weight:700;margin-bottom:6px}
+.sub{color:var(--ink2);max-width:58ch;margin-bottom:34px;font-size:16.5px}
+.eyebrow{font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink3);font-weight:700;margin-bottom:12px}
+
+.grid{display:grid;gap:14px}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g2{grid-template-columns:repeat(2,1fr)}
+@media(max-width:800px){.g3,.g2{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:22px}
+.card p{color:var(--ink2);font-size:15.5px}
+.card .num{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:800;color:var(--red);
+           display:block;margin-bottom:10px;letter-spacing:.1em}
+
+table{width:100%;border-collapse:collapse;font-size:15.5px}
+th,td{text-align:start;padding:13px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);font-weight:700}
+td.r,th.r{text-align:end;white-space:nowrap}
+tbody tr:last-child td{border-bottom:none}
+.tbl{background:var(--card);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.xp{font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--red)}
+.good{color:var(--pb)}
+
+.badges{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+@media(max-width:800px){.badges{grid-template-columns:repeat(2,1fr)}}
+.badge{border:1px solid var(--line);border-radius:var(--r2);padding:18px 12px;text-align:center;background:var(--card)}
+.badge svg{width:26px;height:26px;margin-bottom:10px}
+.badge .nm{font-size:14px;font-weight:700;margin-bottom:2px}
+.badge .ds{font-size:12.5px;color:var(--ink3);line-height:1.4}
+
+.calc{background:var(--card);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;margin-top:18px}
+.calc .hd{padding:14px 18px;background:var(--card2);border-bottom:1px solid var(--line);
+          font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);font-weight:700}
+.calc .row{display:flex;align-items:center;gap:14px;padding:13px 18px;border-bottom:1px solid var(--line)}
+.calc .row:last-child{border-bottom:none}
+.calc .row .who{flex:1;font-weight:600}
+.calc .row .t{font-family:'JetBrains Mono',monospace;font-size:15px;color:var(--ink2)}
+.calc .row .ratio{font-family:'JetBrains Mono',monospace;font-weight:700;min-width:70px;text-align:end}
+.calc .foot{padding:14px 18px;background:rgba(255,45,45,.06);border-top:1px solid var(--line);font-size:15px}
+
+.price{background:linear-gradient(160deg,rgba(255,45,45,.1),transparent);
+       border:1px solid rgba(255,45,45,.35);border-radius:var(--r);padding:28px}
+.price .big{font-family:'JetBrains Mono',monospace;font-size:46px;font-weight:800;line-height:1;letter-spacing:-.03em}
+.price .per{color:var(--ink2);font-size:15.5px;margin-top:8px}
+.list{list-style:none;margin-top:18px}
+.list li{position:relative;padding-block:8px;padding-inline:28px 0;color:var(--ink2);font-size:15.5px;border-bottom:1px solid var(--line)}
+.list li:last-child{border:none}
+.list li:before{content:'';position:absolute;inset-inline-start:4px;top:17px;width:7px;height:7px;border-radius:50%;background:var(--red)}
+.list li b{color:var(--ink)}
+
+.steps{counter-reset:n;margin-top:4px}
+.steps > div{position:relative;padding-block:16px;padding-inline:50px 0;border-bottom:1px solid var(--line)}
+.steps > div:last-child{border:none}
+.steps > div:before{counter-increment:n;content:counter(n);position:absolute;inset-inline-start:0;top:16px;
+  width:32px;height:32px;background:var(--card2);border:1px solid var(--line2);border-radius:9px;display:grid;place-items:center;
+  font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:700;color:var(--red)}
+.steps p{color:var(--ink2);font-size:15.5px}
+
+.note{border-inline-start:2px solid var(--amber);padding-block:4px;padding-inline:18px 0;color:var(--ink2);font-size:15.5px;margin-top:20px}
+.note b{color:var(--amber)}
+
+footer{padding:56px 0 72px;color:var(--ink3);font-size:14.5px}
+footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center}
+.shot{border:1px solid var(--line2);border-radius:var(--r);overflow:hidden;background:var(--card)}
+.shot img{width:100%;display:block}
+
+[dir=rtl] header .shade{background:
+  linear-gradient(260deg,rgba(9,9,11,.96) 34%,rgba(9,9,11,.55) 70%,rgba(9,9,11,.3)),
+  linear-gradient(180deg,rgba(9,9,11,.4),rgba(9,9,11,.9))}
+[dir=rtl] .border-left-red{border-inline-start-color:var(--red)}
+footer .wrap a{color:var(--ink3)}
+footer .wrap a:hover{color:var(--ink2)}
+
+</style>
+<script>
+!function(t,e){var o,n,p,r;e.__SV||(window.posthog && window.posthog.__loaded)||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}p||((p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",p.onerror=function(){p=null},(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r));var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],Object.defineProperty(u,"toString",{configurable:!0,enumerable:!0,writable:!0,value:function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e}}),Object.defineProperty(u.people,"toString",{configurable:!0,enumerable:!0,writable:!0,value:function(){return u.toString(1)+".people (stub)"}}),o="init capture register register_once register_for_session unregister unregister_for_session getFeatureFlag getFeatureFlagResult isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey getNextSurveyStep identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty createPersonProfile opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing debug".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+posthog.init("phc_zbBFHQt5aVYH9HuviHUQuwfh6TPCVPyXSrMWWgJ9UfLP",{api_host:"https://eu.i.posthog.com",defaults:"2026-08-30",cookieless_mode:"always",person_profiles:"identified_only",disable_session_recording:true});
+</script>
+</head>
+<body>
+
+<nav><div class="wrap">
+  <a href="https://projektargo.com/hotlap/zh/" class="logo"><span class="mark"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"><path d="M13 3 5 14h6l-2 7 9-12h-6l1-6Z"/></svg></span>HOTLAP</a>
+  <div class="links"><a href="#how">怎么用</a><a href="#xp">经验与等级</a><a href="#teams">车队与对决</a><a href="#tracks">给赛道方</a></div>
+</div></nav>
+
+<header>
+  <div class="photo"></div><div class="shade"></div>
+  <div class="in"><div class="wrap">
+    <div class="kicker">给车手，也给赛道</div>
+    <h1>你的圈速。<br>每条赛道。<br><em>一个档案。</em></h1>
+    <p class="lede">Hotlap 把你在各家卡丁车场的圈速汇总到一个地方。你能看出自己有没有进步、在哪里保持着纪录、和朋友相比处在什么位置——哪怕你们跑的是不同的赛道。</p>
+    <div class="cta">
+      <a class="btn primary" href="#how">我是车手</a>
+      <a class="btn ghost" href="#tracks">我经营一家赛道</a>
+    </div>
+  </div></div>
+</header>
+
+<section>
+  <div class="wrap">
+    <div class="eyebrow">为什么做这个</div>
+    <h2>一个圈速大概只活十分钟</h2>
+    <p class="sub">跑完一轮，拿到一张打印单或者拍下屏幕，一周之后你已经想不起来自己有没有比上次快。每家赛道各有一套系统，彼此之间互不相通。</p>
+    <div class="grid g3">
+<div class="card"><h3>纸会弄丢</h3><p>打印单塞进口袋，最后进了洗衣机。</p></div>
+<div class="card"><h3>每家赛道各管各的</h3><p>普雷绍夫不知道布拉迪斯拉发的事。换一条赛道，你又从零开始。</p></div>
+<div class="card"><h3>不知道自己有没有长进</h3><p>没有历史记录，42.8 秒只是一个数字，它不会告诉你这算不算好。</p></div>
+    </div>
+    <div class="note" style="border-left-color:var(--red)"><b>没有你那条赛道？</b> 你可以自己添加——世界上任何地方都行，马上就能在上面记圈速。在我们确认或者场地方接手之前，它会一直标为未核实。这样连在塞浦路斯度假跑的那几圈也算进你的档案。</div>
+  </div>
+</section>
+
+<section id="how">
+  <div class="wrap">
+    <div class="eyebrow">怎么用</div>
+    <h2>圈速进入应用的三条路</h2>
+    <p class="sub">用那条赛道上可行的最好一条。目标是让你最后什么都不用输入。</p>
+    <div class="steps">
+<div><h3>赛道自己把成绩发过来 <span class="good" style="font-size:13px">最好</span></h3><p>赛道一旦接入，跑完几秒钟后成绩就出现在你的档案里。你什么都不用做。我们希望每条赛道都是这样。</p></div>
+<div><h3>你拍一张成绩单</h3><p>赛道没有接入时，你拍下打印单或者屏幕。应用会从照片里读出姓名和成绩，并把识别结果给你确认和更正。</p></div>
+<div><h3>你自己填</h3><p>最快圈、日期和卡丁车编号。十秒钟，而且到哪儿都能用。</p></div>
+    </div>
+    <div class="note"><b>Hotlap 不做的事：</b> 它不计时。计时是赛道计时系统的事。Hotlap 拿走结果，让它在时间维度上有意义。</div>
+  </div>
+</section>
+
+<section id="xp">
+  <div class="wrap">
+    <div class="eyebrow">经验与等级</div>
+    <h2>什么能拿到经验</h2>
+    <p class="sub">经验不是速度评分。它奖励你去跑、去试新东西——这样哪怕你不是城里最快的那个，去一趟赛道也值得。</p>
+    <div class="tbl">
+      <table>
+        <thead><tr><th>做了什么</th><th>为什么是这一项</th><th class="r">XP</th></tr></thead>
+        <tbody>
+<tr><td><b>记录一次跑动</b></td><td>基础。每次都算，慢的也算。</td><td class="r"><span class="xp">+50</span></td></tr>
+<tr><td><b>个人最佳</b></td><td>在同一布局、同一卡丁车组别里跑赢了自己。</td><td class="r"><span class="xp">+100</span></td></tr>
+<tr><td><b>新赛道</b></td><td>分数最高，因为陌生赛道比在主场提升更难。</td><td class="r"><span class="xp">+150</span></td></tr>
+<tr><td><b>10 圈以上</b></td><td>跑得久，提升的机会就多。</td><td class="r"><span class="xp">+25</span></td></tr>
+<tr><td><b>连续周数</b></td><td>上周你也跑了。奖励的是坚持，不是某一次发挥。</td><td class="r"><span class="xp">+40</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 style="margin-top:36px">等级</h3>
+    <p class="sub" style="margin-bottom:16px">每 500 点经验升一级，共七级，从新手到传奇。</p>
+
+    <h3 style="margin-top:36px">积分和经验不是一回事</h3>
+    <p class="sub" style="margin-bottom:16px">积分从 1200 起算，根据你在同一布局上相对其他人的表现变化。它是唯一能跨赛道比较的数字——圈速不能，因为室内短场的 40 秒，和室外长圈的 40 秒不是一回事。</p>
+
+    <h3 style="margin-top:36px">徽章</h3>
+    <p class="sub" style="margin-bottom:18px">八个可以解锁的目标。拿到一次，就留在档案里。</p>
+    <div class="badges">
+<div class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.7"><circle cx="12" cy="12" r="8"/><path d="M12 8v8M8 12h8"/></svg><div class="nm">第一次跑动</div><div class="ds">记录你的第一次跑动</div></div>
+<div class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.7" stroke-linejoin="round"><path d="M12 3l2.6 5.6 6 .8-4.4 4.2 1.1 6-5.3-2.9L6.7 19.6l1.1-6L3.4 9.4l6-.8L12 3Z"/></svg><div class="nm">个人最佳</div><div class="ds">打破自己的纪录</div></div>
+<div class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.7"><circle cx="6" cy="12" r="2.5"/><circle cx="12" cy="7" r="2.5"/><circle cx="18" cy="14" r="2.5"/></svg><div class="nm">三条赛道</div><div class="ds">在三条赛道上跑过</div></div>
+<div class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.7"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8 12h8M12 8v8"/></svg><div class="nm">十次跑动</div><div class="ds">记录 10 次跑动</div></div>
+<div class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.7" stroke-linejoin="round"><path d="M12 3c3 4 5 6 5 9a5 5 0 0 1-10 0c0-3 2-5 5-9Z"/></svg><div class="nm">连续三周</div><div class="ds">连续三周都去跑</div></div>
+<div class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.7"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.5 2.6 2.5 14.4 0 17M12 3.5c-2.5 2.6-2.5 14.4 0 17"/></svg><div class="nm">出国跑</div><div class="ds">在另一个国家跑一次</div></div>
+<div class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.7" stroke-linejoin="round"><path d="M4 18l4-9 4 5 3-7 5 11"/></svg><div class="nm">Hotlap</div><div class="ds">某条赛道上的最快成绩</div></div>
+<div class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.7"><path d="M4 20V9m5 11V4m5 16v-8m5 8V7"/></svg><div class="nm">5 级</div><div class="ds">达到 5 级</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="teams">
+  <div class="wrap">
+    <div class="eyebrow">车队与对决</div>
+    <h2>三个朋友对三个朋友</h2>
+    <p class="sub">一支车队是 2 到 8 名车手。你建好队，把五位字符的队伍码发给朋友，你们就能互相看到成绩，然后可以去挑战别的车队。</p>
+
+    <div class="grid g2" style="margin-bottom:34px">
+<div class="card"><span class="num">在车队里你们能看到</span><h3>谁最快</h3><p>按最快圈排名，而不是按谁嗓门最大。</p></div>
+<div class="card"><span class="num">在车队里你们能看到</span><h3>哪辆车好开</h3><p>如果记录时填上卡丁车编号，Hotlap 会显示这条赛道上哪几辆车真的能跑，哪几辆不行。</p></div>
+    </div>
+
+    <h3>车队对车队</h3>
+    <p class="sub" style="margin-bottom:10px">你们挑好对手、时间段，以及是只比一条赛道还是所有赛道一起比。第二种更有意思——也正是需要解释的那种。</p>
+
+    <h3 style="margin-top:30px">不同赛道之间怎么比</h3>
+    <p class="sub" style="margin-bottom:6px">不同赛道的秒数没法直接比。所以比的不是秒数，而是 <b style="color:var(--ink)">与最快者的差距</b> 。在每个布局和组别里，本次对决最快的成绩记为 1.000，其他人都按比例与它衡量。</p>
+
+    <div class="calc">
+      <div class="hd">例子 · 跨两条赛道的对决</div>
+<div class="row"><span class="who">Marek — 普雷绍夫</span><span class="t">41.650</span><span class="ratio good">1.000</span></div>
+<div class="row"><span class="who">Jana — 普雷绍夫</span><span class="t">43.730</span><span class="ratio">1.050</span></div>
+<div class="row"><span class="who">Peter — 布拉迪斯拉发</span><span class="t">38.200</span><span class="ratio good">1.000</span></div>
+<div class="row"><span class="who">Tomáš — 布拉迪斯拉发</span><span class="t">40.110</span><span class="ratio">1.050</span></div>
+      <div class="foot">Marek 和 Peter 跑的是完全不同的赛道，两人都是 1.000——各自都是本场对决中自己赛道上最快的。Jana 和 Tomáš 各落后 5 %，都是 1.050。 <b>数字越小越好。</b></div>
+    </div>
+
+    <h3 style="margin-top:34px">四条规则保证公平</h3>
+    <ul class="list">
+<li><b>只按人数较少那队出场的人数来算。</b> 你们来了三个人，对方来了两个，那就各取两名最好的。人多的一队不会靠人数取胜。</li>
+<li><b>每位车手只取他最好的那个比值，不是每一次跑动。</b> 十次慢跑既不会拖累也不会改善你们的结果。</li>
+<li><b>赛道改建之前的成绩不算。</b> 赛道一改布局，旧成绩就进入历史，对决只在当前布局上进行。</li>
+<li><b>只比较相同布局、相同卡丁车组别和相同版本。</b> 儿童车和成人车不是同一个榜。</li>
+    </ul>
+  </div>
+</section>
+
+<section id="tracks">
+  <div class="wrap">
+    <div class="eyebrow">给赛道经营者</div>
+    <h2>让车手回头，因为他们有东西要超越</h2>
+    <p class="sub">Hotlap 不替代你们的计时系统，也不替代收银。它拿走结果，把它变成再来一次的理由。</p>
+
+    <div class="grid g2" style="margin-bottom:30px">
+<div class="card"><span class="num">你们得到什么</span><h3>属于你们的赛道页面</h3><p>当日、当周、当月纪录，按布局和卡丁车组别排的榜单，自动更新。</p></div>
+<div class="card"><span class="num">你们得到什么</span><h3>让人回头的理由</h3><p>存着个人最佳的车手有东西要超越，拿着一张纸条的没有。</p></div>
+<div class="card"><span class="num">你们得到什么</span><h3>对数据的掌控</h3><p>行车方向、赛道长度、布局和组别由你们设定。改建点一下确认，榜单就重新开始。</p></div>
+<div class="card"><span class="num">你们得到什么</span><h3>成群结队来的客人</h3><p>车队对决是五个人一起来、而不是一个人来的理由。</p></div>
+    </div>
+
+    <div class="grid g2">
+      <div class="price">
+        <div class="eyebrow" style="color:var(--red)">价格</div>
+        <div class="big">3 €</div>
+        <div class="per">每条赛道每月，一年结算一次—— <b style="color:var(--ink)">一年 36 欧元</b></div>
+        <ul class="list" style="margin-top:20px">
+<li>前 30 天免费</li>
+<li>无合同，无绑定</li>
+<li>对车手永远免费</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="eyebrow">赛道怎么接入</div>
+        <div class="steps" style="margin-top:-4px">
+<div><h3 style="font-size:16px">写信给我们</h3><p>一条信息就够了：你们用的是哪套计时系统。</p></div>
+<div><h3 style="font-size:16px">我们来接</h3><p>Webhook、API，或者一个盯着你们导出文件夹的小程序。最后这种在任何能保存文件的系统上都能用。</p></div>
+<div><h3 style="font-size:16px">你们接管页面</h3><p>验证链接会发到赛道自己域名下的邮箱。谁打开，谁就是管理员。</p></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="note"><b>我们从你们系统里取什么：</b> 成绩单上的名字、卡丁车编号和圈速。别的什么都不要。没有电话、没有邮箱、没有支付信息——即使系统发过来，接口也会丢掉。</div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap narrow">
+    <div class="eyebrow">实话实说</div>
+    <h2>Hotlap 目前还做不到的</h2>
+    <p class="sub">这是个还在做的项目，装作不是没有意义。</p>
+    <ul class="list">
+<li><b>还没有任何一条赛道接入。</b> 自动传成绩已经设计好并准备就绪，但第一条赛道还在找。</li>
+<li><b>从照片识别还没跑起来。</b> 等应用接上数据库之后才会开启。</li>
+<li><b>应用不知道你的平均圈速。</b> 它只存最快圈和圈数，不存整轮的总时间。平均值只能是编的。</li>
+<li><b>赛道形状不会自动画出来。</b> 室内没有 GPS 信号。我们按赛道自己的平面图手工描线。</li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <div class="logo" style="margin-bottom:8px"><span class="mark"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"><path d="M13 3 5 14h6l-2 7 9-12h-6l1-6Z"/></svg></span>HOTLAP</div>
+      <div>Projekt Argo · 斯洛伐克</div>
+    </div>
+    <div style="text-align:right">
+      <div>赛道方：告诉我们你们用的是哪套计时系统。</div>
+      <div style="margin-top:4px"><a href="https://projektargo.com">projektargo.com</a></div>
+    </div>
+  </div>
+  <div class="wrap" style="margin-top:22px;font-size:13.5px"><a href="https://projektargo.com/hotlap/" hreflang="en" lang="en">English</a> · <a href="https://projektargo.com/hotlap/sk/" hreflang="sk" lang="sk">Slovensky</a> · <a href="https://projektargo.com/hotlap/de/" hreflang="de" lang="de">Deutsch</a> · <a href="https://projektargo.com/hotlap/fr/" hreflang="fr" lang="fr">Français</a> · <a href="https://projektargo.com/hotlap/es/" hreflang="es" lang="es">Español</a> · <a href="https://projektargo.com/hotlap/it/" hreflang="it" lang="it">Italiano</a> · <a href="https://projektargo.com/hotlap/pl/" hreflang="pl" lang="pl">Polski</a> · <a href="https://projektargo.com/hotlap/el/" hreflang="el" lang="el">Ελληνικά</a> · <a href="https://projektargo.com/hotlap/ru/" hreflang="ru" lang="ru">Русский</a> · <a href="https://projektargo.com/hotlap/ar/" hreflang="ar" lang="ar">العربية</a> · <a href="https://projektargo.com/hotlap/hi/" hreflang="hi" lang="hi">हिन्दी</a></div>
+</footer>
+
+</body>
+</html>
