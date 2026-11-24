@@ -38,6 +38,7 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 input,select{font:inherit}
 /* placeholdery musia byt citatelne aj na tmavom podklade */
 input::placeholder,textarea::placeholder{color:var(--ink3);opacity:1}
+.opt{color:var(--ink3);font-weight:400;text-transform:none;letter-spacing:0}
 ::selection{background:var(--red);color:#fff}
 
 #app{max-width:520px;margin:0 auto;min-height:100%;position:relative;z-index:1;padding-bottom:104px}
@@ -280,13 +281,11 @@ label{display:block;font-size:10.5px;letter-spacing:.14em;text-transform:upperca
         Pokračovať cez Facebook</button>
     </div>
 
-    <div class="or">alebo e-mailom</div>
-    <label for="em">E-mail</label>
-    <input id="em" class="field" type="email" placeholder="tvoj@email.sk" autocomplete="email">
-    <label for="nk">Prezývka na dráhe</label>
+    <div class="or">alebo bez účtu</div>
+    <label for="nk">Prezývka na dráhe <span class="opt">nepovinné</span></label>
     <input id="nk" class="field" type="text" placeholder="Ako ťa píšu na výsledky" autocomplete="nickname" maxlength="20">
-    <button class="btn primary" data-act="login" data-a="email">Vytvoriť profil</button>
-    <p class="fine">Prezývka je dôležitá: podľa nej ťa Hotlap nájde na výsledkovej listine, keď odfotíš papier. Doplniť ďalšie sa dá kedykoľvek v profile.</p>
+    <button class="btn primary" data-act="login" data-a="none">Vytvoriť profil</button>
+    <p class="fine">Prezývka nie je povinná, doplniť alebo zmeniť si ju vieš kedykoľvek v profile. Keď ju zadáš, Hotlap ťa podľa nej nájde na výsledkovej listine, keď odfotíš papier.</p>
   </div>
 </div>
 
@@ -683,15 +682,11 @@ function dirIcon(dir){
 
 /* ================= auth ================= */
 function login(provider){
- let name='', mail='';
- if(provider==='email'){
-   mail=$('#em').value.trim(); name=$('#nk').value.trim();
-   if(!name){ $('#nk').style.borderColor='var(--red)'; $('#nk').focus(); return; }
- } else {
-   const typed=$('#nk').value.trim();
-   name = typed || 'Jazdec'; mail = provider+'@ukazka.sk';
- }
- S.user={name,mail,provider,xp:0,elo:1200,streak:0,aliases:[name],badges:[],lastWeek:null,photo:'',admin:false};
+ const typed=($('#nk').value||'').trim();
+ // prezyvka je nepovinna; bez nej dostane jazdec docasne meno a ziadnu prezyvku na dráhe
+ const name = typed || 'Jazdec';
+ const mail = (provider==='google'||provider==='facebook') ? provider+'@ukazka.sk' : '';
+ S.user={name,mail,provider,xp:0,elo:1200,streak:0,aliases:typed?[typed]:[],badges:[],lastWeek:null,photo:'',admin:false};
  save(); startLights();
 }
 function startLights(){
@@ -709,7 +704,7 @@ function wipe(){
  S={user:null,tracks:JSON.parse(JSON.stringify(SEED_TRACKS)),sessions:[],requests:[],rivals:seedRivals()};
  $('#auth').classList.add('on');
  document.querySelectorAll('#lights i').forEach(x=>x.className='');
- $('#em').value='';$('#nk').value='';
+ $('#nk').value='';
 }
 
 /* ---- vlastna fotka jazdca (len v tomto zariadeni) ---- */
@@ -1700,9 +1695,9 @@ function render(){
 
  $('#hName').textContent=u.name;
  $('#pName').textContent=u.name;
- $('#pMail').textContent=u.mail||'—';
- $('#pProv').textContent={google:'Google',facebook:'Facebook',email:'E-mail'}[u.provider]||'—';
- $('#pAliases').textContent=u.aliases.join(', ');
+ const pm=$('#pMail'); pm.textContent=u.mail||''; pm.style.display=u.mail?'':'none';
+ $('#pProv').textContent={google:'Google',facebook:'Facebook',email:'E-mail',none:'Bez účtu'}[u.provider]||'—';
+ $('#pAliases').textContent=u.aliases.length?u.aliases.join(', '):'—';
  $('#hLevel').textContent='Level '+lvl+' · '+LEVELS[lvl-1];
  $('#hElo').textContent=u.elo;
  $('#hGhost').textContent=lvl;
