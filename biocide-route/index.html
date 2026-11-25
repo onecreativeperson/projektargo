@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-src 'none'; form-action 'none'; script-src 'self' https://*.posthog.com 'sha256-0VJ73xyJmfpFpw2euBnJG69iEaRzbvGkRCvZ9jNuDSU=' 'sha256-WYXv4T0Sp4nsWGqxcZTrCFqOWXC4JrvQ7XW5xjyqzek=' 'sha256-XRY3p9rLJMtydf3TvoHwVzyNXsM3UHNo3JsqHMdxVp0='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://*.posthog.com; connect-src 'self' https://*.posthog.com https://asnpyrrdeauhkskkkmuc.supabase.co; worker-src 'self' blob: data:">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="generator" content="projektargo-motor">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Biocide Route Desk · Free portfolio snapshot: active substances, deadlines, routes</title>
+<meta name="description" content="Free Biocide Portfolio Snapshot for up to 5 biocidal products and 3 EU countries: substance status, Article 89 deadlines, Article 95 supplier check and authorisation routes. By e-mail within 2 working days.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/icons/icon-32.png" sizes="32x32" type="image/png">
+<link rel="canonical" href="https://projektargo.com/biocide-route/">
+<link rel="alternate" hreflang="en" href="https://projektargo.com/biocide-route/">
+<link rel="alternate" hreflang="sk" href="https://projektargo.com/biocide-route-sk/">
+<link rel="alternate" hreflang="x-default" href="https://projektargo.com/biocide-route/">
+<meta property="og:title" content="Biocide Route Desk · Is your biocidal product on board?">
+<meta property="og:description" content="Free map of substance status, deadlines, supplier check and routes for up to 5 products. By e-mail within 2 working days.">
+<meta property="og:image" content="https://projektargo.com/og.png">
+<meta property="og:image:alt" content="Biocide Route Desk · Is your biocidal product on board?">
+<meta property="og:url" content="https://projektargo.com/biocide-route/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_GB">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#1E1626">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Antonio:wght@500;700&family=Hanken+Grotesk:wght@400;500;600;700&family=Chivo+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<script type="application/ld+json">{"name": "Biocide Route Desk", "serviceType": "Biocidal product portfolio check under Regulation (EU) No 528/2012", "description": "Free Biocide Portfolio Snapshot for up to 5 products and 3 countries: active substance status, Article 89 deadlines, Article 95 supplier check, national checks and authorisation routes. By e-mail within 2 working days.", "areaServed": {"@type": "Place", "name": "European Union"}, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "EUR", "description": "Free Biocide Portfolio Snapshot"}, "@context": "https://schema.org", "@type": "Service", "url": "https://projektargo.com/biocide-route/", "inLanguage": "en", "provider": {"@type": "Person", "name": "Stefan Toporcer"}}</script>
+<style>
+/* Biocide Route Desk – a station departure board for active substances: cream split-flap tiles on an aubergine board, each substance a departure with its approval time, a magenta last-call for the authorisation application and the platform closing 180 days later */
+:root{--board:#1E1626;--board2:#2A2033;--board3:#3A2E45;--flap:#F3ECDF;--flap2:#E4DACA;--flapink:#1B1420;--page:#F4F1F6;--sheet:#FFFFFF;--ink:#1B1420;--text:#3A3340;--muted:#5F5866;--line:#DDD5E3;--call:#C2186B;--call-d:#8E0F4D;--call-t:#FBE3EE;--go:#1F7A55;--go-t:#DFF1E8;--wait:#8A5A00;--wait-t:#F8ECCF;--max:1240px}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--page);color:var(--text);font:17px/1.6 "Hanken Grotesk",system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit}
+section{scroll-margin-top:76px}
+.w{max-width:var(--max);margin:0 auto;padding:0 24px}
+.mono{font-family:"Chivo Mono",ui-monospace,monospace}
+h1,h2,h3{font-family:"Antonio","Hanken Grotesk",sans-serif;font-weight:700;color:var(--ink);line-height:1.04;letter-spacing:.005em}
+h2{font-size:clamp(32px,4.4vw,52px);text-transform:uppercase}
+.kick{display:inline-block;font:600 12px/1 "Chivo Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--call)}
+.cta{display:inline-flex;align-items:center;gap:10px;background:var(--call);color:#fff;text-decoration:none;font-weight:700;padding:15px 24px;border-radius:999px;transition:background .15s}
+.cta:hover{background:var(--call-d)}
+.cta.sm{padding:9px 15px;font-size:14px}
+.tl{font-weight:600;text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:2px;text-decoration-color:var(--call)}
+/* header */
+header{position:sticky;top:0;z-index:20;background:var(--board);color:#EEE7F3}
+header .w{display:flex;align-items:center;justify-content:space-between;gap:12px;height:62px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;font:700 21px/1 "Antonio",sans-serif;letter-spacing:.04em;text-transform:uppercase;color:#fff;white-space:nowrap}
+.logo i{display:inline-grid;grid-template-columns:repeat(2,9px);gap:2px}
+.logo i b{display:block;height:13px;background:var(--flap);border-radius:1px;box-shadow:inset 0 -6px 0 var(--flap2)}
+.nav{display:flex;align-items:center;gap:16px}
+.nav .lk{font-size:14px;text-decoration:none;color:#CFC6D6}
+.nav .lk:hover{color:#fff}
+.lng{font:700 13px/1 "Chivo Mono",monospace;text-decoration:none;color:#fff;border:1px solid #6E6279;padding:6px 8px;border-radius:4px}
+.lng:hover{border-color:#fff}
+/* hero */
+.hero{background:var(--board);color:#E9E2EF;padding:56px 0 80px;position:relative;overflow:hidden}
+.hero .w{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:52px;align-items:center}
+.hero h1{color:#fff;font-size:clamp(40px,5.6vw,76px);text-transform:uppercase;margin:16px 0 20px}
+.hero h1 span{display:inline-block;line-height:1;color:var(--flap);background:var(--call);padding:.06em .12em .02em;margin-top:.12em}
+.hero p.lead{font-size:18.5px;max-width:34em;color:#DDD4E4}
+.hero .acts{display:flex;flex-wrap:wrap;align-items:center;gap:18px 26px;margin-top:30px}
+.hero .tl{color:#fff}
+.hero .note{margin-top:18px;font-size:14px;color:#B9AEC2}
+.hero .kick{color:#F59BC7}
+/* board */
+.brd{background:#120D17;border-radius:10px;padding:16px;box-shadow:0 0 0 1px #3A2E45,0 40px 80px -40px #000;position:relative}
+.brd .top{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:2px 4px 12px;font:600 11.5px/1.2 "Chivo Mono",monospace;letter-spacing:.12em;text-transform:uppercase;color:#B9AEC2}
+.brd .top b{color:#FFD23F}
+.brow{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(0,.55fr) minmax(0,1fr) minmax(0,1fr) minmax(0,.95fr);gap:6px;align-items:center;padding:7px 0;border-top:1px solid #2A2033}
+.brow.hd{border-top:0;font:600 10.5px/1.2 "Chivo Mono",monospace;letter-spacing:.08em;text-transform:uppercase;color:#9C90A6;padding-top:0}
+.fl{background:linear-gradient(180deg,var(--flap) 0 49%,#CFC4B4 49% 51%,var(--flap2) 51%);color:var(--flapink);font:700 13.5px/1 "Chivo Mono",monospace;padding:8px 6px;border-radius:3px;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fl.l{text-align:left}
+.st{font:700 11px/1.2 "Chivo Mono",monospace;text-transform:uppercase;letter-spacing:.04em;padding:6px;border-radius:3px;text-align:center}
+.st.p{background:#4A3A12;color:#FFD23F}
+.st.c{background:var(--call);color:#fff}
+.brd .foot{margin-top:12px;font:400 11.5px/1.45 "Chivo Mono",monospace;color:#B9AEC2}
+.brd .ill{position:absolute;top:-12px;right:16px;background:#FFD23F;color:#2A1F00;font:700 11px/1 "Chivo Mono",monospace;letter-spacing:.1em;text-transform:uppercase;padding:6px 9px;border-radius:3px}
+/* sections */
+.sec{padding:86px 0}
+.hd2{max-width:780px;margin-bottom:38px}
+.hd2 p{margin-top:14px;font-size:18px}
+/* departures list (facts) */
+.dep{border-top:3px solid var(--ink)}
+.drow{display:grid;grid-template-columns:200px minmax(0,1fr) minmax(0,.9fr);gap:28px;padding:24px 0;border-bottom:1px solid var(--line);align-items:start}
+.drow .t{font:700 26px/1 "Antonio",sans-serif;color:var(--ink);text-transform:uppercase}
+.drow .t small{display:block;margin-top:8px;font:600 11.5px/1.3 "Chivo Mono",monospace;letter-spacing:.08em;color:var(--call)}
+.drow h3{font-size:24px;text-transform:uppercase;margin-bottom:6px}
+.drow .s{font-size:13.5px;color:var(--muted)}
+.drow .s a{color:var(--muted)}
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;counter-reset:s}
+.sp{padding:26px 26px 30px;background:var(--sheet);border:1px solid var(--line);margin-left:-1px;position:relative}
+.sp:nth-child(2){transform:translateY(22px)}
+.sp:nth-child(3){transform:translateY(44px);background:var(--board);color:#E9E2EF;border-color:var(--board)}
+.sp:nth-child(3) h3{color:#fff}
+.sp .n{font:700 46px/1 "Antonio",sans-serif;color:var(--call)}
+.sp h3{font-size:24px;text-transform:uppercase;margin:10px 0 8px}
+/* output */
+.out{display:grid;grid-template-columns:minmax(0,1.65fr) minmax(0,1fr);gap:30px;align-items:start;margin-top:30px}
+.sheet{background:var(--sheet);border:1px solid var(--line);border-top:8px solid var(--board);padding:26px;position:relative}
+.sheet .ill{position:absolute;top:-30px;left:0;background:#FFD23F;color:#2A1F00;font:700 11px/1 "Chivo Mono",monospace;letter-spacing:.1em;text-transform:uppercase;padding:6px 9px}
+.sheet h3{font-size:22px;text-transform:uppercase;margin-bottom:14px}
+.tbl{width:100%;border-collapse:collapse;font-size:14.5px}
+.tbl th{text-align:left;font:600 11px/1.3 "Chivo Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);border-bottom:2px solid var(--ink);padding:8px 8px 8px 0}
+.tbl td{border-bottom:1px solid var(--line);padding:10px 8px 10px 0;vertical-align:top}
+.chip{display:inline-block;font:700 11px/1.3 "Chivo Mono",monospace;padding:3px 7px;border-radius:999px;white-space:nowrap}
+.chip.p{background:var(--wait-t);color:var(--wait)}
+.chip.g{background:var(--go-t);color:var(--go)}
+.chip.c{background:var(--call-t);color:var(--call-d)}
+.lane{display:flex;flex-direction:column;gap:14px}
+.lane .bx{background:var(--board);color:#E2DAE8;padding:22px;border-radius:8px}
+.lane .bx h3{color:#fff;font-size:20px;text-transform:uppercase;margin-bottom:10px}
+.route{display:grid;grid-template-columns:28px minmax(0,1fr);gap:10px;padding:9px 0;border-top:1px solid #3A2E45;font-size:15px}
+.route:first-of-type{border-top:0}
+.route i{font:700 13px/26px "Chivo Mono",monospace;font-style:normal;text-align:center;background:var(--flap);color:var(--flapink);border-radius:3px;height:26px}
+.lane ol{padding-left:20px;font-size:15px}
+.lane .wh{background:var(--sheet);border:1px solid var(--line);padding:20px 22px;border-radius:8px}
+.lane .wh h3{font-size:20px;text-transform:uppercase;margin-bottom:8px}
+/* offer */
+.offer{background:var(--call-t)}
+.offer .w{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px;align-items:center}
+.tix{display:grid;gap:16px}
+.tk{background:var(--sheet);border-radius:10px;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:16px;padding:22px 24px;position:relative;border:1px solid #EBC3D7;
+ -webkit-mask:radial-gradient(circle 12px at 0 50%,transparent 98%,#000) left/51% 100% no-repeat,radial-gradient(circle 12px at 100% 50%,transparent 98%,#000) right/51% 100% no-repeat;
+ mask:radial-gradient(circle 12px at 0 50%,transparent 98%,#000) left/51% 100% no-repeat,radial-gradient(circle 12px at 100% 50%,transparent 98%,#000) right/51% 100% no-repeat}
+.tk b{font:700 34px/1 "Antonio",sans-serif;color:var(--call-d);white-space:nowrap}
+.tk span{font-size:15.5px}
+.tk span strong{display:block;font:700 18px/1.2 "Antonio",sans-serif;text-transform:uppercase;color:var(--ink);letter-spacing:.02em}
+.offer ul{margin:16px 0 26px 20px}
+.offer li{margin:6px 0}
+.pn{font-size:13.5px;color:var(--muted)}
+/* faq */
+.faq{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.6fr);gap:48px}
+details{border-bottom:1px solid var(--line);padding:16px 0}
+details:first-child{border-top:3px solid var(--ink)}
+summary{cursor:pointer;font-weight:700;color:var(--ink);list-style:none;display:flex;justify-content:space-between;gap:16px}
+summary::-webkit-details-marker{display:none}
+summary:after{content:"›";font:700 22px/1 "Chivo Mono",monospace;color:var(--call);transition:transform .2s}
+details[open] summary:after{transform:rotate(90deg)}
+details p{margin-top:10px}
+/* privacy */
+.priv{background:var(--sheet);border-top:1px solid var(--line)}
+.priv .w{max-width:900px}
+.priv h2{font-size:32px;margin-bottom:16px}
+.priv p{margin:12px 0;font-size:15.5px}
+.disc{margin-top:22px;padding:14px 16px;border-left:5px solid var(--call);background:var(--call-t);color:#5C0A33;font-size:14.5px}
+footer{background:var(--board);color:#CFC6D6;padding:40px 0;font-size:14.5px}
+footer .w{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:18px}
+footer a{color:#fff}
+:focus-visible{outline:3px solid #FFD23F;outline-offset:3px}
+@media (prefers-reduced-motion:no-preference){
+ .fl{animation:flip .6s steps(3) both}
+ .brow:nth-child(3) .fl{animation-delay:.1s}.brow:nth-child(4) .fl{animation-delay:.2s}.brow:nth-child(5) .fl{animation-delay:.3s}.brow:nth-child(6) .fl{animation-delay:.4s}
+ @keyframes flip{0%{transform:scaleY(.2)}100%{transform:none}}
+ .st.c{animation:blink 1.6s ease-in-out 1s 3}
+ @keyframes blink{50%{opacity:.45}}
+}
+@media (max-width:1020px){
+ .hero .w,.out,.offer .w,.faq{grid-template-columns:minmax(0,1fr)}
+ .drow{grid-template-columns:160px minmax(0,1fr)}
+ .drow .s{grid-column:2}
+ .steps{grid-template-columns:minmax(0,1fr)}
+ .sp,.sp:nth-child(2),.sp:nth-child(3){transform:none;margin:0 0 -1px 0}
+}
+@media (max-width:640px){
+ body{font-size:16px}
+ .w{padding:0 16px}
+ header .w{height:58px}
+ .logo{font-size:18px}
+ .nav .lk{display:none}
+ .nav{gap:8px}
+ .cta.sm{padding:8px 12px;font-size:13px}
+ .cta.sm .xs{display:none}
+ .hero{padding:38px 0 52px}
+ .hero p.lead{font-size:17px}
+ .sec{padding:60px 0}
+ .brd{padding:12px 10px}
+ .brow{grid-template-columns:minmax(0,1.45fr) minmax(0,.45fr) minmax(0,1fr) minmax(0,.95fr);gap:5px}
+ .brow .x{display:none}
+ .fl{font-size:12px;padding:7px 4px}
+ .drow{grid-template-columns:minmax(0,1fr);gap:8px}
+ .drow .s{grid-column:auto}
+ .tbl thead{display:none}
+ .tbl tr{display:block;border-bottom:1px solid var(--line);padding:10px 0}
+ .tbl td{display:block;border:0;padding:2px 0}
+ .sheet{padding:20px 16px}
+ .tk{grid-template-columns:minmax(0,1fr);padding:20px 22px}
+}
+@media (max-width:360px){
+ .logo{font-size:16px}
+ .logo i{display:none}
+ .fl{font-size:11px}
+ .brd .top{flex-wrap:wrap}
+}
+</style>
+<script>
+!function(t,e){var o,n,p,r;e.__SV||(window.posthog && window.posthog.__loaded)||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}p||((p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",p.onerror=function(){p=null},(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r));var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],Object.defineProperty(u,"toString",{configurable:!0,enumerable:!0,writable:!0,value:function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e}}),Object.defineProperty(u.people,"toString",{configurable:!0,enumerable:!0,writable:!0,value:function(){return u.toString(1)+".people (stub)"}}),o="init capture register register_once register_for_session unregister unregister_for_session getFeatureFlag getFeatureFlagResult isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey getNextSurveyStep identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty createPersonProfile opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing debug".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+posthog.init("phc_zbBFHQt5aVYH9HuviHUQuwfh6TPCVPyXSrMWWgJ9UfLP",{api_host:"https://eu.i.posthog.com",defaults:"2026-08-30",cookieless_mode:"always",person_profiles:"identified_only",disable_session_recording:true});
+</script>
+</head>
+<body>
+<header>
+ <div class="w">
+  <a class="logo" href="#top"><i aria-hidden="true"><b></b><b></b></i>Biocide Route Desk</a>
+  <nav class="nav" aria-label="Main">
+   <a class="lk" href="#why">Why now</a>
+   <a class="lk" href="#output">Example</a>
+   <a class="lk" href="#offer">Early access</a>
+   <a class="lng" href="/biocide-route-sk/" hreflang="sk" lang="sk" title="Slovenčina">SK</a>
+   <a class="cta sm" href="https://tally.so/r/zE7k6M?ref=site-nav">Free<span class="xs"> portfolio</span> snapshot</a>
+  </nav>
+ </div>
+</header>
+<main id="top">
+<section class="hero">
+ <div class="w">
+  <div>
+   <span class="kick">Regulation (EU) No 528/2012 · Articles 89 and 95</span>
+   <h1>Every active substance has a <span>departure time</span>.</h1>
+   <p class="lead">Under the Biocidal Products Regulation, the application for authorisation is due by the day the active substance is approved. Without it, the product may no longer be made available 180 days later. Send up to 5 products and 3 countries: within 2 working days you get a free map of status, deadlines, supplier check and routes.</p>
+   <div class="acts">
+    <a class="cta" href="https://tally.so/r/zE7k6M?ref=site-hero">Get the free Portfolio Snapshot</a>
+    <a class="tl" href="#output">See an example output</a>
+   </div>
+   <p class="note">Free, no obligation. Company data only. We do not prepare dossiers.</p>
+  </div>
+  <div class="brd" role="img" aria-label="Illustrative departure board: ethanol for product types 1, 2 and 4 with the proposed approval date 1 May 2028 and market exit 28 October 2028 without an application">
+   <span class="ill">Illustrative example</span>
+   <div class="top"><span>Active substances · departures</span><b>Proposal</b></div>
+   <div class="brow hd"><span>Substance</span><span>PT</span><span>Apply by</span><span class="x">Off market</span><span>Status</span></div>
+   <div class="brow"><span class="fl l">ETHANOL</span><span class="fl">1</span><span class="fl">01.05.28</span><span class="fl x">28.10.28</span><span class="st p">Proposal</span></div>
+   <div class="brow"><span class="fl l">ETHANOL</span><span class="fl">2</span><span class="fl">01.05.28</span><span class="fl x">28.10.28</span><span class="st p">Proposal</span></div>
+   <div class="brow"><span class="fl l">ETHANOL</span><span class="fl">4</span><span class="fl">01.05.28</span><span class="fl x">28.10.28</span><span class="st p">Proposal</span></div>
+   <div class="brow"><span class="fl l">YOUR SUBSTANCE</span><span class="fl">?</span><span class="fl">??.??.??</span><span class="fl x">??.??.??</span><span class="st c">Check</span></div>
+   <p class="foot">Ethanol dates come from the Commission draft notified to the WTO (G/TBT/N/EU/1237): proposed approval 1 May 2028 – not adopted, may change. Off market = 180 days after approval if no application was submitted (Art. 89(3)).</p>
+  </div>
+ </div>
+</section>
+
+<section class="sec" id="why">
+ <div class="w">
+  <div class="hd2"><span class="kick">Why now</span><h2>The clock starts on the approval date.</h2><p>Every fact below is taken from the official text or the source linked next to it.</p></div>
+  <div class="dep">
+   <div class="drow"><div class="t">Approval day<small>Art. 89(3)</small></div><div><h3>Apply by the approval date</h3><p>The application for authorisation or parallel mutual recognition must be submitted no later than the date of approval of the active substance. With several substances, the last one approved counts.</p></div><p class="s">Source: <a href="https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:02012R0528-20240611">EUR-Lex, Regulation (EU) No 528/2012, consolidated text</a></p></div>
+   <div class="drow"><div class="t">+180 / +365 days<small>Art. 89(3)(a)(b)</small></div><div><h3>No application, no market</h3><p>Without an application, the product may no longer be made available on the market 180 days after approval. Existing stocks may be used for up to 365 days after approval.</p></div><p class="s">Source: <a href="https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:02012R0528-20240611">EUR-Lex, Regulation (EU) No 528/2012</a></p></div>
+   <div class="drow"><div class="t">Since 1.9.2015<small>Art. 95(2)</small></div><div><h3>Your supplier must be listed</h3><p>A product with a relevant substance may only be made available if the substance supplier or the product supplier is included in the list for the product type.</p></div><p class="s">Source: <a href="https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:02012R0528-20240611">EUR-Lex, Regulation (EU) No 528/2012</a></p></div>
+   <div class="drow"><div class="t">1 May 2028?<small>Ethanol · PT1, PT2, PT4</small></div><div><h3>Ethanol is on the way</h3><p>In February 2026, ECHA’s Biocidal Products Committee supported approving ethanol for PT1, PT2 and PT4. The Commission draft notified to the WTO proposes approval from 1 May 2028 to 30 April 2038, with adoption planned for February 2027. It is a proposal, not adopted law.</p></div><p class="s">Sources: <a href="https://en.reach24h.com/news/industry-news/disinfectant-biocide/eu-ethanol-biocidal-approval-pt1-pt2-pt4">REACH24H (updated 14 October 2026)</a>, <a href="https://www.bisafe.si/en/ethanol-disinfectants-biocidal-product-authorisation/">Bisafe</a></p></div>
+  </div>
+ </div>
+</section>
+
+<section class="sec" id="how" style="padding-top:0">
+ <div class="w">
+  <div class="hd2"><span class="kick">How it works</span><h2>Three steps, two working days.</h2></div>
+  <div class="steps">
+   <div class="sp"><span class="n">01</span><h3>List up to 5 products</h3><p>Name, active substances with concentration, product type, up to 3 countries of sale and your supplier. About 3 minutes.</p></div>
+   <div class="sp"><span class="n">02</span><h3>We check each one</h3><p>Substance status against ECHA and the implementing regulation, deadlines, the Article 95 list and national regimes from official sources only.</p></div>
+   <div class="sp"><span class="n">03</span><h3>Snapshot in your inbox</h3><p>Within 2 working days, in the language of the form you used. Free.</p></div>
+  </div>
+ </div>
+</section>
+
+<section class="sec" id="output">
+ <div class="w">
+  <div class="hd2"><span class="kick">What you get</span><h2>One map for your portfolio.</h2><p>This is an illustrative example for a fictitious company, not a real assessment.</p></div>
+  <div class="out">
+   <div class="sheet">
+    <span class="ill">Illustrative example</span>
+    <h3>Biocide Portfolio Snapshot – Example Hygiene s.r.o.</h3>
+    <table class="tbl">
+     <thead><tr><th>Product</th><th>Substance status</th><th>Deadlines</th><th>Supplier and country</th></tr></thead>
+     <tbody>
+      <tr><td><b>HandClean Gel</b><br><small>ethanol 70 % · PT1</small></td><td><span class="chip p">Proposal</span><br><small>Proposed approval 1 May 2028, not adopted</small></td><td>Apply by 1 May 2028; without an application off the market from 28 October 2028</td><td><span class="chip g">Listed</span><br><small>Supplier on the Art. 95 list for PT1</small></td></tr>
+      <tr><td><b>SurfaceClean Spray</b><br><small>ethanol · PT2</small></td><td><span class="chip p">Proposal</span><br><small>Proposed approval 1 May 2028, not adopted</small></td><td>Same dates as above if ethanol is the last substance approved</td><td><span class="chip c">Check</span><br><small>Supplier name not found on the Art. 95 list for PT2</small></td></tr>
+      <tr><td><b>WoodGuard Plus</b><br><small>substance X · PT8</small></td><td><span class="chip c">Check</span><br><small>Confirm in the implementing regulation</small></td><td>Depends on the last approved substance</td><td><span class="chip c">Check</span><br><small>HU national regime: check with the authority</small></td></tr>
+     </tbody>
+    </table>
+   </div>
+   <div class="lane">
+    <div class="bx"><h3>3 possible routes</h3>
+     <div class="route"><i>A</i><span>National authorisation, then mutual recognition in other countries</span></div>
+     <div class="route"><i>B</i><span>Same biocidal product as an already authorised one</span></div>
+     <div class="route"><i>C</i><span>Union authorisation, where the product is eligible</span></div>
+    </div>
+    <div class="wh"><h3>5 next steps</h3><ol><li>Ask your supplier for its Art. 95 listing per product type.</li><li>Diary the approval dates and the +180 and +365 days.</li><li>Decide which products to keep, reformulate or withdraw.</li><li>Get fee quotes from the competent authorities.</li><li>Line up a consultant or lab for the dossier.</li></ol></div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<section class="sec offer" id="offer">
+ <div class="w">
+  <div>
+   <span class="kick">Early access</span>
+   <h2>Need the whole portfolio watched?</h2>
+   <ul><li>Portfolio Watch: monthly check of substance status, new implementing regulations and the Art. 95 list, a deadline calendar and e-mail alerts.</li><li>Route &amp; Cost Plan: routes and fees compared for your whole portfolio, what to keep and what to withdraw, and documents for your consultant or authority.</li><li>No payment now. Tick “Yes” or “Maybe” in the form and we will contact you.</li></ul>
+   <a class="cta" href="https://tally.so/r/zE7k6M?ref=site-offer">Get the free snapshot first</a>
+  </div>
+  <div class="tix">
+   <div class="tk"><span><strong>Portfolio Watch</strong>up to 25 products and 5 countries, monthly</span><b>€300/mo</b></div>
+   <div class="tk"><span><strong>Route &amp; Cost Plan</strong>one-off, for the whole portfolio</span><b>€1,500</b></div>
+   <p class="pn">Indicative early-access prices, excl. VAT. We do not prepare dossiers, studies or submissions in R4BP.</p>
+  </div>
+ </div>
+</section>
+
+<section class="sec" id="faq">
+ <div class="w faq">
+  <div><span class="kick">FAQ</span><h2>Questions</h2></div>
+  <div>
+   <details><summary>Do you prepare the dossier?</summary><p>No. Studies, the dossier, letters of access and the submission stay with your consultant or lab. We show you where you stand and which route to discuss with them.</p></details>
+   <details><summary>Is this legal or regulatory advice?</summary><p>No. The Snapshot is an indicative overview based on your answers and public sources. Confirm decisions with the competent authority.</p></details>
+   <details><summary>Is the ethanol date certain?</summary><p>No. 1 May 2028 is the date proposed in the Commission draft. It is not adopted and can change. We check the current status before every Snapshot.</p></details>
+   <details><summary>Which countries do you cover?</summary><p>Any EU country, up to 3 per free Snapshot. National transitional regimes are stated only from an open official source, otherwise marked “check with the authority”.</p></details>
+   <details><summary>What data do you need?</summary><p>Company data only: products, substances, product types, countries and your supplier. No personal data beyond your work contact.</p></details>
+  </div>
+ </div>
+</section>
+
+<section class="sec priv" id="privacy">
+ <div class="w">
+  <h2>Privacy</h2>
+  <p>Biocide Route Desk is operated by Štefan Toporcer, an individual based in Slovakia (not a registered company). Contact: <a href="mailto:toporcer.stefan@gmail.com">toporcer.stefan@gmail.com</a></p>
+  <p>The form collects your work e-mail, company, optional website and name, country, role, the products and substances you list, countries of sale, optional supplier, what you already hold and whether you are interested in the paid version. We use it only to prepare and send the Snapshot and to answer you about early access. Tools: Tally (form), Gmail (e-mail), Anthropic Claude (preparing the Snapshot). Data are kept for 12 months. You can ask for access or deletion by e-mail at any time.</p>
+  <p><b>Analytics.</b> This site counts visits and clicks with PostHog (EU servers) in cookieless mode: nothing is stored on your device and IP addresses are anonymised. It is used only to see how the page is used, not to identify you.</p>
+  <p>Biocide Route Desk is not affiliated with ECHA, the European Commission or any national authority.</p>
+  <div class="disc">The Snapshot is indicative and is not a legal or regulatory opinion. Confirm every step with the competent authority.</div>
+ </div>
+</section>
+</main>
+<footer>
+ <div class="w">
+  <span>Biocide Route Desk · Štefan Toporcer, Slovakia · <a href="https://projektargo.com/">projektargo.com</a></span>
+  <a class="cta sm" href="https://tally.so/r/zE7k6M?ref=site-footer">Free<span class="xs"> portfolio</span> snapshot</a>
+ </div>
+</footer>
+<script>/* motor-ref v1: ref z adresy -> Tally, udalost cta_click */(function(){try{var q=new URLSearchParams(location.search).get('ref');q=q?q.replace(/[^a-z0-9_-]/gi,'').slice(0,40):'';document.querySelectorAll('a[href^="https://tally.so/r/"]').forEach(function(a){var u=new URL(a.href),c=u.searchParams.get('ref')||'';if(q){u.searchParams.set('ref',q+'_'+c);a.href=u.toString();}a.addEventListener('click',function(){try{if(window.posthog&&posthog.capture){posthog.capture('cta_click',{form:u.pathname.split('/').pop(),ref:q||'none',cta:c},{transport:'sendBeacon'});}}catch(e){}});});}catch(e){}})();</script>
+<script src="/argo-nav.js" defer></script>
+</body>
+</html>
