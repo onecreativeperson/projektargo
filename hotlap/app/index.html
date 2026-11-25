@@ -2,7 +2,7 @@
 <html lang="sk">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-src 'none'; form-action 'none'; script-src 'self' https://*.posthog.com 'sha256-+vI4NlYcAnMZrtsKU3stuMP41zlQZ+HkjUD8//8KN9w=' 'sha256-WYXv4T0Sp4nsWGqxcZTrCFqOWXC4JrvQ7XW5xjyqzek=' 'sha256-I7EAEyHnOKbRRp6rPa7USaBwp+F7bQDw3+pCSKcNmz8='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: https://*.posthog.com; connect-src 'self' https://*.posthog.com https://asnpyrrdeauhkskkkmuc.supabase.co https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://firestore.googleapis.com; worker-src 'self' blob: data:">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-src 'none'; form-action 'none'; script-src 'self' https://*.posthog.com 'sha256-+vI4NlYcAnMZrtsKU3stuMP41zlQZ+HkjUD8//8KN9w=' 'sha256-WYXv4T0Sp4nsWGqxcZTrCFqOWXC4JrvQ7XW5xjyqzek=' 'sha256-7Oej+K7XwYPJZNR80QYvRtsEsbiPM6sm9owVbb98DY0='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: https://*.posthog.com; connect-src 'self' https://*.posthog.com https://asnpyrrdeauhkskkkmuc.supabase.co https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://firestore.googleapis.com; worker-src 'self' blob: data:">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
@@ -752,22 +752,22 @@ function pickCover(tid){ coverTarget=tid; $('#covInput').click() }
 function onCover(e){
  const f=e.target.files&&e.target.files[0]; e.target.value='';
  if(!f||!coverTarget) return;
- if(f.size>8*1024*1024){ alert('Fotka je väčšia než 8 MB. Vyber menšiu.'); return }
+ if(f.size>30*1024*1024){ alert('Fotka je väčšia než 30 MB. Vyber menšiu.'); return }
  const tid=coverTarget, r=new FileReader();
  r.onload=()=>shrink(r.result,800,d=>{
    const t=trackById(tid); if(!t) return;
    const old=t.photo||'';
    t.photo=d;
    if(!save()){ t.photo=old; save(); alert('Pamäť prehliadača je plná. Zmaž fotku inej trate a skús znova.'); }
-   render();
+   render(); refreshTrackSheet(tid);
  });
  r.readAsDataURL(f);
 }
-function clearCover(tid){ const t=trackById(tid); if(t){ t.photo=''; save(); render(); } }
+function clearCover(tid){ const t=trackById(tid); if(t){ t.photo=''; save(); render(); refreshTrackSheet(tid); } }
 function pickAvatar(){ $('#avaInput').click() }
 function onAvatar(e){
  const f=e.target.files&&e.target.files[0]; if(!f) return;
- if(f.size>3*1024*1024){ alert('Fotka je väčšia než 3 MB. Vyber menšiu.'); e.target.value=''; return }
+ if(f.size>30*1024*1024){ alert('Fotka je väčšia než 30 MB. Vyber menšiu.'); e.target.value=''; return }
  const r=new FileReader();
  r.onload=()=>{ shrink(r.result,220,d=>{ S.user.photo=d; save(); render(); }) };
  r.readAsDataURL(f);
@@ -796,8 +796,15 @@ function go(s,el){
  render();
  if(s==='profile') refreshAdmin();
 }
-function openSheet(html){$('#panel').innerHTML='<div class="grab"></div>'+html;$('#sheet').classList.add('on')}
-function closeSheet(){$('#sheet').classList.remove('on')}
+/* sheetTid = trat, ktorej detail je prave otvoreny v harku (inak null) */
+let sheetTid=null, pendingTid=null;
+function openSheet(html){sheetTid=pendingTid;pendingTid=null;$('#panel').innerHTML='<div class="grab"></div>'+html;$('#sheet').classList.add('on')}
+function closeSheet(){sheetTid=null;$('#sheet').classList.remove('on')}
+/* Po zmene trate prekresli jej otvoreny detail, inak by zmena nebola vidiet, kym ho jazdec nezavrie a neotvori. */
+function refreshTrackSheet(tid){
+ if(sheetTid!==tid||!$('#sheet').classList.contains('on')) return;
+ const y=$('#panel').scrollTop||0; openTrack(tid); $('#panel').scrollTop=y;
+}
 
 /* ================= add ride ================= */
 let draft={trackId:null,layoutId:null,classId:null,mode:'manual'};
@@ -2196,6 +2203,7 @@ function layoutTimeline(t,lay){
 /* detail trate: tvar, smer jazdy, dlzka, verzia a hlasenie prestavby */
 function openTrack(tid){
  const t=trackById(tid); if(!t) return;
+ pendingTid=tid;
  const lay=t.layouts[0];
  const mine=S.sessions.filter(x=>x.trackId===tid&&!isArchived(x));
  const best=mine.length?Math.min(...mine.map(x=>x.bestMs)):null;
