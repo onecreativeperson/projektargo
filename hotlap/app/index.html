@@ -2,7 +2,7 @@
 <html lang="sk">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-src 'none'; form-action 'none'; script-src 'self' https://*.posthog.com 'sha256-XqhGJ6VAdlI2c1tjqpQ99Xpp3qKGbl2MreHnwLQ5itE=' 'sha256-WYXv4T0Sp4nsWGqxcZTrCFqOWXC4JrvQ7XW5xjyqzek=' 'sha256-umMUmyLylf+6rPObDM9tDrKJ8rfwqEzXqgvlaau24Do='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: https://*.posthog.com; connect-src 'self' https://*.posthog.com https://asnpyrrdeauhkskkkmuc.supabase.co https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://firestore.googleapis.com; worker-src 'self' blob: data:">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-src 'none'; form-action 'none'; script-src 'self' https://*.posthog.com 'sha256-XqhGJ6VAdlI2c1tjqpQ99Xpp3qKGbl2MreHnwLQ5itE=' 'sha256-WYXv4T0Sp4nsWGqxcZTrCFqOWXC4JrvQ7XW5xjyqzek=' 'sha256-od+Hj+Wza+DlGa9qf6pSCdFL9ZErejIdwd8mxyKGFXs='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: https://*.posthog.com; connect-src 'self' https://*.posthog.com https://asnpyrrdeauhkskkkmuc.supabase.co https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://firestore.googleapis.com; worker-src 'self' blob: data:">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
@@ -435,6 +435,8 @@ posthog.init("phc_zbBFHQt5aVYH9HuviHUQuwfh6TPCVPyXSrMWWgJ9UfLP",{api_host:"https
 <input type="file" id="avaInput" accept="image/*" style="display:none" data-chg="onAvatar">
 <input type="file" id="covInput" accept="image/*" style="display:none" data-chg="onCover">
 <input type="file" id="logoInput" accept="image/png,image/jpeg,image/webp" style="display:none" data-chg="onLogo">
+<input type="file" id="shotInput" accept="image/*" capture="environment" style="display:none" data-chg="onOcrFile">
+<input type="file" id="galInput" accept="image/*" style="display:none" data-chg="onOcrFile">
 <input type="file" id="planInput" accept="image/*" style="display:none" data-chg="onPlan">
 
 <!-- ============ NAV ============ -->
@@ -912,6 +914,7 @@ function refreshTrackSheet(tid){
 /* ================= add ride ================= */
 let draft={trackId:null,layoutId:null,classId:null,mode:'manual'};
 function openAdd(){
+ ocrMsg='';
  draft={trackId:S.sessions.length?S.sessions[0].trackId:S.tracks[0].id,layoutId:null,classId:null,mode:'manual'};
  stepTrack();
 }
@@ -960,29 +963,143 @@ function stepTime(){
   ${draft.mode==='photo'&&!draft.pre ? photoBlock() : manualBlock()}`);
  if(draft.mode==='manual') setTimeout(()=>{const e=$('#dBest'); if(e) e.focus()},80);
 }
+/* ---------- citanie vysledkov z fotky ----------
+   Fotka sa v prehliadaci zmensi a posle na server, ktory ju da precitat AI a vrati casy. Neuklada sa.
+   Server pusti len ucet prihlaseny cez Google a ma denny limit. Nic sa neulozi, kym jazdec udaje nepotvrdi. */
+const OCR_URL='https://asnpyrrdeauhkskkkmuc.supabase.co/functions/v1/hotlap-ocr';
+const OCR_ERR={
+ token:'Prihlásenie vypršalo. Odhlás sa a prihlás sa znova cez Google.',
+ google:'Čítanie z fotky je len pre účty prihlásené cez Google.',
+ nokey:'Čítanie z fotky ešte nie je na serveri zapnuté. Zatiaľ zapíš časy ručne.',
+ cap:'Dnes si už dal prečítať 15 fotiek. Ďalšie pôjdu zajtra, dovtedy zapíš časy ručne.',
+ total:'Dnešný limit čítania fotiek je vyčerpaný. Skús to zajtra alebo zapíš časy ručne.',
+ image:'Tento súbor sa nepodarilo spracovať. Vyber fotku vo formáte JPG alebo PNG.',
+ read:'Z fotky sa nepodarilo prečítať žiadne časy. Skús ostrejšiu fotku celej listiny.',
+ none:'Na fotke som nenašiel výsledky z motokár. Skús inú fotku alebo zapíš časy ručne.',
+ big:'Fotka je väčšia než 30 MB. Vyber menšiu.',
+ ai:'Čítanie fotiek teraz neodpovedá. Skús to o chvíľu alebo zapíš časy ručne.',
+ siet:'Bez pripojenia na internet sa fotka nedá prečítať.'
+};
+let ocrBusy=false, ocrMsg='';
+function ocrPick(kind){ if(ocrBusy||!isGoogle()) return; const el=$(kind==='shot'?'#shotInput':'#galInput'); if(el) el.click() }
+/* zmensi fotku na najviac 1568 px po dlhsej strane a vrati JPEG v base64 bez hlavicky */
+function ocrShrink(file){
+ return new Promise((res,rej)=>{
+  const r=new FileReader();
+  r.onerror=()=>rej(new Error('obrazok'));
+  r.onload=()=>{ const img=new Image();
+    img.onerror=()=>rej(new Error('obrazok'));
+    img.onload=()=>{ try{
+      const k=Math.min(1,1568/Math.max(img.width,img.height,1)), c=document.createElement('canvas');
+      c.width=Math.max(1,Math.round(img.width*k)); c.height=Math.max(1,Math.round(img.height*k));
+      const x=c.getContext('2d'); x.fillStyle='#fff'; x.fillRect(0,0,c.width,c.height); x.drawImage(img,0,0,c.width,c.height);
+      const d=c.toDataURL('image/jpeg',0.88); res(d.slice(d.indexOf(',')+1));
+    }catch(e){ rej(new Error('obrazok')) } };
+    img.src=r.result; };
+  r.readAsDataURL(file);
+ });
+}
+const ocrShown=()=>draft.mode==='photo'&&!draft.pre&&$('#sheet').classList.contains('on');
+async function onOcrFile(e){
+ const f=e.target.files&&e.target.files[0]; e.target.value='';
+ if(!f||ocrBusy) return;
+ const chyba=k=>{ ocrMsg=OCR_ERR[k]||OCR_ERR.ai; if(ocrShown()) stepTime() };
+ if(!isGoogle()) return chyba('google');
+ if(!/^image\//.test(f.type||'')&&!/\.(jpe?g|png|webp|heic|heif)$/i.test(f.name||'')) return chyba('image');
+ if(f.size>30*1024*1024) return chyba('big');
+ const moj=draft; ocrBusy=true; ocrMsg=''; delete draft.ocr; if(ocrShown()) stepTime();
+ let kod='';
+ try{
+   const b64=await ocrShrink(f);
+   let t; try{ t=await fbAuth() }catch(x){ throw Object.assign(new Error('token'),{kod:navigator.onLine===false?'siet':'token'}) }
+   let r; try{ r=await fetch(OCR_URL,{method:'POST',headers:{'Authorization':'Bearer '+t.idToken,'Content-Type':'application/json'},body:JSON.stringify({image:b64})}) }
+   catch(x){ throw Object.assign(new Error('siet'),{kod:'siet'}) }
+   let d=null; try{ d=await r.json() }catch(x){}
+   if(!r.ok) throw Object.assign(new Error('ocr'),{kod:(d&&typeof d.error==='string'&&OCR_ERR[d.error])?d.error:'ai'});
+   const vys=ocrClean(d);
+   ocrBusy=false;
+   if(moj!==draft||!ocrShown()) return;                 // jazdec medzitym harok zavrel alebo zacal inu jazdu
+   if(!vys.drivers.length){ ocrMsg=OCR_ERR.none; stepTime(); return }
+   draft.ocr=vys;
+   if(vys.drivers.length===1) ocrUse(0); else stepTime();
+ }catch(err){ ocrBusy=false; kod=err&&err.kod?err.kod:(err&&err.message==='obrazok'?'image':'ai'); if(moj===draft) chyba(kod) }
+}
+/* odpoved servera sa pred pouzitim skontroluje znova: len cisla v rozumnom rozsahu a kratke texty */
+function ocrClean(d){
+ const out={date:null,drivers:[]};
+ if(!d||typeof d!=='object'||!Array.isArray(d.drivers)) return out;
+ if(typeof d.date==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(d.date)&&!isNaN(new Date(d.date+'T12:00:00').getTime())&&d.date<=today()) out.date=d.date;
+ const okMs=n=>Number.isInteger(n)&&n>=8000&&n<=600000;
+ d.drivers.slice(0,12).forEach(x=>{
+   if(!x||typeof x!=='object') return;
+   const laps=(Array.isArray(x.laps)?x.laps:[]).filter(okMs).slice(0,LAPS_MAX);
+   const best=okMs(x.bestMs)?x.bestMs:null, avg=okMs(x.avgMs)?x.avgMs:null;
+   if(!laps.length&&best===null) return;
+   out.drivers.push({name:cleanName(x.name,20),kart:String(x.kart||'').replace(/[^A-Za-z0-9]/g,'').slice(0,3),bestMs:best,avgMs:avg,laps:laps,
+     unsure:(Array.isArray(x.unsure)?x.unsure:[]).filter(n=>Number.isInteger(n)&&n>0&&n<=LAPS_MAX).slice(0,50)});
+ });
+ return out;
+}
+function ocrUse(i){
+ const o=draft.ocr, d=o&&o.drivers[i]; if(!d) return;
+ draft.pre={src:'photo',date:o.date||today(),dateRead:!!o.date,kart:d.kart,lapTimes:d.laps,best:d.laps.length?Math.min(...d.laps):d.bestMs,
+   sheetBest:d.bestMs,sheetAvg:d.avgMs,unsure:d.unsure};
+ draft.mode='manual'; stepTime();
+}
+function ocrAgain(){ delete draft.pre; delete draft.ocr; ocrMsg=''; draft.mode='photo'; stepTime() }
+/* veta o tom, ci precitane casy sedia s kontrolnymi udajmi na listine */
+function ocrCheck(pre){
+ const L=pre.lapTimes;
+ if(pre.unsure&&pre.unsure.length) return `<b>${pre.unsure.length===1?'Jedno kolo sa nedalo':'Niektoré kolá sa nedali'} prečítať</b> (${pre.unsure.slice(0,12).join('., ')}. kolo). Doplň ${pre.unsure.length===1?'ho':'ich'} do zoznamu podľa listiny.`;
+ if(L.length&&pre.sheetBest&&pre.sheetAvg){
+   const avg=L.reduce((a,b)=>a+b,0)/L.length;
+   return (Math.min(...L)===pre.sheetBest&&Math.abs(avg-pre.sheetAvg)<=1.5)
+     ? 'Najlepšie kolo aj priemer sedia s údajmi na listine.'
+     : '<b>Pozor:</b> prečítané kolá nesedia s najlepším kolom alebo priemerom na listine. Skontroluj ich.';
+ }
+ return 'Skontroluj údaje podľa listiny.';
+}
 function photoBlock(){
- return `<div class="card" style="text-align:center;padding:30px 16px">
-    <svg viewBox="0 0 24 24" width="38" height="38" fill="none" stroke="var(--ink3)" stroke-width="1.5" style="margin-bottom:10px"><rect x="2.5" y="6" width="19" height="14" rx="3"/><circle cx="12" cy="13" r="3.6"/><path d="M8.5 6l1.4-2.2h4.2L15.5 6"/></svg>
-    <div style="font-weight:600;margin-bottom:4px">Odfoť papier alebo monitor</div>
-    <div class="hint" style="margin:0">Hotlap z fotky prečíta mená a časy. Pred uložením ti ukáže, čo rozpoznal, a dá ti to opraviť.</div>
+ const ikona=`<svg viewBox="0 0 24 24" width="38" height="38" fill="none" stroke="var(--ink3)" stroke-width="1.5" style="margin-bottom:10px"><rect x="2.5" y="6" width="19" height="14" rx="3"/><circle cx="12" cy="13" r="3.6"/><path d="M8.5 6l1.4-2.2h4.2L15.5 6"/></svg>`;
+ if(draft.ocr&&draft.ocr.drivers.length>1&&!ocrBusy){
+   return `<div class="banner"><b>Na fotke je viac jazdcov.</b> Vyber, ktorý si ty.</div>
+    <div class="card pad0" style="margin-bottom:12px">${draft.ocr.drivers.map((d,i)=>`<div class="row rowlink" data-act="ocrUse" data-a="${i}" role="button" tabindex="0">
+      <div class="main"><div class="t">${esc(d.name||('Motokára '+(d.kart||'?')))}</div><div class="s">${d.kart?'motokára '+esc(d.kart)+' · ':''}${d.laps.length?d.laps.length+' kôl':'bez zoznamu kôl'}</div></div>
+      <div class="s mono">${fmt(d.laps.length?Math.min(...d.laps):d.bestMs)}</div></div>`).join('')}</div>
+    <button class="btn ghost" data-act="ocrAgain">Vybrať inú fotku</button>`;
+ }
+ const stav=ocrBusy?`<div class="banner" style="border-color:rgba(19,226,123,.3);background:rgba(19,226,123,.06)"><b style="color:var(--pb)">Čítam fotku…</b> Trvá to niekoľko sekúnd, nechaj appku otvorenú.</div>`
+   :(ocrMsg?`<div class="banner">${esc(ocrMsg)}</div>`:'');
+ const akcie=isGoogle()
+   ?`<button class="btn primary" data-act="ocrPick" data-a="gal"${ocrBusy?' disabled':''}>Vybrať z galérie alebo súbor</button>
+     <button class="btn ghost" data-act="ocrPick" data-a="shot" style="margin-top:8px"${ocrBusy?' disabled':''}>Odfotiť teraz</button>`
+   :`<div class="banner"><b>Najprv sa prihlás cez Google.</b> Čítanie z fotky je platená služba, preto funguje len pre prihlásené účty.</div>
+     <button class="btn primary" data-act="startGoogle">Prihlásiť sa cez Google</button>`;
+ return `<div class="card" style="text-align:center;padding:26px 16px">${ikona}
+    <div style="font-weight:600;margin-bottom:4px">Fotka výsledkov</div>
+    <div class="hint" style="margin:0">Vyber fotku listiny alebo monitora z galérie, súbor z počítača, alebo ju odfoť. Hotlap z nej prečíta časy a pred uložením ti ich ukáže na kontrolu.</div>
   </div>
-  <div class="banner"><b>Zatiaľ nefunguje.</b> Čítanie časov z fotky ešte nie je hotové. Použi ručný zápis: stačí najlepšie kolo, časy všetkých kôl sú nepovinné.</div>
-  <button class="btn ghost" data-act="modeManual">Zapísať ručne</button>`;
+  ${stav}${akcie}
+  <button class="btn ghost" data-act="modeManual" style="margin-top:8px">Zapísať ručne</button>
+  <p class="hint">Fotka sa odošle na prečítanie a neukladá sa. <a href="../sukromie/" target="_blank" rel="noopener">Viac o súkromí</a></p>`;
 }
 function manualBlock(){
- const pre=draft.pre||null, pt=pre?trackById(draft.trackId):null;
- return `${pre?`<div class="banner"><b>Jazda z výsledkovej listiny.</b> ${esc(pt.name)} · ${esc(pre.date)} · ${pre.lapTimes.length} kôl. Skontroluj údaje a ulož ju.</div>`:''}
+ const pre=draft.pre||null, pt=pre?trackById(draft.trackId):null, foto=!!(pre&&pre.src==='photo');
+ const preBest=pre?(pre.lapTimes.length?Math.min(...pre.lapTimes):pre.best):null;
+ return `${foto?`<div class="banner"><b>Prečítané z fotky.</b> ${esc(pt.name)} · ${pre.lapTimes.length?pre.lapTimes.length+' kôl':'len najlepšie kolo'}. ${ocrCheck(pre)}${pre.dateRead?'':' Dátum sa z fotky neprečítal, nastav ho.'}</div>`
+   :pre?`<div class="banner"><b>Jazda z výsledkovej listiny.</b> ${esc(pt.name)} · ${esc(pre.date)} · ${pre.lapTimes.length} kôl. Skontroluj údaje a ulož ju.</div>`:''}
   <label>Najlepšie kolo</label>
-  <input id="dBest" class="field mono" inputmode="decimal" placeholder="napr. 42.812 alebo 1:02.45" value="${pre?(Math.min(...pre.lapTimes)/1000).toFixed(3):''}">
+  <input id="dBest" class="field mono" inputmode="decimal" placeholder="napr. 42.812 alebo 1:02.45" value="${preBest?(preBest/1000).toFixed(3):''}">
   <label>Číslo motokáry (nepovinné)</label>
   <input id="dKart" class="field mono" inputmode="numeric" placeholder="napr. 7" maxlength="3" value="${pre?esc(pre.kart):''}">
   <label>Počet kôl (nepovinné)</label>
-  <input id="dLaps" class="field mono" inputmode="numeric" placeholder="napr. 12" value="${pre?pre.lapTimes.length:''}">
+  <input id="dLaps" class="field mono" inputmode="numeric" placeholder="napr. 12" value="${pre&&pre.lapTimes.length?pre.lapTimes.length:''}">
   <label>Dátum</label>
   <input id="dDate" class="field" type="date" value="${pre?esc(pre.date):today()}" max="${today()}">
   <label>Časy všetkých kôl (nepovinné)</label>
   <textarea id="dLapList" class="field mono" rows="${pre?4:2}" placeholder="napr. 41.534 37.797 37.765">${pre?pre.lapTimes.map(n=>(n/1000).toFixed(3)).join(' '):''}</textarea>
   <button class="btn primary" data-act="saveRide" style="margin-top:4px">Uložiť jazdu</button>
+  ${foto?'<button class="btn ghost" data-act="ocrAgain" style="margin-top:8px">Vybrať inú fotku</button>':''}
   <p class="hint">Čas zapíš ako 42.812, 42,812 alebo 1:02.45 — Hotlap si to prepočíta sám. Keď vypíšeš časy všetkých kôl (oddelené medzerou), najlepšie kolo a počet kôl sa vezmú z nich.</p>`;
 }
 
@@ -3177,6 +3294,7 @@ const ACT={
  copyUid:()=>copyUid(),
  pickLogo:(el,a)=>pickLogo(a),
  onLogo:(el,a,b,ev)=>onLogo(ev),
+ onOcrFile:(el,a,b,ev)=>onOcrFile(ev), ocrPick:(el,a)=>ocrPick(a), ocrUse:(el,a)=>ocrUse(+a), ocrAgain:()=>ocrAgain(),
  clearLogo:(el,a)=>clearLogo(a),
  openRide:(el,a)=>openRide(a),
  openEra:(el,a,b)=>{ const i=String(b||'').lastIndexOf(':'); openEra(a,String(b||'').slice(0,i),String(b||'').slice(i+1)) },

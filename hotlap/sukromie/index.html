@@ -54,6 +54,10 @@ posthog.init("phc_zbBFHQt5aVYH9HuviHUQuwfh6TPCVPyXSrMWWgJ9UfLP",{api_host:"https
     <p>Po prihlásení sa do databázy v Európskej únii ukladajú aj tvoje jazdy, časy, skóre, odznaky a prezývky, aby si ich mal na každom zariadení. Číta ich len tvoj účet; prístup k databáze má aj správca Hotlapu. Fotka jazdca ostáva len v prehliadači.</p>
     <p>Appku môžeš používať aj bez prihlásenia.</p></section>
 
+  <section><h2>Čítanie výsledkov z fotky</h2>
+    <p>Keď dáš appke prečítať fotku výsledkovej listiny alebo monitora, zmenšená fotka sa odošle na server Hotlapu (poskytovateľ Supabase, aj mimo Európskej únie). Ten ju dá prečítať službe umelej inteligencie Claude od spoločnosti Anthropic (USA) a späť do appky vráti len prečítané časy.</p>
+    <p>Hotlap fotku neukladá. Na serveri si pamätá len to, koľko fotiek dal tvoj účet prečítať v daný deň, aby fungoval denný limit. Ako s fotkou nakladá Anthropic, určujú jej podmienky.</p>
+    <p>Čítanie z fotky funguje len po prihlásení cez Google a je dobrovoľné: časy môžeš vždy zapísať ručne. Neposielaj fotku, na ktorej sú údaje, ktoré tam nechceš mať, napríklad mená iných jazdcov.</p></section>
   <section><h2>Meranie návštevnosti</h2>
     <p>Nástroj PostHog na serveroch v Európskej únii zaznamená len otvorenie stránky. Nepoužíva cookies, nič neukladá do prehliadača a nenahráva obrazovku. V appke nesleduje, na čo klikáš.</p></section>
 
@@ -81,6 +85,10 @@ posthog.init("phc_zbBFHQt5aVYH9HuviHUQuwfh6TPCVPyXSrMWWgJ9UfLP",{api_host:"https
     <p>Once you sign in, your rides, lap times, score, badges and nicknames are also stored in the database in the European Union, so you have them on every device. Only your account can read them; the Hotlap administrator also has access to the database. Your rider photo stays in your browser.</p>
     <p>You can use the app without signing in.</p></section>
 
+  <section><h2>Reading results from a photo</h2>
+    <p>When you ask the app to read a photo of a result sheet or timing monitor, a downsized copy of the photo is sent to the Hotlap server (hosted by Supabase, also outside the European Union). The server has it read by Claude, an AI service by Anthropic (USA), and returns only the lap times to the app.</p>
+    <p>Hotlap does not store the photo. The server only remembers how many photos your account had read on a given day, so the daily limit works. How Anthropic handles the photo is governed by its terms.</p>
+    <p>Photo reading works only after signing in with Google and is optional: you can always type the times by hand. Do not send a photo that shows data you do not want there, such as other drivers' names.</p></section>
   <section><h2>Visit statistics</h2>
     <p>PostHog, on servers in the European Union, records only that a page was opened. It uses no cookies, stores nothing in your browser and does not record your screen. In the app it does not track what you click.</p></section>
 
