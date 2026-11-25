@@ -2,7 +2,7 @@
 <html lang="sk">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-src 'none'; form-action 'none'; script-src 'self' https://*.posthog.com 'sha256-WYXv4T0Sp4nsWGqxcZTrCFqOWXC4JrvQ7XW5xjyqzek=' 'sha256-+VPtO3hXhh+FvWUjMcFWhKF+pwawaXHZkciGBqapke8='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: https://*.posthog.com; connect-src 'self' https://*.posthog.com https://asnpyrrdeauhkskkkmuc.supabase.co https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://firestore.googleapis.com; worker-src 'self' blob: data:">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-src 'none'; form-action 'none'; script-src 'self' https://*.posthog.com 'sha256-WYXv4T0Sp4nsWGqxcZTrCFqOWXC4JrvQ7XW5xjyqzek=' 'sha256-AHjHXam9ShtpcXVO7kiSIY7cr24z6dwS82AyZXGYbG8='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: https://*.posthog.com; connect-src 'self' https://*.posthog.com https://asnpyrrdeauhkskkkmuc.supabase.co https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://firestore.googleapis.com; worker-src 'self' blob: data:">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
@@ -731,8 +731,8 @@ function wipe(){
 }
 function logout(){
  if(!isGoogle()) return;
- if(!confirm('Odhlásiť sa?\n\nJazdy a profil sú zatiaľ uložené len v tomto prehliadači a odhlásením sa z neho vymažú. Účet, tím a práva ostanú v databáze a po prihlásení ich máš späť.')) return;
- dropToken(); resetLocal();
+ if(!confirm('Odhlásiť sa z Google účtu?\n\nJazdy a profil v tomto prehliadači ostanú. Tím sa po opätovnom prihlásení načíta kódom tímu.')) return;
+ signedOut(); render();
 }
 
 /* ---- vlastna fotka jazdca (len v tomto zariadeni) ---- */
