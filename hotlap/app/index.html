@@ -2,7 +2,7 @@
 <html lang="sk">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-src 'none'; form-action 'none'; script-src 'self' https://*.posthog.com 'sha256-WYXv4T0Sp4nsWGqxcZTrCFqOWXC4JrvQ7XW5xjyqzek=' 'sha256-NvE8I1fcqzIj1JBu8CfLnCDHfOLufs6+j904GMcAcVs='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: https://*.posthog.com; connect-src 'self' https://*.posthog.com https://asnpyrrdeauhkskkkmuc.supabase.co https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://firestore.googleapis.com; worker-src 'self' blob: data:">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-src 'none'; form-action 'none'; script-src 'self' https://*.posthog.com 'sha256-WYXv4T0Sp4nsWGqxcZTrCFqOWXC4JrvQ7XW5xjyqzek=' 'sha256-/AZ8MqOXsinR4CcfDmCWWb2bdh6v8xtWwb57fmSEn18='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: https://*.posthog.com; connect-src 'self' https://*.posthog.com https://asnpyrrdeauhkskkkmuc.supabase.co https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://firestore.googleapis.com; worker-src 'self' blob: data:">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
@@ -403,6 +403,8 @@ posthog.init("phc_zbBFHQt5aVYH9HuviHUQuwfh6TPCVPyXSrMWWgJ9UfLP",{api_host:"https
         <div class="row"><div class="main"><div class="t">Fotka jazdca</div><div class="s">Tvoja vlastná, z tohto zariadenia</div></div>
           <button class="tag un" data-act="pickAvatar">zmeniť</button></div>
         <div class="row"><div class="main"><div class="t">Prihlásenie</div><div class="s" id="pProv">—</div></div></div>
+        <div class="row"><div class="main"><div class="t">ID účtu</div><div class="s" id="pUid" style="word-break:break-all;user-select:all">—</div></div>
+          <button class="tag un" data-act="copyUid" id="pUidBtn">kopírovať</button></div>
       </div>
 
       <h2 id="admH">Administrácia</h2>
@@ -412,11 +414,6 @@ posthog.init("phc_zbBFHQt5aVYH9HuviHUQuwfh6TPCVPyXSrMWWgJ9UfLP",{api_host:"https
       <div class="badges" id="badges"></div>
 
       <h2>Údaje</h2>
-      <div class="card" style="margin-bottom:12px">
-        <div class="t" style="font-weight:600;margin-bottom:3px">Režim administrátora</div>
-        <p class="hint" style="margin:0 0 12px">Administrátor zakladá trate, zadáva oficiálne údaje, obkresľuje tvar dráhy a vybavuje hlásenia od jazdcov. V ostrej verzii to bude viazané na účet, tu si to prepneš sám.</p>
-        <button class="btn ghost" data-act="toggleAdmin" id="admBtn">Zapnúť</button>
-      </div>
       <div class="card">
         <p class="hint" style="margin:0 0 12px">Dáta sú zatiaľ uložené len v tomto prehliadači. Po pripojení databázy sa presunú do účtu a budeš ich mať na každom zariadení.</p>
         <button class="btn ghost" data-act="wipe">Vymazať všetko a začať odznova</button>
@@ -492,7 +489,10 @@ const zo=n=>[4,6,7,100].includes(n)?'zo':'z';
 const FEED={live:'časy chodia automaticky',pending:'čaká sa na pripojenie',none:'zapisuješ sám'};
 const isLive=t=>!!t && t.feed==='live';
 const liveTracks=()=>S.tracks.filter(isLive);
-const isAdmin=()=>!!S.user && S.user.admin===true;
+/* Admina potvrdzuje server (kolekcia admins v databaze). Hodnota zije len v pamati
+   a neuklada sa, takze sa neda zapnut prepisanim ulozenych dat v prehliadaci. */
+let adminOk=false;
+const isAdmin=()=>!!S.user && adminOk===true;
 const isManager=t=>!!t && t.claimed===true && t.managedByMe===true;
 const hasManager=t=>!!t && t.claimed===true;
 const hasRidden=t=>!!t && S.sessions.some(x=>x.trackId===t.id);
@@ -614,7 +614,7 @@ function migrate(st){
    if(typeof st.user.xp!=='number') st.user.xp=0;
    if(typeof st.user.streak!=='number') st.user.streak=0;
    if(typeof st.user.photo!=='string') st.user.photo='';
-   if(typeof st.user.admin!=='boolean') st.user.admin=false;
+   delete st.user.admin;   // stary prepinac; admina uz urcuje server
  }
  save();
  return st;
@@ -692,7 +692,7 @@ function login(provider){
  // prezyvka je nepovinna; bez nej dostane jazdec docasne meno a ziadnu prezyvku na dráhe
  const name = typed || 'Jazdec';
  const mail = (provider==='google'||provider==='facebook') ? provider+'@ukazka.sk' : '';
- S.user={name,mail,provider,xp:0,elo:1200,streak:0,aliases:typed?[typed]:[],badges:[],lastWeek:null,photo:'',admin:false};
+ S.user={name,mail,provider,xp:0,elo:1200,streak:0,aliases:typed?[typed]:[],badges:[],lastWeek:null,photo:''};
  save(); startLights();
 }
 function startLights(){
@@ -701,7 +701,7 @@ function startLights(){
  const t=setInterval(()=>{
    if(i<5){L[i].classList.add('lit');i++}
    else{clearInterval(t);L.forEach(x=>{x.classList.remove('lit');x.classList.add('green')});
-        setTimeout(()=>{$('#auth').classList.remove('on');render()},340)}
+        setTimeout(()=>{$('#auth').classList.remove('on');render();refreshAdmin()},340)}
  },130);
 }
 function wipe(){
@@ -709,6 +709,7 @@ function wipe(){
  // v time by inak zostal clen, ktory uz neexistuje; odchod sa stihne odoslat este pred zmazanim
  if(cloudOn()&&S.teamId) cloudLeaveTeam().catch(()=>{});
  try{localStorage.removeItem(KEY)}catch(e){}
+ adminOk=false;
  S={user:null,tracks:JSON.parse(JSON.stringify(SEED_TRACKS)),sessions:[],requests:[],rivals:seedRivals()};
  $('#auth').classList.add('on');
  document.querySelectorAll('#lights i').forEach(x=>x.className='');
@@ -763,6 +764,7 @@ function go(s,el){
  if(el&&el.dataset&&el.dataset.s) el.classList.add('on');
  window.scrollTo(0,0);
  render();
+ if(s==='profile') refreshAdmin();
 }
 function openSheet(html){$('#panel').innerHTML='<div class="grab"></div>'+html;$('#sheet').classList.add('on')}
 function closeSheet(){$('#sheet').classList.remove('on')}
@@ -1530,8 +1532,22 @@ function releaseTrack(tid){
  if(!confirm('Vzdať sa správcovstva tejto trate?')) return;
  t.claimed=false; t.managedByMe=false; save(); openTrack(tid);
 }
-function toggleAdmin(){
- S.user.admin=!S.user.admin; save(); render();
+/* Opyta sa servera, ci je tento ucet admin. Ucet kvoli tomu nezaklada: kto ho nema, admin nie je. */
+async function cloudCheckAdmin(){
+ if(!cloudOn()||!S.user||!(fbTok||fbLoadTok())){ adminOk=false; return false }
+ try{ const t=await fbAuth(); adminOk=!!(await fsReq('admins/'+t.uid)); }
+ catch(e){ if(e&&e.status) adminOk=false; }   // odmietnutie servera = nie; vypadok siete nemeni posledne potvrdenie
+ if(!S.user) adminOk=false;
+ return adminOk;
+}
+function refreshAdmin(){ const was=adminOk; return cloudCheckAdmin().then(a=>{ if(a!==was) render(); return a }).catch(()=>false) }
+async function copyUid(){
+ let uid=myUid();
+ if(!uid&&cloudOn()){ try{ await fbAuth(); uid=myUid(); render() }catch(e){ alert(cloudChyba(e)); return } }
+ if(!uid) return;
+ const b=$('#pUidBtn');
+ try{ await navigator.clipboard.writeText(uid); if(b){ b.textContent='skopírované'; setTimeout(()=>{ if(b) b.textContent='kopírovať' },1600) } }
+ catch(e){ if(b) b.textContent='označ a skopíruj' }
 }
 function addAlias(){
  const v=prompt('Pod akým ďalším menom ťa píšu na výsledky?');
@@ -1895,6 +1911,9 @@ function render(){
  $('#hName').textContent=u.name;
  $('#pName').textContent=u.name;
  const pm=$('#pMail'); pm.textContent=u.mail||''; pm.style.display=u.mail?'':'none';
+ { const tk=fbTok||fbLoadTok(), uid=u.uid||(tk&&tk.uid)||'';
+   $('#pUid').textContent=uid||'vznikne pri prvom tíme alebo po stlačení tlačidla';
+   $('#pUidBtn').textContent=uid?'kopírovať':'vytvoriť'; }
  $('#pProv').textContent={google:'Google',facebook:'Facebook',email:'E-mail',none:'Bez účtu'}[u.provider]||'—';
  $('#pAliases').textContent=u.aliases.length?u.aliases.join(', '):'—';
  $('#hLevel').textContent='Level '+lvl+' · '+LEVELS[lvl-1];
@@ -1976,7 +1995,6 @@ function render(){
  }).join('') : `<div class="empty">Zatiaľ žiadna jazda.<br>Zapíš prvú a začni zbierať skóre.</div>`;
 
  const adm=isAdmin();
- $('#admBtn').textContent = adm?'Vypnúť režim administrátora':'Zapnúť';
  $('#admH').style.display = adm?'':'none';
  $('#admCard').style.display = adm?'':'none';
  if(adm){
@@ -2348,7 +2366,7 @@ const ACT={
  onCover:(el,a,b,ev)=>onCover(ev),
  onPlan:(el,a,b,ev)=>onPlan(ev),
  addAlias:()=>addAlias(),
- toggleAdmin:()=>toggleAdmin(),
+ copyUid:()=>copyUid(),
  wipe:()=>wipe(),
  doCreateTeam:()=>doCreateTeam(),
  editName:()=>editName(),
@@ -2408,7 +2426,7 @@ function showBreak(){
  document.querySelectorAll('.screen').forEach(x=>x.classList.remove('on'));
  if(el) el.classList.add('on');
 }
-if(S.user){$('#auth').classList.remove('on');render()}
+if(S.user){$('#auth').classList.remove('on');render();refreshAdmin()}
 </script>
 </body>
 </html>
