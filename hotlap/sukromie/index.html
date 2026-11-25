@@ -41,7 +41,7 @@ posthog.init("phc_zbBFHQt5aVYH9HuviHUQuwfh6TPCVPyXSrMWWgJ9UfLP",{api_host:"https
   <h1>Aké údaje Hotlap ukladá</h1>
   <p class="stav">Stav: november 2026 · Prevádzkovateľ: Štefan Toporcer · <a href="mailto:toporcer.stefan@gmail.com">toporcer.stefan@gmail.com</a></p>
 
-  <section><h2>Len v tvojom prehliadači</h2>
+  <section><h2>Bez prihlásenia: len v tvojom prehliadači</h2>
     <p>Jazdy, časy, skóre, odznaky, prezývky a fotka jazdca. Na server sa neposielajú. Keď vymažeš dáta prehliadača, prídeš o ne.</p></section>
 
   <section><h2>V databáze</h2>
@@ -51,14 +51,15 @@ posthog.init("phc_zbBFHQt5aVYH9HuviHUQuwfh6TPCVPyXSrMWWgJ9UfLP",{api_host:"https
   <section><h2>Pri prihlásení cez Google</h2>
     <p>Meno a e-mail z tvojho Google účtu. Heslo Hotlap nevidí a nedostane.</p>
     <p>Prihlasovaciu službu prevádzkuje Google (Firebase Authentication) a údaje spracúva aj mimo Európskej únie.</p>
+    <p>Po prihlásení sa do databázy v Európskej únii ukladajú aj tvoje jazdy, časy, skóre, odznaky a prezývky, aby si ich mal na každom zariadení. Číta ich len tvoj účet; prístup k databáze má aj správca Hotlapu. Fotka jazdca ostáva len v prehliadači.</p>
     <p>Appku môžeš používať aj bez prihlásenia.</p></section>
 
   <section><h2>Meranie návštevnosti</h2>
     <p>Nástroj PostHog na serveroch v Európskej únii zaznamená len otvorenie stránky. Nepoužíva cookies, nič neukladá do prehliadača a nenahráva obrazovku. V appke nesleduje, na čo klikáš.</p></section>
 
   <section><h2>Ako údaje vymažeš</h2>
-    <p>„Vymazať všetko“ v profile zmaže dáta v prehliadači a odhlási ťa z tímu.</p>
-    <p>O zmazanie účtu a údajov v databáze napíš na <a href="mailto:toporcer.stefan@gmail.com">toporcer.stefan@gmail.com</a>. Na tej istej adrese sa môžeš opýtať, aké údaje o tebe Hotlap má.</p></section>
+    <p>„Vymazať všetko“ v profile zmaže dáta v prehliadači, jazdy a profil v databáze a odhlási ťa z tímu.</p>
+    <p>O zmazanie samotného prihlasovacieho účtu (meno a e-mail z Googlu) napíš na <a href="mailto:toporcer.stefan@gmail.com">toporcer.stefan@gmail.com</a>. Na tej istej adrese sa môžeš opýtať, aké údaje o tebe Hotlap má.</p></section>
 
   <a class="app" href="/hotlap/app/">Otvoriť appku</a>
 
@@ -67,7 +68,7 @@ posthog.init("phc_zbBFHQt5aVYH9HuviHUQuwfh6TPCVPyXSrMWWgJ9UfLP",{api_host:"https
   <h1>What data Hotlap stores</h1>
   <p class="stav">As of November 2026 · Operator: Štefan Toporcer · <a href="mailto:toporcer.stefan@gmail.com">toporcer.stefan@gmail.com</a></p>
 
-  <section><h2>Only in your browser</h2>
+  <section><h2>Without signing in: only in your browser</h2>
     <p>Rides, lap times, score, badges, nicknames and your rider photo. They are not sent to a server. Clearing your browser data removes them.</p></section>
 
   <section><h2>In the database</h2>
@@ -77,14 +78,15 @@ posthog.init("phc_zbBFHQt5aVYH9HuviHUQuwfh6TPCVPyXSrMWWgJ9UfLP",{api_host:"https
   <section><h2>When you sign in with Google</h2>
     <p>The name and e-mail of your Google account. Hotlap never sees or receives your password.</p>
     <p>The sign-in service is run by Google (Firebase Authentication), which also processes data outside the European Union.</p>
+    <p>Once you sign in, your rides, lap times, score, badges and nicknames are also stored in the database in the European Union, so you have them on every device. Only your account can read them; the Hotlap administrator also has access to the database. Your rider photo stays in your browser.</p>
     <p>You can use the app without signing in.</p></section>
 
   <section><h2>Visit statistics</h2>
     <p>PostHog, on servers in the European Union, records only that a page was opened. It uses no cookies, stores nothing in your browser and does not record your screen. In the app it does not track what you click.</p></section>
 
   <section><h2>How to delete your data</h2>
-    <p>“Vymazať všetko” in your profile deletes the data in your browser and removes you from your team.</p>
-    <p>To have your account and database data deleted, or to ask what data Hotlap holds about you, write to <a href="mailto:toporcer.stefan@gmail.com">toporcer.stefan@gmail.com</a>.</p></section>
+    <p>“Vymazať všetko” in your profile deletes the data in your browser, your rides and profile in the database, and removes you from your team.</p>
+    <p>To have the sign-in account itself (name and e-mail from Google) deleted, or to ask what data Hotlap holds about you, write to <a href="mailto:toporcer.stefan@gmail.com">toporcer.stefan@gmail.com</a>.</p></section>
   </div>
 </main>
 </body>

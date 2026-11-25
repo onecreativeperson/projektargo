@@ -2,7 +2,7 @@
 <html lang="sk">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-src 'none'; form-action 'none'; script-src 'self' https://*.posthog.com 'sha256-+vI4NlYcAnMZrtsKU3stuMP41zlQZ+HkjUD8//8KN9w=' 'sha256-WYXv4T0Sp4nsWGqxcZTrCFqOWXC4JrvQ7XW5xjyqzek=' 'sha256-DXRWKZ91KsUnOQU1PwE6jy0hmoll+0qZP9OIQpURP+8='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: https://*.posthog.com; connect-src 'self' https://*.posthog.com https://asnpyrrdeauhkskkkmuc.supabase.co https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://firestore.googleapis.com; worker-src 'self' blob: data:">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-src 'none'; form-action 'none'; script-src 'self' https://*.posthog.com 'sha256-+vI4NlYcAnMZrtsKU3stuMP41zlQZ+HkjUD8//8KN9w=' 'sha256-WYXv4T0Sp4nsWGqxcZTrCFqOWXC4JrvQ7XW5xjyqzek=' 'sha256-MotzRfgfZAQY/pTyql2JRIvbLV1Cmnwth17Nm+jHrmM='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: https://*.posthog.com; connect-src 'self' https://*.posthog.com https://asnpyrrdeauhkskkkmuc.supabase.co https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://firestore.googleapis.com; worker-src 'self' blob: data:">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
@@ -417,7 +417,8 @@ posthog.init("phc_zbBFHQt5aVYH9HuviHUQuwfh6TPCVPyXSrMWWgJ9UfLP",{api_host:"https
 
       <h2>Údaje</h2>
       <div class="card">
-        <p class="hint" style="margin:0 0 12px">Jazdy a profil sú zatiaľ uložené len v tomto prehliadači. Účet a tím sú v databáze. <button class="linkbtn" data-act="openPrivacy">Aké údaje Hotlap ukladá</button></p>
+        <p class="hint" style="margin:0 0 12px"><span id="syncHint">—</span> <button class="linkbtn" data-act="openPrivacy">Aké údaje Hotlap ukladá</button></p>
+        <button class="btn primary" data-act="startGoogle" id="syncBtn" style="margin-bottom:10px">Prihlásiť cez Google a uložiť jazdy</button>
         <button class="btn ghost" data-act="wipe">Vymazať všetko a začať odznova</button>
       </div>
     </div>
@@ -454,8 +455,10 @@ posthog.init("phc_zbBFHQt5aVYH9HuviHUQuwfh6TPCVPyXSrMWWgJ9UfLP",{api_host:"https
 /* ================= storage ================= */
 const KEY='hotlap.v1';
 function load(){try{const r=localStorage.getItem(KEY);return r?JSON.parse(r):null}catch(e){return null}}
-function save(){try{localStorage.setItem(KEY,JSON.stringify(S));return true}
+function saveQuiet(){try{localStorage.setItem(KEY,JSON.stringify(S));return true}
  catch(e){console.warn('localStorage full',e);return false}}
+/* Ulozi do prehliadaca a naplanuje zapis do databazy. Pri starte este cast appky neexistuje, preto try. */
+function save(){ const r=saveQuiet(); try{ scheduleSync() }catch(e){} return r }
 
 /* layout: dir 'cw'/'ccw', len v m, ver = verzia konfiguracie, reports = hlasenia o prestavbe */
 const L=(id,name,dir,len)=>({id,name,dir:dir||null,len:len||null,ver:1,since:null,reports:[]});
@@ -722,13 +725,19 @@ function resetLocal(){
  $('#nk').value='';
 }
 function dropToken(){ fbTok=null; try{localStorage.removeItem(FBK)}catch(e){} }
-function wipe(){
- if(!confirm('Vymazať profil aj všetky zapísané jazdy?')) return;
- // v time by inak zostal clen, ktory uz neexistuje; odchod sa stihne odoslat este pred zmazanim
+async function wipe(){
  const g=isGoogle();
+ if(!confirm(g?'Vymazať profil aj všetky zapísané jazdy?\n\nZmažú sa z tohto prehliadača aj z tvojho účtu v databáze. Nedá sa to vrátiť.':'Vymazať profil aj všetky zapísané jazdy?')) return;
+ if(g&&cloudOn()){
+   // najprv databaza: keby zlyhala, jazdy by sa po dalsom prihlaseni vratili
+   try{ await cloudWipe() }
+   catch(e){ alert('Údaje v databáze sa nepodarilo zmazať, preto som nezmazal nič. Skontroluj pripojenie a skús to znova.'); return }
+ }
+ // v time by inak zostal clen, ktory uz neexistuje; odchod sa stihne odoslat este pred zmazanim
  const odchod=(cloudOn()&&S.teamId) ? cloudLeaveTeam().catch(()=>{}) : Promise.resolve();
  // Google ucet po vymazani odhlasime, inak by novy profil "bez uctu" bezal pod Google uctom
  if(g) odchod.then(dropToken);
+ pulledFor=null;
  resetLocal();
 }
 function logout(){
@@ -1570,6 +1579,166 @@ function releaseTrack(tid){
  if(!confirm('Vzdať sa správcovstva tejto trate?')) return;
  t.claimed=false; t.managedByMe=false; save(); openTrack(tid);
 }
+/* ================= jazdec a historia v databaze =================
+   Po prihlaseni cez Google sa profil a kazda jazda ukladaju do uctu (riders/<ucet> a riders/<ucet>/sessions).
+   Prehliadac ostava rychlou kopiou a funguje aj bez signalu; po pripojeni sa dorovna.
+   Bez prihlasenia ostava vsetko len v prehliadaci. */
+const SYNC_MAX=600;
+const okDocId=id=>/^[A-Za-z0-9_-]{1,40}$/.test(String(id||''));
+const syncOn=()=>cloudOn()&&isGoogle()&&!!S.user;
+function sessDoc(x){
+ const t=trackById(x.trackId)||{}, lay=(t.layouts||[]).find(l=>l.id===x.layoutId)||{}, cl=(t.classes||[]).find(c=>c.id===x.classId)||{};
+ return {trackId:String(x.trackId||'').slice(0,40),layoutId:String(x.layoutId||'').slice(0,40),layVer:(x.layVer|0)||1,
+   classId:String(x.classId||'').slice(0,40),date:String(x.date||'').slice(0,10),bestMs:Math.round(+x.bestMs)||0,
+   laps:Math.max(0,Math.min(999,x.laps|0)),kart:String(x.kart||'').slice(0,3),isPB:!!x.isPB,xp:Math.round(+x.xp)||0,elo:Math.round(+x.elo)||0,
+   trackName:cleanName(t.name,60),trackCity:cleanName(t.city,60),trackCountry:String(t.country||'').slice(0,2),
+   layoutName:cleanName(lay.name,40),className:cleanName(cl.name,40)};
+}
+function riderDoc(){
+ const u=S.user, lt=(S.teams||[])[0];
+ return {name:dbMeno(u.name),aliases:(u.aliases||[]).slice(0,20).map(a=>cleanName(a,20)).filter(Boolean),
+   badges:(u.badges||[]).slice(0,60).map(b=>String(b).slice(0,40)),streak:u.streak|0,lastWeek:String(u.lastWeek||'').slice(0,12),
+   xp:u.xp|0,elo:u.elo|0,rides:S.sessions.length,teamCode:(lt&&lt.cloud&&lt.code)?String(lt.code).slice(0,5):''};
+}
+function syncState(uid){ if(!S.sync||S.sync.uid!==uid) S.sync={uid:uid,sess:{},prof:'',at:''}; if(!S.sync.sess) S.sync.sess={}; return S.sync }
+/* trat, ktoru toto zariadenie nepozna, sa doplni z udajov ulozenych pri jazde */
+function ensureTrack(d){
+ let t=trackById(d.trackId);
+ if(!t){ t={id:d.trackId,name:d.trackName||'Trať',city:d.trackCity||'',country:d.trackCountry||'SK',layouts:[],classes:[],
+   verified:false,claimed:false,managedByMe:false,feed:'none',source:'rider'}; S.tracks.push(t) }
+ if(!Array.isArray(t.layouts)) t.layouts=[];
+ if(!t.layouts.some(l=>l.id===d.layoutId)) t.layouts.push({id:d.layoutId,name:d.layoutName||'Hlavná',dir:null,len:null,ver:d.layVer||1,since:null,reports:[],history:[]});
+ if(!Array.isArray(t.classes)) t.classes=[];
+ if(d.classId&&!t.classes.some(c=>c.id===d.classId)) t.classes.push({id:d.classId,name:d.className||'Trieda'});
+}
+let pulledFor=null, syncBusy=null, syncTimer=null, syncErr='';
+/* Zapis do databazy: len to, co sa od posledneho zapisu zmenilo. */
+async function cloudPush(){
+ if(!syncOn()) return 0;
+ const t=await fbAuth(); if(!syncOn()) return 0;
+ const st=syncState(t.uid), base='riders/'+t.uid; let n=0;
+ for(const x of S.sessions.slice(0,SYNC_MAX)){
+   if(!okDocId(x.id)) continue;
+   const d=sessDoc(x), h=JSON.stringify(d);
+   if(st.sess[x.id]===h||st.sess[x.id]==='!'+h) continue;
+   try{ await fsReq(base+'/sessions/'+x.id,{method:'PATCH',body:JSON.stringify({fields:fsFields(d)})}); st.sess[x.id]=h; n++ }
+   catch(e){ if(e&&(e.status===400||e.status===403)){ st.sess[x.id]='!'+h; n++ } else { if(n) saveQuiet(); throw e } }   // jazda, ktoru databaza neprijme, nesmie zastavit ostatne
+ }
+ const pd=riderDoc(), ph=JSON.stringify(pd);
+ if(st.prof!==ph){
+   await fsReq(base,{method:'PATCH',body:JSON.stringify({fields:fsFields(Object.assign({updatedAt:new Date().toISOString()},pd))})});
+   st.prof=ph; n++;
+ }
+ if(n){ st.at=new Date().toISOString(); saveQuiet() }
+ return n;
+}
+/* Nacitanie z databazy a spojenie s tym, co je v prehliadaci. Miestne jazdy sa nikdy nemazu len preto, ze v databaze chybaju. */
+async function cloudPull(){
+ if(!syncOn()) return false;
+ const t=await fbAuth(); if(!syncOn()) return false;
+ const base='riders/'+t.uid;
+ if(S.sync&&S.sync.uid&&S.sync.uid!==t.uid){
+   // v prehliadaci su jazdy ineho uctu: tie, co uz ma ulozene v databaze, tu nenechame, aby sa nepripisali tomuto
+   const stare=S.sync.sess||{}; S.sessions=S.sessions.filter(x=>!stare[x.id]); S.sync=null;
+   S.user.xp=S.sessions.reduce((a,x)=>a+(x.xp|0),0); S.user.elo=1200+S.sessions.reduce((a,x)=>a+(x.elo|0),0);
+   S.user.streak=0; S.user.lastWeek=null; S.user.badges=[];
+ }
+ const st=syncState(t.uid);
+ const remote={}; let tok='';
+ for(let i=0;i<12;i++){
+   const r=await fsReq(base+'/sessions?pageSize=300'+(tok?'&pageToken='+encodeURIComponent(tok):''));
+   ((r&&r.documents)||[]).forEach(d=>{ const id=String(d.name||'').split('/').pop(); const o=fsDoc(d); if(o&&okDocId(id)) remote[id]=o });
+   tok=(r&&r.nextPageToken)||''; if(!tok) break;
+ }
+ const pr=await fsReq(base); const rp=pr?fsDoc(pr):null;
+ if(!syncOn()) return false;
+ const u=S.user;
+ if(!rp&&st.prof!==''&&!Object.keys(remote).length){
+   // Profil v databaze chyba, hoci ho tento prehliadac uz raz ulozil: ucet bol vymazany inde.
+   // Jazdy, ktore boli ulozene, tu zmazeme tiez; nove, este neulozene, ostavaju.
+   const ulozene=st.sess; S.sessions=S.sessions.filter(x=>!ulozene[x.id]||String(ulozene[x.id]).charAt(0)==='!');
+   S.sync={uid:t.uid,sess:{},prof:'',at:''};
+   u.badges=[]; u.streak=0; u.lastWeek=null;
+   u.xp=S.sessions.reduce((a,x)=>a+(x.xp|0),0); u.elo=1200+S.sessions.reduce((a,x)=>a+(x.elo|0),0);
+   pulledFor=t.uid; saveQuiet(); return true;
+ }
+ const cisty=(st.prof===''&&S.sessions.length===0)||(st.prof!==''&&st.prof===JSON.stringify(riderDoc()));   // v prehliadaci nie je nic neulozene
+ const mam=new Set(S.sessions.map(x=>x.id)); let pridane=0; const nove=[];
+ for(const id in remote){
+   if(mam.has(id)) continue;
+   const d=remote[id]; if(!d.trackId||!d.layoutId||!(d.bestMs>0)) continue;
+   ensureTrack(d);
+   const x={id:id,trackId:d.trackId,layoutId:d.layoutId,layVer:d.layVer||1,classId:d.classId||'c1',date:d.date||today(),bestMs:d.bestMs,
+     laps:d.laps||null,kart:d.kart||null,isPB:!!d.isPB,xp:d.xp|0,elo:d.elo|0};
+   S.sessions.push(x); nove.push(id); pridane++;
+ }
+ // jazdy, ktore si prehliadac pamata ako ulozene, ale v databaze nie su, sa ulozia znova
+ Object.keys(st.sess).forEach(id=>{ if(!remote[id]&&String(st.sess[id]).charAt(0)!=='!') delete st.sess[id] });
+ if(pridane) S.sessions.sort((a,b)=>a.id===b.id?0:(String(a.id).length!==String(b.id).length?String(b.id).length-String(a.id).length:(a.id<b.id?1:-1)));
+ if(rp){
+   const uni=(a,b,max)=>{ const o=(a||[]).slice(); (b||[]).forEach(v=>{ if(typeof v==='string'&&v&&!o.includes(v)) o.push(v) }); return o.slice(0,max) };
+   if(cisty){
+     if(rp.name) u.name=cleanName(rp.name,20)||u.name;
+     u.aliases=uni(rp.aliases,[],20); u.badges=uni(rp.badges,[],60);
+     u.streak=rp.streak|0; u.lastWeek=rp.lastWeek||null; u.xp=rp.xp|0; u.elo=(rp.elo|0)||1200;
+   }else{
+     if(u.name==='Jazdec'&&rp.name&&rp.name!=='Jazdec') u.name=cleanName(rp.name,20)||u.name;
+     u.aliases=uni(u.aliases,rp.aliases,20); u.badges=uni(u.badges,rp.badges,60);
+     if(String(rp.lastWeek||'')>String(u.lastWeek||'')){ u.lastWeek=rp.lastWeek; u.streak=rp.streak|0 }
+     // skore z dvoch zariadeni: sucet toho, co nesu jazdy, nikdy menej nez uz bolo
+     u.xp=Math.max(u.xp|0,rp.xp|0,S.sessions.reduce((a,x)=>a+(x.xp|0),0));
+     if(pridane) u.elo=1200+S.sessions.reduce((a,x)=>a+(x.elo|0),0);
+   }
+   if(!S.teamId&&rp.teamCode){
+     try{ const tm=await cloudJoinTeam(rp.teamCode); if(tm&&typeof tm==='object'){ S.teams=[tm]; S.teamId=tm.id } }catch(e){}
+   }
+ }
+ if(pridane){ try{ S=migrate(S)||S }catch(e){} }
+ // prave nacitane jazdy su v databaze, netreba ich posielat spat
+ { const st2=syncState(t.uid); nove.forEach(id=>{ const x=S.sessions.find(y=>y.id===id); if(x) st2.sess[id]=JSON.stringify(sessDoc(x)) }) }
+ pulledFor=t.uid; saveQuiet();
+ return true;
+}
+/* Jedno dorovnanie naraz; dalsie poziadavky pocas neho sa zlucia do jedneho opakovania. */
+function cloudSync(){
+ if(!syncOn()) return Promise.resolve(false);
+ if(syncBusy){ syncBusy.again=true; return syncBusy }
+ const run=async()=>{
+   let zmena=false;
+   const tk=fbTok||fbLoadTok();
+   if(!tk||pulledFor!==tk.uid) zmena=await cloudPull();
+   const n=await cloudPush();
+   return zmena||n>0;
+ };
+ const pr=run().then(v=>{ syncErr=''; return v },e=>{ syncErr=(e&&e.status)?'databaza':'siet'; return false })
+   .then(v=>{ const again=pr.again; syncBusy=null; if(again) return cloudSync(); try{ render() }catch(e){} return v });
+ syncBusy=pr; return pr;
+}
+function scheduleSync(){
+ if(!syncOn()) return;
+ if(syncTimer) clearTimeout(syncTimer);
+ syncTimer=setTimeout(()=>{ syncTimer=null; cloudSync() },1200);
+}
+/* Zmaze jazdy a profil z databazy (pri "Vymazat vsetko"). */
+async function cloudWipe(){
+ const t=await fbAuth(); const base='riders/'+t.uid;
+ for(let i=0;i<40;i++){
+   const r=await fsReq(base+'/sessions?pageSize=300'); const docs=(r&&r.documents)||[];
+   if(!docs.length) break;
+   for(const d of docs){ await fsReq(base+'/sessions/'+String(d.name).split('/').pop(),{method:'DELETE'}) }
+ }
+ await fsReq(base,{method:'DELETE'});
+}
+function syncText(){
+ if(!cloudOn()) return 'Jazdy a profil sú uložené len v tomto prehliadači.';
+ if(!isGoogle()) return 'Jazdy a profil sú zatiaľ len v tomto prehliadači. Keď ho vymažeš alebo zmeníš telefón, prídeš o ne. Po prihlásení cez Google sa uložia do tvojho účtu.';
+ const st=S.sync||{}; const n=Object.keys(st.sess||{}).filter(id=>String(st.sess[id]).charAt(0)!=='!').length;
+ const caka=S.sessions.filter(x=>okDocId(x.id)&&!(st.sess||{})[x.id]).length;
+ if(syncErr==='siet') return 'Jazdy sa ukladajú do tvojho účtu. Teraz nie je spojenie, '+(caka?nJazd(caka)+' čaká na uloženie a ':'')+'dorovná sa to samo.';
+ if(caka) return 'Jazdy sa ukladajú do tvojho účtu. Ukladám '+nJazd(caka)+'…';
+ return 'Jazdy a profil sú uložené v tvojom účte ('+nJazd(n)+'). Po prihlásení ich máš na každom zariadení.';
+}
+
 /* ================= prihlasenie cez Google =================
    Presmerovanie na Google a spat, bez cudzieho skriptu v appke. Google vrati podpisany token,
    Firebase ho overi a bud ho naviaze na doterajsi anonymny ucet (ostane ID, tim aj prava),
@@ -1643,6 +1812,8 @@ async function googleSignIn(idt){
  }
  adminOk=false;
  try{ await cloudCheckAdmin() }catch(e){}
+ pulledFor=null;
+ try{ await cloudSync() }catch(e){}
  return linked?'prevzaty':'prihlaseny';
 }
 function googleChyba(e){
@@ -1679,16 +1850,17 @@ function authAction(){ if(isGoogle()) logout(); else startGoogle() }
 function openPrivacy(){
  openSheet(`
   <h3>Aké údaje Hotlap ukladá</h3><p class="sub">Stav k novembru 2026</p>
-  <div class="card" style="margin-bottom:10px"><div class="t" style="font-weight:600;margin-bottom:4px">Len v tomto prehliadači</div>
+  <div class="card" style="margin-bottom:10px"><div class="t" style="font-weight:600;margin-bottom:4px">Bez prihlásenia: len v tomto prehliadači</div>
    <p class="hint" style="margin:0">Jazdy, časy, skóre, odznaky, prezývky a fotka jazdca. Na server sa neposielajú. Vymazaním dát prehliadača o ne prídeš.</p></div>
   <div class="card" style="margin-bottom:10px"><div class="t" style="font-weight:600;margin-bottom:4px">V databáze</div>
    <p class="hint" style="margin:0">ID účtu. Ak si v tíme: názov tímu, tvoje meno v ňom a dátum pripojenia; vidia ich členovia tímu a správca Hotlapu. Databáza je v Európskej únii (Google Firebase).</p></div>
   <div class="card" style="margin-bottom:10px"><div class="t" style="font-weight:600;margin-bottom:4px">Pri prihlásení cez Google</div>
-   <p class="hint" style="margin:0">Meno a e-mail z tvojho Google účtu. Heslo Hotlap nevidí. Prihlasovaciu službu prevádzkuje Google (Firebase Authentication) a údaje spracúva aj mimo Európskej únie.</p></div>
+   <p class="hint" style="margin:0">Meno a e-mail z tvojho Google účtu. Heslo Hotlap nevidí. Prihlasovaciu službu prevádzkuje Google (Firebase Authentication) a údaje spracúva aj mimo Európskej únie.</p>
+   <p class="hint" style="margin:8px 0 0">Po prihlásení sa do databázy v Európskej únii ukladajú aj tvoje jazdy, časy, skóre, odznaky a prezývky, aby si ich mal na každom zariadení. Číta ich len tvoj účet; prístup k databáze má aj správca Hotlapu. Fotka jazdca ostáva len v prehliadači.</p></div>
   <div class="card" style="margin-bottom:10px"><div class="t" style="font-weight:600;margin-bottom:4px">Meranie používania</div>
    <p class="hint" style="margin:0">Nástroj PostHog na serveroch v Európskej únii zaznamená len otvorenie appky. Nepoužíva cookies, nič neukladá do prehliadača, nenahráva obrazovku a nesleduje, na čo klikáš.</p></div>
   <div class="card" style="margin-bottom:14px"><div class="t" style="font-weight:600;margin-bottom:4px">Vymazanie</div>
-   <p class="hint" style="margin:0">„Vymazať všetko“ v profile zmaže dáta v tomto prehliadači a odhlási ťa z tímu. O zmazanie účtu v databáze napíš na toporcer.stefan@gmail.com. Prevádzkovateľ: Štefan Toporcer.</p></div>
+   <p class="hint" style="margin:0">„Vymazať všetko“ v profile zmaže dáta v tomto prehliadači, jazdy a profil v databáze a odhlási ťa z tímu. O zmazanie samotného prihlasovacieho účtu (meno a e-mail z Googlu) napíš na toporcer.stefan@gmail.com. Prevádzkovateľ: Štefan Toporcer.</p></div>
   <p class="hint" style="margin:0 0 14px"><a href="../sukromie/" target="_blank" rel="noopener" style="color:var(--ink2)">Celé znenie na samostatnej stránke</a></p>
   <button class="btn ghost" data-act="closeSheet">Zavrieť</button>`);
 }
@@ -2074,6 +2246,7 @@ function render(){
  { const tk=fbTok||fbLoadTok(), uid=u.uid||(tk&&tk.uid)||'';
    $('#pUid').textContent=uid||'vznikne pri prvom tíme alebo po stlačení tlačidla';
    $('#pUidBtn').textContent=uid?'kopírovať':'vytvoriť'; }
+ $('#syncHint').textContent=syncText(); $('#syncBtn').style.display=(cloudOn()&&!isGoogle())?'':'none';
  { const g=isGoogle(); $('#pProv').textContent=g?'Google':'Bez účtu';
    const pb=$('#pProvBtn'); pb.textContent=g?'odhlásiť':'prihlásiť cez Google'; pb.style.display=cloudOn()?'':'none'; }
  $('#pAliases').textContent=u.aliases.length?u.aliases.join(', '):'—';
@@ -2531,7 +2704,7 @@ const ACT={
  startGoogle:()=>startGoogle(),
  authAction:()=>authAction(),
  openPrivacy:()=>openPrivacy(),
- wipe:()=>wipe(),
+ wipe:()=>{ wipe() },
  doCreateTeam:()=>doCreateTeam(),
  editName:()=>editName(),
  znovaTim:()=>znovaTim(),
@@ -2591,7 +2764,7 @@ function showBreak(){
  if(el) el.classList.add('on');
 }
 if(S.user){$('#auth').classList.remove('on');render();refreshAdmin()}
-finishGoogle().catch(e=>console.error('google',e));
+finishGoogle().catch(e=>{ console.error('google',e); return false }).then(bol=>{ if(!bol&&syncOn()) cloudSync() });
 /* Meranie navstevnosti v appke: len otvorenie stranky. Kliky nesu texty tlacidiel a riadkov (mena, timy), tie neposielame. */
 try{ if(typeof window!=='undefined'&&window.posthog&&window.posthog.set_config)
   window.posthog.set_config({autocapture:false,capture_pageleave:false,capture_dead_clicks:false,rageclick:false,enable_heatmaps:false,capture_exceptions:false}) }catch(e){}
