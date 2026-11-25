@@ -2,7 +2,7 @@
 <html lang="sk">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-src 'none'; form-action 'none'; script-src 'self' https://*.posthog.com 'sha256-WYXv4T0Sp4nsWGqxcZTrCFqOWXC4JrvQ7XW5xjyqzek=' 'sha256-i6mu0OpcSZpz8q9125Y/2RPOAyEU/JGaLhj0PKM1tho='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: https://*.posthog.com; connect-src 'self' https://*.posthog.com https://asnpyrrdeauhkskkkmuc.supabase.co https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://firestore.googleapis.com; worker-src 'self' blob: data:">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-src 'none'; form-action 'none'; script-src 'self' https://*.posthog.com 'sha256-WYXv4T0Sp4nsWGqxcZTrCFqOWXC4JrvQ7XW5xjyqzek=' 'sha256-+VPtO3hXhh+FvWUjMcFWhKF+pwawaXHZkciGBqapke8='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: https://*.posthog.com; connect-src 'self' https://*.posthog.com https://asnpyrrdeauhkskkkmuc.supabase.co https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://firestore.googleapis.com; worker-src 'self' blob: data:">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
@@ -192,7 +192,8 @@ label{display:block;font-size:10.5px;letter-spacing:.14em;text-transform:upperca
 .fine{font-size:12px;color:var(--ink3);margin-top:14px;line-height:1.55}
 
 /* ---------- sheet ---------- */
-.sheet{position:fixed;inset:0;z-index:50;display:none}
+.sheet{position:fixed;inset:0;z-index:70;display:none}
+.linkbtn{background:none;border:0;padding:0;font:inherit;color:var(--ink2);text-decoration:underline;cursor:pointer}
 .sheet.on{display:block}
 .sheet .veil{position:absolute;inset:0;background:rgba(0,0,0,.76);backdrop-filter:blur(3px)}
 .sheet .panel{position:absolute;left:0;right:0;bottom:0;max-width:520px;margin:0 auto;background:var(--bg2);
@@ -279,12 +280,9 @@ posthog.init("phc_zbBFHQt5aVYH9HuviHUQuwfh6TPCVPyXSrMWWgJ9UfLP",{api_host:"https
     <p class="lede">Odfoť výsledky z dráhy alebo ich zapíš ručne. Hotlap si pamätá každé kolo, počíta skóre a porovná ťa s ostatnými.</p>
 
     <div class="oauth">
-      <button data-act="login" data-a="google">
+      <button data-act="startGoogle">
         <svg viewBox="0 0 24 24" fill="none"><path d="M21.6 12.23c0-.73-.07-1.43-.19-2.1H12v3.98h5.38a4.6 4.6 0 0 1-2 3.02v2.5h3.24c1.89-1.74 2.98-4.3 2.98-7.4Z" fill="#4285F4"/><path d="M12 22c2.7 0 4.96-.9 6.62-2.42l-3.24-2.5c-.9.6-2.04.96-3.38.96-2.6 0-4.8-1.76-5.59-4.12H3.07v2.58A10 10 0 0 0 12 22Z" fill="#34A853"/><path d="M6.41 13.92a6 6 0 0 1 0-3.84V7.5H3.07a10 10 0 0 0 0 9l3.34-2.58Z" fill="#FBBC05"/><path d="M12 5.96c1.47 0 2.79.5 3.83 1.5l2.87-2.87C16.95 2.98 14.7 2 12 2a10 10 0 0 0-8.93 5.5l3.34 2.58C7.2 7.72 9.4 5.96 12 5.96Z" fill="#EA4335"/></svg>
         Pokračovať cez Google</button>
-      <button data-act="login" data-a="facebook">
-        <svg viewBox="0 0 24 24"><path fill="#1877F2" d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5.02 3.66 9.18 8.44 9.94v-7.03H7.9v-2.9h2.54V9.85c0-2.52 1.49-3.91 3.78-3.91 1.1 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.78-1.63 1.57v1.89h2.78l-.45 2.9h-2.33V22c4.78-.76 8.43-4.92 8.43-9.94Z"/></svg>
-        Pokračovať cez Facebook</button>
     </div>
 
     <div class="or">alebo bez účtu</div>
@@ -292,6 +290,7 @@ posthog.init("phc_zbBFHQt5aVYH9HuviHUQuwfh6TPCVPyXSrMWWgJ9UfLP",{api_host:"https
     <input id="nk" class="field" type="text" placeholder="Ako ťa píšu na výsledky" autocomplete="nickname" maxlength="20">
     <button class="btn primary" data-act="login" data-a="none">Vytvoriť profil</button>
     <p class="fine">Prezývka nie je povinná, doplniť alebo zmeniť si ju vieš kedykoľvek v profile. Keď ju zadáš, Hotlap ťa podľa nej nájde na výsledkovej listine, keď odfotíš papier.</p>
+    <p class="fine"><button class="linkbtn" data-act="openPrivacy">Aké údaje Hotlap ukladá</button></p>
   </div>
 </div>
 
@@ -402,7 +401,8 @@ posthog.init("phc_zbBFHQt5aVYH9HuviHUQuwfh6TPCVPyXSrMWWgJ9UfLP",{api_host:"https
           <button class="tag un" data-act="addAlias">pridať</button></div>
         <div class="row"><div class="main"><div class="t">Fotka jazdca</div><div class="s">Tvoja vlastná, z tohto zariadenia</div></div>
           <button class="tag un" data-act="pickAvatar">zmeniť</button></div>
-        <div class="row"><div class="main"><div class="t">Prihlásenie</div><div class="s" id="pProv">—</div></div></div>
+        <div class="row"><div class="main"><div class="t">Prihlásenie</div><div class="s" id="pProv">—</div></div>
+          <button class="tag un" data-act="authAction" id="pProvBtn">prihlásiť cez Google</button></div>
         <div class="row"><div class="main"><div class="t">ID účtu</div><div class="s" id="pUid" style="word-break:break-all;user-select:all">—</div></div>
           <button class="tag un" data-act="copyUid" id="pUidBtn">kopírovať</button></div>
       </div>
@@ -415,7 +415,7 @@ posthog.init("phc_zbBFHQt5aVYH9HuviHUQuwfh6TPCVPyXSrMWWgJ9UfLP",{api_host:"https
 
       <h2>Údaje</h2>
       <div class="card">
-        <p class="hint" style="margin:0 0 12px">Dáta sú zatiaľ uložené len v tomto prehliadači. Po pripojení databázy sa presunú do účtu a budeš ich mať na každom zariadení.</p>
+        <p class="hint" style="margin:0 0 12px">Jazdy a profil sú zatiaľ uložené len v tomto prehliadači. Účet a tím sú v databáze. <button class="linkbtn" data-act="openPrivacy">Aké údaje Hotlap ukladá</button></p>
         <button class="btn ghost" data-act="wipe">Vymazať všetko a začať odznova</button>
       </div>
     </div>
@@ -569,7 +569,7 @@ function migrate(st){
  const repair = (st.schema||0) < 2;   // raz zmaz fakty, ktore appka kedysi vymyslela
  st.schema=2;
  if(!Array.isArray(st.rivals)||!st.rivals.length||typeof st.rivals[0].best!=='number') st.rivals=seedRivals();
- if(!Array.isArray(st.tracks)) st.tracks=JSON.parse(JSON.stringify(SEED_TRACKS));
+ if(!Array.isArray(st.tracks)||!st.tracks.length) st.tracks=JSON.parse(JSON.stringify(SEED_TRACKS));   // bez trati by sa uvod nevykreslil
  if(!Array.isArray(st.sessions)) st.sessions=[];
  if(!Array.isArray(st.requests)) st.requests=[];
  if(!Array.isArray(st.teams)) st.teams=[];
@@ -615,6 +615,10 @@ function migrate(st){
    if(typeof st.user.streak!=='number') st.user.streak=0;
    if(typeof st.user.photo!=='string') st.user.photo='';
    delete st.user.admin;   // stary prepinac; admina uz urcuje server
+   // stare tlacidla Google/Facebook boli atrapy; ostre prihlasenie spozname podla tokenu
+   // (kluc je tu napisany priamo: migracia bezi skor, nez vznikne konstanta FBK)
+   { let g=false; try{ g=!!(JSON.parse(localStorage.getItem('hotlap.fb')||'null')||{}).google }catch(e){}
+     if(st.user.provider!=='none' && !(st.user.provider==='google' && g)){ st.user.provider='none'; st.user.mail='' } }
  }
  save();
  return st;
@@ -691,7 +695,8 @@ function login(provider){
  const typed=cleanName($('#nk').value,20);
  // prezyvka je nepovinna; bez nej dostane jazdec docasne meno a ziadnu prezyvku na dráhe
  const name = typed || 'Jazdec';
- const mail = (provider==='google'||provider==='facebook') ? provider+'@ukazka.sk' : '';
+ if(provider!=='none') provider='none';      // Google ide cez startGoogle; ine sposoby appka nema
+ const mail='';
  S.user={name,mail,provider,xp:0,elo:1200,streak:0,aliases:typed?[typed]:[],badges:[],lastWeek:null,photo:''};
  save(); startLights();
 }
@@ -704,16 +709,30 @@ function startLights(){
         setTimeout(()=>{$('#auth').classList.remove('on');render();refreshAdmin()},340)}
  },130);
 }
-function wipe(){
- if(!confirm('Vymazať profil aj všetky zapísané jazdy?')) return;
- // v time by inak zostal clen, ktory uz neexistuje; odchod sa stihne odoslat este pred zmazanim
- if(cloudOn()&&S.teamId) cloudLeaveTeam().catch(()=>{});
+/* Zahodi vsetko, co je v tomto prehliadaci, a vrati uvodnu obrazovku. */
+function resetLocal(){
  try{localStorage.removeItem(KEY)}catch(e){}
  adminOk=false;
  S={user:null,tracks:JSON.parse(JSON.stringify(SEED_TRACKS)),sessions:[],requests:[],rivals:seedRivals()};
+ closeSheet();
  $('#auth').classList.add('on');
  document.querySelectorAll('#lights i').forEach(x=>x.className='');
  $('#nk').value='';
+}
+function dropToken(){ fbTok=null; try{localStorage.removeItem(FBK)}catch(e){} }
+function wipe(){
+ if(!confirm('Vymazať profil aj všetky zapísané jazdy?')) return;
+ // v time by inak zostal clen, ktory uz neexistuje; odchod sa stihne odoslat este pred zmazanim
+ const g=isGoogle();
+ const odchod=(cloudOn()&&S.teamId) ? cloudLeaveTeam().catch(()=>{}) : Promise.resolve();
+ // Google ucet po vymazani odhlasime, inak by novy profil "bez uctu" bezal pod Google uctom
+ if(g) odchod.then(dropToken);
+ resetLocal();
+}
+function logout(){
+ if(!isGoogle()) return;
+ if(!confirm('Odhlásiť sa?\n\nJazdy a profil sú zatiaľ uložené len v tomto prehliadači a odhlásením sa z neho vymažú. Účet, tím a práva ostanú v databáze a po prihlásení ich máš späť.')) return;
+ dropToken(); resetLocal();
 }
 
 /* ---- vlastna fotka jazdca (len v tomto zariadeni) ---- */
@@ -1012,7 +1031,9 @@ function confirmChange(tid,lid){
 /* ================= oblak: spolocna databaza pre timy =================
    Firebase cez REST, bez kniznice. Ked su udaje prazdne alebo nie je siet,
    appka funguje dalej, len timy zostanu v tomto prehliadaci. */
-const FB={apiKey:'AIzaSyDE8gT48Bxg_7EQn-K5KQCWXEi2Ea-U3dM',projectId:'hotlap-53b03'};
+const FB={apiKey:'AIzaSyDE8gT48Bxg_7EQn-K5KQCWXEi2Ea-U3dM',projectId:'hotlap-53b03',
+  googleClient:'609101039327-15v7vvs5g0eimc7pnls6kon74gin3p75.apps.googleusercontent.com',
+  googleRedirect:'https://projektargo.com/hotlap/app/'};
 const FBK='hotlap.fb';
 const cloudOn=()=>!!(FB.apiKey&&FB.projectId);
 let fbTok=null;
@@ -1037,9 +1058,15 @@ async function fbAuthRun(){
    const r=await fetch('https://securetoken.googleapis.com/v1/token?key='+FB.apiKey,{method:'POST',
      headers:{'Content-Type':'application/x-www-form-urlencoded'},
      body:'grant_type=refresh_token&refresh_token='+encodeURIComponent(fbTok.refreshToken)});
-   if(r.ok){ const j=await r.json();
+   if(r.ok){ const j=await r.json(); const g=!!fbTok.google;
      fbTok={idToken:j.id_token,refreshToken:j.refresh_token,uid:j.user_id,exp:Date.now()+(+j.expires_in)*1000};
+     if(g) fbTok.google=true;
      fbSaveTok(fbTok); return fbSyncUid() }
+   if(fbTok.google){
+     // Google ucet uz neplati (zruseny alebo odvolany). Odhlasime ho, nevyrabame namiesto neho anonymny.
+     signedOut();
+     const e=new Error('odhlaseny'); e.status=401; throw e;
+   }
  }
  const r=await fetch('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key='+FB.apiKey,{method:'POST',
    headers:{'Content-Type':'application/json'},body:JSON.stringify({returnSecureToken:true})});
@@ -1541,6 +1568,126 @@ function releaseTrack(tid){
  if(!confirm('Vzdať sa správcovstva tejto trate?')) return;
  t.claimed=false; t.managedByMe=false; save(); openTrack(tid);
 }
+/* ================= prihlasenie cez Google =================
+   Presmerovanie na Google a spat, bez cudzieho skriptu v appke. Google vrati podpisany token,
+   Firebase ho overi a bud ho naviaze na doterajsi anonymny ucet (ostane ID, tim aj prava),
+   alebo prihlasi do uctu, ktory tento Google ucet v Hotlape uz ma. */
+const GKEY='hotlap.g';
+const isGoogle=()=>!!((fbTok||fbLoadTok()||{}).google);
+const googleOn=()=>cloudOn()&&!!FB.googleClient&&(location.origin+location.pathname).replace(/index\.html$/,'')===FB.googleRedirect;
+function rnd(){ const a=new Uint8Array(16); crypto.getRandomValues(a); return Array.from(a,b=>b.toString(16).padStart(2,'0')).join('') }
+function jwtPayload(t){
+ try{ const p=String(t).split('.')[1].replace(/-/g,'+').replace(/_/g,'/');
+   const bin=atob(p+'==='.slice((p.length+3)%4));
+   return JSON.parse(decodeURIComponent(Array.from(bin,c=>'%'+c.charCodeAt(0).toString(16).padStart(2,'0')).join(''))) }
+ catch(e){ return null }
+}
+function startGoogle(){
+ if(!googleOn()){ alert('Prihlásenie cez Google funguje len na projektargo.com/hotlap/app/.'); return }
+ const st={state:rnd(),nonce:rnd()};
+ try{ sessionStorage.setItem(GKEY,JSON.stringify(st)) }
+ catch(e){ alert('Prehliadač nedovolil uložiť stav prihlásenia. Skús to mimo súkromného režimu.'); return }
+ const q=new URLSearchParams({client_id:FB.googleClient,redirect_uri:FB.googleRedirect,response_type:'id_token',
+   scope:'openid email profile',nonce:st.nonce,state:st.state,prompt:'select_account'});
+ location.assign('https://accounts.google.com/o/oauth2/v2/auth?'+q.toString());
+}
+async function idpCall(idt,linkTok){
+ const body={postBody:'id_token='+encodeURIComponent(idt)+'&providerId=google.com',requestUri:FB.googleRedirect,
+   returnSecureToken:true,returnIdpCredential:true};
+ if(linkTok) body.idToken=linkTok;
+ const r=await fetch('https://identitytoolkit.googleapis.com/v1/accounts:signInWithIdp?key='+FB.apiKey,{method:'POST',
+   headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+ const j=await r.json().catch(()=>({}));
+ if(!r.ok){ const e=new Error('google'); e.status=r.status; e.code=String((j.error&&j.error.message)||''); throw e }
+ return j;
+}
+const OBSADENY=/ALREADY_LINKED|CREDENTIAL_ALREADY_IN_USE|EMAIL_EXISTS/;
+async function googleSignIn(idt){
+ const cur=fbTok||fbLoadTok();
+ let anon=null;
+ if(cur&&!cur.google){ try{ anon=await fbAuth() }catch(e){ anon=null } }
+ let j=null, linked=false;
+ if(anon){
+   try{ j=await idpCall(idt,anon.idToken) }
+   catch(e){ if(!OBSADENY.test(e.code||'')) throw e; j=null }
+   if(j&&(j.errorMessage||!j.idToken)){ if(j.errorMessage&&!OBSADENY.test(j.errorMessage)){ const e=new Error('google'); e.code=j.errorMessage; throw e } j=null }
+   linked=!!j;
+ }
+ const lt=(S.teams||[])[0]; const kod=(!linked&&anon&&S.teamId&&lt&&lt.cloud)?lt.code:null;
+ if(!j){
+   // tento Google ucet uz v Hotlape ucet ma: clenstvo anonymneho uctu v time mu odovzdame
+   if(kod){ try{ await cloudLeaveTeam() }catch(e){} }
+   j=await idpCall(idt,null);
+   if(!j.idToken){ const e=new Error('google'); e.code=String(j.errorMessage||'bez tokenu'); throw e }
+ }
+ fbTok={idToken:j.idToken,refreshToken:j.refreshToken,uid:j.localId,exp:Date.now()+(+j.expiresIn)*1000,google:true};
+ fbSaveTok(fbTok);
+ const gmeno=cleanName(j.displayName||j.firstName||'',20), mail=String(j.email||'').slice(0,120);
+ let menoZmenene=false;
+ if(!S.user){
+   S.user={name:gmeno||'Jazdec',mail:mail,provider:'google',xp:0,elo:1200,streak:0,aliases:gmeno?[gmeno]:[],badges:[],lastWeek:null,photo:''};
+ }else{
+   S.user.provider='google'; S.user.mail=mail;
+   if(S.user.name==='Jazdec'&&gmeno){ S.user.name=gmeno; if(!S.user.aliases.includes(gmeno)) S.user.aliases.push(gmeno); menoZmenene=true }
+ }
+ S.user.uid=j.localId; save();
+ if(linked){
+   if(S.teamId&&lt&&menoZmenene){ const m=lt.members.find(x=>x.uid===j.localId); if(m) m.name=S.user.name; save(); cloudSetMyName(S.user.name).catch(()=>{}) }
+ }else if(kod){
+   let t=null; try{ t=await cloudJoinTeam(kod) }catch(e){ t=null }
+   mirrorTeam(t&&typeof t==='object'?t:null);
+ }else if(S.teamId&&lt&&lt.cloud){
+   mirrorTeam(null);      // tim patril inemu uctu
+ }
+ adminOk=false;
+ try{ await cloudCheckAdmin() }catch(e){}
+ return linked?'prevzaty':'prihlaseny';
+}
+function googleChyba(e){
+ const c=(e&&e.code)||'';
+ if(/USER_DISABLED/.test(c)) return 'Tento účet je zablokovaný.';
+ if(/OPERATION_NOT_ALLOWED|INVALID_IDP_RESPONSE|INVALID_CREDENTIAL/.test(c)) return 'Google prihlásenie odmietol. Skús to znova, a ak to potrvá, napíš mi.';
+ if(e&&e.status) return 'Prihlásenie sa nepodarilo dokončiť. Skús to znova.';
+ return 'Nepodarilo sa spojiť so serverom. Skontroluj pripojenie a skús to znova.';
+}
+/* Navrat z Googlu: token je v casti adresy za mriezkou. Vrati true, ak prihlasenie prebehlo. */
+async function finishGoogle(){
+ if(typeof location==='undefined') return false;
+ const h=String(location.hash||'');
+ if(h.indexOf('id_token=')<0&&h.indexOf('error=')<0) return false;
+ const p=new URLSearchParams(h.replace(/^#/,''));
+ let st=null; try{ st=JSON.parse(sessionStorage.getItem(GKEY)||'null'); sessionStorage.removeItem(GKEY) }catch(e){}
+ try{ history.replaceState(null,'',location.pathname+location.search) }catch(e){}
+ if(p.get('error')){ if(p.get('error')!=='access_denied') alert('Google prihlásenie neprebehlo. Skús to znova.'); return false }
+ const idt=p.get('id_token'), pay=jwtPayload(idt);
+ if(!st||!p.get('state')||p.get('state')!==st.state||!pay||pay.nonce!==st.nonce){
+   alert('Prihlásenie sa nepodarilo overiť. Skús to znova.'); return false }
+ try{ await googleSignIn(idt) }
+ catch(e){ alert(googleChyba(e)); return false }
+ $('#auth').classList.remove('on'); render();
+ return true;
+}
+/* Ucet prestal platit: appka sa vrati do stavu bez uctu, miestne jazdy ostavaju. */
+function signedOut(){
+ dropToken(); adminOk=false;
+ if(S.user){ S.user.provider='none'; S.user.mail=''; delete S.user.uid; if(S.teamId) mirrorTeam(null); else save() }
+}
+function authAction(){ if(isGoogle()) logout(); else startGoogle() }
+function openPrivacy(){
+ openSheet(`
+  <h3>Aké údaje Hotlap ukladá</h3><p class="sub">Stav k novembru 2026</p>
+  <div class="card" style="margin-bottom:10px"><div class="t" style="font-weight:600;margin-bottom:4px">Len v tomto prehliadači</div>
+   <p class="hint" style="margin:0">Jazdy, časy, skóre, odznaky, prezývky a fotka jazdca. Na server sa neposielajú. Vymazaním dát prehliadača o ne prídeš.</p></div>
+  <div class="card" style="margin-bottom:10px"><div class="t" style="font-weight:600;margin-bottom:4px">V databáze</div>
+   <p class="hint" style="margin:0">ID účtu. Ak si v tíme: názov tímu, tvoje meno v ňom a dátum pripojenia; vidia ich členovia tímu a správca Hotlapu. Databáza je v Európskej únii (Google Firebase).</p></div>
+  <div class="card" style="margin-bottom:10px"><div class="t" style="font-weight:600;margin-bottom:4px">Pri prihlásení cez Google</div>
+   <p class="hint" style="margin:0">Meno a e-mail z tvojho Google účtu. Heslo Hotlap nevidí. Prihlasovaciu službu prevádzkuje Google (Firebase Authentication) a údaje spracúva aj mimo Európskej únie.</p></div>
+  <div class="card" style="margin-bottom:10px"><div class="t" style="font-weight:600;margin-bottom:4px">Meranie používania</div>
+   <p class="hint" style="margin:0">Appka používa nástroj PostHog na serveroch v Európskej únii.</p></div>
+  <div class="card" style="margin-bottom:14px"><div class="t" style="font-weight:600;margin-bottom:4px">Vymazanie</div>
+   <p class="hint" style="margin:0">„Vymazať všetko“ v profile zmaže dáta v tomto prehliadači a odhlási ťa z tímu. O zmazanie účtu v databáze napíš na toporcer.stefan@gmail.com. Prevádzkovateľ: Štefan Toporcer.</p></div>
+  <button class="btn ghost" data-act="closeSheet">Zavrieť</button>`);
+}
 /* Opyta sa servera, ci je tento ucet admin. Ucet kvoli tomu nezaklada: kto ho nema, admin nie je. */
 async function cloudCheckAdmin(){
  if(!cloudOn()||!S.user||!(fbTok||fbLoadTok())){ adminOk=false; return false }
@@ -1923,7 +2070,8 @@ function render(){
  { const tk=fbTok||fbLoadTok(), uid=u.uid||(tk&&tk.uid)||'';
    $('#pUid').textContent=uid||'vznikne pri prvom tíme alebo po stlačení tlačidla';
    $('#pUidBtn').textContent=uid?'kopírovať':'vytvoriť'; }
- $('#pProv').textContent={google:'Google',facebook:'Facebook',email:'E-mail',none:'Bez účtu'}[u.provider]||'—';
+ { const g=isGoogle(); $('#pProv').textContent=g?'Google':'Bez účtu';
+   const pb=$('#pProvBtn'); pb.textContent=g?'odhlásiť':'prihlásiť cez Google'; pb.style.display=cloudOn()?'':'none'; }
  $('#pAliases').textContent=u.aliases.length?u.aliases.join(', '):'—';
  $('#hLevel').textContent='Level '+lvl+' · '+LEVELS[lvl-1];
  $('#hElo').textContent=u.elo;
@@ -2376,6 +2524,9 @@ const ACT={
  onPlan:(el,a,b,ev)=>onPlan(ev),
  addAlias:()=>addAlias(),
  copyUid:()=>copyUid(),
+ startGoogle:()=>startGoogle(),
+ authAction:()=>authAction(),
+ openPrivacy:()=>openPrivacy(),
  wipe:()=>wipe(),
  doCreateTeam:()=>doCreateTeam(),
  editName:()=>editName(),
@@ -2436,6 +2587,7 @@ function showBreak(){
  if(el) el.classList.add('on');
 }
 if(S.user){$('#auth').classList.remove('on');render();refreshAdmin()}
+finishGoogle().catch(e=>console.error('google',e));
 </script>
 </body>
 </html>
