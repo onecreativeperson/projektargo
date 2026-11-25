@@ -2,7 +2,7 @@
 <html lang="sk">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-src 'none'; form-action 'none'; script-src 'self' https://*.posthog.com 'sha256-+vI4NlYcAnMZrtsKU3stuMP41zlQZ+HkjUD8//8KN9w=' 'sha256-WYXv4T0Sp4nsWGqxcZTrCFqOWXC4JrvQ7XW5xjyqzek=' 'sha256-MotzRfgfZAQY/pTyql2JRIvbLV1Cmnwth17Nm+jHrmM='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: https://*.posthog.com; connect-src 'self' https://*.posthog.com https://asnpyrrdeauhkskkkmuc.supabase.co https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://firestore.googleapis.com; worker-src 'self' blob: data:">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-src 'none'; form-action 'none'; script-src 'self' https://*.posthog.com 'sha256-+vI4NlYcAnMZrtsKU3stuMP41zlQZ+HkjUD8//8KN9w=' 'sha256-WYXv4T0Sp4nsWGqxcZTrCFqOWXC4JrvQ7XW5xjyqzek=' 'sha256-I7EAEyHnOKbRRp6rPa7USaBwp+F7bQDw3+pCSKcNmz8='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: https://*.posthog.com; connect-src 'self' https://*.posthog.com https://asnpyrrdeauhkskkkmuc.supabase.co https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://firestore.googleapis.com; worker-src 'self' blob: data:">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
@@ -1612,24 +1612,59 @@ function ensureTrack(d){
  if(d.classId&&!t.classes.some(c=>c.id===d.classId)) t.classes.push({id:d.classId,name:d.className||'Trieda'});
 }
 let pulledFor=null, syncBusy=null, syncTimer=null, syncErr='';
+/* Denny limit zapisov na ucet. Kazdy zapis ide v jednej davke s pocitadlom limits/<ucet>; pravidla databazy
+   pustia len davku, v ktorej pocitadlo stuplo presne o jedna a neprekrocilo strop. Jedna davka = jedna jazda alebo profil. */
+const DAY_LIMIT=400;
+const dnes=()=>Math.floor(Date.now()/86400000);
+const docName=path=>'projects/'+FB.projectId+'/databases/(default)/documents/'+path;
+function limNext(st){
+ const l=st.lim||{day:0,n:0}, d=dnes();
+ const o=(l.day>=d)?{day:l.day,n:l.n+1}:{day:d,n:1};
+ return o;
+}
+async function limLoad(uid,st){ const d=await fsReq('limits/'+uid); const o=d?fsDoc(d):null; st.lim={day:(o&&o.day)|0,n:(o&&o.n)|0}; return st.lim }
+async function fsCommit(writes){
+ const t=await fbAuth();
+ const r=await fetch(FSURL().replace(/\/$/,'')+':commit',{method:'POST',
+   headers:{'Authorization':'Bearer '+t.idToken,'Content-Type':'application/json'},body:JSON.stringify({writes:writes})});
+ if(!r.ok){ const e=new Error('databaza'); e.status=r.status; e.detail=await r.text(); throw e }
+ return r.json();
+}
+/* Jeden pocitany zapis. kluc = ID jazdy alebo 'profil'. Pri odmietnuti si pocitadlo nacita zo servera a skusi raz znova. */
+async function countedWrite(uid,st,kluc,path,fields){
+ for(let pokus=0;pokus<2;pokus++){
+   const nx=limNext(st);
+   if(nx.n>DAY_LIMIT){ const e=new Error('limit'); e.limit=true; throw e }
+   try{
+     await fsCommit([{update:{name:docName(path),fields:fields}},
+                     {update:{name:docName('limits/'+uid),fields:fsFields({day:nx.day,n:nx.n,last:kluc})}}]);
+     st.lim=nx; return true;
+   }catch(e){
+     if(!(e&&(e.status===400||e.status===403))||pokus) throw e;
+     await limLoad(uid,st);          // pocitadlo sa mohlo pohnut z ineho zariadenia
+   }
+ }
+}
 /* Zapis do databazy: len to, co sa od posledneho zapisu zmenilo. */
 async function cloudPush(){
  if(!syncOn()) return 0;
  const t=await fbAuth(); if(!syncOn()) return 0;
  const st=syncState(t.uid), base='riders/'+t.uid; let n=0;
- for(const x of S.sessions.slice(0,SYNC_MAX)){
-   if(!okDocId(x.id)) continue;
-   const d=sessDoc(x), h=JSON.stringify(d);
-   if(st.sess[x.id]===h||st.sess[x.id]==='!'+h) continue;
-   try{ await fsReq(base+'/sessions/'+x.id,{method:'PATCH',body:JSON.stringify({fields:fsFields(d)})}); st.sess[x.id]=h; n++ }
-   catch(e){ if(e&&(e.status===400||e.status===403)){ st.sess[x.id]='!'+h; n++ } else { if(n) saveQuiet(); throw e } }   // jazda, ktoru databaza neprijme, nesmie zastavit ostatne
- }
- const pd=riderDoc(), ph=JSON.stringify(pd);
- if(st.prof!==ph){
-   await fsReq(base,{method:'PATCH',body:JSON.stringify({fields:fsFields(Object.assign({updatedAt:new Date().toISOString()},pd))})});
-   st.prof=ph; n++;
- }
- if(n){ st.at=new Date().toISOString(); saveQuiet() }
+ if(!st.lim) await limLoad(t.uid,st);
+ try{
+   for(const x of S.sessions.slice(0,SYNC_MAX)){
+     if(!okDocId(x.id)||x.id==='profil') continue;
+     const d=sessDoc(x), h=JSON.stringify(d);
+     if(st.sess[x.id]===h||st.sess[x.id]==='!'+h) continue;
+     try{ await countedWrite(t.uid,st,x.id,base+'/sessions/'+x.id,fsFields(d)); st.sess[x.id]=h; n++ }
+     catch(e){ if(e&&!e.limit&&(e.status===400||e.status===403)){ st.sess[x.id]='!'+h; n++ } else throw e }   // jazda, ktoru databaza neprijme, nesmie zastavit ostatne
+   }
+   const pd=riderDoc(), ph=JSON.stringify(pd);
+   if(st.prof!==ph){
+     await countedWrite(t.uid,st,'profil',base,fsFields(Object.assign({updatedAt:new Date().toISOString()},pd)));
+     st.prof=ph; n++;
+   }
+ }finally{ if(n){ st.at=new Date().toISOString(); saveQuiet() } }
  return n;
 }
 /* Nacitanie z databazy a spojenie s tym, co je v prehliadaci. Miestne jazdy sa nikdy nemazu len preto, ze v databaze chybaju. */
@@ -1651,6 +1686,7 @@ async function cloudPull(){
    tok=(r&&r.nextPageToken)||''; if(!tok) break;
  }
  const pr=await fsReq(base); const rp=pr?fsDoc(pr):null;
+ await limLoad(t.uid,st);
  if(!syncOn()) return false;
  const u=S.user;
  if(!rp&&st.prof!==''&&!Object.keys(remote).length){
@@ -1710,7 +1746,7 @@ function cloudSync(){
    const n=await cloudPush();
    return zmena||n>0;
  };
- const pr=run().then(v=>{ syncErr=''; return v },e=>{ syncErr=(e&&e.status)?'databaza':'siet'; return false })
+ const pr=run().then(v=>{ syncErr=''; return v },e=>{ syncErr=(e&&e.limit)?'limit':(e&&e.status)?'databaza':'siet'; return false })
    .then(v=>{ const again=pr.again; syncBusy=null; if(again) return cloudSync(); try{ render() }catch(e){} return v });
  syncBusy=pr; return pr;
 }
@@ -1734,6 +1770,7 @@ function syncText(){
  if(!isGoogle()) return 'Jazdy a profil sú zatiaľ len v tomto prehliadači. Keď ho vymažeš alebo zmeníš telefón, prídeš o ne. Po prihlásení cez Google sa uložia do tvojho účtu.';
  const st=S.sync||{}; const n=Object.keys(st.sess||{}).filter(id=>String(st.sess[id]).charAt(0)!=='!').length;
  const caka=S.sessions.filter(x=>okDocId(x.id)&&!(st.sess||{})[x.id]).length;
+ if(syncErr==='limit') return 'Dnešný limit ukladania je vyčerpaný ('+DAY_LIMIT+' zápisov na účet). '+(caka?nJazd(caka)+' čaká v prehliadači a uloží sa zajtra.':'Zvyšok sa uloží zajtra.');
  if(syncErr==='siet') return 'Jazdy sa ukladajú do tvojho účtu. Teraz nie je spojenie, '+(caka?nJazd(caka)+' čaká na uloženie a ':'')+'dorovná sa to samo.';
  if(caka) return 'Jazdy sa ukladajú do tvojho účtu. Ukladám '+nJazd(caka)+'…';
  return 'Jazdy a profil sú uložené v tvojom účte ('+nJazd(n)+'). Po prihlásení ich máš na každom zariadení.';
