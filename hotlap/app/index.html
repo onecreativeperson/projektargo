@@ -2,7 +2,7 @@
 <html lang="sk">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-src 'none'; form-action 'none'; script-src 'self' https://*.posthog.com 'sha256-XqhGJ6VAdlI2c1tjqpQ99Xpp3qKGbl2MreHnwLQ5itE=' 'sha256-WYXv4T0Sp4nsWGqxcZTrCFqOWXC4JrvQ7XW5xjyqzek=' 'sha256-od+Hj+Wza+DlGa9qf6pSCdFL9ZErejIdwd8mxyKGFXs='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: https://*.posthog.com; connect-src 'self' https://*.posthog.com https://asnpyrrdeauhkskkkmuc.supabase.co https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://firestore.googleapis.com; worker-src 'self' blob: data:">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-src 'none'; form-action 'none'; script-src 'self' https://*.posthog.com 'sha256-XqhGJ6VAdlI2c1tjqpQ99Xpp3qKGbl2MreHnwLQ5itE=' 'sha256-WYXv4T0Sp4nsWGqxcZTrCFqOWXC4JrvQ7XW5xjyqzek=' 'sha256-J6DlH110rDY7rCtdXgJC9jUGgXCUUSJu3Nz/sJ0mS/A='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: https://*.posthog.com; connect-src 'self' https://*.posthog.com https://asnpyrrdeauhkskkkmuc.supabase.co https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://firestore.googleapis.com; worker-src 'self' blob: data:">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
@@ -435,7 +435,6 @@ posthog.init("phc_zbBFHQt5aVYH9HuviHUQuwfh6TPCVPyXSrMWWgJ9UfLP",{api_host:"https
 <input type="file" id="avaInput" accept="image/*" style="display:none" data-chg="onAvatar">
 <input type="file" id="covInput" accept="image/*" style="display:none" data-chg="onCover">
 <input type="file" id="logoInput" accept="image/png,image/jpeg,image/webp" style="display:none" data-chg="onLogo">
-<input type="file" id="shotInput" accept="image/*" capture="environment" style="display:none" data-chg="onOcrFile">
 <input type="file" id="galInput" accept="image/*" style="display:none" data-chg="onOcrFile">
 <input type="file" id="planInput" accept="image/*" style="display:none" data-chg="onPlan">
 
@@ -981,7 +980,9 @@ const OCR_ERR={
  siet:'Bez pripojenia na internet sa fotka nedá prečítať.'
 };
 let ocrBusy=false, ocrMsg='';
-function ocrPick(kind){ if(ocrBusy||!isGoogle()) return; const el=$(kind==='shot'?'#shotInput':'#galInput'); if(el) el.click() }
+/* Jeden vyber pre vsetko: telefon v nom ponukne galeriu aj fotoaparat, pocitac vyber suboru.
+   Samostatne tlacidlo na fotoaparat (capture) na niektorych telefonoch neurobilo nic, preto tu nie je. */
+function ocrPick(){ if(ocrBusy||!isGoogle()) return; const el=$('#galInput'); if(el) el.click() }
 /* zmensi fotku na najviac 1568 px po dlhsej strane a vrati JPEG v base64 bez hlavicky */
 function ocrShrink(file){
  return new Promise((res,rej)=>{
@@ -1003,7 +1004,7 @@ const ocrShown=()=>draft.mode==='photo'&&!draft.pre&&$('#sheet').classList.conta
 async function onOcrFile(e){
  const f=e.target.files&&e.target.files[0]; e.target.value='';
  if(!f||ocrBusy) return;
- const chyba=k=>{ ocrMsg=OCR_ERR[k]||OCR_ERR.ai; if(ocrShown()) stepTime() };
+ const chyba=k=>{ ocrMsg=(OCR_ERR[k]||OCR_ERR.ai)+(k==='nokey'&&isAdmin()?' Pre správcu: na server treba vložiť API kľúč (ANTHROPIC_API_KEY).':''); if(ocrShown()) stepTime() };
  if(!isGoogle()) return chyba('google');
  if(!/^image\//.test(f.type||'')&&!/\.(jpe?g|png|webp|heic|heif)$/i.test(f.name||'')) return chyba('image');
  if(f.size>30*1024*1024) return chyba('big');
@@ -1071,13 +1072,12 @@ function photoBlock(){
  const stav=ocrBusy?`<div class="banner" style="border-color:rgba(19,226,123,.3);background:rgba(19,226,123,.06)"><b style="color:var(--pb)">Čítam fotku…</b> Trvá to niekoľko sekúnd, nechaj appku otvorenú.</div>`
    :(ocrMsg?`<div class="banner">${esc(ocrMsg)}</div>`:'');
  const akcie=isGoogle()
-   ?`<button class="btn primary" data-act="ocrPick" data-a="gal"${ocrBusy?' disabled':''}>Vybrať z galérie alebo súbor</button>
-     <button class="btn ghost" data-act="ocrPick" data-a="shot" style="margin-top:8px"${ocrBusy?' disabled':''}>Odfotiť teraz</button>`
+   ?`<button class="btn primary" data-act="ocrPick"${ocrBusy?' disabled':''}>Vybrať fotku alebo odfotiť</button>`
    :`<div class="banner"><b>Najprv sa prihlás cez Google.</b> Čítanie z fotky je platená služba, preto funguje len pre prihlásené účty.</div>
      <button class="btn primary" data-act="startGoogle">Prihlásiť sa cez Google</button>`;
  return `<div class="card" style="text-align:center;padding:26px 16px">${ikona}
     <div style="font-weight:600;margin-bottom:4px">Fotka výsledkov</div>
-    <div class="hint" style="margin:0">Vyber fotku listiny alebo monitora z galérie, súbor z počítača, alebo ju odfoť. Hotlap z nej prečíta časy a pred uložením ti ich ukáže na kontrolu.</div>
+    <div class="hint" style="margin:0">Vyber fotku listiny alebo monitora z galérie, odfoť ju, alebo vyber súbor z počítača. Hotlap z nej prečíta časy a pred uložením ti ich ukáže na kontrolu.</div>
   </div>
   ${stav}${akcie}
   <button class="btn ghost" data-act="modeManual" style="margin-top:8px">Zapísať ručne</button>
