@@ -2,7 +2,7 @@
 <html lang="sk">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-src 'none'; form-action 'none'; script-src 'self' https://*.posthog.com 'sha256-+vI4NlYcAnMZrtsKU3stuMP41zlQZ+HkjUD8//8KN9w=' 'sha256-WYXv4T0Sp4nsWGqxcZTrCFqOWXC4JrvQ7XW5xjyqzek=' 'sha256-7Oej+K7XwYPJZNR80QYvRtsEsbiPM6sm9owVbb98DY0='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: https://*.posthog.com; connect-src 'self' https://*.posthog.com https://asnpyrrdeauhkskkkmuc.supabase.co https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://firestore.googleapis.com; worker-src 'self' blob: data:">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-src 'none'; form-action 'none'; script-src 'self' https://*.posthog.com 'sha256-+vI4NlYcAnMZrtsKU3stuMP41zlQZ+HkjUD8//8KN9w=' 'sha256-WYXv4T0Sp4nsWGqxcZTrCFqOWXC4JrvQ7XW5xjyqzek=' 'sha256-CdB+acl/ZcSYI75BzyfjHTiTsOwievd/qyN0g3OirVc='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: https://*.posthog.com; connect-src 'self' https://*.posthog.com https://asnpyrrdeauhkskkkmuc.supabase.co https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://firestore.googleapis.com; worker-src 'self' blob: data:">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
@@ -1370,6 +1370,7 @@ function mergeTracks(fromId,intoId){
    if(!b.classes.some(c=>c.id===x.classId)) x.classId=cls.id;
  });
  (S.duels||[]).forEach(d=>{ if(d.trackId===fromId) d.trackId=intoId });
+ b.mergedIds=(b.mergedIds||[]).concat([fromId],a.mergedIds||[]).filter((x,i,arr)=>x!==intoId&&arr.indexOf(x)===i).slice(0,50);
  S.tracks=S.tracks.filter(t=>t.id!==fromId);
  save(); return true;
 }
@@ -1758,9 +1759,9 @@ function cloudSync(){
  syncBusy=pr; return pr;
 }
 function scheduleSync(){
- if(!syncOn()) return;
+ if(!syncOn()&&!isAdmin()) return;
  if(syncTimer) clearTimeout(syncTimer);
- syncTimer=setTimeout(()=>{ syncTimer=null; cloudSync() },1200);
+ syncTimer=setTimeout(()=>{ syncTimer=null; cloudSync().then(()=>{ if(isAdmin()) tracksSync() }) },1200);
 }
 /* Zmaze jazdy a profil z databazy (pri "Vymazat vsetko"). */
 async function cloudWipe(){
@@ -1781,6 +1782,217 @@ function syncText(){
  if(syncErr==='siet') return 'Jazdy sa ukladajú do tvojho účtu. Teraz nie je spojenie, '+(caka?nJazd(caka)+' čaká na uloženie a ':'')+'dorovná sa to samo.';
  if(caka) return 'Jazdy sa ukladajú do tvojho účtu. Ukladám '+nJazd(caka)+'…';
  return 'Jazdy a profil sú uložené v tvojom účte ('+nJazd(n)+'). Po prihlásení ich máš na každom zariadení.';
+}
+
+/* ================= spolocne trate =================
+   Trate su v databaze (tracks/<id>), cita ich kazdy aj bez uctu, zapisuje len admin.
+   meta/tracks nesie cislo verzie: appka pri starte precita len to a cely zoznam taha, az ked sa zmeni.
+   Co je len v prehliadaci: sprava trate prevadzkovatelom, hlasenia jazdca, podklad na obkreslenie
+   a trate, ktore si jazdec zalozil sam (kym ich admin neprida do databazy). */
+const LOCAL_TRACK=['claimed','managedByMe','feed','plan','cloud'];
+function hashStr(x){ let h=5381; for(let i=0;i<x.length;i++) h=((h<<5)+h+x.charCodeAt(i))|0; return (h>>>0).toString(36)+'.'+x.length }
+function trackShared(t){
+ const o=JSON.parse(JSON.stringify(t)); LOCAL_TRACK.forEach(k=>{ delete o[k] });
+ (o.layouts||[]).forEach(l=>{ delete l.reports });
+ return o;
+}
+const trackHash=t=>hashStr(JSON.stringify(trackShared(t)));
+function tsyncState(){ if(!S.tsync||typeof S.tsync!=='object') S.tsync={v:-1,ids:{}}; if(!S.tsync.ids) S.tsync.ids={}; return S.tsync }
+async function fsPublic(path){
+ const r=await fetch(FSURL()+path);
+ if(r.status===404) return null;
+ if(!r.ok){ const e=new Error('databaza'); e.status=r.status; throw e }
+ return r.json();
+}
+let tracksBusy=null, tracksErr='';
+/* Nacita trate z databazy, ak sa od posledneho razu zmenili. Vrati true, ak sa nieco zmenilo. */
+async function tracksPull(force){
+ if(!cloudOn()) return false;
+ const st=tsyncState();
+ const m=await fsPublic('meta/tracks'); const md=m?(fsDoc(m)||{}):{}; const v=md.v|0;
+ if(!m){ st.v=0; return false }
+ st.gone=Array.isArray(md.gone)?md.gone.filter(x=>typeof x==='string').slice(0,500):[];                    // v databaze este ziadne trate nie su
+ if(!force&&st.v===v) return false;
+ const cloud={}; let tok='';
+ for(let i=0;i<10;i++){
+   const r=await fsPublic('tracks?pageSize=300'+(tok?'&pageToken='+encodeURIComponent(tok):''));
+   ((r&&r.documents)||[]).forEach(d=>{ const id=String(d.name||'').split('/').pop(); const o=fsDoc(d);
+     if(!o||typeof o.json!=='string') return;
+     try{ const t=JSON.parse(o.json); if(t&&typeof t==='object'&&t.id===id&&t.name) cloud[id]=t }catch(e){} });
+   tok=(r&&r.nextPageToken)||''; if(!tok) break;
+ }
+ let zmena=false;
+ for(const id in cloud){
+   const c=cloud[id], ch=trackHash(c), loc=trackById(id);
+   if(loc&&st.ids[id]===ch&&loc.cloud) continue;                                    // v databaze sa nezmenila
+   if(loc&&isAdmin()&&st.ids[id]!==undefined&&trackHash(loc)!==st.ids[id]) continue;  // admin ma neodoslanu upravu, ta ma prednost
+   const n=Object.assign({},c,{cloud:true});
+   if(loc){ LOCAL_TRACK.forEach(k=>{ if(k!=='cloud'&&loc[k]!==undefined) n[k]=loc[k] });
+     (n.layouts||[]).forEach(l=>{ const o=(loc.layouts||[]).find(x=>x.id===l.id); l.reports=(o&&o.reports)||[] });
+     S.tracks[S.tracks.indexOf(loc)]=n;
+   }else S.tracks.push(n);
+   st.ids[id]=ch; zmena=true;
+ }
+ // trate zlucene adminom: jazdy zo zrusenej trate patria tej, do ktorej bola zlucena
+ for(const id in cloud){
+   const c=trackById(id); (cloud[id].mergedIds||[]).forEach(old=>{
+     if(old===id) return;
+     S.sessions.forEach(x=>{ if(x.trackId!==old) return; x.trackId=id;
+       if(!c.layouts.some(l=>l.id===x.layoutId)){ x.layoutId=c.layouts[0].id; x.layVer=c.layouts[0].ver||1 }
+       if(!c.classes.some(k=>k.id===x.classId)) x.classId=c.classes[0].id; zmena=true });
+     (S.duels||[]).forEach(d=>{ if(d.trackId===old) d.trackId=id });
+     const o=trackById(old); if(o){ S.tracks=S.tracks.filter(t=>t.id!==old); delete st.ids[old]; zmena=true }
+   });
+ }
+ // trat, ktoru admin z databazy zmazal: zmizne, ak na nej jazdec nema jazdu; inak mu ostane ako vlastna neoverena
+ S.tracks.slice().forEach(t=>{
+   if(cloud[t.id]) return;
+   const zrusena=st.gone.includes(t.id);
+   if(!zrusena&&(!t.cloud||(isAdmin()&&st.ids[t.id]===undefined))) return;
+   if(zrusena&&t.cloud===false&&t.source==='rider') return;      // uz je ponechana ako vlastna trat jazdca
+   delete st.ids[t.id];
+   if(S.sessions.some(x=>x.trackId===t.id)){ t.cloud=false; t.verified=false; t.source='rider' }
+   else if(S.tracks.length>1) S.tracks=S.tracks.filter(x=>x.id!==t.id);
+   zmena=true;
+ });
+ st.v=v;
+ if(zmena){ try{ S=migrate(S)||S }catch(e){} }
+ saveQuiet();
+ return zmena;
+}
+/* Admin: odosle do databazy trate, ktore sa od posledneho odoslania zmenili, a zmaze tie, ktore zrusil. */
+async function tracksPush(){
+ if(!cloudOn()||!isAdmin()) return 0;
+ try{ S=migrate(S)||S }catch(e){}      // doplni chybajuce polia hned, inak by sa nova trat po restarte posielala druhy raz
+ const st=tsyncState(); let n=0;
+ for(const t of S.tracks){
+   if(!okDocId(t.id)||(st.gone||[]).includes(t.id)) continue;      // zrusenu trat uz nikto neposiela spat
+   const sh=trackShared(t), js=JSON.stringify(sh), h=hashStr(js);
+   if(st.ids[t.id]===h&&t.cloud) continue;
+   if(js.length>900000){ tracksErr='velka'; continue }              // prilis velka fotka alebo tvar; databaza by ju odmietla
+   await fsReq('tracks/'+t.id,{method:'PATCH',body:JSON.stringify({fields:fsFields({json:js,name:cleanName(t.name,60)||'Trať',rev:new Date().toISOString()})})});
+   st.ids[t.id]=h; t.cloud=true; n++;
+ }
+ const mam=new Set(S.tracks.map(t=>t.id));
+ const zrusene=[];
+ for(const id of Object.keys(st.ids)){ if(mam.has(id)) continue; await fsReq('tracks/'+id,{method:'DELETE'}); delete st.ids[id]; zrusene.push(id); n++ }
+ if(zrusene.length){ st.goneNew=(st.goneNew||[]).concat(zrusene) }
+ if(n||st.dirty){
+   st.dirty=true; saveQuiet();
+   const m=await fsPublic('meta/tracks'); const md=m?(fsDoc(m)||{}):{}; const v=(md.v|0)+1;
+   const gone=(Array.isArray(md.gone)?md.gone:[]).concat(st.goneNew||[]).filter((x,i,a)=>typeof x==='string'&&a.indexOf(x)===i).slice(-500);
+   await fsReq('meta/tracks',{method:'PATCH',body:JSON.stringify({fields:fsFields({v:v,at:new Date().toISOString(),gone:gone})})});
+   st.v=v; st.gone=gone; st.goneNew=[]; st.dirty=false; saveQuiet();
+ }
+ return n;
+}
+/* Nacitanie pre kazdeho, odoslanie len pre admina. Jedno naraz. */
+function tracksSync(force){
+ if(!cloudOn()) return Promise.resolve(false);
+ if(tracksBusy){ tracksBusy.again=true; return tracksBusy }
+ const run=async()=>{ const z=await tracksPull(force); const n=await tracksPush(); return z||n>0 };
+ const pr=run().then(v=>{ if(tracksErr!=='velka') tracksErr=''; return v },e=>{ tracksErr=(e&&e.status)?'databaza':'siet'; return false })
+   .then(v=>{ const again=pr.again; tracksBusy=null; if(again) return tracksSync(); if(v){ try{ render() }catch(e){} } return v });
+ tracksBusy=pr; return pr;
+}
+function tracksText(){
+ const st=S.tsync||{ids:{}}; const n=S.tracks.filter(t=>t.cloud).length, caka=S.tracks.filter(t=>okDocId(t.id)&&(!t.cloud||st.ids[t.id]!==trackHash(t))).length;
+ if(tracksErr==='siet') return 'Bez spojenia. '+(caka?nTrat(caka)+' čaká na odoslanie.':'');
+ if(tracksErr==='databaza') return 'Databáza zmenu odmietla. Skús to znova, a ak to potrvá, napíš mi.';
+ if(tracksErr==='velka') return 'Jedna trať má príliš veľkú fotku a neodoslala sa. Vyber menšiu fotku.';
+ if(caka) return 'Odosielam '+nTrat(caka)+'…';
+ return nTrat(n)+' v spoločnej databáze, vidia ich všetci jazdci.';
+}
+
+/* ================= admin: timy a jazdci =================
+   Zoznamy cita a maze len ucet zo zoznamu adminov; vynucuju to pravidla databazy. */
+let admData={teams:[],riders:[]};
+const admErr=e=>alert((e&&e.status===403)?'Databáza to nedovolila. Na toto treba byť admin.':'Nepodarilo sa spojiť so serverom. Skús to znova.');
+async function admList(col){
+ const out=[]; let tok='';
+ for(let i=0;i<4;i++){
+   const r=await fsReq(col+'?pageSize=300'+(tok?'&pageToken='+encodeURIComponent(tok):''));
+   ((r&&r.documents)||[]).forEach(d=>{ const o=fsDoc(d)||{}; o._id=String(d.name).split('/').pop(); out.push(o) });
+   tok=(r&&r.nextPageToken)||''; if(!tok) break;
+ }
+ return out;
+}
+async function adminTeams(){
+ if(!isAdmin()) return;
+ openSheet(`<h3>Tímy</h3><p class="sub">Načítavam…</p>`);
+ try{ admData.teams=await admList('teams') }catch(e){ closeSheet(); admErr(e); return }
+ const T=admData.teams.slice().sort((a,b)=>String(b.createdAt||'').localeCompare(String(a.createdAt||'')));
+ openSheet(`<h3>Tímy</h3><p class="sub">${T.length} v databáze</p>
+  <div class="card pad0">${T.length?T.map(t=>`
+   <div class="row rowlink" data-act="adminTeam" data-a="${esc(t._id)}" role="button" tabindex="0">
+     <div class="main"><div class="t">${esc(t.name||'—')}</div>
+       <div class="s">kód ${esc(t.code||'—')} · ${Object.keys(t.members||{}).length} ${pl(Object.keys(t.members||{}).length,'člen','členovia','členov')} · ${esc(String(t.createdAt||'').slice(0,10))}</div></div>
+     <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="var(--ink3)" stroke-width="2" stroke-linecap="round" style="flex:none"><path d="M9 5l7 7-7 7"/></svg></div>`).join('')
+   :'<div class="empty">Zatiaľ žiadny tím.</div>'}</div>
+  <button class="btn ghost" data-act="closeSheet" style="margin-top:12px">Zavrieť</button>`);
+}
+function adminTeam(id){
+ const t=admData.teams.find(x=>x._id===id); if(!t||!isAdmin()) return;
+ const mem=t.members||{}, uids=Object.keys(mem);
+ openSheet(`<h3>${esc(t.name||'—')}</h3><p class="sub">kód ${esc(t.code||'—')} · založený ${esc(String(t.createdAt||'').slice(0,10))}</p>
+  <div class="card pad0">${uids.length?uids.map(u=>`
+   <div class="row"><div class="main"><div class="t">${esc((mem[u]||{}).name||'—')}${u===t.createdBy?' <span class="tag un">zakladateľ</span>':''}</div>
+     <div class="s">v tíme od ${esc(String((mem[u]||{}).joinedAt||'').slice(0,10))}</div></div>
+     <button class="tag un" data-act="adminKick" data-a="${esc(id)}" data-b="${esc(u)}">odstrániť</button></div>`).join('')
+   :'<div class="empty">Tím nemá členov.</div>'}</div>
+  <button class="btn ghost" data-act="adminDelTeam" data-a="${esc(id)}" style="margin-top:12px;color:var(--red)">Zmazať celý tím</button>
+  <button class="btn ghost" data-act="adminTeams" style="margin-top:8px">Späť na tímy</button>`);
+}
+async function adminKick(id,uid){
+ const t=admData.teams.find(x=>x._id===id); if(!t||!isAdmin()) return;
+ if(!confirm('Odstrániť jazdca „'+(((t.members||{})[uid]||{}).name||'—')+'“ z tímu „'+(t.name||'')+'“?')) return;
+ try{ await fsReq('teams/'+id+'?updateMask.fieldPaths='+encodeURIComponent('members.'+uid),{method:'PATCH',body:JSON.stringify({fields:{}})}) }
+ catch(e){ admErr(e); return }
+ delete t.members[uid];
+ if(S.teamId===id&&uid===myUid()) mirrorTeam(null);
+ adminTeam(id);
+}
+async function adminDelTeam(id){
+ const t=admData.teams.find(x=>x._id===id); if(!t||!isAdmin()) return;
+ if(!confirm('Zmazať tím „'+(t.name||'')+'“ aj s jeho kódom?\n\nNedá sa to vrátiť.')) return;
+ try{ await fsReq('teams/'+id,{method:'DELETE'}); if(okDocId(t.code)) await fsReq('codes/'+t.code,{method:'DELETE'}) }
+ catch(e){ admErr(e); return }
+ if(S.teamId===id) mirrorTeam(null);
+ await adminTeams();
+}
+async function adminRiders(){
+ if(!isAdmin()) return;
+ openSheet(`<h3>Jazdci</h3><p class="sub">Načítavam…</p>`);
+ try{ admData.riders=await admList('riders') }catch(e){ closeSheet(); admErr(e); return }
+ const R=admData.riders.slice().sort((a,b)=>String(b.updatedAt||'').localeCompare(String(a.updatedAt||'')));
+ openSheet(`<h3>Jazdci</h3><p class="sub">${R.length} s uloženým účtom · jazdci bez prihlásenia tu nie sú</p>
+  <div class="card pad0">${R.length?R.map(r=>`
+   <div class="row"><div class="main"><div class="t">${esc(r.name||'—')}${r._id===myUid()?' <span class="tag un">ty</span>':''}</div>
+     <div class="s">${nJazd(r.rides|0)} · ${r.xp|0} XP${r.teamCode?' · tím '+esc(r.teamCode):''} · naposledy ${esc(String(r.updatedAt||'').slice(0,10))}</div></div>
+     ${r._id===myUid()?'':`<button class="tag un" data-act="adminDelRider" data-a="${esc(r._id)}">zmazať</button>`}</div>`).join('')
+   :'<div class="empty">Zatiaľ žiadny jazdec s účtom.</div>'}</div>
+  <button class="btn ghost" data-act="closeSheet" style="margin-top:12px">Zavrieť</button>`);
+}
+async function adminDelRider(uid){
+ const r=admData.riders.find(x=>x._id===uid); if(!r||!isAdmin()||uid===myUid()) return;
+ if(!confirm('Zmazať jazdca „'+(r.name||'—')+'“ a všetky jeho jazdy z databázy?\n\nNedá sa to vrátiť. Jeho prihlasovací účet ostane, môže sa prihlásiť znova a začať odznova.')) return;
+ try{
+   for(let i=0;i<40;i++){
+     const l=await fsReq('riders/'+uid+'/sessions?pageSize=300'); const docs=(l&&l.documents)||[];
+     if(!docs.length) break;
+     for(const d of docs) await fsReq('riders/'+uid+'/sessions/'+String(d.name).split('/').pop(),{method:'DELETE'});
+   }
+   await fsReq('riders/'+uid,{method:'DELETE'});
+ }catch(e){ admErr(e); return }
+ await adminRiders();
+}
+/* admin: nazov, mesto a krajina trate, zmazanie trate */
+function deleteTrack(tid){
+ const t=trackById(tid); if(!t||!isAdmin()) return;
+ if(S.tracks.length<2){ alert('Poslednú trať zmazať nejde.'); return }
+ if(S.sessions.some(x=>x.trackId===tid)){ alert('Na tejto trati máš zapísané jazdy. Zlúč ju s inou traťou, alebo najprv presuň jazdy.'); return }
+ if(!confirm('Zmazať trať „'+t.name+'“ pre všetkých jazdcov?\n\nKto na nej má jazdy, tomu ostane ako vlastná neoverená trať.')) return;
+ S.tracks=S.tracks.filter(x=>x.id!==tid); save(); closeSheet(); render();
 }
 
 /* ================= prihlasenie cez Google =================
@@ -1916,7 +2128,7 @@ async function cloudCheckAdmin(){
  if(!S.user) adminOk=false;
  return adminOk;
 }
-function refreshAdmin(){ const was=adminOk; return cloudCheckAdmin().then(a=>{ if(a!==was) render(); return a }).catch(()=>false) }
+function refreshAdmin(){ const was=adminOk; return cloudCheckAdmin().then(a=>{ if(a!==was){ render(); if(a) tracksSync() } return a }).catch(()=>false) }
 async function copyUid(){
  let uid=myUid();
  if(!uid&&cloudOn()){ try{ await fbAuth(); uid=myUid(); render() }catch(e){ alert(cloudChyba(e)); return } }
@@ -2153,6 +2365,12 @@ function editFacts(tid){
     ? 'Si správca tejto trate, takže tvoje údaje sú oficiálne a prepíšu to, čo doplnili jazdci.'
     : 'Trať zatiaľ nemá správcu, preto údaje dopĺňajú jazdci, ktorí tu jazdili. Zostanú označené ako neoverené, kým si trať neprevezme prevádzkovateľ — ten ich môže kedykoľvek prepísať.'}
    Oprava nezmaže žiadne rekordy. Na prestavbu dráhy, ktorá rekordy zneplatní, je samostatné hlásenie.</p>
+  ${right==='admin'?`<label>Názov trate</label>
+  <input id="efName" class="field" maxlength="60" value="${esc(t.name)}">
+  <label>Mesto</label>
+  <input id="efCity" class="field" maxlength="60" value="${esc(t.city==='—'?'':t.city)}">
+  <label>Krajina</label>
+  <select id="efCountry" class="field">${countryOptions(t.country)}</select>`:''}
   <label>Smer jazdy</label>
   <select id="efDir" class="field">
     <option value="" ${!lay.dir?'selected':''}>Neviem</option>
@@ -2166,7 +2384,8 @@ function editFacts(tid){
     <option value="1" ${t.indoor===true?'selected':''}>Krytá hala</option>
     <option value="0" ${t.indoor===false?'selected':''}>Vonkajšia dráha</option></select>
   <button class="btn primary" data-act="saveFacts" data-a="${tid}">Uložiť opravu</button>
-  <button class="btn ghost" data-act="openTrack" data-a="${tid}" style="margin-top:8px">Zrušiť</button>`);
+  <button class="btn ghost" data-act="openTrack" data-a="${tid}" style="margin-top:8px">Zrušiť</button>
+  ${right==='admin'?`<button class="btn ghost" data-act="deleteTrack" data-a="${tid}" style="margin-top:8px;color:var(--red)">Zmazať trať</button>`:''}`);
 }
 function saveFacts(tid){
  const t=trackById(tid), lay=t.layouts[0];
@@ -2175,6 +2394,10 @@ function saveFacts(tid){
  lay.len = v===''?null:(parseInt(v)||null);
  const ind=$('#efIndoor').value;
  t.indoor = ind===''?null:(ind==='1');
+ if(isAdmin()&&$('#efName')&&typeof $('#efName').value==='string'&&$('#efName').value.trim()){
+   t.name=cleanName($('#efName').value,60)||t.name; t.city=cleanName($('#efCity').value,60)||'—';
+   if($('#efCountry').value) t.country=$('#efCountry').value;
+ }
  save(); openTrack(tid);
 }
 
@@ -2387,6 +2610,13 @@ function render(){
     <div class="row rowlink" data-act="openNewTrack" role="button" tabindex="0">
       <div class="main"><div class="t">Pridať trať</div>
         <div class="s">${nTrat(S.tracks.length)} v Hotlape · ${S.tracks.filter(x=>x.shapePath).length} ${pl(S.tracks.filter(x=>x.shapePath).length,'obkreslená','obkreslené','obkreslených')}</div></div>
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="var(--ink3)" stroke-width="2" stroke-linecap="round" style="flex:none"><path d="M9 5l7 7-7 7"/></svg></div>
+    <div class="row"><div class="main"><div class="t">Trate v databáze</div><div class="s" id="admTracks">${esc(tracksText())}</div></div></div>
+    <div class="row rowlink" data-act="adminTeams" role="button" tabindex="0">
+      <div class="main"><div class="t">Tímy</div><div class="s">zoznam, členovia, mazanie</div></div>
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="var(--ink3)" stroke-width="2" stroke-linecap="round" style="flex:none"><path d="M9 5l7 7-7 7"/></svg></div>
+    <div class="row rowlink" data-act="adminRiders" role="button" tabindex="0">
+      <div class="main"><div class="t">Jazdci</div><div class="s">zoznam účtov, mazanie</div></div>
       <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="var(--ink3)" stroke-width="2" stroke-linecap="round" style="flex:none"><path d="M9 5l7 7-7 7"/></svg></div>`;
  }
 
@@ -2746,6 +2976,13 @@ const ACT={
  onPlan:(el,a,b,ev)=>onPlan(ev),
  addAlias:()=>addAlias(),
  copyUid:()=>copyUid(),
+ adminTeams:()=>{ adminTeams() },
+ adminTeam:(el,a)=>adminTeam(a),
+ adminKick:(el,a,b)=>{ adminKick(a,b) },
+ adminDelTeam:(el,a)=>{ adminDelTeam(a) },
+ adminRiders:()=>{ adminRiders() },
+ adminDelRider:(el,a)=>{ adminDelRider(a) },
+ deleteTrack:(el,a)=>deleteTrack(a),
  startGoogle:()=>startGoogle(),
  authAction:()=>authAction(),
  openPrivacy:()=>openPrivacy(),
@@ -2810,6 +3047,7 @@ function showBreak(){
 }
 if(S.user){$('#auth').classList.remove('on');render();refreshAdmin()}
 finishGoogle().catch(e=>{ console.error('google',e); return false }).then(bol=>{ if(!bol&&syncOn()) cloudSync() });
+if(typeof fetch==='function') tracksSync();
 /* Meranie navstevnosti v appke: len otvorenie stranky. Kliky nesu texty tlacidiel a riadkov (mena, timy), tie neposielame. */
 try{ if(typeof window!=='undefined'&&window.posthog&&window.posthog.set_config)
   window.posthog.set_config({autocapture:false,capture_pageleave:false,capture_dead_clicks:false,rageclick:false,enable_heatmaps:false,capture_exceptions:false}) }catch(e){}
