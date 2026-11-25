@@ -2,7 +2,7 @@
 <html lang="sk">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-src 'none'; form-action 'none'; script-src 'self' https://*.posthog.com 'sha256-XqhGJ6VAdlI2c1tjqpQ99Xpp3qKGbl2MreHnwLQ5itE=' 'sha256-WYXv4T0Sp4nsWGqxcZTrCFqOWXC4JrvQ7XW5xjyqzek=' 'sha256-Koh2t+nAgVckwOjRmC9njeQeeSBU3sISk/I9//L0Wuc='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: https://*.posthog.com; connect-src 'self' https://*.posthog.com https://asnpyrrdeauhkskkkmuc.supabase.co https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://firestore.googleapis.com; worker-src 'self' blob: data:">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-src 'none'; form-action 'none'; script-src 'self' https://*.posthog.com 'sha256-XqhGJ6VAdlI2c1tjqpQ99Xpp3qKGbl2MreHnwLQ5itE=' 'sha256-WYXv4T0Sp4nsWGqxcZTrCFqOWXC4JrvQ7XW5xjyqzek=' 'sha256-EI/AQsaJwOvlg3IEiZ2PzoEZ2MAplnDk/uRu6WqQkA8='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: https://*.posthog.com; connect-src 'self' https://*.posthog.com https://asnpyrrdeauhkskkkmuc.supabase.co https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://firestore.googleapis.com; worker-src 'self' blob: data:">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
@@ -947,11 +947,11 @@ function stepTime(){
   <h3>Aký si mal čas?</h3><p class="sub">Krok 2 z 3</p>
   ${isLive(trackById(draft.trackId))?`<div class="banner" style="border-color:rgba(19,226,123,.3);background:rgba(19,226,123,.06)">
      <b style="color:var(--pb)">Táto trať posiela časy sama.</b> Po jazde ti pribudnú do Hotlapu bez toho, aby si čokoľvek zapisoval. Ručne zapisuj len vtedy, keď čas nedorazil alebo si jazdil pod iným menom.</div>`:''}
-  <div class="seg">
+  ${draft.pre?'':`<div class="seg">
     <button class="${draft.mode==='photo'?'on':''}" data-act="modePhoto">Odfotiť výsledky</button>
     <button class="${draft.mode==='manual'?'on':''}" data-act="modeManual">Zapísať ručne</button>
-  </div>
-  ${draft.mode==='photo' ? photoBlock() : manualBlock()}`);
+  </div>`}
+  ${draft.mode==='photo'&&!draft.pre ? photoBlock() : manualBlock()}`);
  if(draft.mode==='manual') setTimeout(()=>{const e=$('#dBest'); if(e) e.focus()},80);
 }
 function photoBlock(){
@@ -960,7 +960,7 @@ function photoBlock(){
     <div style="font-weight:600;margin-bottom:4px">Odfoť papier alebo monitor</div>
     <div class="hint" style="margin:0">Hotlap z fotky prečíta mená a časy. Pred uložením ti ukáže, čo rozpoznal, a dá ti to opraviť.</div>
   </div>
-  <div class="banner"><b>Zatiaľ nefunguje.</b> Rozpoznávanie z fotky sa zapne, keď sa appka pripojí k databáze. Dovtedy použi ručný zápis.</div>
+  <div class="banner"><b>Zatiaľ nefunguje.</b> Čítanie časov z fotky ešte nie je hotové. Použi ručný zápis: stačí najlepšie kolo, časy všetkých kôl sú nepovinné.</div>
   <button class="btn ghost" data-act="modeManual">Zapísať ručne</button>`;
 }
 function manualBlock(){
