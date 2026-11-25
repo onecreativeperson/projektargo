@@ -2,7 +2,7 @@
 <html lang="sk">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-src 'none'; form-action 'none'; script-src 'self' https://*.posthog.com 'sha256-WYXv4T0Sp4nsWGqxcZTrCFqOWXC4JrvQ7XW5xjyqzek=' 'sha256-/AZ8MqOXsinR4CcfDmCWWb2bdh6v8xtWwb57fmSEn18='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: https://*.posthog.com; connect-src 'self' https://*.posthog.com https://asnpyrrdeauhkskkkmuc.supabase.co https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://firestore.googleapis.com; worker-src 'self' blob: data:">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-src 'none'; form-action 'none'; script-src 'self' https://*.posthog.com 'sha256-WYXv4T0Sp4nsWGqxcZTrCFqOWXC4JrvQ7XW5xjyqzek=' 'sha256-i6mu0OpcSZpz8q9125Y/2RPOAyEU/JGaLhj0PKM1tho='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: https://*.posthog.com; connect-src 'self' https://*.posthog.com https://asnpyrrdeauhkskkkmuc.supabase.co https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://firestore.googleapis.com; worker-src 'self' blob: data:">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
@@ -688,7 +688,7 @@ function dirIcon(dir){
 
 /* ================= auth ================= */
 function login(provider){
- const typed=($('#nk').value||'').trim();
+ const typed=cleanName($('#nk').value,20);
  // prezyvka je nepovinna; bez nej dostane jazdec docasne meno a ziadnu prezyvku na dráhe
  const name = typed || 'Jazdec';
  const mail = (provider==='google'||provider==='facebook') ? provider+'@ukazka.sk' : '';
@@ -1086,6 +1086,14 @@ function fsRead(v){
 function fsDoc(d){ if(!d||!d.fields) return null; const o={}; for(const k in d.fields) o[k]=fsRead(d.fields[k]); return o }
 
 /* tim z oblaku -> tvar, ktoremu rozumie zvysok appky */
+/* Meno do databazy: bez riadiacich znakov a zalomeni, medzery zlucene, najviac `max` znakov.
+   Parove znaky (emoji) sa nerozdelia. Rovnake hranice vynucuju pravidla databazy. */
+function cleanName(v,max){
+ const s=String(v==null?'':v).replace(/[\u0000-\u001f\u007f-\u009f\u2028\u2029]/g,' ').replace(/\s+/g,' ').trim();
+ let out=''; for(const ch of s){ if(out.length+ch.length>max) break; out+=ch }
+ return out.trim();
+}
+const dbMeno=v=>cleanName(v,20)||'Jazdec';
 function teamFromCloud(id,d){
  const mem=d.members||{};
  const list=Object.keys(mem).map(uid=>({uid:uid,name:(mem[uid]||{}).name||'Jazdec',joinedAt:(mem[uid]||{}).joinedAt||today()}));
@@ -1104,16 +1112,17 @@ function newId(){ let c=''; for(let i=0;i<20;i++) c+='abcdefghijkmnpqrstuvwxyz23
 async function cloudCreateTeam(name){
  const t=await fbAuth();
  const now=new Date().toISOString();
+ const tn=cleanName(name,24)||'Tím';
  for(let i=0;i<6;i++){
    const code=newCode();
    if(await fsReq('codes/'+code)) continue;
    const id=newId();
-   const members={}; members[t.uid]={name:S.user.name,joinedAt:now};
+   const members={}; members[t.uid]={name:dbMeno(S.user.name),joinedAt:now};
    await fsReq('teams/'+id+'?currentDocument.exists=false',{method:'PATCH',
-     body:JSON.stringify({fields:fsFields({name:String(name).slice(0,24),code:code,createdBy:t.uid,createdAt:now,members:members})})});
+     body:JSON.stringify({fields:fsFields({name:tn,code:code,createdBy:t.uid,createdAt:now,members:members})})});
    await fsReq('codes/'+code+'?currentDocument.exists=false',{method:'PATCH',
      body:JSON.stringify({fields:fsFields({teamId:id})})});
-   return teamFromCloud(id,{name:String(name).slice(0,24),code:code,createdBy:t.uid,createdAt:now,members:members});
+   return teamFromCloud(id,{name:tn,code:code,createdBy:t.uid,createdAt:now,members:members});
  }
  throw new Error('kod');
 }
@@ -1131,7 +1140,7 @@ async function cloudJoinTeam(code){
  if(mem[t.uid]) return teamFromCloud(id,team);
  if(Object.keys(mem).length>=8) return 'plny';
  const body={fields:{members:{mapValue:{fields:{}}}}};
- body.fields.members.mapValue.fields[t.uid]=fsVal({name:S.user.name,joinedAt:new Date().toISOString()});
+ body.fields.members.mapValue.fields[t.uid]=fsVal({name:dbMeno(S.user.name),joinedAt:new Date().toISOString()});
  await fsReq('teams/'+id+'?updateMask.fieldPaths='+encodeURIComponent('members.'+t.uid),
    {method:'PATCH',body:JSON.stringify(body)});
  const after=await fsReq('teams/'+id);
@@ -1151,7 +1160,7 @@ async function cloudSetMyName(name){
  const d=await fsReq('teams/'+id); if(!d) return;
  const mem=((fsDoc(d)||{}).members||{})[t.uid]; if(!mem) return;
  const body={fields:{members:{mapValue:{fields:{}}}}};
- body.fields.members.mapValue.fields[t.uid]=fsVal({name:String(name).slice(0,20),joinedAt:mem.joinedAt||new Date().toISOString()});
+ body.fields.members.mapValue.fields[t.uid]=fsVal({name:dbMeno(name),joinedAt:String(mem.joinedAt||new Date().toISOString()).slice(0,30)});
  await fsReq('teams/'+id+'?updateMask.fieldPaths='+encodeURIComponent('members.'+t.uid),
    {method:'PATCH',body:JSON.stringify(body)});
 }
@@ -1560,7 +1569,7 @@ function addAlias(){
 }
 /* Zmeni meno jazdca a prenesie ho aj do timu, ak v nejakom je. */
 function setMyName(n){
- n=String(n||'').trim().slice(0,20); if(!n||!S.user) return false;
+ n=cleanName(n,20); if(!n||!S.user) return false;
  const stare=S.user.name;
  S.user.name=n;
  if(!S.user.aliases.includes(n)) S.user.aliases.push(n);
