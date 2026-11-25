@@ -2,7 +2,7 @@
 <html lang="sk">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-src 'none'; form-action 'none'; script-src 'self' https://*.posthog.com 'sha256-+vI4NlYcAnMZrtsKU3stuMP41zlQZ+HkjUD8//8KN9w=' 'sha256-WYXv4T0Sp4nsWGqxcZTrCFqOWXC4JrvQ7XW5xjyqzek=' 'sha256-9e0o2Yek9Zbt+sCA3ASftikgXpNssT3G3/ySHUCj1oc='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: https://*.posthog.com; connect-src 'self' https://*.posthog.com https://asnpyrrdeauhkskkkmuc.supabase.co https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://firestore.googleapis.com; worker-src 'self' blob: data:">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-src 'none'; form-action 'none'; script-src 'self' https://*.posthog.com 'sha256-+vI4NlYcAnMZrtsKU3stuMP41zlQZ+HkjUD8//8KN9w=' 'sha256-WYXv4T0Sp4nsWGqxcZTrCFqOWXC4JrvQ7XW5xjyqzek=' 'sha256-aI6fvEEtnVW4DD1kSFsM6Pi4iNahfLL4LtIGBLJhVKQ='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: https://*.posthog.com; connect-src 'self' https://*.posthog.com https://asnpyrrdeauhkskkkmuc.supabase.co https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://firestore.googleapis.com; worker-src 'self' blob: data:">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
@@ -472,8 +472,14 @@ const SEED_TRACKS=[
  {id:'t3',name:'Kart One Arena',city:'Bratislava',country:'SK',indoor:null,verified:true,claimed:false,shape:2,
   layouts:[L('l1','Hlavná dráha',null,null),L('l2','Krátka dráha',null,null)],classes:[{id:'c1',name:'Dospelí'},{id:'c2',name:'Junior'}]},
  {id:'t4',name:'Paphos Karting Centre',city:'Paphos',country:'CY',indoor:null,verified:true,claimed:false,shape:3,
-  layouts:[L('l1','Hlavná dráha',null,null)],classes:[{id:'c1',name:'Dospelí'},{id:'c2',name:'Junior'}]}
+  layouts:[L('l1','Hlavná dráha',null,null)],classes:[{id:'c1',name:'Dospelí'},{id:'c2',name:'Junior'}]},
+ {id:'t5',name:'Monaco Grand Prix',city:'Závažná Poruba',country:'SK',indoor:true,verified:true,claimed:false,shape:0,
+  address:'Priemyselná zóna 545, 032 02 Závažná Poruba',note:'Motokárová hala · jediná dvojposchodová dráha na Slovensku',
+  layouts:[L('l1','Hlavná dráha',null,480)],classes:[{id:'c1',name:'Dospelí'},{id:'c2',name:'Junior'}]}
 ];
+/* Cislo sady vstavanych trati. Ked pribudne nova, appka ju doplni aj jazdcom, ktori uz maju ulozene data. */
+const SEED_VER=2;
+const SEED_SINCE={t5:2};      // od ktorej sady trat existuje; starsie trate ma kazdy od zaciatku
 const BGS=['img/bg1.webp','img/bg2.webp','img/bg3.webp','img/bg4.webp'];
 const bgFor=t=>t.photo||BGS[(typeof t.bg==='number'?t.bg:0)%BGS.length];
 function pl(n,one,few,many){const a=Math.abs(n);return a===1?one:(a>=2&&a<=4?few:many)}
@@ -586,14 +592,21 @@ function migrate(st){
  /* Poskodene zaznamy zahod skor, nez sa cez ne prechadza — jeden zly riadok
     nesmie zobrat jazdcovi vsetky ostatne casy. */
  st.tracks  =st.tracks.filter(t=>t&&typeof t==='object'&&t.id);
+ if((st.seedV||1)<SEED_VER){
+   const zrusene=(st.tsync&&Array.isArray(st.tsync.gone))?st.tsync.gone:[];
+   SEED_TRACKS.forEach(sd=>{ if((SEED_SINCE[sd.id]||1)>(st.seedV||1)&&!st.tracks.some(t=>t.id===sd.id)&&!zrusene.includes(sd.id)) st.tracks.push(JSON.parse(JSON.stringify(sd))) });
+   st.seedV=SEED_VER;
+ }
  st.sessions=st.sessions.filter(x=>x&&typeof x==='object'&&x.trackId&&typeof x.bestMs==='number'&&x.id);
  st.requests=st.requests.filter(r=>r&&typeof r==='object'&&r.id&&r.status);
  st.tracks.forEach((t,i)=>{
    const seed=SEED_TRACKS.find(x=>x.id===t.id);
    if(typeof t.indoor==='undefined') t.indoor=null;
-   if(repair&&seed) t.indoor=null;
+   if(repair&&seed&&!SEED_SINCE[t.id]) t.indoor=null;      // novsie vstavane trate maju overene udaje, tie sa nemazu
    if(typeof t.shape!=='number') t.shape=i%SHAPES.length;
    if(typeof t.photo!=='string') t.photo='';
+   if(typeof t.address!=='string') t.address='';
+   if(typeof t.note!=='string') t.note='';
    if(typeof t.shapePath!=='string') t.shapePath='';
    if(!Array.isArray(t.shapePts)) t.shapePts=[];
    if(typeof t.plan!=='string') t.plan='';
@@ -605,7 +618,7 @@ function migrate(st){
    t.layouts.forEach(l=>{
      if(l.dir!==null&&!DIRS_SHORT[l.dir]) l.dir=null;
      if(typeof l.len==='undefined') l.len=null;
-     if(repair&&seed&&seed.layouts.find(x=>x.id===l.id)){ l.dir=null; l.len=null; }
+     if(repair&&seed&&!SEED_SINCE[t.id]&&seed.layouts.find(x=>x.id===l.id)){ l.dir=null; l.len=null; }
      if(!l.ver) l.ver=1;
      if(typeof l.since==='undefined') l.since=null;
      if(!Array.isArray(l.reports)) l.reports=[];
@@ -751,7 +764,7 @@ function logout(){
 /* ---- vlastna fotka jazdca (len v tomto zariadeni) ---- */
 let coverTarget=null;
 /* Logo trate. Vstavane loga su subory appky; admin moze kazdej trati nahrat vlastne (ide do spolocnej databazy). */
-const SEED_LOGOS={t3:'img/logo-kart-one-arena.png'};
+const SEED_LOGOS={t3:'img/logo-kart-one-arena.png',t5:'img/logo-monaco-grand-prix.png'};
 function logoFor(t){
  if(!t) return '';
  if(t.logo==='none') return '';
@@ -2410,7 +2423,11 @@ function editFacts(tid){
   <label>Mesto</label>
   <input id="efCity" class="field" maxlength="60" value="${esc(t.city==='—'?'':t.city)}">
   <label>Krajina</label>
-  <select id="efCountry" class="field">${countryOptions(t.country)}</select>`:''}
+  <select id="efCountry" class="field">${countryOptions(t.country)}</select>
+  <label>Adresa <span class="opt">nepovinné</span></label>
+  <input id="efAddress" class="field" maxlength="120" placeholder="ulica, PSČ, obec" value="${esc(t.address||'')}">
+  <label>Krátky popis <span class="opt">nepovinné</span></label>
+  <input id="efNote" class="field" maxlength="120" placeholder="čím je trať zvláštna" value="${esc(t.note||'')}">`:''}
   <label>Smer jazdy</label>
   <select id="efDir" class="field">
     <option value="" ${!lay.dir?'selected':''}>Neviem</option>
@@ -2437,6 +2454,8 @@ function saveFacts(tid){
  if(isAdmin()&&$('#efName')&&typeof $('#efName').value==='string'&&$('#efName').value.trim()){
    t.name=cleanName($('#efName').value,60)||t.name; t.city=cleanName($('#efCity').value,60)||'—';
    if($('#efCountry').value) t.country=$('#efCountry').value;
+   if(typeof $('#efAddress').value==='string') t.address=cleanName($('#efAddress').value,120);
+   if(typeof $('#efNote').value==='string') t.note=cleanName($('#efNote').value,120);
  }
  save(); openTrack(tid);
 }
@@ -2537,6 +2556,8 @@ function openTrack(tid){
  openSheet(`
   <h3>${esc(t.name)}</h3><p class="sub">${esc(t.city)} · ${esc(countryName(t.country))}</p>
   ${logoFor(t)?`<div style="margin:-8px 0 16px">${logoHtml(t,46)}</div>`:''}
+  ${t.note?`<p class="hint" style="margin:-8px 0 6px;color:var(--ink2)">${esc(t.note)}</p>`:''}
+  ${t.address?`<p class="hint" style="margin:0 0 16px">${esc(t.address)}</p>`:(t.note?'<div style="height:10px"></div>':'')}
   <div style="margin:-10px 0 14px">${factBadge(t)}${isManager(t)?' <span class="tag new">spravuješ ju</span>':''}</div>
   <div class="card pad0" style="position:relative;overflow:hidden;margin-bottom:12px">
     <div style="height:132px;background-image:url('${bgFor(t)}');background-size:cover;background-position:center"></div>
