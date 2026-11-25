@@ -2,11 +2,13 @@
 <html lang="sk">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-src 'none'; form-action 'none'; script-src 'self' https://*.posthog.com 'sha256-WYXv4T0Sp4nsWGqxcZTrCFqOWXC4JrvQ7XW5xjyqzek=' 'sha256-AHjHXam9ShtpcXVO7kiSIY7cr24z6dwS82AyZXGYbG8='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: https://*.posthog.com; connect-src 'self' https://*.posthog.com https://asnpyrrdeauhkskkkmuc.supabase.co https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://firestore.googleapis.com; worker-src 'self' blob: data:">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-src 'none'; form-action 'none'; script-src 'self' https://*.posthog.com 'sha256-+vI4NlYcAnMZrtsKU3stuMP41zlQZ+HkjUD8//8KN9w=' 'sha256-WYXv4T0Sp4nsWGqxcZTrCFqOWXC4JrvQ7XW5xjyqzek=' 'sha256-DXRWKZ91KsUnOQU1PwE6jy0hmoll+0qZP9OIQpURP+8='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: https://*.posthog.com; connect-src 'self' https://*.posthog.com https://asnpyrrdeauhkskkkmuc.supabase.co https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://firestore.googleapis.com; worker-src 'self' blob: data:">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
 <title>Hotlap</title>
+<script>/* Navrat z Googlu: token z adresy schovame hned, skor nez sa nacita cokolvek ine. Meranie navstevnosti by inak dostalo celu adresu aj s tokenom. */
+(function(){try{var h=location.hash||'';if(/(^|[#&])(id_token|error)=/.test(h)){window.__gret=h;history.replaceState(null,'',location.pathname+location.search)}}catch(e){}})();</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600;700&family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet">
@@ -1653,7 +1655,8 @@ function googleChyba(e){
 /* Navrat z Googlu: token je v casti adresy za mriezkou. Vrati true, ak prihlasenie prebehlo. */
 async function finishGoogle(){
  if(typeof location==='undefined') return false;
- const h=String(location.hash||'');
+ const h=String((typeof window!=='undefined'&&window.__gret)||location.hash||'');
+ if(typeof window!=='undefined') window.__gret='';
  if(h.indexOf('id_token=')<0&&h.indexOf('error=')<0) return false;
  const p=new URLSearchParams(h.replace(/^#/,''));
  let st=null; try{ st=JSON.parse(sessionStorage.getItem(GKEY)||'null'); sessionStorage.removeItem(GKEY) }catch(e){}
@@ -1683,9 +1686,10 @@ function openPrivacy(){
   <div class="card" style="margin-bottom:10px"><div class="t" style="font-weight:600;margin-bottom:4px">Pri prihlásení cez Google</div>
    <p class="hint" style="margin:0">Meno a e-mail z tvojho Google účtu. Heslo Hotlap nevidí. Prihlasovaciu službu prevádzkuje Google (Firebase Authentication) a údaje spracúva aj mimo Európskej únie.</p></div>
   <div class="card" style="margin-bottom:10px"><div class="t" style="font-weight:600;margin-bottom:4px">Meranie používania</div>
-   <p class="hint" style="margin:0">Appka používa nástroj PostHog na serveroch v Európskej únii.</p></div>
+   <p class="hint" style="margin:0">Nástroj PostHog na serveroch v Európskej únii zaznamená len otvorenie appky. Nepoužíva cookies, nič neukladá do prehliadača, nenahráva obrazovku a nesleduje, na čo klikáš.</p></div>
   <div class="card" style="margin-bottom:14px"><div class="t" style="font-weight:600;margin-bottom:4px">Vymazanie</div>
    <p class="hint" style="margin:0">„Vymazať všetko“ v profile zmaže dáta v tomto prehliadači a odhlási ťa z tímu. O zmazanie účtu v databáze napíš na toporcer.stefan@gmail.com. Prevádzkovateľ: Štefan Toporcer.</p></div>
+  <p class="hint" style="margin:0 0 14px"><a href="../sukromie/" target="_blank" rel="noopener" style="color:var(--ink2)">Celé znenie na samostatnej stránke</a></p>
   <button class="btn ghost" data-act="closeSheet">Zavrieť</button>`);
 }
 /* Opyta sa servera, ci je tento ucet admin. Ucet kvoli tomu nezaklada: kto ho nema, admin nie je. */
@@ -2588,6 +2592,9 @@ function showBreak(){
 }
 if(S.user){$('#auth').classList.remove('on');render();refreshAdmin()}
 finishGoogle().catch(e=>console.error('google',e));
+/* Meranie navstevnosti v appke: len otvorenie stranky. Kliky nesu texty tlacidiel a riadkov (mena, timy), tie neposielame. */
+try{ if(typeof window!=='undefined'&&window.posthog&&window.posthog.set_config)
+  window.posthog.set_config({autocapture:false,capture_pageleave:false,capture_dead_clicks:false,rageclick:false,enable_heatmaps:false,capture_exceptions:false}) }catch(e){}
 </script>
 </body>
 </html>

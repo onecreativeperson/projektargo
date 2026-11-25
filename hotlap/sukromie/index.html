@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="sk">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-src 'none'; form-action 'none'; script-src 'self' https://*.posthog.com 'sha256-WYXv4T0Sp4nsWGqxcZTrCFqOWXC4JrvQ7XW5xjyqzek='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: https://*.posthog.com; connect-src 'self' https://*.posthog.com https://asnpyrrdeauhkskkkmuc.supabase.co; worker-src 'self' blob: data:">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hotlap – aké údaje ukladá</title>
+<meta name="description" content="Aké údaje appka Hotlap ukladá, kde a ako ich dáš vymazať.">
+<link rel="canonical" href="https://projektargo.com/hotlap/sukromie/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#09090B;--card:#141419;--line:rgba(255,255,255,.1);--ink:#F4F4F5;--ink2:#C9C9D1;--ink3:#9A9AA6;--red:#FF3B30}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 "Chakra Petch",system-ui,sans-serif}
+main{max-width:720px;margin:0 auto;padding:40px 20px 72px}
+.brand{display:inline-flex;align-items:center;gap:10px;font-weight:700;letter-spacing:.14em;color:var(--ink);text-decoration:none;font-size:14px}
+.brand i{width:10px;height:10px;border-radius:50%;background:var(--red);display:block}
+h1{font-size:clamp(28px,6vw,40px);line-height:1.15;margin:28px 0 6px}
+.stav{color:var(--ink3);font-size:13px;margin:0 0 28px}
+h2{font-size:17px;margin:0 0 6px}
+section{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 20px;margin:0 0 12px}
+p{margin:0;color:var(--ink2);font-size:15px}
+p+p{margin-top:8px}
+a{color:var(--ink)}
+hr{border:0;border-top:1px solid var(--line);margin:40px 0 8px}
+.app{display:inline-block;margin-top:24px;padding:12px 18px;border-radius:12px;background:var(--red);color:#fff;font-weight:700;text-decoration:none}
+:focus-visible{outline:2px solid #fff;outline-offset:3px}
+</style>
+<script>
+!function(t,e){var o,n,p,r;e.__SV||(window.posthog && window.posthog.__loaded)||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}p||((p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",p.onerror=function(){p=null},(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r));var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],Object.defineProperty(u,"toString",{configurable:!0,enumerable:!0,writable:!0,value:function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e}}),Object.defineProperty(u.people,"toString",{configurable:!0,enumerable:!0,writable:!0,value:function(){return u.toString(1)+".people (stub)"}}),o="init capture register register_once register_for_session unregister unregister_for_session getFeatureFlag getFeatureFlagResult isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey getNextSurveyStep identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty createPersonProfile opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing debug".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+posthog.init("phc_zbBFHQt5aVYH9HuviHUQuwfh6TPCVPyXSrMWWgJ9UfLP",{api_host:"https://eu.i.posthog.com",defaults:"2026-08-30",cookieless_mode:"always",person_profiles:"identified_only",disable_session_recording:true});
+</script>
+</head>
+<body>
+<main>
+  <a class="brand" href="/hotlap/"><i></i>HOTLAP</a>
+
+  <h1>Aké údaje Hotlap ukladá</h1>
+  <p class="stav">Stav: november 2026 · Prevádzkovateľ: Štefan Toporcer · <a href="mailto:toporcer.stefan@gmail.com">toporcer.stefan@gmail.com</a></p>
+
+  <section><h2>Len v tvojom prehliadači</h2>
+    <p>Jazdy, časy, skóre, odznaky, prezývky a fotka jazdca. Na server sa neposielajú. Keď vymažeš dáta prehliadača, prídeš o ne.</p></section>
+
+  <section><h2>V databáze</h2>
+    <p>ID účtu. Ak si v tíme: názov tímu, tvoje meno v ňom a dátum pripojenia. Vidia ich členovia tímu a správca Hotlapu.</p>
+    <p>Databáza beží v službe Google Firebase na serveroch v Európskej únii.</p></section>
+
+  <section><h2>Pri prihlásení cez Google</h2>
+    <p>Meno a e-mail z tvojho Google účtu. Heslo Hotlap nevidí a nedostane.</p>
+    <p>Prihlasovaciu službu prevádzkuje Google (Firebase Authentication) a údaje spracúva aj mimo Európskej únie.</p>
+    <p>Appku môžeš používať aj bez prihlásenia.</p></section>
+
+  <section><h2>Meranie návštevnosti</h2>
+    <p>Nástroj PostHog na serveroch v Európskej únii zaznamená len otvorenie stránky. Nepoužíva cookies, nič neukladá do prehliadača a nenahráva obrazovku. V appke nesleduje, na čo klikáš.</p></section>
+
+  <section><h2>Ako údaje vymažeš</h2>
+    <p>„Vymazať všetko“ v profile zmaže dáta v prehliadači a odhlási ťa z tímu.</p>
+    <p>O zmazanie účtu a údajov v databáze napíš na <a href="mailto:toporcer.stefan@gmail.com">toporcer.stefan@gmail.com</a>. Na tej istej adrese sa môžeš opýtať, aké údaje o tebe Hotlap má.</p></section>
+
+  <a class="app" href="/hotlap/app/">Otvoriť appku</a>
+
+  <hr>
+  <div lang="en">
+  <h1>What data Hotlap stores</h1>
+  <p class="stav">As of November 2026 · Operator: Štefan Toporcer · <a href="mailto:toporcer.stefan@gmail.com">toporcer.stefan@gmail.com</a></p>
+
+  <section><h2>Only in your browser</h2>
+    <p>Rides, lap times, score, badges, nicknames and your rider photo. They are not sent to a server. Clearing your browser data removes them.</p></section>
+
+  <section><h2>In the database</h2>
+    <p>Your account ID. If you are in a team: the team name, your name in it and the date you joined. Team members and the Hotlap administrator can see them.</p>
+    <p>The database runs on Google Firebase, on servers in the European Union.</p></section>
+
+  <section><h2>When you sign in with Google</h2>
+    <p>The name and e-mail of your Google account. Hotlap never sees or receives your password.</p>
+    <p>The sign-in service is run by Google (Firebase Authentication), which also processes data outside the European Union.</p>
+    <p>You can use the app without signing in.</p></section>
+
+  <section><h2>Visit statistics</h2>
+    <p>PostHog, on servers in the European Union, records only that a page was opened. It uses no cookies, stores nothing in your browser and does not record your screen. In the app it does not track what you click.</p></section>
+
+  <section><h2>How to delete your data</h2>
+    <p>“Vymazať všetko” in your profile deletes the data in your browser and removes you from your team.</p>
+    <p>To have your account and database data deleted, or to ask what data Hotlap holds about you, write to <a href="mailto:toporcer.stefan@gmail.com">toporcer.stefan@gmail.com</a>.</p></section>
+  </div>
+</main>
+</body>
+</html>
