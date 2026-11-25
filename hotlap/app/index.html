@@ -2,13 +2,14 @@
 <html lang="sk">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-src 'none'; form-action 'none'; script-src 'self' https://*.posthog.com 'sha256-+vI4NlYcAnMZrtsKU3stuMP41zlQZ+HkjUD8//8KN9w=' 'sha256-WYXv4T0Sp4nsWGqxcZTrCFqOWXC4JrvQ7XW5xjyqzek=' 'sha256-aI6fvEEtnVW4DD1kSFsM6Pi4iNahfLL4LtIGBLJhVKQ='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: https://*.posthog.com; connect-src 'self' https://*.posthog.com https://asnpyrrdeauhkskkkmuc.supabase.co https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://firestore.googleapis.com; worker-src 'self' blob: data:">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-src 'none'; form-action 'none'; script-src 'self' https://*.posthog.com 'sha256-XqhGJ6VAdlI2c1tjqpQ99Xpp3qKGbl2MreHnwLQ5itE=' 'sha256-WYXv4T0Sp4nsWGqxcZTrCFqOWXC4JrvQ7XW5xjyqzek=' 'sha256-Koh2t+nAgVckwOjRmC9njeQeeSBU3sISk/I9//L0Wuc='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: https://*.posthog.com; connect-src 'self' https://*.posthog.com https://asnpyrrdeauhkskkkmuc.supabase.co https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://firestore.googleapis.com; worker-src 'self' blob: data:">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
 <title>Hotlap</title>
 <script>/* Navrat z Googlu: token z adresy schovame hned, skor nez sa nacita cokolvek ine. Meranie navstevnosti by inak dostalo celu adresu aj s tokenom. */
-(function(){try{var h=location.hash||'';if(/(^|[#&])(id_token|error)=/.test(h)){window.__gret=h;history.replaceState(null,'',location.pathname+location.search)}}catch(e){}})();</script>
+(function(){try{var h=location.hash||'';if(/(^|[#&])(id_token|error)=/.test(h)){window.__gret=h;history.replaceState(null,'',location.pathname+location.search)}
+else if(/^#jazda=/.test(h)){try{sessionStorage.setItem('hotlap.imp',h.slice(7,6007))}catch(e){}history.replaceState(null,'',location.pathname+location.search)}}catch(e){}})();</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600;700&family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet">
@@ -188,6 +189,11 @@ h2 a{font-size:11px;color:var(--red);letter-spacing:.06em;text-transform:none;cu
 .or{display:flex;align-items:center;gap:12px;color:var(--ink3);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;margin:2px 0 14px}
 .or:before,.or:after{content:'';flex:1;height:1px;background:var(--line)}
 label{display:block;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);margin-bottom:6px;font-weight:700}
+.laps{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:1px;background:var(--line);border-top:1px solid var(--line)}
+.lap{display:flex;justify-content:space-between;align-items:baseline;gap:8px;padding:9px 12px;background:var(--card);font-size:13px}
+.lap span{color:var(--ink3);font-size:11px}
+.lap.best b{color:var(--pb)}
+textarea.field{resize:vertical;min-height:54px;line-height:1.5}
 .field{width:100%;padding:13px 14px;background:var(--card);border:1px solid var(--line2);border-radius:var(--r2);
        color:var(--ink);margin-bottom:12px;outline:none;transition:border-color .15s}
 .field:focus{border-color:var(--red)}
@@ -671,6 +677,49 @@ function parseTime(v){
 }
 function ymd(dt){return dt.getFullYear()+'-'+String(dt.getMonth()+1).padStart(2,'0')+'-'+String(dt.getDate()).padStart(2,'0')}
 function today(){return ymd(new Date())}
+/* casy kol: zoznam oddeleny medzerami, riadkami alebo bodkociarkou; vrati pole v ms, [] ked je prazdny, null ked je v nom chyba */
+const LAPS_MAX=300;
+function parseLaps(v){
+ const tok=String(v||'').split(/[\s;]+/).filter(Boolean);
+ if(!tok.length) return [];
+ if(tok.length>LAPS_MAX) return null;
+ const out=[];
+ for(const k of tok){ const ms=parseTime(k); if(ms===null||ms<8000||ms>600000) return null; out.push(ms) }
+ return out;
+}
+function cleanLaps(a){
+ if(!Array.isArray(a)) return null;
+ const o=a.filter(n=>Number.isInteger(n)&&n>=8000&&n<=600000).slice(0,LAPS_MAX);
+ return o.length&&o.length===a.length?o:null;
+}
+function lapsCard(x){
+ const L=cleanLaps(x.lapTimes); if(!L) return '';
+ const best=Math.min(...L), avg=Math.round(L.reduce((a,b)=>a+b,0)/L.length);
+ return `<h2 style="margin:16px 0 10px">Časy kôl</h2>
+  <div class="card pad0" style="margin-bottom:12px">
+   <div class="row"><div class="main"><div class="t">Priemer</div></div><div class="s mono">${fmt(avg)}</div></div>
+   <div class="row"><div class="main"><div class="t">Najlepšie kolo</div></div><div class="s mono">${fmt(best)} · ${L.indexOf(best)+1}. kolo</div></div>
+   <div class="laps">${L.map((ms,i)=>`<div class="lap${ms===best?' best':''}"><span>${i+1}</span><b class="mono">${fmt(ms)}</b></div>`).join('')}</div>
+  </div>`;
+}
+/* jazda pripravena v odkaze (#jazda=trat.draha.trieda.datum.motokara.kolo-kolo-...): nic sa neulozi, kym ju jazdec nepotvrdi */
+let impWait=false;
+function impRead(){
+ let r=''; try{ r=sessionStorage.getItem('hotlap.imp')||''; sessionStorage.removeItem('hotlap.imp') }catch(e){}
+ const m=r.match(/^([A-Za-z0-9_-]{1,40})\.([A-Za-z0-9_-]{1,40})\.([A-Za-z0-9_-]{1,40})\.(\d{4}-\d{2}-\d{2})\.([A-Za-z0-9]{0,3})\.(\d{4,6}(?:-\d{4,6}){0,299})$/);
+ if(!m) return null;
+ const laps=cleanLaps(m[6].split('-').map(Number)); if(!laps) return null;
+ if(isNaN(new Date(m[4]+'T12:00:00').getTime())||m[4]>today()) return null;
+ return {trackId:m[1],layoutId:m[2],classId:m[3],date:m[4],kart:m[5],lapTimes:laps};
+}
+function impOpen(){
+ if(!S.user) return false;
+ const d=impRead(); if(!d) return false;
+ const t=trackById(d.trackId), lay=t&&t.layouts.find(l=>l.id===d.layoutId), cl=t&&t.classes.find(c=>c.id===d.classId);
+ if(!t||!lay||!cl){ alert('Jazdu z odkazu sa nepodarilo otvoriť: táto trať v appke nie je.'); return false }
+ draft={trackId:t.id,layoutId:lay.id,classId:cl.id,mode:'manual',pre:d};
+ stepTime(); return true;
+}
 function weekKey(d){const dt=new Date(d+'T12:00:00');const day=(dt.getDay()+6)%7;dt.setDate(dt.getDate()-day);return ymd(dt)}
 function isPrevWeek(a,b){const da=new Date(a+'T12:00:00'),db=new Date(b+'T12:00:00');return Math.round((db-da)/86400000)===7}
 function levelOf(xp){return Math.min(LEVELS.length,Math.floor(xp/500)+1)}
@@ -915,24 +964,33 @@ function photoBlock(){
   <button class="btn ghost" data-act="modeManual">Zapísať ručne</button>`;
 }
 function manualBlock(){
- return `<label>Najlepšie kolo</label>
-  <input id="dBest" class="field mono" inputmode="decimal" placeholder="napr. 42.812 alebo 1:02.45">
+ const pre=draft.pre||null, pt=pre?trackById(draft.trackId):null;
+ return `${pre?`<div class="banner"><b>Jazda z výsledkovej listiny.</b> ${esc(pt.name)} · ${esc(pre.date)} · ${pre.lapTimes.length} kôl. Skontroluj údaje a ulož ju.</div>`:''}
+  <label>Najlepšie kolo</label>
+  <input id="dBest" class="field mono" inputmode="decimal" placeholder="napr. 42.812 alebo 1:02.45" value="${pre?(Math.min(...pre.lapTimes)/1000).toFixed(3):''}">
   <label>Číslo motokáry (nepovinné)</label>
-  <input id="dKart" class="field mono" inputmode="numeric" placeholder="napr. 7" maxlength="3">
+  <input id="dKart" class="field mono" inputmode="numeric" placeholder="napr. 7" maxlength="3" value="${pre?esc(pre.kart):''}">
   <label>Počet kôl (nepovinné)</label>
-  <input id="dLaps" class="field mono" inputmode="numeric" placeholder="napr. 12">
+  <input id="dLaps" class="field mono" inputmode="numeric" placeholder="napr. 12" value="${pre?pre.lapTimes.length:''}">
   <label>Dátum</label>
-  <input id="dDate" class="field" type="date" value="${today()}">
+  <input id="dDate" class="field" type="date" value="${pre?esc(pre.date):today()}" max="${today()}">
+  <label>Časy všetkých kôl (nepovinné)</label>
+  <textarea id="dLapList" class="field mono" rows="${pre?4:2}" placeholder="napr. 41.534 37.797 37.765">${pre?pre.lapTimes.map(n=>(n/1000).toFixed(3)).join(' '):''}</textarea>
   <button class="btn primary" data-act="saveRide" style="margin-top:4px">Uložiť jazdu</button>
-  <p class="hint">Čas zapíš ako 42.812, 42,812 alebo 1:02.45 — Hotlap si to prepočíta sám.</p>`;
+  <p class="hint">Čas zapíš ako 42.812, 42,812 alebo 1:02.45 — Hotlap si to prepočíta sám. Keď vypíšeš časy všetkých kôl (oddelené medzerou), najlepšie kolo a počet kôl sa vezmú z nich.</p>`;
 }
 
 function saveRide(){
- const el=$('#dBest'); const ms=parseTime(el.value);
+ const el=$('#dBest'), ll=$('#dLapList');
+ const lapTimes=ll?parseLaps(ll.value):[];
+ if(lapTimes===null){ ll.style.borderColor='var(--red)'; ll.focus(); return; }
+ const ms=lapTimes.length?Math.min(...lapTimes):parseTime(el.value);
  if(ms===null||ms<8000||ms>600000){ el.style.borderColor='var(--red)'; el.focus(); return; }
- const laps=parseInt($('#dLaps').value)||null;
+ const laps=lapTimes.length||Math.max(0,Math.min(999,parseInt($('#dLaps').value)||0))||null;
  const kart=($('#dKart').value||'').trim().slice(0,3)||null;
  const date=$('#dDate').value||today();
+ if(lapTimes.length&&S.sessions.some(s=>s.trackId===draft.trackId&&s.date===date&&s.bestMs===ms&&Array.isArray(s.lapTimes)&&s.lapTimes.join()===lapTimes.join())){
+   alert('Táto jazda už je zapísaná.'); closeSheet(); return; }
  const t=trackById(draft.trackId);
  const lay=t.layouts.find(l=>l.id===draft.layoutId);
  const layVer=lay?lay.ver:1;
@@ -949,7 +1007,7 @@ function saveRide(){
  if(laps&&laps>=10){xp+=25;why.push(['10 a viac kôl',25])}
 
  const wk=weekKey(date);
- if(S.user.lastWeek!==wk){
+ if(S.user.lastWeek!==wk&&!(S.user.lastWeek&&wk<S.user.lastWeek)){   // spatne dopisana starsia jazda seriu nemeni
    if(S.user.lastWeek&&isPrevWeek(S.user.lastWeek,wk)) S.user.streak++;
    else S.user.streak=1;
    S.user.lastWeek=wk;
@@ -967,6 +1025,7 @@ function saveRide(){
 
  S.sessions.unshift({id:'s'+Date.now(),trackId:draft.trackId,layoutId:draft.layoutId,layVer,
                      classId:draft.classId,date,bestMs:ms,laps,kart,isPB,xp,elo:d});
+ if(lapTimes.length) S.sessions[0].lapTimes=lapTimes;
 
  const gained=grantBadges({isPB:isPB&&prevBest!==null,newCountry,lvl:lvlAfter});
  save();
@@ -1655,6 +1714,7 @@ function sessDoc(x){
    trackName:cleanName(t.name,60),trackCity:cleanName(t.city,60),trackCountry:String(t.country||'').slice(0,2),
    layoutName:cleanName(lay.name,40),className:cleanName(cl.name,40)};
 }
+function sessDocFull(x){ const d=sessDoc(x), L=cleanLaps(x.lapTimes); if(L) d.lapTimes=L; return d }
 function riderDoc(){
  const u=S.user, lt=(S.teams||[])[0];
  return {name:dbMeno(u.name),aliases:(u.aliases||[]).slice(0,20).map(a=>cleanName(a,20)).filter(Boolean),
@@ -1715,7 +1775,7 @@ async function cloudPush(){
  try{
    for(const x of S.sessions.slice(0,SYNC_MAX)){
      if(!okDocId(x.id)||x.id==='profil') continue;
-     const d=sessDoc(x), h=JSON.stringify(d);
+     const d=sessDocFull(x), h=JSON.stringify(d);
      if(st.sess[x.id]===h||st.sess[x.id]==='!'+h) continue;
      try{ await countedWrite(t.uid,st,x.id,base+'/sessions/'+x.id,fsFields(d)); st.sess[x.id]=h; n++ }
      catch(e){ if(e&&!e.limit&&(e.status===400||e.status===403)){ st.sess[x.id]='!'+h; n++ } else throw e }   // jazda, ktoru databaza neprijme, nesmie zastavit ostatne
@@ -1767,6 +1827,7 @@ async function cloudPull(){
    ensureTrack(d);
    const x={id:id,trackId:d.trackId,layoutId:d.layoutId,layVer:d.layVer||1,classId:d.classId||'c1',date:d.date||today(),bestMs:d.bestMs,
      laps:d.laps||null,kart:d.kart||null,isPB:!!d.isPB,xp:d.xp|0,elo:d.elo|0};
+   const kola=cleanLaps(d.lapTimes); if(kola) x.lapTimes=kola;
    S.sessions.push(x); nove.push(id); pridane++;
  }
  // jazdy, ktore si prehliadac pamata ako ulozene, ale v databaze nie su, sa ulozia znova
@@ -1792,7 +1853,7 @@ async function cloudPull(){
  }
  if(pridane){ try{ S=migrate(S)||S }catch(e){} }
  // prave nacitane jazdy su v databaze, netreba ich posielat spat
- { const st2=syncState(t.uid); nove.forEach(id=>{ const x=S.sessions.find(y=>y.id===id); if(x) st2.sess[id]=JSON.stringify(sessDoc(x)) }) }
+ { const st2=syncState(t.uid); nove.forEach(id=>{ const x=S.sessions.find(y=>y.id===id); if(x) st2.sess[id]=JSON.stringify(sessDocFull(x)) }) }
  pulledFor=t.uid; saveQuiet();
  return true;
 }
@@ -2501,6 +2562,7 @@ function openRide(sid){
     <div class="row"><div class="main"><div class="t">Motokára</div></div><div class="s">${x.kart?esc(x.kart):'neuvedená'}</div></div>
     <div class="row"><div class="main"><div class="t">Body</div></div><div class="s">+${x.xp|0} XP${x.elo!=null?' · skóre '+(x.elo>=0?'+':'')+x.elo:''}</div></div>
   </div>
+  ${lapsCard(x)}
   ${stara?`<h2 style="margin:16px 0 10px">Ako vyzerá dnes</h2>${eraCard(t,lay,layoutEra(t,lay,lay.ver||1))}`:''}
   <button class="btn primary" data-act="openTrack" data-a="${t.id}">Otvoriť trať</button>
   <button class="btn ghost" data-act="closeSheet" style="margin-top:8px">Zavrieť</button>`);
@@ -2634,6 +2696,7 @@ function openTrack(tid){
 
 function render(){
  if(!S.user) return;
+ if(impWait){ impWait=false; setTimeout(impOpen,60) }
  const u=S.user, lvl=levelOf(u.xp);
 
  $('#hName').textContent=u.name;
@@ -3179,6 +3242,14 @@ function showBreak(){
  document.querySelectorAll('.screen').forEach(x=>x.classList.remove('on'));
  if(el) el.classList.add('on');
 }
+try{ impWait=!!sessionStorage.getItem('hotlap.imp') }catch(e){}
+/* odkaz s jazdou otvoreny v uz bezacej appke stranku nenacita znova, len zmeni adresu */
+if(typeof window!=='undefined'&&typeof window.addEventListener==='function') window.addEventListener('hashchange',()=>{
+ const h=location.hash||''; if(!/^#jazda=/.test(h)) return;
+ try{ sessionStorage.setItem('hotlap.imp',h.slice(7,6007)) }catch(e){}
+ try{ history.replaceState(null,'',location.pathname+location.search) }catch(e){}
+ impOpen();
+});
 if(S.user){$('#auth').classList.remove('on');render();refreshAdmin()}
 finishGoogle().catch(e=>{ console.error('google',e); return false }).then(bol=>{ if(!bol&&syncOn()) cloudSync() });
 if(typeof fetch==='function') tracksSync();
