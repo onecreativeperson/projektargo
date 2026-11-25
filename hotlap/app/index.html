@@ -2,7 +2,7 @@
 <html lang="sk">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-src 'none'; form-action 'none'; script-src 'self' https://*.posthog.com 'sha256-+vI4NlYcAnMZrtsKU3stuMP41zlQZ+HkjUD8//8KN9w=' 'sha256-WYXv4T0Sp4nsWGqxcZTrCFqOWXC4JrvQ7XW5xjyqzek=' 'sha256-CdB+acl/ZcSYI75BzyfjHTiTsOwievd/qyN0g3OirVc='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: https://*.posthog.com; connect-src 'self' https://*.posthog.com https://asnpyrrdeauhkskkkmuc.supabase.co https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://firestore.googleapis.com; worker-src 'self' blob: data:">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-src 'none'; form-action 'none'; script-src 'self' https://*.posthog.com 'sha256-+vI4NlYcAnMZrtsKU3stuMP41zlQZ+HkjUD8//8KN9w=' 'sha256-WYXv4T0Sp4nsWGqxcZTrCFqOWXC4JrvQ7XW5xjyqzek=' 'sha256-SKv/xxFmc92OKDdO9hxl8rhCJVkWpsSk1jYPjUGJNWE='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: https://*.posthog.com; connect-src 'self' https://*.posthog.com https://asnpyrrdeauhkskkkmuc.supabase.co https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://firestore.googleapis.com; worker-src 'self' blob: data:">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
@@ -1030,15 +1030,20 @@ function confirmChange(tid,lid){
  const done = true;
  if(done){
    if(!Array.isArray(lay.history)) lay.history=[];
-   lay.history.push({ver:lay.ver,from:lay.since,to:today()});
+   const prva=t.layouts[0]===lay;      // tvar a fotka patria prvemu rozlozeniu trate
+   lay.history.push({ver:lay.ver,from:lay.since,to:today(),len:lay.len||null,dir:lay.dir||null,
+     shapePath:prva?(t.shapePath||''):'',shapePts:prva?(t.shapePts||[]):[],
+     photo:(prva&&t.photo&&t.photo.length<=200000)?t.photo:''});
    lay.ver++; lay.since=today(); lay.reports=[];
+   lay.len=null;                        // nova draha ma inu dlzku; kym ju niekto nezada, je neuvedena
+   if(prva){ t.shapePath=''; t.shapePts=[]; t.plan='' }
  }
  save();
  openSheet(`<div class="result" style="padding-top:4px">
    <div style="color:${done?'var(--red)':'var(--pb)'};margin-bottom:6px">${art(t,'',96,66)}</div>
    <h3>${done?'Založená nová verzia dráhy':'Hlásenie zaznamenané'}</h3>
    <p class="sub">${done
-     ? esc(lay.name)+' je teraz verzia '+lay.ver+'. Nové časy sa porovnávajú len medzi sebou, staré rekordy zostali v archíve.'
+     ? esc(lay.name)+' je teraz verzia '+lay.ver+'. Nové časy sa porovnávajú len medzi sebou, staré rekordy zostali v archíve. Starý tvar a dĺžka dráhy sú uložené pri starých časoch; novú dráhu treba obkresliť a doplniť jej dĺžku.'
      : 'Hlásenie zaznamenané.'}</p>
  </div>
  <button class="btn primary" data-act="closeAndRender">Hotovo</button>`);
@@ -2272,7 +2277,7 @@ function renderMine(){
      : d<0 ? `<span class="delta-s is-pb">−${fmt(-d)}</span>`
      : d>0 ? `<span class="delta-s" style="color:var(--ink3)">+${fmt(d)}</span>`
            : `<span class="delta-s" style="color:var(--ink3)">0.000</span>`;
-   out+=`<div class="row">
+   out+=`<div class="row rowlink" data-act="openRide" data-a="${esc(s.id)}" role="button" tabindex="0">
      <div class="main">
        <div class="t">${esc(t?t.name:'—')}${isCurrentBest(s)?' <span class="tag pb">rekord</span>':''}${arch?' <span class="tag un">stará dráha</span>':''}</div>
        <div class="s">${esc(s.date)} · ${esc(lay?lay.name:'—')} · ${esc(cl?cl.name:'—')}</div>
@@ -2401,6 +2406,69 @@ function saveFacts(tid){
  save(); openTrack(tid);
 }
 
+/* Podoba drahy v danej verzii: dnesna z trate, starsia z archivu ulozeneho pri prestavbe. */
+function layoutEra(t,lay,ver){
+ const cur=lay.ver||1; ver=ver||1;
+ if(ver>=cur){ const prva=t.layouts[0]===lay;
+   return {ver:cur,now:true,from:lay.since||null,to:null,len:lay.len||null,dir:lay.dir||null,
+     shapePath:prva?(t.shapePath||''):'',shapePts:prva?(t.shapePts||[]):[],photo:prva?(t.photo||''):''} }
+ const h=(lay.history||[]).find(x=>x.ver===ver)||{};
+ return {ver:ver,now:false,from:h.from||null,to:h.to||null,len:h.len||null,dir:h.dir||null,
+   shapePath:typeof h.shapePath==='string'?h.shapePath:'',shapePts:Array.isArray(h.shapePts)?h.shapePts:[],photo:typeof h.photo==='string'?h.photo:''};
+}
+function eraCard(t,lay,e){
+ const obr=e.shapePath?art({shapePath:e.shapePath,shapePts:e.shapePts},'',220,147):circuit(t.shape,'',220,147);
+ const obdobie=(e.from?esc(e.from):'od začiatku')+(e.now?' – dodnes':' – '+esc(e.to||''));
+ return `<div class="card" style="margin-bottom:12px">
+   <div class="t" style="font-weight:600;margin-bottom:2px">${e.now?'Dnešná dráha':'Staršia podoba dráhy'} · verzia ${e.ver}</div>
+   <div class="s" style="margin-bottom:10px">${esc(lay.name)} · ${obdobie}</div>
+   ${e.photo&&/^data:image\/[a-z+]+;base64,[A-Za-z0-9+\/=]+$/.test(e.photo)?`<div style="height:120px;border-radius:12px;background:url('${e.photo}') center/cover;margin-bottom:10px"></div>`:''}
+   <div style="display:flex;justify-content:center;color:${e.now?'var(--red)':'var(--ink2)'};padding:6px 0">${obr}</div>
+   <div class="s" style="text-align:center;margin-top:6px">${e.shapePath?'skutočný tvar dráhy':(e.now?'ilustračný tvar · skutočný ešte nie je obkreslený':'ilustračný tvar · táto staršia podoba nebola obkreslená')}</div>
+   <div class="s" style="text-align:center;margin-top:4px">${dirIcon(e.dir)} ${esc(dirLabel(e.dir))}${e.len?' · '+e.len+' m':' · dĺžka neuvedená'}</div>
+ </div>`;
+}
+/* detail jednej jazdy: cas a draha, na akej sa isiel */
+function openRide(sid){
+ const x=S.sessions.find(y=>y.id===sid); if(!x) return;
+ const t=trackById(x.trackId); if(!t) return;
+ const lay=t.layouts.find(l=>l.id===x.layoutId)||t.layouts[0];
+ const cl=t.classes.find(c=>c.id===x.classId);
+ const e=layoutEra(t,lay,x.layVer||1), stara=!e.now;
+ openSheet(`
+  <h3 class="mono" style="font-size:30px">${fmt(x.bestMs)}</h3>
+  <p class="sub">${esc(t.name)} · ${esc(x.date)}</p>
+  <div style="margin:-10px 0 14px">${isCurrentBest(x)?'<span class="tag pb">rekord</span> ':''}${stara?'<span class="tag un">stará dráha</span>':'<span class="tag ok">dnešná dráha</span>'}</div>
+  ${stara?`<div class="banner"><b>Túto jazdu si išiel na staršej podobe dráhy.</b> Odvtedy ju prestavali, preto sa tento čas s dnešnými neporovnáva.</div>`:''}
+  ${eraCard(t,lay,e)}
+  <div class="card pad0" style="margin-bottom:12px">
+    <div class="row"><div class="main"><div class="t">Trieda</div></div><div class="s">${esc(cl?cl.name:'—')}</div></div>
+    <div class="row"><div class="main"><div class="t">Kolá</div></div><div class="s">${x.laps?x.laps:'neuvedené'}</div></div>
+    <div class="row"><div class="main"><div class="t">Motokára</div></div><div class="s">${x.kart?esc(x.kart):'neuvedená'}</div></div>
+    <div class="row"><div class="main"><div class="t">Body</div></div><div class="s">+${x.xp|0} XP${x.elo!=null?' · skóre '+(x.elo>=0?'+':'')+x.elo:''}</div></div>
+  </div>
+  ${stara?`<h2 style="margin:16px 0 10px">Ako vyzerá dnes</h2>${eraCard(t,lay,layoutEra(t,lay,lay.ver||1))}`:''}
+  <button class="btn primary" data-act="openTrack" data-a="${t.id}">Otvoriť trať</button>
+  <button class="btn ghost" data-act="closeSheet" style="margin-top:8px">Zavrieť</button>`);
+}
+/* podoba drahy v jednej verzii, otvorena z historie drahy */
+function openEra(tid,lid,ver){
+ const t=trackById(tid); if(!t) return;
+ const lay=t.layouts.find(l=>l.id===lid)||t.layouts[0];
+ const e=layoutEra(t,lay,+ver||1);
+ const moje=S.sessions.filter(x=>x.trackId===t.id&&x.layoutId===lay.id&&(x.layVer||1)===e.ver).sort((a,b)=>a.bestMs-b.bestMs);
+ openSheet(`
+  <h3>${esc(t.name)}</h3><p class="sub">${e.now?'dnešná dráha':'staršia podoba dráhy'} · verzia ${e.ver}</p>
+  ${eraCard(t,lay,e)}
+  <h2 style="margin:16px 0 10px">Tvoje časy na tejto podobe</h2>
+  <div class="card pad0" style="margin-bottom:12px">${moje.length?moje.slice(0,20).map((x,i)=>`
+    <div class="row rowlink" data-act="openRide" data-a="${esc(x.id)}" role="button" tabindex="0">
+      <div class="pos ${i===0?'p1':''}">${i+1}</div>
+      <div class="main"><div class="t">${esc(x.date)}</div><div class="s">${x.laps?nKol(x.laps):''}${x.kart?(x.laps?' · ':'')+'motokára '+esc(x.kart):''}</div></div>
+      <div class="time ${i===0&&e.now?'is-pb':''}">${fmt(x.bestMs)}</div></div>`).join(''):'<div class="empty">Na tejto podobe dráhy nemáš jazdu.</div>'}</div>
+  <button class="btn ghost" data-act="openTrack" data-a="${t.id}">Späť na trať</button>`);
+}
+
 /* ako trat vyzerala kedysi: verzia, obdobie, tvoj vtedajsi rekord */
 function layoutTimeline(t,lay){
  const bestIn=v=>{
@@ -2413,14 +2481,14 @@ function layoutTimeline(t,lay){
  return `<h2 style="margin:20px 0 10px">História dráhy</h2>
  <div class="card pad0">${eras.map(e=>{
    const b=bestIn(e.ver), now=e.to===null;
-   return `<div class="row">
+   return `<div class="row rowlink" data-act="openEra" data-a="${t.id}" data-b="${lay.id}:${e.ver}" role="button" tabindex="0">
      <div class="pos ${now?'p1':''}">v${e.ver}</div>
      <div class="main"><div class="t">${now?'Dnešná dráha':'Staršia podoba dráhy'}</div>
        <div class="s">${e.from?esc(e.from):'od začiatku'} ${now?'– dodnes':'– '+esc(e.to||'')}</div>
        ${now?'':'<div class="s">tieto časy sa s dnešnými neporovnávajú</div>'}</div>
      <div class="time ${now&&b?'is-pb':''}" ${now?'':'style="opacity:.5"'}>${b?fmt(b):'—'}</div></div>`;
  }).join('')}</div>
- <p class="hint">Keď trať dráhu prestaví, Hotlap založí novú verziu a staré časy odloží sem. Nezmažú sa — len sa prestanú porovnávať s dnešnými, lebo by to nedávalo zmysel.</p>`;
+ <p class="hint">Keď trať dráhu prestaví, Hotlap založí novú verziu a staré časy odloží sem. Nezmažú sa — len sa prestanú porovnávať s dnešnými, lebo by to nedávalo zmysel. Ťukni na verziu a uvidíš, ako dráha vtedy vyzerala.</p>`;
 }
 
 /* detail trate: tvar, smer jazdy, dlzka, verzia a hlasenie prestavby */
@@ -2589,7 +2657,7 @@ function render(){
 
  $('#recent').innerHTML = S.sessions.length ? S.sessions.slice(0,6).map(s=>{
    const t=trackById(s.trackId), arch=isArchived(s);
-   return `<div class="row">
+   return `<div class="row rowlink" data-act="openRide" data-a="${esc(s.id)}" role="button" tabindex="0">
      <span style="color:var(--red);flex:none;opacity:.8">${art(t,'trackmini')}</span>
      <div class="main"><div class="t">${esc(t?t.name:'—')}${isCurrentBest(s)?' <span class="tag pb">rekord</span>':''}${arch?' <span class="tag un">stará dráha</span>':''}</div>
      <div class="s">${t?cc(t.country):''}${s.date}${s.laps?' · '+nKol(s.laps):''} · +${s.xp} XP</div></div>
@@ -2976,6 +3044,8 @@ const ACT={
  onPlan:(el,a,b,ev)=>onPlan(ev),
  addAlias:()=>addAlias(),
  copyUid:()=>copyUid(),
+ openRide:(el,a)=>openRide(a),
+ openEra:(el,a,b)=>{ const i=String(b||'').lastIndexOf(':'); openEra(a,String(b||'').slice(0,i),String(b||'').slice(i+1)) },
  adminTeams:()=>{ adminTeams() },
  adminTeam:(el,a)=>adminTeam(a),
  adminKick:(el,a,b)=>{ adminKick(a,b) },
