@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-src 'none'; form-action 'none'; script-src 'self' https://*.posthog.com 'sha256-5c2JNB+BAJnHugmLPWD3gk8lrExYZsIHIKCeLGT2fDI=' 'sha256-WYXv4T0Sp4nsWGqxcZTrCFqOWXC4JrvQ7XW5xjyqzek=' 'sha256-XRY3p9rLJMtydf3TvoHwVzyNXsM3UHNo3JsqHMdxVp0='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://*.posthog.com; connect-src 'self' https://*.posthog.com https://asnpyrrdeauhkskkkmuc.supabase.co; worker-src 'self' blob: data:">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="generator" content="projektargo-motor">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ETS2 Desk · Free ETS2 readiness snapshot for fuel suppliers</title>
+<meta name="description" content="Free, indicative ETS2 readiness snapshot for small and mid-sized fuel suppliers in Central and Eastern Europe: 2026 emissions per fuel stream, scope risks and a checklist for the verified report due 30 April 2027.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/icons/icon-32.png" sizes="32x32" type="image/png">
+<link rel="canonical" href="https://projektargo.com/ets2-desk/">
+<link rel="alternate" hreflang="en" href="https://projektargo.com/ets2-desk/">
+<link rel="alternate" hreflang="sk" href="https://projektargo.com/ets2-desk-sk/">
+<link rel="alternate" hreflang="x-default" href="https://projektargo.com/ets2-desk/">
+<meta property="og:title" content="ETS2 Desk · Your first verified ETS2 report, mapped">
+<meta property="og:description" content="Free ETS2 readiness snapshot for heating oil, LPG and fuel distributors. By email within 2 working days.">
+<meta property="og:image" content="https://projektargo.com/og.png">
+<meta property="og:image:alt" content="ETS2 Desk · Your first verified ETS2 report, mapped">
+<meta property="og:url" content="https://projektargo.com/ets2-desk/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_GB">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#F4F5F2">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Saira+Stencil+One&family=Overpass:wght@400;600;800&display=swap" rel="stylesheet">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Service", "name": "ETS2 Desk", "url": "https://projektargo.com/ets2-desk/", "serviceType": "ETS2 monitoring and reporting readiness check for regulated fuel suppliers", "description": "Free, indicative ETS2 readiness snapshot for small and mid-sized fuel suppliers in Central and Eastern Europe: 2026 emissions per fuel stream, scope risks and a checklist for the verified report due 30 April 2027.", "inLanguage": "en", "areaServed": "EU", "provider": {"@type": "Person", "name": "Štefan Toporcer"}, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "EUR", "description": "Get the free ETS2 Readiness Snapshot"}}</script>
+<style>
+/* ETS2 Desk – road-tanker paperwork: brushed aluminium tank shell, orange hazard plates carrying tonnes of CO2 instead of UN numbers, a numbered compartment table and kilometre posts for the deadlines, set in stencil and highway-sign type */
+:root{--alu:#E6E8E4;--alu2:#D5D8D3;--shell:#F4F5F2;--ink:#14171A;--text:#2C3238;--muted:#4D555D;--petrol:#0F3B57;--petrol-d:#082537;--plate:#F39200;--plate-d:#1A1A1A;--line:#B9BEB8;--max:1200px}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--alu);background-image:repeating-linear-gradient(0deg,rgba(255,255,255,.18) 0 1px,transparent 1px 3px);color:var(--ink);font:17px/1.6 "Overpass",system-ui,sans-serif}
+a{color:inherit}
+img,svg{max-width:100%;display:block}
+section{scroll-margin-top:84px}
+.skip{position:absolute;left:-999px;top:0;background:#fff;padding:8px 12px;z-index:99}
+.skip:focus{left:8px}
+.w{max-width:var(--max);margin:0 auto;padding:0 24px}
+.st{font-family:"Saira Stencil One","Overpass",sans-serif;font-weight:400;letter-spacing:.01em}
+.k{font-size:12px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--petrol)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;background:var(--petrol);color:#fff;text-decoration:none;font-weight:800;padding:16px 22px;border-radius:2px;border-bottom:4px solid var(--petrol-d);line-height:1.2}
+.btn:hover,.btn:focus-visible{background:var(--petrol-d)}
+.btn.sm{padding:9px 14px;font-size:14px;border-bottom-width:3px}
+.tl{font-weight:700;color:var(--petrol);text-underline-offset:4px}
+:focus-visible{outline:3px solid var(--plate);outline-offset:2px}
+/* header */
+.hd{position:sticky;top:0;z-index:20;background:rgba(244,245,242,.96);border-bottom:2px solid var(--ink)}
+.hd .w{display:flex;align-items:center;gap:20px;height:64px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;font-size:22px;white-space:nowrap}
+.logo i{display:inline-block;width:26px;height:18px;background:var(--plate);border:2px solid var(--plate-d)}
+.nav{display:flex;gap:18px;margin-left:auto;font-size:14px;font-weight:600}
+.nav a{text-decoration:none}
+.nav a:hover{text-decoration:underline}
+.lng{display:flex;border:2px solid var(--ink);font-size:13px;font-weight:800}
+.lng a,.lng span{padding:4px 8px;text-decoration:none}
+.lng span{background:var(--ink);color:#fff}
+/* hero */
+.hero{padding:56px 0 64px;border-bottom:2px solid var(--ink)}
+.hero .w{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);gap:48px;align-items:center}
+.hero h1{font-family:"Saira Stencil One",sans-serif;font-weight:400;font-size:clamp(38px,5.4vw,70px);line-height:1.02;margin:16px 0 22px;letter-spacing:-.005em}
+.hero h1 em{font-style:normal;background:var(--plate);padding:0 .12em;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.lead{font-size:19px;color:var(--text);max-width:36em}
+.acts{display:flex;flex-wrap:wrap;align-items:center;gap:14px 24px;margin:28px 0 14px}
+.note{font-size:14px;color:var(--muted)}
+.tank{background:var(--shell);border:2px solid var(--ink);padding:18px}
+.tank figcaption{font-size:12px;color:var(--muted);margin-top:10px;font-weight:600}
+/* road timeline */
+.why{padding:72px 0}
+.why h2,.how h2,.out h2,.ea h2,.faq h2,.pv h2{font-family:"Saira Stencil One",sans-serif;font-weight:400;font-size:clamp(30px,3.6vw,46px);line-height:1.05;margin:10px 0 14px}
+.sub{color:var(--text);max-width:44em}
+.road{position:relative;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;margin:44px 0 18px;background:#2A2F33;color:#fff;padding:30px 0 26px}
+.road:before{content:"";position:absolute;left:0;right:0;top:50%;border-top:4px dashed #F4F5F2;opacity:.8}
+.km{position:relative;padding:0 18px;z-index:1}
+.km b{display:inline-block;background:#fff;color:var(--ink);border:2px solid var(--ink);padding:6px 10px;font-weight:800;font-size:15px;white-space:nowrap}
+.km.hot b{background:var(--plate)}
+.km p{margin-top:52px;font-size:15px;line-height:1.45;color:#E9ECE8}
+.src{font-size:13px;color:var(--muted);margin-top:8px}
+.reg{display:grid;grid-template-columns:minmax(0,220px) minmax(0,1fr);gap:28px;margin-top:40px;border-top:2px solid var(--ink);padding-top:26px}
+.reg h3{font-size:18px;font-weight:800}
+/* how: delivery note */
+.how{padding:72px 0;background:var(--shell);border-top:2px solid var(--ink);border-bottom:2px solid var(--ink)}
+.dn{margin-top:30px;border:2px solid var(--ink)}
+.dn li{list-style:none;display:grid;grid-template-columns:86px minmax(0,1fr);border-top:1px dashed var(--line)}
+.dn li:first-child{border-top:0}
+.dn .no{font-family:"Saira Stencil One",sans-serif;font-size:40px;display:flex;align-items:center;justify-content:center;border-right:2px solid var(--ink);background:var(--alu)}
+.dn div{padding:18px 22px}
+.dn h3{font-size:19px;font-weight:800;margin-bottom:4px}
+.dn p{color:var(--text)}
+/* output */
+.out{padding:72px 0}
+.tag{display:inline-block;margin-top:6px;font-size:13px;font-weight:700;background:var(--ink);color:#fff;padding:5px 10px}
+.sheet{margin-top:26px;background:#fff;border:2px solid var(--ink);box-shadow:10px 10px 0 var(--alu2)}
+.sheet .hdr{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:14px 20px;border-bottom:2px solid var(--ink);font-weight:800}
+.sheet .hdr span{font-weight:600;color:var(--muted)}
+.tw{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums;font-size:15px}
+th,td{text-align:left;padding:11px 16px;border-bottom:1px solid var(--line)}
+th{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);background:var(--shell)}
+td:last-child,th:last-child{text-align:right;font-weight:800}
+td:last-child{white-space:nowrap}
+tr.tot td{border-bottom:0;background:var(--plate);color:var(--plate-d);font-weight:800}
+.ob{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:2px solid var(--ink)}
+.ob div{padding:18px 20px;border-left:1px solid var(--line)}
+.ob div:first-child{border-left:0}
+.ob h3{font-size:15px;font-weight:800;margin-bottom:6px}
+.ob p{font-size:15px;color:var(--text)}
+/* early access */
+.ea{padding:72px 0;background:#2A2F33;color:#fff}
+.ea .k{color:var(--plate)}
+.ea .sub{color:#DDE1DC}
+.plates{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;margin-top:30px}
+.pl{background:#F4F5F2;color:var(--ink);border:3px solid var(--plate-d);display:grid;grid-template-rows:auto auto 1fr}
+.pl .t{background:var(--plate);border-bottom:3px solid var(--plate-d);padding:14px 20px;font-family:"Saira Stencil One",sans-serif;font-size:26px}
+.pl .p{padding:16px 20px 0;font-size:24px;font-weight:800}
+.pl p{padding:10px 20px 20px;color:var(--text)}
+.ea .src{color:#C9CEC8;margin-top:18px}
+.ea .acts{margin-bottom:0}
+.ea .btn{background:var(--plate);color:var(--plate-d);border-bottom-color:#B86E00}
+.ea .btn:hover{background:#FFB23F}
+/* faq */
+.faq{padding:72px 0}
+.faq details{border-top:2px solid var(--ink);padding:16px 0}
+.faq details:last-of-type{border-bottom:2px solid var(--ink)}
+.faq summary{cursor:pointer;font-weight:800;font-size:18px;list-style:none;display:flex;justify-content:space-between;gap:16px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary:after{content:"+";font-family:"Saira Stencil One",sans-serif;font-size:24px;line-height:1}
+.faq details[open] summary:after{content:"–"}
+.faq p{margin-top:10px;color:var(--text);max-width:48em}
+.pv{padding:56px 0 64px;background:var(--shell);border-top:2px solid var(--ink)}
+.pv p{max-width:52em;color:var(--text);margin-top:12px;font-size:15px}
+.ft{background:var(--ink);color:#E6E8E4;padding:28px 0}
+.ft .w{display:flex;flex-wrap:wrap;gap:14px 28px;align-items:center;justify-content:space-between;font-size:14px}
+.ft a{color:#fff}
+.ft .btn{background:var(--plate);color:var(--plate-d);border-bottom-color:#B86E00}
+@media (max-width:980px){.nav{display:none}.hero .w{grid-template-columns:minmax(0,1fr)}.tank{max-width:520px}}
+@media (max-width:720px){
+ .w{padding:0 16px}
+ .hd .w{gap:10px;height:58px}
+ .logo{font-size:19px}.logo i{width:20px;height:14px}
+ .hd .btn.sm{margin-left:auto;padding:8px 10px;font-size:13px}
+ .hero{padding:36px 0 44px}
+ .lead{font-size:17px}
+ .btn{width:100%}
+ .road{grid-template-columns:minmax(0,1fr);padding:10px 0}
+ .road:before{left:22px;right:auto;top:0;bottom:0;border-top:0;border-left:4px dashed #F4F5F2}
+ .km{padding:14px 16px 14px 46px}
+ .c2,.c3{display:none}
+ .km p{margin:8px 0 0 0}
+ .reg{grid-template-columns:minmax(0,1fr);gap:8px}
+ .dn li{grid-template-columns:56px minmax(0,1fr)}
+ .dn .no{font-size:28px}
+ .dn div{padding:14px 16px}
+ .ob{grid-template-columns:minmax(0,1fr)}
+ .ob div{border-left:0;border-top:1px solid var(--line)}
+ .ob div:first-child{border-top:0}
+ .plates{grid-template-columns:minmax(0,1fr)}
+ .sheet{box-shadow:6px 6px 0 var(--alu2)}
+ th,td{padding:9px 10px;font-size:14px}
+ .ft .w{flex-direction:column;align-items:flex-start}
+}
+@media (max-width:360px){.hd .btn.sm{display:none}.lng{margin-left:auto}.km b{white-space:normal}th,td{padding:8px 7px;font-size:13px}}
+@media (prefers-reduced-motion:no-preference){.tank svg .fl{animation:fl 3.6s ease-in-out infinite alternate}@keyframes fl{from{transform:translateY(0)}to{transform:translateY(-6px)}}}
+</style>
+<script>
+!function(t,e){var o,n,p,r;e.__SV||(window.posthog && window.posthog.__loaded)||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}p||((p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",p.onerror=function(){p=null},(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r));var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],Object.defineProperty(u,"toString",{configurable:!0,enumerable:!0,writable:!0,value:function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e}}),Object.defineProperty(u.people,"toString",{configurable:!0,enumerable:!0,writable:!0,value:function(){return u.toString(1)+".people (stub)"}}),o="init capture register register_once register_for_session unregister unregister_for_session getFeatureFlag getFeatureFlagResult isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey getNextSurveyStep identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty createPersonProfile opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing debug".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+posthog.init("phc_zbBFHQt5aVYH9HuviHUQuwfh6TPCVPyXSrMWWgJ9UfLP",{api_host:"https://eu.i.posthog.com",defaults:"2026-08-30",cookieless_mode:"always",person_profiles:"identified_only",disable_session_recording:true});
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="hd"><div class="w">
+<a class="logo st" href="#top"><i aria-hidden="true"></i>ETS2 Desk</a>
+<nav class="nav" aria-label="ETS2 Desk"><a href="#why">Why now</a><a href="#how">How it works</a><a href="#output">Output</a><a href="#early">Early access</a><a href="#faq">FAQ</a></nav>
+<div class="lng" role="navigation" aria-label="Language"><span lang="en">EN</span><a href="/ets2-desk-sk/" hreflang="sk" lang="sk">SK</a></div>
+<a class="btn sm" href="https://tally.so/r/X50rNg?ref=site-nav">Free snapshot</a>
+</div></header>
+<main id="main">
+<section class="hero" id="top"><div class="w">
+<div>
+<p class="k">For fuel suppliers regulated under EU ETS2</p>
+<h1>Your first <em>verified</em> ETS2 report is due on 30&nbsp;April&nbsp;2027.</h1>
+<p class="lead">If you release heating oil, LPG, diesel, petrol, gas or coal for consumption, every tonne you released for consumption in 2026 has to be in an emissions report checked by an accredited verifier. ETS2 Desk maps your fuel streams before the verifier does.</p>
+<div class="acts"><a class="btn" href="https://tally.so/r/X50rNg?ref=site-hero">Get the free ETS2 Readiness Snapshot</a><a class="tl" href="#output">See an example output</a></div>
+<p class="note">Free – by email within 2 working days – no payment, no obligation</p>
+</div>
+<figure class="tank"><svg viewBox="0 0 520 330" role="img" aria-label="ETS2 – Heating oil, Diesel, LPG">
+<rect x="10" y="20" width="500" height="210" rx="96" fill="#DADDD8" stroke="#14171A" stroke-width="3"/>
+<rect x="10" y="20" width="500" height="210" rx="96" fill="url(#br)" opacity=".5"/>
+<defs><pattern id="br" width="6" height="6" patternUnits="userSpaceOnUse"><path d="M0 1H6" stroke="#fff" stroke-width="1"/></pattern></defs>
+<line x1="176" y1="24" x2="176" y2="226" stroke="#14171A" stroke-width="2" stroke-dasharray="6 5"/>
+<line x1="344" y1="24" x2="344" y2="226" stroke="#14171A" stroke-width="2" stroke-dasharray="6 5"/>
+<g font-family="Overpass,sans-serif" font-weight="800" font-size="15" fill="#14171A" text-anchor="middle">
+<text x="96" y="70">Heating oil</text><text x="260" y="70">Diesel</text><text x="424" y="70">LPG</text>
+<text x="96" y="96" font-weight="600" font-size="13">6 389 t</text><text x="260" y="96" font-weight="600" font-size="13">3 775 t</text><text x="424" y="96" font-weight="600" font-size="13">908 t</text>
+</g>
+<g class="fl"><rect x="185" y="120" width="150" height="96" fill="#F39200" stroke="#1A1A1A" stroke-width="5"/>
+<line x1="185" y1="168" x2="335" y2="168" stroke="#1A1A1A" stroke-width="5"/>
+<text x="260" y="157" text-anchor="middle" font-family="Saira Stencil One,sans-serif" font-size="34" fill="#1A1A1A">ETS2</text>
+<text x="260" y="204" text-anchor="middle" font-family="Saira Stencil One,sans-serif" font-size="30" fill="#1A1A1A">tCO₂</text></g>
+<rect x="40" y="232" width="440" height="22" fill="#14171A"/>
+<circle cx="110" cy="280" r="34" fill="#14171A"/><circle cx="110" cy="280" r="13" fill="#B9BEB8"/>
+<circle cx="410" cy="280" r="34" fill="#14171A"/><circle cx="410" cy="280" r="13" fill="#B9BEB8"/>
+<rect x="0" y="314" width="520" height="6" fill="#14171A"/>
+</svg><figcaption>Illustrative example: invented company "Palivá Východ s.r.o.", Czech factors for 2025</figcaption></figure>
+</div></section>
+<section class="why" id="why"><div class="w">
+<p class="k">Why now</p>
+<h2>The deadlines are already running</h2>
+<p class="sub">ETS2 covers fuels for buildings, road transport and additional sectors. The monitoring part did not wait for the 2028 start.</p>
+<div class="road"><div class="km"><b>1 Jan 2025</b><p>Permit and approved monitoring plan required.</p></div><div class="km"><b>2026</b><p>First year whose data must be verified by an accredited verifier.</p></div><div class="km hot"><b>30 Apr 2027</b><p>Verified emissions report for 2026 due.</p></div><div class="km"><b>2028</b><p>ETS2 becomes fully operational.</p></div></div>
+<p class="src">Sources: European Commission, ETS2 page (climate.ec.europa.eu); Council approval of the one-year postponement to 2028, 5 March 2026 (ICAP).</p>
+<div class="reg"><h3>New since 6 November 2026</h3><div><p>Commission Implementing Regulation (EU) 2026/2467 sets rules on financial compensation for final consumers of fuels and on allowances surrendered for emissions not covered by ETS2, such as fuel that ends up in ETS1 installations. If you deliver to such customers, you need evidence of end use.</p><p class="src">Source: EUR-Lex, Implementing Regulation (EU) 2026/2467 of 5 November 2026, OJ of 6 November 2026.</p></div></div>
+</div></section>
+<section class="how" id="how"><div class="w">
+<p class="k">Three steps</p>
+<h2>How it works</h2>
+<ol class="dn"><li><span class="no">1</span><div><h3>Fill in a short form</h3><p>Fuels, approximate 2026 quantities, customer groups, permit and verifier status. About 4 minutes.</p></div></li><li><span class="no">2</span><div><h3>We map your streams</h3><p>We apply your country's published calculation factors to each fuel stream and check scope: deliveries to ETS1 installations, agriculture and other customers whose fuel may be treated differently.</p></div></li><li><span class="no">3</span><div><h3>You get the snapshot</h3><p>By email within 2 working days, in the language of the form you used.</p></div></li></ol>
+</div></section>
+<section class="out" id="output"><div class="w">
+<p class="k">Output</p>
+<h2>What the snapshot looks like</h2>
+<span class="tag">Illustrative example: invented company "Palivá Východ s.r.o.", Czech factors for 2025</span>
+<div class="sheet">
+<div class="hdr">ETS2 Readiness Snapshot <span>Palivá Východ s.r.o., 2026</span></div>
+<div class="tw"><table><thead><tr><th scope="col" class="c0">Fuel stream</th><th scope="col" class="c1">2026 quantity</th><th scope="col" class="c2">NCV (TJ/kt)</th><th scope="col" class="c3">EF (tCO₂/TJ)</th><th scope="col" class="c4">Estimate</th></tr></thead><tbody><tr><td class="c0">Heating oil</td><td class="c1">2,000 t</td><td class="c2">43.11</td><td class="c3">74.10</td><td class="c4">6,389 t CO₂</td></tr><tr><td class="c0">Diesel</td><td class="c1">1,200 t</td><td class="c2">43.14</td><td class="c3">72.93</td><td class="c4">3,775 t CO₂</td></tr><tr><td class="c0">LPG</td><td class="c1">300 t</td><td class="c2">45.95</td><td class="c3">65.86</td><td class="c4">908 t CO₂</td></tr><tr class="tot"><td colspan="2">Total estimate</td><td class="c2"></td><td class="c3"></td><td>11,072 t CO₂</td></tr></tbody></table></div>
+<div class="ob"><div><h3>Scope risks</h3><p>Two customers are farms and one is a plant in ETS1: end-use evidence is missing for 180 t of diesel.</p></div><div><h3>Checklist for 30 April 2027</h3><p>Monitoring plan matches actual streams; data flow for quantities sold; verifier booked; evidence of end use.</p></div><div><h3>Illustrative surcharge</h3><p>Heating oil: 3.19 t CO₂ per tonne of fuel = €143.75 per tonne at €45/t CO₂, €191.67 at €60/t CO₂. Allowance prices are examples, not a forecast.</p></div></div>
+</div>
+<p class="src">Factors in this example: Ministry of the Environment of the Czech Republic, calculation factors for 2025 (ETS2). Your snapshot uses the factors published for your country.</p>
+</div></section>
+<section class="ea" id="early"><div class="w">
+<p class="k">Paid version</p>
+<h2>Early access</h2>
+<p class="sub">The paid version is not on sale yet. Sign up through the form if you want it when it opens.</p>
+<div class="plates"><div class="pl"><div class="t">ETS2 AER Pack</div><div class="p">€690 per year</div><p>Annual report prepared for your verifier: fuel streams, quantities, factors, uncertainty notes and the evidence file.</p></div><div class="pl"><div class="t">ETS2 Desk</div><div class="p">€149 per month</div><p>The pack plus monthly tracking of quantities, end-use evidence and rule changes.</p></div></div>
+<p class="src">Prices excl. VAT, indicative. Verification of the report is always done by an accredited verifier; ETS2 Desk does not verify.</p>
+<div class="acts"><a class="btn" href="https://tally.so/r/X50rNg?ref=site-early">Get the free ETS2 Readiness Snapshot</a></div>
+</div></section>
+<section class="faq" id="faq"><div class="w">
+<p class="k">FAQ</p>
+<h2>Questions</h2>
+<details><summary>Is this legal advice or verification?</summary><p>No. The snapshot is an indicative overview built from your answers and public sources. It is not legal advice and it does not replace your accredited verifier or the competent authority.</p></details><details><summary>Which countries do you cover?</summary><p>Czechia, Slovakia, Poland, Hungary, Romania, Slovenia, Croatia and Bulgaria first. Other EU countries on request, using that country's published factors.</p></details><details><summary>Do I need exact quantities?</summary><p>No. Approximate 2026 quantities per fuel are enough for the snapshot. The paid pack works with your actual data.</p></details><details><summary>Why bother if ETS2 starts in 2028?</summary><p>The postponement moved the start of allowance obligations. Monitoring, permits and the verified report for 2026 still apply.</p></details>
+</div></section>
+<section class="pv" id="privacy"><div class="w">
+<h2>Privacy</h2>
+<p>ETS2 Desk is operated by Štefan Toporcer, an individual based in Slovakia (not a registered company). Contact: <a href="mailto:toporcer.stefan@gmail.com">toporcer.stefan@gmail.com</a></p><p>The form collects your work email, company, website (optional), name (optional), country, role and your answers about fuels and reporting. They are used only to prepare and send your snapshot and, if you ask for it, information about the paid version.</p><p>Tools: Tally (form), Gmail (email) and Anthropic Claude (preparing the output). Data is kept for 12 months. You can ask for access or deletion at any time by email.</p><p><b>Analytics.</b> This site counts visits and clicks with PostHog (EU servers) in cookieless mode: nothing is stored on your device and IP addresses are anonymised. It is used only to see how the page is used, not to identify you.</p><p>The output is indicative and is not a legal or professional opinion.</p>
+</div></section>
+</main>
+<footer class="ft"><div class="w">
+<p>ETS2 Desk is a Projekt Argo engine by Štefan Toporcer. <a href="https://projektargo.com/">projektargo.com</a></p>
+<a class="btn sm" href="https://tally.so/r/X50rNg?ref=site-footer">Free snapshot</a>
+</div></footer>
+<script>/* motor-ref v1: ref z adresy -> Tally, udalost cta_click */(function(){try{var q=new URLSearchParams(location.search).get('ref');q=q?q.replace(/[^a-z0-9_-]/gi,'').slice(0,40):'';document.querySelectorAll('a[href^="https://tally.so/r/"]').forEach(function(a){var u=new URL(a.href),c=u.searchParams.get('ref')||'';if(q){u.searchParams.set('ref',q+'_'+c);a.href=u.toString();}a.addEventListener('click',function(){try{if(window.posthog&&posthog.capture){posthog.capture('cta_click',{form:u.pathname.split('/').pop(),ref:q||'none',cta:c},{transport:'sendBeacon'});}}catch(e){}});});}catch(e){}})();</script>
+<script src="/argo-nav.js" defer></script>
+</body>
+</html>
