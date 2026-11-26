@@ -2,7 +2,7 @@
 <html lang="sk">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-src 'none'; form-action 'none'; script-src 'self' https://*.posthog.com 'sha256-XqhGJ6VAdlI2c1tjqpQ99Xpp3qKGbl2MreHnwLQ5itE=' 'sha256-WYXv4T0Sp4nsWGqxcZTrCFqOWXC4JrvQ7XW5xjyqzek=' 'sha256-iIZC79B2xCtlnInLAyyfD71q6KsONuxSc4gOXsO0eAs='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: https://*.posthog.com; connect-src 'self' https://*.posthog.com https://asnpyrrdeauhkskkkmuc.supabase.co https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://firestore.googleapis.com https://hotlap-ocr.toporcer-creative.workers.dev; worker-src 'self' blob: data:">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-src 'none'; form-action 'none'; script-src 'self' https://*.posthog.com 'sha256-XqhGJ6VAdlI2c1tjqpQ99Xpp3qKGbl2MreHnwLQ5itE=' 'sha256-WYXv4T0Sp4nsWGqxcZTrCFqOWXC4JrvQ7XW5xjyqzek=' 'sha256-a8C1Bt+XoBE6+2N+whqYpmQlRwVLiUgxfnm67lT63Ac='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: https://*.posthog.com; connect-src 'self' https://*.posthog.com https://asnpyrrdeauhkskkkmuc.supabase.co https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://firestore.googleapis.com https://hotlap-ocr.toporcer-creative.workers.dev; worker-src 'self' blob: data:">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
@@ -975,7 +975,7 @@ async function ocrProbe(){
  if(!ocrOn()||ocrProbing||typeof fetch!=='function') return;
  ocrProbing=true;
  try{ const r=await fetch(OCR_URL,{cache:'no-store'}); const d=r.ok?await r.json():null; ocrReady=!!(d&&d.ready===true&&d.limit===true);
-   const fr=d&&d.free; ocrFree=(fr&&Number.isInteger(fr.week)&&Number.isInteger(fr.month)&&fr.week>0&&fr.week<100&&fr.month>0&&fr.month<100)?{week:fr.week,month:fr.month}:null }
+   const fr=d&&d.free; ocrFree=(fr&&Number.isInteger(fr.month)&&fr.month>0&&fr.month<100)?{month:fr.month}:null }
  catch(e){ ocrReady=false }
  ocrProbing=false;
  if(ocrShown()) stepTime();
@@ -986,8 +986,7 @@ const OCR_ERR={
  nokey:'Čítanie z fotky ešte nie je na serveri zapnuté. Zatiaľ zapíš časy ručne.',
  cap:'Dnes si už dal prečítať 15 fotiek. Ďalšie pôjdu zajtra, dovtedy zapíš časy ručne.',
  total:'Dnešný limit čítania fotiek je vyčerpaný. Skús to zajtra alebo zapíš časy ručne.',
- week:'Vo free účte môžeš dať prečítať 1 fotku týždenne. Ďalšia pôjde od pondelka, dovtedy zapíš časy ručne.',
- free:'Vo free účte môžeš dať prečítať najviac 3 fotky za mesiac. Ďalšie pôjdu od 1. dňa budúceho mesiaca, dovtedy zapíš časy ručne.',
+ free:'Vo free účte si tento mesiac už dal prečítať fotku. Ďalšia pôjde od 1. dňa budúceho mesiaca, dovtedy zapíš časy ručne.',
  month:'Tento mesiac je limit čítania fotiek pre tvoj účet vyčerpaný. Ďalšie pôjdu od 1. dňa budúceho mesiaca, dovtedy zapíš časy ručne.',
  image:'Tento súbor sa nepodarilo spracovať. Vyber fotku vo formáte JPG alebo PNG.',
  read:'Z fotky sa nepodarilo prečítať žiadne časy. Skús ostrejšiu fotku celej listiny.',
@@ -1106,7 +1105,7 @@ function photoBlock(){
   </div>
   ${stav}${akcie}
   <button class="btn ghost" data-act="modeManual" style="margin-top:8px">Zapísať ručne</button>
-  ${ocrFree?`<p class="hint">Free účet: ${ocrFree.week===1?'1 fotka':ocrFree.week+' fotky'} týždenne, najviac ${ocrFree.month} za mesiac. Časy môžeš vždy zapísať aj ručne.</p>`:''}
+  ${ocrFree?`<p class="hint">Free účet: ${ocrFree.month===1?'1 prečítaná fotka':ocrFree.month<5?ocrFree.month+' prečítané fotky':ocrFree.month+' prečítaných fotiek'} za mesiac, odfotená alebo zo súboru. Nepodarené čítanie sa nezaráta. Časy môžeš vždy zapísať aj ručne.</p>`:''}
   <p class="hint">Fotka sa odošle na prečítanie a neukladá sa. <a href="../sukromie/" target="_blank" rel="noopener">Viac o súkromí</a></p>`;
 }
 function manualBlock(){
