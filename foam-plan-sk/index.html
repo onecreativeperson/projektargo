@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="sk">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-src 'none'; form-action 'none'; script-src 'self' https://*.posthog.com 'sha256-8sWMtwvh3QTc4uTcVftE+kMz4n9NsYtjK9zIlvanSdg=' 'sha256-WYXv4T0Sp4nsWGqxcZTrCFqOWXC4JrvQ7XW5xjyqzek=' 'sha256-XRY3p9rLJMtydf3TvoHwVzyNXsM3UHNo3JsqHMdxVp0='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://*.posthog.com; connect-src 'self' https://*.posthog.com https://asnpyrrdeauhkskkkmuc.supabase.co; worker-src 'self' blob: data:">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="generator" content="projektargo-motor">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Foam Plan Desk · Bezplatná kontrola plánu riadenia hasiacich pien s PFAS</title>
+<meta name="description" content="Bezplatný Foam Plan Snapshot pre prevádzky s hasiacou penou s PFAS: či sa na prevádzku vzťahuje plán riadenia podľa položky 82 prílohy XVII nariadenia REACH, ktorý termín platí, osnova plánu v 5 častiach, text označenia a chýbajúce podklady. E-mailom do 2 pracovných dní.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/icons/icon-32.png" sizes="32x32" type="image/png">
+<link rel="canonical" href="https://projektargo.com/foam-plan-sk/">
+<link rel="alternate" hreflang="en" href="https://projektargo.com/foam-plan/">
+<link rel="alternate" hreflang="sk" href="https://projektargo.com/foam-plan-sk/">
+<link rel="alternate" hreflang="x-default" href="https://projektargo.com/foam-plan/">
+<meta property="og:title" content="Foam Plan Desk · Plán pre hasiace peny s PFAS, prevádzka po prevádzke">
+<meta property="og:description" content="Bezplatná kontrola podľa položky 82 prílohy XVII REACH pre sklady palív, podniky Seveso a servisy požiarnej techniky. E-mailom do 2 pracovných dní.">
+<meta property="og:image" content="https://projektargo.com/og.png">
+<meta property="og:image:alt" content="Foam Plan Desk · Plán pre hasiace peny s PFAS, prevádzka po prevádzke">
+<meta property="og:url" content="https://projektargo.com/foam-plan-sk/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="sk_SK">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#1C1D1A">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Service", "name": "Foam Plan Desk", "url": "https://projektargo.com/foam-plan-sk/", "serviceType": "Kontrola povinností plánu riadenia hasiacich pien s PFAS podľa položky 82 prílohy XVII nariadenia REACH", "description": "Bezplatný Foam Plan Snapshot pre prevádzky s hasiacou penou s PFAS: či sa na prevádzku vzťahuje plán riadenia podľa položky 82 prílohy XVII nariadenia REACH, ktorý termín platí, osnova plánu v 5 častiach, text označenia a chýbajúce podklady. E-mailom do 2 pracovných dní.", "inLanguage": "sk", "areaServed": "EU", "provider": {"@type": "Person", "name": "Štefan Toporcer"}, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "EUR", "description": "Získať bezplatný Foam Plan Snapshot"}}</script>
+<style>
+/* Foam Plan Desk – a fire-brigade pre-incident card for a tank farm: laminated ivory card stock, safety-yellow tab, charcoal ink, a plan view of a bunded tank with foam pourers, and the hose line with couplings carrying the deadlines */
+:root{--card:#F5F3EA;--paper:#FFFDF6;--ink:#1C1D1A;--ink2:#45463F;--line:#CFCBBB;--yel:#F5D90A;--yel2:#FFF3A6;--hose:#2F4A5C;--hose2:#DCE5EA;--warn:#8A1F11}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--card);color:var(--ink);font:400 17px/1.6 'IBM Plex Sans',system-ui,sans-serif;-webkit-text-size-adjust:100%}
+a{color:var(--hose)}
+.wrap{max-width:1240px;margin:0 auto;padding:0 28px}
+h1,h2,h3{font-family:'Barlow Condensed','IBM Plex Sans',sans-serif;font-weight:800;line-height:1.02;letter-spacing:.2px;margin:0}
+h2{font-size:clamp(34px,4.4vw,54px);text-transform:uppercase}
+h3{font-size:24px;font-weight:600;text-transform:uppercase;letter-spacing:.6px}
+.mono{font-family:'IBM Plex Mono',ui-monospace,monospace}
+section{scroll-margin-top:84px}
+/* nav */
+.top{position:sticky;top:0;z-index:20;background:var(--ink);color:var(--card)}
+.top .wrap{display:flex;align-items:center;gap:18px;min-height:64px}
+.brand{display:flex;align-items:center;gap:10px;color:var(--card);text-decoration:none;font:800 22px/1 'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:.8px;white-space:nowrap}
+.brand i{display:block;width:22px;height:22px;background:var(--yel);clip-path:polygon(0 0,100% 0,100% 62%,62% 100%,0 100%)}
+.links{display:flex;gap:22px;margin-left:auto}
+.links a{color:#E7E4D6;text-decoration:none;font-size:15px}
+.links a:hover{color:var(--yel)}
+.lang{color:var(--card);text-decoration:none;font:500 13px/1 'IBM Plex Mono',monospace;border:1px solid #6B6B60;padding:7px 9px;border-radius:2px}
+.lang:hover{border-color:var(--yel);color:var(--yel)}
+.btn{display:inline-block;background:var(--yel);color:var(--ink);text-decoration:none;font:600 16px/1.2 'IBM Plex Sans',sans-serif;padding:15px 22px;border-radius:2px;box-shadow:4px 4px 0 var(--ink)}
+.btn:hover{background:#FFE53D}
+.btn:focus-visible,.lang:focus-visible,a:focus-visible{outline:3px solid var(--hose);outline-offset:3px}
+.top .btn{padding:10px 14px;font-size:14px;box-shadow:none;white-space:nowrap}
+/* hero */
+.hero{position:relative;overflow:hidden;border-bottom:2px solid var(--ink)}
+.hero:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 12px 12px,rgba(47,74,92,.10) 0 5px,transparent 6px) 0 0/34px 34px,radial-gradient(circle at 6px 6px,rgba(47,74,92,.07) 0 3px,transparent 4px) 17px 17px/34px 34px;-webkit-mask:linear-gradient(100deg,transparent 35%,#000 70%);mask:linear-gradient(100deg,transparent 35%,#000 70%)}
+.hero .wrap{position:relative;display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);gap:56px;align-items:center;padding-top:64px;padding-bottom:72px}
+.tag{display:inline-flex;flex-wrap:wrap;gap:0;font:500 13px/1 'IBM Plex Mono',monospace;text-transform:uppercase;letter-spacing:.6px;border:1.5px solid var(--ink);margin-bottom:26px}
+.tag span{padding:8px 10px}
+.tag span+span{background:var(--ink);color:var(--yel)}
+.hero h1{font-size:clamp(46px,6.6vw,92px);text-transform:uppercase}
+.hero h1 em{font-style:normal;background:linear-gradient(transparent 58%,var(--yel) 58% 92%,transparent 92%)}
+.lead{font-size:19px;color:var(--ink2);max-width:600px;margin:24px 0 32px}
+.cta-row{display:flex;flex-wrap:wrap;align-items:center;gap:18px 28px}
+.textlink{color:var(--ink);font-weight:600;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:5px}
+.card{background:var(--paper);border:2px solid var(--ink);box-shadow:10px 10px 0 var(--hose);transform:rotate(1.2deg)}
+.card .hd{display:flex;justify-content:space-between;gap:10px;background:var(--yel);border-bottom:2px solid var(--ink);padding:10px 14px;font:500 12px/1.3 'IBM Plex Mono',monospace;text-transform:uppercase}
+.card svg{display:block;width:100%;height:auto}
+.card .ft{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:2px solid var(--ink);font:500 12px/1.35 'IBM Plex Mono',monospace}
+.card .ft div{padding:10px 12px}
+.card .ft div+div{border-left:1px solid var(--line)}
+.card .ft b{display:block;font:800 20px/1.1 'Barlow Condensed',sans-serif}
+.cardcol{padding:6px 18px 12px 6px}
+.illus{display:block;margin-top:14px;font:400 12px/1.4 'IBM Plex Mono',monospace;color:var(--ink2);transform:rotate(1.2deg)}
+/* now */
+.now{padding:88px 0 40px}
+.now .intro{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:48px;align-items:end;margin-bottom:46px}
+.now .intro p{margin:0;color:var(--ink2)}
+.hoseline{position:relative;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:18px;padding-top:44px}
+.hoseline:before{content:"";position:absolute;left:0;right:0;top:15px;height:10px;background:var(--hose);border-radius:6px}
+.stop{position:relative}
+.stop:before{content:"";position:absolute;top:-38px;left:0;width:26px;height:26px;border-radius:50%;background:var(--card);border:5px solid var(--ink)}
+.stop.on:before{background:var(--yel)}
+.stop time{display:block;font:800 26px/1 'Barlow Condensed',sans-serif;text-transform:uppercase}
+.stop p{margin:8px 0 0;font-size:15px;color:var(--ink2)}
+.stop.on time:after{content:attr(data-now);display:inline-block;margin-left:8px;vertical-align:4px;font:500 11px/1 'IBM Plex Mono',monospace;background:var(--ink);color:var(--yel);padding:4px 6px}
+.src{margin-top:28px;font:400 13px/1.5 'IBM Plex Mono',monospace;color:var(--ink2)}
+.facts{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1.4fr);border:2px solid var(--ink);margin-top:44px;background:var(--paper)}
+.facts div{padding:22px 24px}
+.facts div+div{border-left:2px solid var(--ink)}
+.facts b{display:block;font:800 52px/1 'Barlow Condensed',sans-serif}
+.facts span{font-size:15px;color:var(--ink2)}
+/* plan */
+.plan{padding:80px 0;background:var(--ink);color:var(--card);margin-top:60px}
+.plan h2{color:var(--card)}
+.plan .sub{color:#CFCBBB;max-width:720px;margin:16px 0 40px}
+.five{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 48px}
+.five li{display:grid;grid-template-columns:64px minmax(0,1fr);gap:16px;padding:20px 0;border-top:1px solid #4A4B44}
+.five li:last-child{grid-column:1/-1}
+.five .n{font:800 44px/1 'Barlow Condensed',sans-serif;color:var(--yel)}
+.five p{margin:0;color:#E7E4D6}
+.five strong{color:#fff}
+.rules{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:44px}
+.rules div{border:1.5px solid var(--yel);padding:18px 20px}
+.rules h3{color:var(--yel);font-size:20px;margin-bottom:6px}
+.rules p{margin:0;font-size:15px;color:#E7E4D6}
+.plan .src{color:#BDB9A9}
+/* how */
+.how{padding:88px 0}
+.steps{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1fr);gap:0;margin-top:40px;border-left:2px solid var(--ink)}
+.steps div{padding:6px 28px 6px 24px;border-right:2px solid var(--ink)}
+.steps div:nth-child(2){margin-top:34px}
+.steps div:nth-child(3){margin-top:68px}
+.steps span{font:500 13px/1 'IBM Plex Mono',monospace;background:var(--ink);color:var(--yel);padding:5px 8px;display:inline-block;margin-bottom:14px}
+.steps p{margin:8px 0 0;color:var(--ink2)}
+/* get */
+.get{padding:20px 0 88px}
+.get .grid{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:56px;align-items:start}
+.get ul{padding-left:20px;margin:18px 0 0}
+.get li{margin:6px 0}
+.sample{background:var(--paper);border:2px solid var(--ink)}
+.sample .hd{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:12px 18px;border-bottom:2px solid var(--ink);background:repeating-linear-gradient(-45deg,var(--yel) 0 14px,var(--ink) 14px 28px);}
+.sample .hd span{background:var(--paper);padding:4px 8px;font:500 12px/1.3 'IBM Plex Mono',monospace;text-transform:uppercase;border:1.5px solid var(--ink)}
+.sample table{width:100%;border-collapse:collapse;font-size:15px}
+.sample th,.sample td{text-align:left;vertical-align:top;padding:11px 18px;border-bottom:1px solid var(--line)}
+.sample th{width:34%;font:500 13px/1.4 'IBM Plex Mono',monospace;text-transform:uppercase;color:var(--ink2)}
+.st{display:inline-block;font:500 11px/1 'IBM Plex Mono',monospace;padding:4px 6px;margin-right:6px;border:1px solid var(--ink)}
+.st.ok{background:var(--hose2)}
+.st.miss{background:var(--warn);color:#fff;border-color:var(--warn)}
+.st.part{background:var(--yel2)}
+.labelbox{margin:16px 18px 18px;border:3px solid var(--ink);padding:12px 14px;font:600 14px/1.45 'IBM Plex Sans',sans-serif;background:#fff}
+.labelbox small{display:block;font:400 12px/1.4 'IBM Plex Mono',monospace;color:var(--ink2);margin-bottom:6px;text-transform:uppercase}
+.note{font:400 13px/1.5 'IBM Plex Mono',monospace;color:var(--ink2);margin-top:12px}
+/* early */
+.early{padding:84px 0;background:var(--yel);border-top:2px solid var(--ink);border-bottom:2px solid var(--ink)}
+.early .grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px;align-items:start}
+.price{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);border:2px solid var(--ink);background:var(--paper)}
+.price div{padding:22px}
+.price div+div{border-left:2px solid var(--ink)}
+.price b{display:block;font:800 46px/1 'Barlow Condensed',sans-serif}
+.price h3{font-size:20px;margin-bottom:8px}
+.price p{margin:8px 0 0;font-size:15px;color:var(--ink2)}
+.why{margin:16px 0 26px;font-size:16px}
+/* faq */
+.faq{padding:88px 0}
+.faq .grid{display:grid;grid-template-columns:minmax(0,.7fr) minmax(0,1.3fr);gap:56px}
+details{border-top:2px solid var(--ink);padding:16px 0}
+details:last-child{border-bottom:2px solid var(--ink)}
+summary{cursor:pointer;font:600 18px/1.35 'IBM Plex Sans',sans-serif;list-style:none;display:flex;justify-content:space-between;gap:16px}
+summary::-webkit-details-marker{display:none}
+summary:after{content:"+";font:800 26px/1 'Barlow Condensed',sans-serif}
+details[open] summary:after{content:"–"}
+details p{margin:10px 0 0;color:var(--ink2)}
+/* privacy */
+.privacy{padding:72px 0;background:var(--paper);border-top:2px solid var(--ink)}
+.privacy .grid{display:grid;grid-template-columns:minmax(0,.7fr) minmax(0,1.3fr);gap:56px}
+.privacy p{margin:0 0 14px;color:var(--ink2);font-size:16px}
+.privacy h2{font-size:clamp(30px,3.6vw,44px)}
+footer{background:var(--ink);color:#E7E4D6;padding:44px 0}
+footer .wrap{display:flex;flex-wrap:wrap;gap:20px 36px;align-items:center;justify-content:space-between}
+footer a{color:var(--yel)}
+footer p{margin:0;font-size:14px;max-width:640px}
+@media (prefers-reduced-motion:no-preference){
+ .card{animation:lay .9s cubic-bezier(.2,.7,.2,1) both}
+ @keyframes lay{from{transform:rotate(4deg) translateY(18px)}to{transform:rotate(1.2deg)}}
+ .foam circle{animation:bub 4s ease-in-out infinite alternate}
+ @keyframes bub{from{opacity:.55}to{opacity:1}}
+}
+@media (max-width:980px){
+ .links{display:none}
+ .lang{margin-left:auto}
+ .hero .wrap,.now .intro,.get .grid,.early .grid,.faq .grid,.privacy .grid{grid-template-columns:minmax(0,1fr);gap:36px}
+ .hoseline{grid-template-columns:minmax(0,1fr);gap:26px;padding:0 0 0 46px}
+ .hoseline:before{left:12px;right:auto;top:0;bottom:0;width:10px;height:auto}
+ .stop:before{top:2px;left:-46px}
+ .rules{grid-template-columns:minmax(0,1fr)}
+ .steps{grid-template-columns:minmax(0,1fr);border-left:0}
+ .steps div,.steps div:nth-child(2),.steps div:nth-child(3){margin:0;border-right:0;border-left:2px solid var(--ink);padding:4px 0 22px 20px}
+}
+@media (max-width:640px){
+ body{font-size:16px}
+ .wrap{padding:0 16px}
+ .top .wrap{gap:10px;min-height:56px}
+ .brand{font-size:18px;gap:8px}
+ .brand i{width:16px;height:16px}
+ .top .btn{padding:9px 10px;font-size:13px}
+ .lang{padding:6px 7px;font-size:12px}
+ .hero .wrap{padding-top:36px;padding-bottom:52px}
+ .tag{font-size:11px}
+ .lead{font-size:17px}
+ .card{transform:none;box-shadow:6px 6px 0 var(--hose);animation:none}
+ .cardcol{padding:0 6px 6px 0}
+ .illus{transform:none}
+ .card .ft{grid-template-columns:minmax(0,1fr)}
+ .card .ft div+div{border-left:0;border-top:1px solid var(--line)}
+ .facts{grid-template-columns:minmax(0,1fr)}
+ .facts div+div{border-left:0;border-top:2px solid var(--ink)}
+ .five{grid-template-columns:minmax(0,1fr)}
+ .five li{grid-template-columns:44px minmax(0,1fr)}
+ .five .n{font-size:34px}
+ .price{grid-template-columns:minmax(0,1fr)}
+ .price div+div{border-left:0;border-top:2px solid var(--ink)}
+ .sample th,.sample td{display:block;width:auto;padding:8px 14px}
+ .sample th{padding-bottom:0;border-bottom:0}
+ .now,.how,.faq{padding:60px 0}
+ .plan,.early{padding:60px 0}
+}
+@media (max-width:360px){
+ .brand span{display:none}
+ .hero h1{font-size:40px}
+}
+</style>
+<script>
+!function(t,e){var o,n,p,r;e.__SV||(window.posthog && window.posthog.__loaded)||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}p||((p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",p.onerror=function(){p=null},(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r));var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],Object.defineProperty(u,"toString",{configurable:!0,enumerable:!0,writable:!0,value:function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e}}),Object.defineProperty(u.people,"toString",{configurable:!0,enumerable:!0,writable:!0,value:function(){return u.toString(1)+".people (stub)"}}),o="init capture register register_once register_for_session unregister unregister_for_session getFeatureFlag getFeatureFlagResult isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey getNextSurveyStep identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty createPersonProfile opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing debug".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+posthog.init("phc_zbBFHQt5aVYH9HuviHUQuwfh6TPCVPyXSrMWWgJ9UfLP",{api_host:"https://eu.i.posthog.com",defaults:"2026-08-30",cookieless_mode:"always",person_profiles:"identified_only",disable_session_recording:true});
+</script>
+</head>
+<body>
+<header class="top"><div class="wrap">
+<a class="brand" href="#top" aria-label="Foam Plan Desk"><i aria-hidden="true"></i><span>Foam Plan Desk</span></a>
+<nav class="links" aria-label="Sekcie"><a href="#now">Termíny</a><a href="#plan">Plán</a><a href="#get">Čo dostanete</a><a href="#early">Early access</a><a href="#faq">FAQ</a></nav>
+<a class="lang" href="/foam-plan/" hreflang="en" lang="en">EN</a>
+<a class="btn" href="https://tally.so/r/yXYD7X?ref=site-nav">Bezplatne</a>
+</div></header>
+<main id="top">
+<section class="hero"><div class="wrap">
+<div>
+<p class="tag"><span>REACH príloha XVII · položka 82</span><span>platí od 23. 10. 2026</span></p>
+<h1>Každá prevádzka s penou s PFAS už potrebuje <em>vlastný plán.</em></h1>
+<p class="lead">Od 23. októbra 2026 musí každý, kto používa hasiacu penu s obsahom PFAS 1 mg/l a viac, mať písomný plán riadenia pre každé miesto použitia, každoročne ho preskúmať, uchovať aspoň 15 rokov a označiť zásoby peny aj odpad z nej. Opíšte jednu prevádzku a do 2 pracovných dní dostanete e-mailom bezplatný Foam Plan Snapshot.</p>
+<div class="cta-row"><a class="btn" href="https://tally.so/r/yXYD7X?ref=site-hero">Získať bezplatný Foam Plan Snapshot</a><a class="textlink" href="#get">Pozrieť ukážku výstupu</a></div>
+</div>
+<div class="cardcol">
+<figure class="card" style="margin:0">
+<div class="hd"><span>Zásahová karta · situácia</span><span>Ukážka</span></div>
+<svg viewBox="0 0 480 330" role="img" aria-label="Ilustračná situácia: nádrž v havarijnej vani s penovými dávkovačmi, IBC s penidlom a výstražným označením PFAS a oddelený zber odtoku peny">
+<defs><pattern id="hatch" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="8" stroke="#CFCBBB" stroke-width="3"/></pattern></defs>
+<rect x="0" y="0" width="480" height="330" fill="#FFFDF6"/>
+<g stroke="#E4E0D2" stroke-width="1"><line x1="20" y1="0" x2="20" y2="330"/><line x1="50" y1="0" x2="50" y2="330"/><line x1="80" y1="0" x2="80" y2="330"/><line x1="110" y1="0" x2="110" y2="330"/><line x1="140" y1="0" x2="140" y2="330"/><line x1="170" y1="0" x2="170" y2="330"/><line x1="200" y1="0" x2="200" y2="330"/><line x1="230" y1="0" x2="230" y2="330"/><line x1="260" y1="0" x2="260" y2="330"/><line x1="290" y1="0" x2="290" y2="330"/><line x1="320" y1="0" x2="320" y2="330"/><line x1="350" y1="0" x2="350" y2="330"/><line x1="380" y1="0" x2="380" y2="330"/><line x1="410" y1="0" x2="410" y2="330"/><line x1="440" y1="0" x2="440" y2="330"/><line x1="470" y1="0" x2="470" y2="330"/><line x1="0" y1="15" x2="480" y2="15"/><line x1="0" y1="45" x2="480" y2="45"/><line x1="0" y1="75" x2="480" y2="75"/><line x1="0" y1="105" x2="480" y2="105"/><line x1="0" y1="135" x2="480" y2="135"/><line x1="0" y1="165" x2="480" y2="165"/><line x1="0" y1="195" x2="480" y2="195"/><line x1="0" y1="225" x2="480" y2="225"/><line x1="0" y1="255" x2="480" y2="255"/><line x1="0" y1="285" x2="480" y2="285"/><line x1="0" y1="315" x2="480" y2="315"/></g>
+<rect x="34" y="40" width="250" height="230" fill="url(#hatch)" stroke="#1C1D1A" stroke-width="3"/>
+<text x="42" y="60" font-family="IBM Plex Mono,monospace" font-size="11" fill="#45463F">VAŇA A</text>
+<circle cx="159" cy="160" r="78" fill="#FFFDF6" stroke="#1C1D1A" stroke-width="4"/>
+<circle cx="159" cy="160" r="62" fill="none" stroke="#1C1D1A" stroke-width="1.5" stroke-dasharray="4 5"/>
+<text x="159" y="156" text-anchor="middle" font-family="Barlow Condensed,sans-serif" font-weight="800" font-size="30" fill="#1C1D1A">T-01</text>
+<text x="159" y="178" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="11" fill="#45463F">AR-AFFF · stabilné</text>
+<g fill="#2F4A5C"><polygon points="150,67 168,67 159,79" transform="rotate(0 159 160)"/><polygon points="150,67 168,67 159,79" transform="rotate(90 159 160)"/><polygon points="150,67 168,67 159,79" transform="rotate(180 159 160)"/><polygon points="150,67 168,67 159,79" transform="rotate(270 159 160)"/></g>
+<g class="foam" fill="#DCE5EA" stroke="#2F4A5C" stroke-width="1.5"><circle cx="98" cy="102" r="7"/><circle cx="112" cy="94" r="5"/><circle cx="222" cy="218" r="8"/><circle cx="208" cy="230" r="5"/><circle cx="230" cy="100" r="6"/></g>
+<path d="M284 160 H330 V96 H392" fill="none" stroke="#2F4A5C" stroke-width="8" stroke-linecap="round"/>
+<circle cx="330" cy="160" r="8" fill="#F5D90A" stroke="#1C1D1A" stroke-width="3"/>
+<rect x="352" y="70" width="104" height="96" fill="#FFFDF6" stroke="#1C1D1A" stroke-width="3"/>
+<text x="404" y="92" text-anchor="middle" font-family="Barlow Condensed,sans-serif" font-weight="800" font-size="20" fill="#1C1D1A">IBC</text>
+<rect x="362" y="102" width="84" height="54" fill="#F5D90A" stroke="#1C1D1A" stroke-width="2"/>
+<text x="404" y="120" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="10" font-weight="500" fill="#1C1D1A">UPOZORNENIE</text>
+<text x="404" y="134" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="9" fill="#1C1D1A">PFAS</text>
+<text x="404" y="147" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="9" fill="#1C1D1A">&#8805; 1 mg/l</text>
+<rect x="320" y="206" width="136" height="64" fill="#FFFDF6" stroke="#1C1D1A" stroke-width="3" stroke-dasharray="7 5"/>
+<text x="388" y="232" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="11" fill="#1C1D1A">oddelený</text>
+<text x="388" y="250" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="11" fill="#1C1D1A">zber</text>
+<path d="M284 238 H320" stroke="#1C1D1A" stroke-width="3" stroke-dasharray="6 5"/>
+<text x="34" y="300" font-family="IBM Plex Mono,monospace" font-size="11" fill="#45463F">Potrubie peny · zásoba v IBC · odtok na zničenie PFAS</text>
+</svg>
+<div class="ft"><div>Plán<b>písomný</b></div><div>Revízia<b>každý rok</b></div><div>Uchovať<b>≥ 15 rokov</b></div></div>
+</figure>
+<small class="illus">Ilustračný nákres, nie skutočná prevádzka.</small>
+</div>
+</div></section>
+
+<section class="now" id="now"><div class="wrap">
+<div class="intro"><h2>Termíny na hadicovom vedení</h2><p>Položka 82 zakazuje PFAS v hasiacich penách postupne. Podmienky používania vrátane plánu riadenia už platia pre každého používateľa, ktorý penu s PFAS počas prechodného obdobia ďalej používa.</p></div>
+<div class="hoseline"><div class="stop on"><time data-now="platí">23. 10. 2026</time><p>Plán riadenia, označenie zásob a odpadu, oddelený zber a spracovanie pre každého používateľa peny s PFAS.</p></div><div class="stop"><time>23. 4. 2027</time><p>Koniec peny s PFAS na výcvik a testovanie (funkčné skúšky hasiacich systémov ostávajú povolené, ak sú všetky úniky zachytené) a pre verejné hasičské útvary, s výnimkou zásahov pri priemyselných požiaroch v podnikoch Seveso.</p></div><div class="stop"><time>23. 10. 2030</time><p>Všeobecný zákaz uvádzania na trh a používania pien s PFAS od 1 mg/l.</p></div><div class="stop"><time>31. 12. 2030</time><p>Koniec používania v prenosných hasiacich prístrojoch.</p></div><div class="stop"><time>23. 10. 2035</time><p>Koniec výnimky pre podniky Seveso (okrem civilných letísk), ťažbu ropy a plynu na mori, vojenské plavidlá a lode s penou na palube pred 23. 10. 2025.</p></div></div>
+<p class="src">Zdroj: nariadenie Komisie (EÚ) 2025/1988 z 2. októbra 2025, príloha, položka 82, body 1, 5, 6, 7 a 9 (eur-lex.europa.eu/eli/reg/2025/1988/oj).</p>
+<div class="facts">
+<div><b>1 mg/l</b><span>limit pre celkové množstvo všetkých PFAS v pene. Pena zo zariadenia vyčisteného najlepšími dostupnými technikami môže mať najviac 50 mg/l.</span></div>
+<div><b>15</b><span>rokov: najkratší čas, počas ktorého musí byť plán k dispozícii na inšpekciu príslušným orgánom. Každý rok sa preskúma.</span></div>
+<div><b>59 %</b><span>ročnej tonáže hasiacich pien s PFAS v EÚ spotrebuje ropný a (petro)chemický priemysel.</span></div>
+</div>
+<p class="src">Zdroj: nariadenie (EÚ) 2025/1988, položka 82, body 1, 4 a 7 písm. d); odôvodnenie 7.</p>
+</div></section>
+
+<section class="plan" id="plan"><div class="wrap">
+<h2>Čo musí plán obsahovať</h2>
+<p class="sub">Bod 7 písm. d) uvádza päť častí. Plán je špecifický pre miesto použitia peny s PFAS, takže firma s tromi prevádzkami potrebuje tri plány.</p>
+<ol class="five"><li><span class="n">i</span><p><strong>Použitie a objemy.</strong> Podmienky používania a objemy peny na mieste a ako sa emisie a vystavenie ľudí znižujú na najnižšiu technicky a prakticky možnú úroveň.</p></li><li><span class="n">ii</span><p><strong>Zber a spracovanie.</strong> Ako sa oddelene zbierajú zásoby nepoužitej peny a odpad s PFAS vrátane odpadových vôd a ako sa spracujú, aby sa PFAS zničili alebo nezvratne zmenili.</p></li><li><span class="n">iii</span><p><strong>Čistenie a údržba.</strong> Typ a metódy čistenia a údržby zariadenia.</p></li><li><span class="n">iv</span><p><strong>Únik a rozliatie.</strong> Plány pre náhodný únik alebo rozliatie peny a v prípade potreby dokumentácia následných opatrení.</p></li><li><span class="n">v</span><p><strong>Prechod na bezfluórovú penu.</strong> Stratégia nahradenia pien s PFAS hasiacimi penami bez obsahu fluóru.</p></li></ol>
+<div class="rules"><div><h3>Len trieda B</h3><p>Penu s PFAS možno použiť len pri požiaroch horľavých kvapalín.</p></div><div><h3>Označiť zásoby a odpad</h3><p>Viditeľne, čitateľne a nezmazateľne, v úradnom jazyku členského štátu, textom podľa bodu 10.</p></div><div><h3>Spracovanie</h3><p>Odôvodnenia vylučujú ako primerané spracovanie biologickú úpravu odpadových vôd a spaľovanie pod 1 100 °C.</p></div></div>
+<p class="src">Zdroj: nariadenie (EÚ) 2025/1988, položka 82, body 7 až 10; odôvodnenia 12, 39 a 40. Prenosné hasiace prístroje povinnosť plánu nemajú (odôvodnenie 12).</p>
+</div></section>
+
+<section class="how" id="how"><div class="wrap">
+<h2>Ako to funguje</h2>
+<div class="steps"><div><span>01</span><h3>Opíšete jednu prevádzku</h3><p>Dve krátke strany formulára: firma a e-mail, potom typ prevádzky, kde je pena, či obsahuje PFAS a čo už máte zavedené.</p></div><div><span>02</span><h3>Porovnáme to s položkou 82</h3><p>Vaše odpovede porovnáme s textom nariadenia: ktorý bod platí, ktorý termín a ktoré z piatich častí a označení chýbajú.</p></div><div><span>03</span><h3>Snapshot vo vašej schránke</h3><p>Do 2 pracovných dní, v jazyku formulára, ktorý ste vyplnili. Bez telefonátu, bez platby, bez záväzku.</p></div></div>
+</div></section>
+
+<section class="get" id="get"><div class="wrap"><div class="grid">
+<div><h2>Čo dostanete</h2><p>Foam Plan Snapshot pre jednu prevádzku, asi dve strany e-mailom:</p><ul><li>či sa na prevádzku vzťahuje povinnosť plánu a prečo</li><li>ktorý termín platí pre váš typ prevádzky</li><li>osnovu plánu v 5 častiach s tým, čo už máte a čo chýba</li><li>presný text označenia zásob a odpadu vo vašom jazyku</li><li>zoznam podkladov na zozbieranie (karty bezpečnostných údajov, objemy, zmluva o spracovaní)</li></ul></div>
+<div>
+<div class="sample">
+<div class="hd"><span>Foam Plan Snapshot</span><span>Ilustračná ukážka</span></div>
+<table><tr><th>Prevádzka</th><td>TEST terminál palív, stabilné penové zariadenie na 4 nádržiach, penidlo AR-AFFF v 6 IBC</td></tr><tr><th>Povinnosť plánu</th><td><span class="st miss">vzťahuje sa</span>Pena s PFAS je v stabilnom zariadení aj v zásobe; písomný plán zatiaľ nie je.</td></tr><tr><th>Termín</th><td>Podnik Seveso: používanie povolené do 23. 10. 2035, od 23. 10. 2026 len za podmienok bodu 7.</td></tr><tr><th>i Použitie a objemy</th><td><span class="st part">čiastočne</span>Objemy sú známe, opatrenia proti emisiám nie sú zdokumentované.</td></tr><tr><th>ii Zber</th><td><span class="st miss">chýba</span>Bez oddeleného zberu odtoku, bez zmluvy o spracovaní.</td></tr><tr><th>iii Čistenie</th><td><span class="st ok">zavedené</span>Servisné záznamy penového zariadenia existujú.</td></tr><tr><th>iv Únik a rozliatie</th><td><span class="st part">čiastočne</span>Havarijný postup rieši palivo, nie penu.</td></tr><tr><th>v Prechod</th><td><span class="st miss">chýba</span>Bez stratégie nahradenia.</td></tr></table>
+<div class="labelbox"><small>Text označenia (bod 10, slovenské znenie)</small>UPOZORNENIE: Obsahuje perfluóralkylové a polyfluóralkylové látky (PFAS) s koncentráciou rovnajúcou sa alebo vyššou ako 1 mg/l pre celkové množstvo všetkých PFAS.</div>
+</div>
+<p class="note">Ilustračná ukážka pre vymyslenú firmu TEST. Váš Snapshot vychádza z vašich odpovedí a z nariadenia. Je orientačný a nie je právnym stanoviskom.</p>
+</div>
+</div></div></section>
+
+<section class="early" id="early"><div class="wrap"><div class="grid">
+<div><h2>Early access</h2><p class="why">Plán sa musí každý rok preskúmať a uchovať aspoň 15 rokov, preto sa pre každú prevádzku zostaví raz a potom sa udržiava aktuálny. Ceny sú orientačné pre early access; teraz sa nič neplatí.</p><a class="btn" href="https://tally.so/r/yXYD7X?ref=site-early">Prihlásiť sa do early access</a></div>
+<div>
+<div class="price">
+<div><h3>Foam Plan Pack</h3><b>590 €</b><p>jednorazovo za prevádzku: písomný plán riadenia, register penidiel, šablóny označenia a záznamov.</p></div>
+<div><h3>Foam Plan Watch</h3><b>169 €/mes.</b><p>za prevádzku: ročná revízia, evidencia zásob, upozornenia pred termínmi.</p></div>
+</div>
+<p class="note">Ceny bez DPH. Prihlásite sa formulárom; o kúpe sa rozhodnete neskôr.</p>
+</div>
+</div></div></section>
+
+<section class="faq" id="faq"><div class="wrap"><div class="grid">
+<h2>FAQ</h2>
+<div><details><summary>Potrebujú plán aj prenosné hasiace prístroje?</summary><p>Nie. Povinnosť plánu sa týka používateľov hasiacej peny okrem peny v prenosných hasiacich prístrojoch (odôvodnenie 12). Prenosné prístroje majú vlastné termíny: uvádzanie na trh do 23. 10. 2026 (pena odolná voči alkoholu do 23. 4. 2027) a používanie do 31. 12. 2030.</p></details><details><summary>Sme podnik Seveso. Máme čas do 2035?</summary><p>Penu s PFAS môžete používať do 23. 10. 2035, ale od 23. 10. 2026 len za podmienok bodu 7: len požiare triedy B, minimalizované emisie, oddelený zber, označenie a plán riadenia. Na civilné letiská sa táto výnimka nevzťahuje.</p></details><details><summary>Nevieme, či naša pena obsahuje PFAS.</summary><p>Vo formulári zvoľte „Neviem“. Snapshot uvedie, čo si vyžiadať od dodávateľa (názov výrobku, kartu bezpečnostných údajov, obsah fluóru). Podľa nariadenia možno na preukázanie súladu použiť metódy celkového obsahu fluóru (odôvodnenie 27).</p></details><details><summary>Servisujeme hasiace zariadenia klientom. Môžeme to využiť?</summary><p>Áno. Opíšte jednu prevádzku klienta; Snapshot ukáže, čo klient potrebuje, a plán mu môžete ponúknuť ako súčasť servisu.</p></details><details><summary>Je to právne stanovisko?</summary><p>Nie. Snapshot je orientačná kontrola z vašich odpovedí a zverejneného nariadenia. Nenahrádza príslušný orgán, odborníka na požiarnu ochranu ani advokáta.</p></details></div>
+</div></div></section>
+
+<section class="privacy" id="privacy"><div class="wrap"><div class="grid">
+<h2>Ochrana údajov</h2>
+<div><p>Foam Plan Desk prevádzkuje Štefan Toporcer, fyzická osoba so sídlom na Slovensku (nie registrovaná firma). Kontakt: <a href="mailto:toporcer.stefan@gmail.com">toporcer.stefan@gmail.com</a></p><p>Formulár zbiera pracovný e-mail, firmu, web, meno, krajinu, rolu a odpovede o jednej prevádzke. Používajú sa len na prípravu a odoslanie Foam Plan Snapshotu a, ak o to požiadate, informácií o early access. Údaje o zdraví ani iné osobitné kategórie údajov sa nezbierajú.</p><p>Nástroje: Tally (formulár), Gmail (e-mail), Anthropic Claude (príprava Snapshotu). Údaje uchovávam 12 mesiacov. O prístup k údajom alebo ich výmaz môžete požiadať e-mailom.</p><p><b>Meranie návštevnosti.</b> Návštevy a kliky počítam cez PostHog (servery v EÚ) bez cookies: do vášho zariadenia sa nič neukladá a IP adresy sú anonymizované. Slúži len na to, aby som videl, ako sa stránka používa, nie na vašu identifikáciu.</p><p>Snapshot je orientačný a nie je právnym ani odborným stanoviskom.</p></div>
+</div></div></section>
+</main>
+<footer><div class="wrap">
+<p>Foam Plan Desk · prevádzkuje Štefan Toporcer · orientačné kontroly, nie právne stanovisko.</p>
+<a class="btn" href="https://tally.so/r/yXYD7X?ref=site-footer">Získať bezplatný Foam Plan Snapshot</a>
+<a href="https://projektargo.com/">projektargo.com</a>
+</div></footer>
+<script>/* motor-ref v1: ref z adresy -> Tally, udalost cta_click */(function(){try{var q=new URLSearchParams(location.search).get('ref');q=q?q.replace(/[^a-z0-9_-]/gi,'').slice(0,40):'';document.querySelectorAll('a[href^="https://tally.so/r/"]').forEach(function(a){var u=new URL(a.href),c=u.searchParams.get('ref')||'';if(q){u.searchParams.set('ref',q+'_'+c);a.href=u.toString();}a.addEventListener('click',function(){try{if(window.posthog&&posthog.capture){posthog.capture('cta_click',{form:u.pathname.split('/').pop(),ref:q||'none',cta:c},{transport:'sendBeacon'});}}catch(e){}});});}catch(e){}})();</script>
+<script src="/argo-nav.js" defer></script>
+</body>
+</html>
