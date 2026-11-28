@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-src 'none'; form-action 'none'; script-src 'self' https://*.posthog.com 'sha256-p2IJP5uiXX8py1q4mxuJPXubyh2wNboBaeeDAdFrZlw=' 'sha256-WYXv4T0Sp4nsWGqxcZTrCFqOWXC4JrvQ7XW5xjyqzek=' 'sha256-XRY3p9rLJMtydf3TvoHwVzyNXsM3UHNo3JsqHMdxVp0='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://*.posthog.com; connect-src 'self' https://*.posthog.com https://asnpyrrdeauhkskkkmuc.supabase.co; worker-src 'self' blob: data:">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="generator" content="projektargo-motor">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MSP Status Desk · SME status check from Slovak and Czech registers for grant applicants</title>
+<meta name="description" content="Free SME Status Preview for one applicant: ownership tree from the Slovak and Czech registers compared with your data, linked and partner enterprises, the group total for 2 periods and the size category under Recommendation 2003/361/EC. By e-mail within 2 working days.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/icons/icon-32.png" sizes="32x32" type="image/png">
+<link rel="canonical" href="https://projektargo.com/msp-status/">
+<link rel="alternate" hreflang="en" href="https://projektargo.com/msp-status/">
+<link rel="alternate" hreflang="sk" href="https://projektargo.com/msp-status-sk/">
+<link rel="alternate" hreflang="x-default" href="https://projektargo.com/msp-status/">
+<meta property="og:title" content="MSP Status Desk · Your SME status, traced through the whole group">
+<meta property="og:description" content="For grant applicants, grant consultants and accountants in Slovakia and Czechia. Free preview by e-mail within 2 working days.">
+<meta property="og:image" content="https://projektargo.com/og.png">
+<meta property="og:image:alt" content="MSP Status Desk · Your SME status, traced through the whole group">
+<meta property="og:url" content="https://projektargo.com/msp-status/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_GB">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#1E1537">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gabarito:wght@500;700;800;900&family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Service", "name": "MSP Status Desk", "url": "https://projektargo.com/msp-status/", "serviceType": "SME size category assessment from public company registers", "description": "Free SME Status Preview for one applicant: ownership tree from the Slovak and Czech registers compared with your data, linked and partner enterprises, the group total for 2 periods and the size category under Recommendation 2003/361/EC. By e-mail within 2 working days.", "inLanguage": "en", "areaServed": ["SK", "CZ"], "provider": {"@type": "Person", "name": "Štefan Toporcer"}, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "EUR", "description": "Get the free SME Status Preview"}}</script>
+<style>
+/* MSP Status Desk – the group as a transit map: companies are stations on a lilac-grey network plan, ownership lines in deep violet (linked, solid), amber (partner, dashed) and grey (outside, dotted), with platform-sign typography for the SME ceilings. */
+:root{--bg:#F2F0F7;--card:#FFFFFF;--ink:#1E1537;--muted:#544E68;--vio:#5B21B6;--vio-d:#43188A;--amb:#A44A06;--grey:#8A859C;--line:#D6D1E3;--night:#1E1537}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.6 Karla,system-ui,sans-serif}
+a{color:var(--vio-d)}
+.wrap{max-width:1240px;margin:0 auto;padding:0 28px}
+.skip{position:absolute;left:-9999px}.skip:focus{left:12px;top:12px;background:#fff;padding:8px 12px;z-index:99}
+h1,h2,h3,h4,.brand,.btn,.big{font-family:Gabarito,system-ui,sans-serif}
+section{scroll-margin-top:84px}
+.nav{position:sticky;top:0;z-index:20;background:rgba(242,240,247,.96);border-bottom:2px solid var(--ink)}
+.nav .wrap{display:flex;align-items:center;gap:20px;height:64px}
+.brand{font-weight:900;font-size:18px;text-decoration:none;color:var(--ink);display:flex;align-items:center;gap:10px;white-space:nowrap}
+.brand i{width:24px;height:24px;border-radius:50%;border:5px solid var(--vio);background:#fff;display:inline-block}
+.links{display:flex;gap:18px;margin-left:auto}
+.links a{font:600 14.5px/1 Karla,sans-serif;color:var(--muted);text-decoration:none}
+.links a:hover{color:var(--ink)}
+.lang{font:800 13px/1 Gabarito,sans-serif;color:var(--ink);text-decoration:none;border:2px solid var(--ink);padding:6px 9px;border-radius:999px}
+.btn{display:inline-block;background:var(--vio);color:#fff;text-decoration:none;font-weight:800;font-size:16px;padding:13px 22px;border-radius:999px}
+.btn:hover{background:var(--vio-d)}
+.nav .btn{padding:10px 16px;font-size:14px}
+.hero{padding:56px 0 64px}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);gap:48px;align-items:center}
+.kicker{display:inline-block;font:700 13px/1.4 Karla,sans-serif;letter-spacing:.05em;text-transform:uppercase;background:var(--ink);color:#fff;padding:6px 10px;border-radius:4px;margin:0 0 20px}
+h1{font-weight:900;font-size:clamp(34px,4.6vw,58px);line-height:1.02;letter-spacing:-.02em;margin:0 0 22px}
+h1 em{font-style:normal;color:var(--vio);text-decoration:underline;text-decoration-thickness:6px;text-underline-offset:6px;text-decoration-color:rgba(91,33,182,.28)}
+.lead{font-size:19px;max-width:34em;margin:0 0 28px;color:#2B2245}
+.ctas{display:flex;flex-wrap:wrap;gap:14px 22px;align-items:center}
+.tlink{font:700 15.5px/1.3 Karla,sans-serif;color:var(--ink)}
+.fine{font-size:14.5px;color:var(--muted);margin:16px 0 0}
+.map{margin:0}
+.map svg{display:block;width:100%;height:auto;background:var(--card);border:2px solid var(--ink);border-radius:18px}
+.map figcaption{font-size:14px;color:var(--muted);margin-top:12px;max-width:36em}
+.sec{padding:80px 0}
+.sec h2{font-weight:900;font-size:clamp(28px,3.4vw,44px);line-height:1.08;letter-spacing:-.015em;margin:0 0 28px}
+.src{font-size:13px;color:var(--muted);margin:8px 0 0}
+.why{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0;border-top:2px solid var(--ink)}
+.why article{padding:26px 34px 10px 0}
+.why article + article{padding-left:34px;border-left:2px solid var(--ink)}
+.why h3{font-size:24px;margin:0 0 10px;font-weight:800}
+.why p{margin:0}
+/* rules */
+.rules{background:var(--night);color:#EEE9FA}
+.rules h2{color:#fff}
+.signs{display:grid;gap:12px;margin:0 0 40px}
+.sign{display:grid;grid-template-columns:160px minmax(0,1fr) minmax(0,1fr) minmax(0,1fr);align-items:center;background:#fff;color:var(--ink);border-radius:10px;overflow:hidden}
+.sign .cat{background:var(--vio);color:#fff;font:900 22px/1 Gabarito,sans-serif;padding:20px 18px;align-self:stretch;display:flex;align-items:center}
+.sign:nth-child(2) .cat{background:#6D3AC9}.sign:nth-child(3) .cat{background:#8556D8}
+.sign div{padding:14px 18px}
+.sign small{display:block;font:700 11.5px/1.2 Karla,sans-serif;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:4px}
+.sign b{font:800 19px/1.2 Gabarito,sans-serif}
+.legend{display:grid;gap:22px;max-width:900px;margin:0 0 30px;padding:0;list-style:none}
+.legend li{display:grid;grid-template-columns:120px minmax(0,1fr);gap:22px;align-items:start}
+.legend svg{width:120px;height:20px;margin-top:6px}
+.legend h3{margin:0 0 4px;font-size:20px;color:#fff}
+.legend p{margin:0;color:#D5CDEB}
+.two{font:700 18px/1.4 Gabarito,sans-serif;border-left:5px solid #F6B55B;padding-left:16px;max-width:42em;margin:0}
+.rules .src{color:#B8AED6;margin-top:18px}
+/* how */
+.stops{list-style:none;margin:0;padding:0;position:relative;max-width:880px}
+.stops:before{content:"";position:absolute;left:21px;top:20px;bottom:20px;width:6px;background:var(--vio);border-radius:3px}
+.stops li{display:grid;grid-template-columns:48px minmax(0,1fr);gap:22px;padding:0 0 30px;position:relative}
+.stops .st{width:48px;height:48px;border-radius:50%;background:#fff;border:6px solid var(--vio);display:flex;align-items:center;justify-content:center;font:900 17px/1 Gabarito,sans-serif;position:relative}
+.stops h3{font-size:22px;margin:8px 0 6px}
+.stops p{margin:0;max-width:40em}
+/* example */
+.prev{background:var(--card);border:2px solid var(--ink);border-radius:16px;padding:30px 32px;position:relative}
+.prev .tag{position:absolute;top:-14px;right:24px;background:#F6B55B;color:var(--ink);font:800 13px/1 Karla,sans-serif;padding:7px 12px;border-radius:999px;border:2px solid var(--ink)}
+.phead{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;align-items:baseline;margin-bottom:10px}
+.phead h3{font-size:24px;margin:0}
+.phead span{font-size:14px;color:var(--muted)}
+table{width:100%;border-collapse:collapse;font-size:15.5px}
+th{text-align:left;font:700 12px/1.3 Karla,sans-serif;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);padding:10px 10px 10px 0;border-bottom:2px solid var(--ink)}
+td{padding:12px 10px 12px 0;border-bottom:1px solid var(--line)}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
+td:first-child{font-weight:700}
+tfoot td{font:800 17px/1.3 Gabarito,sans-serif;border-bottom:0;border-top:2px solid var(--ink)}
+.rel{display:inline-flex;align-items:center;gap:8px;font-size:14.5px}
+.rel:before{content:"";width:28px;height:0;border-top:4px solid var(--vio)}
+.rel.prt:before{border-top:4px dashed var(--amb)}
+.rel.out:before{border-top:4px dotted var(--grey)}
+.rel.own:before{width:12px;height:12px;border:4px solid var(--vio);border-radius:50%}
+.result{margin:22px 0 0;padding:18px 20px;background:#EEE7FB;border-radius:10px;font-size:17px}
+.pfoot{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:30px;margin-top:22px}
+.pfoot h4{margin:0 0 8px;font-size:17px}
+.pfoot ul{margin:0;padding-left:20px}
+.pfoot li{margin:0 0 6px}
+.pfoot .not{color:var(--muted);font-size:15px;margin:0;align-self:end}
+/* tickets */
+.tix{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:26px;max-width:1000px}
+.tk{background:var(--card);border:2px solid var(--ink);border-radius:16px;display:grid;grid-template-columns:minmax(0,1fr) 150px;overflow:hidden}
+.tk .l{padding:24px 24px 20px}
+.tk .r{border-left:2px dashed var(--ink);padding:24px 16px;display:flex;flex-direction:column;justify-content:center;background:#EEE7FB}
+.tk:nth-child(2) .r{background:#FCEBD4}
+.tk small{font:700 12px/1.2 Karla,sans-serif;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.tk h3{font-size:22px;margin:4px 0 12px}
+.tk ul{margin:0 0 12px;padding-left:18px}
+.tk .w{font-size:14.5px;color:var(--muted);margin:0}
+.tk .big{font-weight:900;font-size:32px;line-height:1}
+.tk .per{font-size:13px;color:var(--muted);margin-top:6px}
+.eawhy{max-width:52em;margin:24px 0 0;color:var(--muted)}
+.intro{color:var(--muted);font-size:18px;margin:-14px 0 34px;max-width:42em}
+.faq{max-width:860px}
+.faq details{border-bottom:2px solid var(--ink);padding:16px 0}
+.faq details:first-child{border-top:2px solid var(--ink)}
+.faq summary{cursor:pointer;font:800 19px/1.35 Gabarito,sans-serif;list-style:none;display:flex;justify-content:space-between;gap:16px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary:after{content:"";flex:0 0 14px;height:14px;margin-top:6px;border-radius:50%;border:4px solid var(--vio)}
+.faq details[open] summary:after{background:var(--vio)}
+.faq p{margin:10px 0 0;max-width:46em}
+.closing{background:var(--vio);color:#fff;padding:60px 0}
+.closing .wrap{display:flex;justify-content:space-between;align-items:center;gap:26px;flex-wrap:wrap}
+.closing p{font:900 clamp(24px,3vw,38px)/1.15 Gabarito,sans-serif;margin:0;max-width:20em}
+.closing .btn{background:#fff;color:var(--vio-d)}
+.closing .btn:hover{background:#EEE7FB}
+.priv{padding:60px 0 36px}
+.priv h2{font-size:26px;margin:0 0 16px}
+.priv p{max-width:54em;font-size:15.5px;margin:0 0 12px;color:#2B2245}
+footer{border-top:2px solid var(--ink);padding:24px 0 40px;font-size:14px;color:var(--muted)}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+@media (prefers-reduced-motion:no-preference){.train{animation:run 7s linear infinite}@keyframes run{to{stroke-dashoffset:-120}}}
+@media (max-width:1040px){
+ .hero .wrap{grid-template-columns:minmax(0,1fr)}
+ .links{display:none}.nav .lang{margin-left:auto}
+}
+@media (max-width:700px){
+ body{font-size:16px}
+ .wrap{padding:0 16px}
+ .nav .wrap{height:58px;gap:10px}
+ .brand{font-size:15px}.brand i{width:20px;height:20px;border-width:4px}
+ .nav .btn{padding:9px 12px;font-size:13px}
+ .hero{padding:32px 0 40px}
+ .lead{font-size:17px}
+ .sec{padding:54px 0}
+ .why{grid-template-columns:minmax(0,1fr)}
+ .why article{padding:22px 0 8px}
+ .why article + article{padding-left:0;border-left:0;border-top:2px solid var(--ink)}
+ .sign{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+ .sign .cat{grid-column:1/-1;padding:12px 16px}
+ .sign div{padding:10px 14px}
+ .sign div:last-child{grid-column:1/-1;padding-top:0}
+ .legend li{grid-template-columns:minmax(0,1fr);gap:4px}
+ .prev{padding:26px 16px}
+ table,tbody,tr,td,tfoot{display:block}
+ thead{display:none}
+ tr{border-bottom:2px solid var(--ink);padding:10px 0}
+ td{border:0;padding:3px 0;display:grid;grid-template-columns:minmax(0,45%) minmax(0,55%);gap:10px}
+ td.n{text-align:left}
+ td:before{content:attr(data-l);font:700 11.5px/1.5 Karla,sans-serif;text-transform:uppercase;color:var(--muted)}
+ tfoot td{border-top:0}
+ .pfoot{grid-template-columns:minmax(0,1fr)}
+ .tix{grid-template-columns:minmax(0,1fr)}
+ .tk{grid-template-columns:minmax(0,1fr)}
+ .tk .r{border-left:0;border-top:2px dashed var(--ink)}
+}
+@media (max-width:360px){.nav .btn{font-size:12px;padding:8px 9px}.brand{font-size:14px}.lang{padding:5px 7px}}
+</style>
+<script>
+!function(t,e){var o,n,p,r;e.__SV||(window.posthog && window.posthog.__loaded)||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}p||((p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",p.onerror=function(){p=null},(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r));var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],Object.defineProperty(u,"toString",{configurable:!0,enumerable:!0,writable:!0,value:function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e}}),Object.defineProperty(u.people,"toString",{configurable:!0,enumerable:!0,writable:!0,value:function(){return u.toString(1)+".people (stub)"}}),o="init capture register register_once register_for_session unregister unregister_for_session getFeatureFlag getFeatureFlagResult isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey getNextSurveyStep identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty createPersonProfile opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing debug".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+posthog.init("phc_zbBFHQt5aVYH9HuviHUQuwfh6TPCVPyXSrMWWgJ9UfLP",{api_host:"https://eu.i.posthog.com",defaults:"2026-08-30",cookieless_mode:"always",person_profiles:"identified_only",disable_session_recording:true});
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap">
+<a class="brand" href="#top"><i aria-hidden="true"></i>MSP Status Desk</a>
+<nav class="links" aria-label="Sections"><a href="#why">Why now</a><a href="#rules">The rules</a><a href="#how">How it works</a><a href="#example">Example</a><a href="#early">Early access</a><a href="#faq">FAQ</a></nav>
+<a class="lang" href="https://projektargo.com/msp-status-sk/" hreflang="sk" lang="sk" title="Slovenská verzia">SK</a>
+<a class="btn" href="https://tally.so/r/Kp1W6M?ref=site-nav">Free preview</a>
+</div></header>
+<main id="main">
+<section class="hero" id="top"><div class="wrap">
+<div>
+<p class="kicker">SME status · Recommendation 2003/361/EC · Slovakia and Czechia</p>
+<h1>Your SME status is counted for the <em>whole group</em>, not for one company.</h1>
+<p class="lead">Owners, sister companies and stakes of 25 % or more all count. Enter one company number and within 2 working days you get a free SME Status Preview: the ownership tree from the registers, who is linked or partner, the group total and the size category.</p>
+<div class="ctas"><a class="btn" href="https://tally.so/r/Kp1W6M?ref=site-hero">Get the free preview</a><a class="tlink" href="#example">See an illustrative example ↓</a></div>
+<p class="fine">No payment, no obligation. A working document, not legal advice.</p>
+</div>
+<figure class="map"><svg viewBox="0 0 560 420" role="img" aria-label="Applicant, Holding, Sister company, Partner, Investor">
+<defs><pattern id="g" width="28" height="28" patternUnits="userSpaceOnUse"><path d="M28 0H0V28" fill="none" stroke="#ECE8F4" stroke-width="1"/></pattern></defs>
+<rect x="2" y="2" width="556" height="416" rx="16" fill="url(#g)"/>
+<g fill="none" stroke-linecap="round" stroke-linejoin="round">
+<path d="M130 90 H300 Q330 90 330 120 V200" stroke="#5B21B6" stroke-width="10"/>
+<path d="M130 90 V300 Q130 330 160 330 H200" stroke="#5B21B6" stroke-width="10"/>
+<path class="train" d="M330 200 H440 Q470 200 470 230 V300" stroke="#A44A06" stroke-width="8" stroke-dasharray="18 12"/>
+<path d="M330 200 V330 Q330 360 360 360 H420" stroke="#8A859C" stroke-width="6" stroke-dasharray="1 12"/>
+</g>
+<g font-family="Gabarito,sans-serif" font-weight="800" fill="#1E1537" font-size="15">
+<circle cx="330" cy="200" r="18" fill="#fff" stroke="#1E1537" stroke-width="6"/>
+<circle cx="130" cy="90" r="13" fill="#fff" stroke="#5B21B6" stroke-width="6"/>
+<circle cx="200" cy="330" r="13" fill="#fff" stroke="#5B21B6" stroke-width="6"/>
+<circle cx="470" cy="300" r="13" fill="#fff" stroke="#A44A06" stroke-width="6"/>
+<circle cx="420" cy="360" r="11" fill="#fff" stroke="#8A859C" stroke-width="5"/>
+<text x="352" y="186" font-size="19">Applicant</text>
+<text x="104" y="62">Holding</text>
+<text x="222" y="335">Sister company</text>
+<text x="488" y="305" text-anchor="start">Partner</text>
+<text x="440" y="365">Investor</text>
+</g>
+<g font-family="Karla,sans-serif" font-weight="700" font-size="12.5" fill="#544E68">
+<text x="186" y="80">linked · 100 %</text>
+<text x="352" y="222">partner · 30 %</text>
+<text x="244" y="285" fill="#544E68">outside · 10 %</text>
+</g>
+</svg><figcaption>Illustration of an ownership map. Solid line = linked, counted at 100 %. Dashed = partner, counted proportionally. Dotted = outside.</figcaption></figure>
+</div></section>
+<section class="sec" id="why" style="padding-top:24px"><div class="wrap"><h2>Why now</h2><div class="why"><article><h3>Before the first payment</h3><p>In Program Slovensko the provider verifies the size of the enterprise before paying the first payment claim. The applicant declares its category in a sworn statement; the provider checks owners in public registers such as the business register, RPVS, the register of organisations and the register of financial statements.</p><p class="src">Methodological guideline of the managing authority for Program Slovensko No. 18, effective 27 Jan 2025 (eurofondy.gov.sk)</p></article><article><h3>A new category above SME</h3><p>Since May 2025 the EU also defines small mid-caps: enterprises that are not SMEs, with fewer than 750 employees and turnover up to 150 million € or a balance sheet up to 129 million €. The SME definition itself did not change.</p><p class="src">Commission Recommendation (EU) 2025/1099 of 21 May 2025 (antimon.gov.sk)</p></article></div></div></section>
+<section class="sec rules" id="rules"><div class="wrap">
+<h2>The rules in short</h2>
+<div class="signs"><div class="sign"><span class="cat">Micro</span><div><small>Staff</small><b>fewer than 10</b></div><div><small>Turnover</small><b>≤ 2 million €</b></div><div><small>or balance sheet</small><b>≤ 2 million €</b></div></div><div class="sign"><span class="cat">Small</span><div><small>Staff</small><b>fewer than 50</b></div><div><small>Turnover</small><b>≤ 10 million €</b></div><div><small>or balance sheet</small><b>≤ 10 million €</b></div></div><div class="sign"><span class="cat">Medium</span><div><small>Staff</small><b>fewer than 250</b></div><div><small>Turnover</small><b>≤ 50 million €</b></div><div><small>or balance sheet</small><b>≤ 43 million €</b></div></div></div>
+<ul class="legend"><li><svg viewBox="0 0 120 20" aria-hidden="true"><line x1="4" y1="10" x2="116" y2="10" stroke="#C4B5FD" stroke-width="6"/></svg><div><h3>Linked</h3><p>Majority of votes, right to appoint the majority of the board, or dominant influence. Also via a natural person, if the companies work in the same or an adjacent market. Counted at 100 %.</p></div></li><li><svg viewBox="0 0 120 20" aria-hidden="true"><line x1="4" y1="10" x2="116" y2="10" stroke="#F6B55B" stroke-width="6" stroke-dasharray="14 9"/></svg><div><h3>Partner</h3><p>A stake of 25 % or more without control, directly upstream or downstream. Counted in proportion to the stake.</p></div></li><li><svg viewBox="0 0 120 20" aria-hidden="true"><line x1="4" y1="10" x2="116" y2="10" stroke="#B8AED6" stroke-width="5" stroke-dasharray="1 10" stroke-linecap="round"/></svg><div><h3>Outside</h3><p>Below 25 %, or certain exempt investors. Not counted.</p></div></li></ul>
+<p class="two">A change of category takes effect only if the ceilings are crossed in two consecutive accounting periods.</p>
+<p class="src">Commission Recommendation 2003/361/EC, Annex, Articles 2, 3, 4 and 6 (EUR-Lex)</p>
+</div></section>
+<section class="sec" id="how"><div class="wrap"><h2>How it works</h2><ol class="stops"><li><span class="st">1</span><div><h3>You enter one company number</h3><p>Plus the owners and companies you know of, staff numbers, and for Czech entities the turnover and balance sheet.</p></div></li><li><span class="st">2</span><div><h3>We trace the group in the registers</h3><p>Slovak entities through the register of organisations of the Statistical Office and the register of financial statements, Czech entities through ARES. Differences against your list are marked.</p></div></li><li><span class="st">3</span><div><h3>The preview arrives</h3><p>Within 2 working days, by e-mail, in the language of the form: tree, classification, totals, category and open questions.</p></div></li></ol></div></section>
+<section class="sec" id="example" style="padding-top:20px"><div class="wrap">
+<h2>What you get</h2><p class="intro">An illustrative preview for an invented group. Yours is built from your company number and the registers.</p>
+<div class="prev"><span class="tag">Illustrative example · not real companies</span>
+<div class="phead"><h3>SME Status Preview</h3><span>Year 2025 · amounts in million €</span></div>
+<table><thead><tr><th scope="col">Entity</th><th scope="col">Relation</th><th scope="col" class=n>Counted</th><th scope="col" class=n>Staff</th><th scope="col" class=n>Turnover</th><th scope="col" class=n>Balance sheet</th></tr></thead><tbody><tr><td data-l="Entity">Applicant s.r.o.</td><td data-l="Relation"><span class="rel own">applicant</span></td><td data-l="Counted" class=n>100 %</td><td data-l="Staff" class=n>44</td><td data-l="Turnover" class=n>6.1</td><td data-l="Balance sheet" class=n>3.9</td></tr><tr><td data-l="Entity">Holding s.r.o.</td><td data-l="Relation"><span class="rel lnk">linked · owns 60 %</span></td><td data-l="Counted" class=n>100 %</td><td data-l="Staff" class=n>3</td><td data-l="Turnover" class=n>0.4</td><td data-l="Balance sheet" class=n>5.2</td></tr><tr><td data-l="Entity">Sister company s.r.o.</td><td data-l="Relation"><span class="rel lnk">linked via Holding</span></td><td data-l="Counted" class=n>100 %</td><td data-l="Staff" class=n>21</td><td data-l="Turnover" class=n>2.8</td><td data-l="Balance sheet" class=n>1.6</td></tr><tr><td data-l="Entity">Partner a.s.</td><td data-l="Relation"><span class="rel prt">partner · applicant holds 30 %</span></td><td data-l="Counted" class=n>30 %</td><td data-l="Staff" class=n>18</td><td data-l="Turnover" class=n>2.7</td><td data-l="Balance sheet" class=n>2.1</td></tr><tr><td data-l="Entity">Investor</td><td data-l="Relation"><span class="rel out">outside · 10 %</span></td><td data-l="Counted" class=n>0 %</td><td data-l="Staff" class=n>–</td><td data-l="Turnover" class=n>–</td><td data-l="Balance sheet" class=n>–</td></tr></tbody><tfoot><tr><td data-l="Entity">Group total</td><td data-l="Relation"></td><td data-l="Counted" class=n></td><td data-l="Staff" class=n>86</td><td data-l="Turnover" class=n>12.0</td><td data-l="Balance sheet" class=n>12.8</td></tr></tfoot></table>
+<p class="result">Result: <b>medium-sized enterprise</b>. On its own the applicant would be small (44 staff), but the group has 86. In 2024 the group was also above the small ceiling, so the change is not a one-year swing.</p>
+<div class="pfoot"><div><h4>Open questions the registers do not answer</h4><ul><li>Do the owners as natural persons hold other companies in the same or an adjacent market?</li><li>Who are the shareholders of Partner a.s.? Shareholders of joint-stock companies are not in the register.</li><li>Is any owner outside Slovakia and Czechia?</li></ul></div><p class="not">The preview does not replace the declaration you sign and is not legal advice.</p></div>
+</div>
+</div></section>
+<section class="sec" id="early" style="padding-top:20px"><div class="wrap">
+<h2>Early access</h2><p class="intro">The paid version is in preparation. Register interest in the form; nothing is charged now.</p>
+<div class="tix"><div class="tk"><div class="l"><small>For the company</small><h3>SME status file</h3><ul><li>Full file for up to 25 entities</li><li>Evidence from the registers for each link</li><li>Ready for the declaration</li></ul><p class="w">Status Watch 149 € per month, excl. VAT: changes in the group followed every month.</p></div><div class="r"><span class="big">490 €</span><span class="per">one-off, excl. VAT</span></div></div><div class="tk"><div class="l"><small>For grant consultants</small><h3>Consultant setup</h3><ul><li>Your template and wording</li><li>Up to 10 assessments per month</li><li>History of every client</li></ul><p class="w">290 € per month, excl. VAT, for up to 10 assessments.</p></div><div class="r"><span class="big">1 200 €</span><span class="per">one-off, excl. VAT</span></div></div></div>
+<p class="eawhy">Why this price: a wrong size category puts the whole grant at stake, and the work repeats with every new call and every change in the group.</p>
+</div></section>
+<section class="sec" id="faq" style="padding-top:20px"><div class="wrap"><h2>Questions</h2><div class="faq"><details><summary>Which registers do you use?</summary><p>For Slovakia: the register of organisations of the Statistical Office (owners and deposits of limited companies) and the register of financial statements. For Czechia: ARES. Czech financial statements are not read automatically, so you enter those figures.</p></details><details><summary>Does this replace the SME declaration?</summary><p>No. You still sign the declaration. The preview is a working document that shows what the registers say and where they say nothing.</p></details><details><summary>What about links through people?</summary><p>Companies can be linked through a natural person if they work in the same or an adjacent market. Registers show only part of this, so the preview lists it as an open question.</p></details><details><summary>What does it cost?</summary><p>The preview is free. The paid version is early access only: you can register interest, there is no payment now.</p></details><details><summary>Is this legal advice?</summary><p>No. It is indicative and based on your answers and on public registers.</p></details></div></div></section>
+<section class="closing"><div class="wrap"><p>One company number. The whole group, traced.</p><a class="btn" href="https://tally.so/r/Kp1W6M?ref=site-footer">Get the free preview</a></div></section>
+<section class="priv" id="privacy"><div class="wrap"><h2>Privacy</h2><p>MSP Status Desk is operated by Štefan Toporcer, an individual based in Slovakia (not a registered company). Contact: <a href="mailto:toporcer.stefan@gmail.com">toporcer.stefan@gmail.com</a></p><p>The form collects your work e-mail, company, website, name, country, role, the company number assessed, the owners and related companies you enter (which may include names of people who own stakes), staff numbers and financial figures. They are used only to prepare and send your preview and, if you ask for it, information about the paid version.</p><p>Tools: Tally (form), Gmail (e-mail), Anthropic Claude (preparing the output). Data is kept for 12 months. You can ask for access or deletion at any time by e-mail.</p><p><b>Analytics.</b> This site counts visits and clicks with PostHog (EU servers) in cookieless mode: nothing is stored on your device and IP addresses are anonymised. It is used only to see how the page is used, not to identify you.</p><p>The preview is indicative and is not legal or professional advice.</p></div></section>
+</main>
+<footer><div class="wrap"><span>A Projekt Argo engine by Štefan Toporcer.</span><a href="https://projektargo.com/">projektargo.com</a></div></footer>
+<script>/* motor-ref v1: ref z adresy -> Tally, udalost cta_click */(function(){try{var q=new URLSearchParams(location.search).get('ref');q=q?q.replace(/[^a-z0-9_-]/gi,'').slice(0,40):'';document.querySelectorAll('a[href^="https://tally.so/r/"]').forEach(function(a){var u=new URL(a.href),c=u.searchParams.get('ref')||'';if(q){u.searchParams.set('ref',q+'_'+c);a.href=u.toString();}a.addEventListener('click',function(){try{if(window.posthog&&posthog.capture){posthog.capture('cta_click',{form:u.pathname.split('/').pop(),ref:q||'none',cta:c},{transport:'sendBeacon'});}}catch(e){}});});}catch(e){}})();</script>
+<script src="/argo-nav.js" defer></script>
+</body>
+</html>
